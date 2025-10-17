@@ -130,7 +130,7 @@ export default function InvoiceParser() {
     [handleFileSelect]
   );
 
-  // Simulate invoice processing (replace with actual API call)
+  // Process invoice with real API
   const processInvoice = useCallback(async () => {
     if (!selectedFile) return;
 
@@ -139,73 +139,63 @@ export default function InvoiceParser() {
     setCurrentStep('upload');
 
     try {
-      // Step 1: Upload (immediate)
-      await new Promise((resolve) => setTimeout(resolve, 800));
+      // Step 1: Upload
+      setCurrentStep('upload');
+      
+      // Create FormData for file upload
+      const formData = new FormData();
+      formData.append('file', selectedFile);
+
+      // Step 2: Call the API
       setCurrentStep('ocr');
+      
+      const response = await fetch(
+        'https://jm1n4qxu69.execute-api.eu-west-2.amazonaws.com/invoicer-stage/',
+        {
+          method: 'POST',
+          body: formData,
+        }
+      );
 
-      // Step 2: OCR Processing
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status} ${response.statusText}`);
+      }
+
+      // Step 3: Parse response
       setCurrentStep('parsing');
+      
+      const result = await response.json();
 
-      // Step 3: AI Parsing
-      await new Promise((resolve) => setTimeout(resolve, 1800));
-
-      // Generate mock invoice data
-      const mockData: InvoiceData = {
-        supplier: 'Sysco Foods Ltd',
-        invoiceNumber: `INV-2024-${Math.floor(Math.random() * 10000)}`,
-        date: new Date().toISOString().split('T')[0],
-        dueDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
-          .toISOString()
-          .split('T')[0],
-        totalAmount: 2847.39,
-        currency: 'GBP',
-        lineItems: [
-          {
-            description: 'Fresh Tomatoes (Organic)',
-            quantity: 50,
-            unitPrice: 12.5,
-            totalPrice: 625.0,
-            category: 'Produce',
-          },
-          {
-            description: 'Chicken Breast (Free Range)',
-            quantity: 30,
-            unitPrice: 24.99,
-            totalPrice: 749.7,
-            category: 'Meat',
-          },
-          {
-            description: 'Whole Milk (1L)',
-            quantity: 100,
-            unitPrice: 2.15,
-            totalPrice: 215.0,
-            category: 'Dairy',
-          },
-          {
-            description: 'Pasta (Dried, 500g)',
-            quantity: 75,
-            unitPrice: 3.2,
-            totalPrice: 240.0,
-            category: 'Dry Goods',
-          },
-          {
-            description: 'Olive Oil (Extra Virgin, 1L)',
-            quantity: 20,
-            unitPrice: 18.5,
-            totalPrice: 370.0,
-            category: 'Oils & Condiments',
-          },
-        ],
-        taxAmount: 407.69,
-        subtotal: 2439.7,
-        confidence: 0.94 + Math.random() * 0.05,
+      // Transform API response to our InvoiceData format
+      // Adjust this mapping based on your actual API response structure
+      const invoiceData: InvoiceData = {
+        supplier: result.supplier || result.vendor || 'Unknown Supplier',
+        invoiceNumber: result.invoiceNumber || result.invoice_number || result.number || 'N/A',
+        date: result.date || result.invoice_date || new Date().toISOString().split('T')[0],
+        dueDate: result.dueDate || result.due_date || result.date || new Date().toISOString().split('T')[0],
+        totalAmount: parseFloat(result.total || result.totalAmount || result.total_amount || 0),
+        currency: result.currency || 'GBP',
+        lineItems: (result.lineItems || result.line_items || result.items || []).map((item: any) => ({
+          description: item.description || item.name || item.item || 'Unknown Item',
+          quantity: parseFloat(item.quantity || item.qty || 1),
+          unitPrice: parseFloat(item.unitPrice || item.unit_price || item.price || 0),
+          totalPrice: parseFloat(item.totalPrice || item.total_price || item.total || item.amount || 0),
+          category: item.category || item.type || 'General',
+        })),
+        taxAmount: parseFloat(result.tax || result.taxAmount || result.tax_amount || 0),
+        subtotal: parseFloat(result.subtotal || result.subTotal || result.sub_total || 0),
+        confidence: parseFloat(result.confidence || result.accuracy || 0.95),
       };
 
-      setInvoiceData(mockData);
+      setInvoiceData(invoiceData);
       setCurrentStep('complete');
     } catch (err) {
-      setError('Failed to process invoice. Please try again.');
+      console.error('Invoice processing error:', err);
+      setError(
+        err instanceof Error 
+          ? `Failed to process invoice: ${err.message}` 
+          : 'Failed to process invoice. Please try again.'
+      );
       setCurrentStep('upload');
     } finally {
       setProcessing(false);
