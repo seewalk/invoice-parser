@@ -139,53 +139,90 @@ export default function InvoiceParser() {
     setCurrentStep('upload');
 
     try {
-      // Step 1: Upload
+      // Step 1: Upload file to S3
       setCurrentStep('upload');
       
-      // Create FormData for file upload
-      const formData = new FormData();
-      formData.append('file', selectedFile);
+      // First, we need to upload the file to S3 and get the URL
+      // For now, we'll convert the file to base64 and send it
+      // In production, you should upload to S3 first, then send the URL
+      
+      const reader = new FileReader();
+      const fileDataPromise = new Promise<string>((resolve, reject) => {
+        reader.onload = () => {
+          const base64String = reader.result as string;
+          resolve(base64String);
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(selectedFile);
+      });
 
-      // Step 2: Call the API
+      const fileData = await fileDataPromise;
+
+      // Step 2: Send to API with the correct format
       setCurrentStep('ocr');
       
+      // For demo purposes, we'll use the test image URL
+      // In production, upload to S3 first, then use that URL
+      const apiPayload = {
+        imageUrl: 'https://invoice-parser-images.s3.eu-west-2.amazonaws.com/fakeinvoice2.jpg'
+        // TODO: Replace with actual uploaded file URL after S3 upload
+        // imageUrl: uploadedS3Url
+      };
+
+      console.log('Sending to API:', apiPayload);
+
       const response = await fetch(
-        'https://jm1n4qxu69.execute-api.eu-west-2.amazonaws.com/invoicer-stage/',
+        'https://jm1n4qxu69.execute-api.eu-west-2.amazonaws.com/invoicer-stage/invoiceParser',
         {
           method: 'POST',
-          body: formData,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(apiPayload),
         }
       );
 
+      const responseText = await response.text();
+      console.log('API Response:', responseText);
+
       if (!response.ok) {
-        throw new Error(`API error: ${response.status} ${response.statusText}`);
+        throw new Error(`API error: ${response.status} ${response.statusText} - ${responseText}`);
       }
 
       // Step 3: Parse response
       setCurrentStep('parsing');
       
-      const result = await response.json();
+      let result;
+      try {
+        result = JSON.parse(responseText);
+      } catch (parseError) {
+        console.error('Failed to parse API response:', responseText);
+        throw new Error('Invalid API response format');
+      }
+
+      console.log('Parsed result:', result);
 
       // Transform API response to our InvoiceData format
-      // Adjust this mapping based on your actual API response structure
       const invoiceData: InvoiceData = {
-        supplier: result.supplier || result.vendor || 'Unknown Supplier',
-        invoiceNumber: result.invoiceNumber || result.invoice_number || result.number || 'N/A',
-        date: result.date || result.invoice_date || new Date().toISOString().split('T')[0],
-        dueDate: result.dueDate || result.due_date || result.date || new Date().toISOString().split('T')[0],
-        totalAmount: parseFloat(result.total || result.totalAmount || result.total_amount || 0),
+        supplier: result.supplier || result.vendor || result.seller || 'Unknown Supplier',
+        invoiceNumber: result.invoiceNumber || result.invoice_number || result.number || result.invoiceNo || 'N/A',
+        date: result.date || result.invoice_date || result.invoiceDate || new Date().toISOString().split('T')[0],
+        dueDate: result.dueDate || result.due_date || result.paymentDue || result.date || new Date().toISOString().split('T')[0],
+        totalAmount: parseFloat(result.total || result.totalAmount || result.total_amount || result.grandTotal || result.amountDue || 0),
         currency: result.currency || 'GBP',
-        lineItems: (result.lineItems || result.line_items || result.items || []).map((item: any) => ({
-          description: item.description || item.name || item.item || 'Unknown Item',
-          quantity: parseFloat(item.quantity || item.qty || 1),
-          unitPrice: parseFloat(item.unitPrice || item.unit_price || item.price || 0),
-          totalPrice: parseFloat(item.totalPrice || item.total_price || item.total || item.amount || 0),
-          category: item.category || item.type || 'General',
+        lineItems: (result.lineItems || result.line_items || result.items || result.products || []).map((item: any) => ({
+          description: item.description || item.name || item.item || item.product || 'Unknown Item',
+          quantity: parseFloat(item.quantity || item.qty || item.amount || 1),
+          unitPrice: parseFloat(item.unitPrice || item.unit_price || item.price || item.rate || 0),
+          totalPrice: parseFloat(item.totalPrice || item.total_price || item.total || item.amount || item.lineTotal || 0),
+          category: item.category || item.type || item.class || 'General',
         })),
-        taxAmount: parseFloat(result.tax || result.taxAmount || result.tax_amount || 0),
-        subtotal: parseFloat(result.subtotal || result.subTotal || result.sub_total || 0),
-        confidence: parseFloat(result.confidence || result.accuracy || 0.95),
+        taxAmount: parseFloat(result.tax || result.taxAmount || result.tax_amount || result.vat || result.VAT || 0),
+        subtotal: parseFloat(result.subtotal || result.subTotal || result.sub_total || result.netAmount || 0),
+        confidence: parseFloat(result.confidence || result.accuracy || result.score || 0.95),
       };
+
+      console.log('Transformed invoice data:', invoiceData);
 
       setInvoiceData(invoiceData);
       setCurrentStep('complete');
