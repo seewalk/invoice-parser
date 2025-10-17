@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import Link from 'next/link';
 import {
   ArrowRight,
   CheckCircle,
@@ -101,6 +102,9 @@ function Navigation({ mobileMenuOpen, setMobileMenuOpen }: any) {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
+            <a href="/parser" className="text-primary-700 hover:text-primary-800 font-semibold transition">
+              Try Demo
+            </a>
             <a href="#features" className="text-gray-700 hover:text-primary-600 transition">
               Features
             </a>
@@ -134,6 +138,9 @@ function Navigation({ mobileMenuOpen, setMobileMenuOpen }: any) {
             animate={{ opacity: 1, y: 0 }}
             className="md:hidden bg-white border-t py-4 space-y-4"
           >
+            <a href="/parser" className="block px-4 py-2 text-primary-700 font-semibold hover:bg-primary-50">
+              Try Demo
+            </a>
             <a href="#features" className="block px-4 py-2 text-gray-700 hover:bg-gray-50">
               Features
             </a>
