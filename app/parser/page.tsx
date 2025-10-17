@@ -21,8 +21,11 @@ import {
   FileCheck,
   Loader2,
   RefreshCw,
+  FilePlus,
 } from 'lucide-react';
 import Link from 'next/link';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 // Types
 interface InvoiceData {
@@ -55,6 +58,8 @@ export default function InvoiceParser() {
   const [error, setError] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [generatingPDF, setGeneratingPDF] = useState(false);
+  const [pdfGenerated, setPdfGenerated] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Handle file selection
@@ -250,6 +255,8 @@ export default function InvoiceParser() {
     setError(null);
     setCurrentStep('upload');
     setProcessing(false);
+    setGeneratingPDF(false);
+    setPdfGenerated(false);
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
@@ -278,6 +285,129 @@ export default function InvoiceParser() {
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
+    }
+  }, [invoiceData]);
+
+  // Generate and Download PDF Invoice
+  const generatePDFInvoice = useCallback(() => {
+    if (!invoiceData) return;
+
+    setGeneratingPDF(true);
+
+    try {
+      // Create new PDF document
+      const doc = new jsPDF();
+      
+      // Company/Logo Header
+      doc.setFillColor(37, 99, 235); // Primary blue
+      doc.rect(0, 0, 210, 40, 'F');
+      
+      doc.setTextColor(255, 255, 255);
+      doc.setFontSize(28);
+      doc.setFont('helvetica', 'bold');
+      doc.text('INVOICE', 15, 25);
+      
+      // Invoice metadata in header
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'normal');
+      doc.text(`Invoice #: ${invoiceData.invoiceNumber}`, 150, 15, { align: 'right' });
+      doc.text(`Date: ${invoiceData.date}`, 150, 22, { align: 'right' });
+      doc.text(`Due Date: ${invoiceData.dueDate}`, 150, 29, { align: 'right' });
+      
+      // Supplier Information
+      doc.setTextColor(0, 0, 0);
+      doc.setFontSize(12);
+      doc.setFont('helvetica', 'bold');
+      doc.text('From:', 15, 55);
+      
+      doc.setFontSize(11);
+      doc.setFont('helvetica', 'normal');
+      doc.text(invoiceData.supplier, 15, 62);
+      
+      // Bill To section (placeholder - can be enhanced)
+      doc.setFontSize(12);
+      doc.setFont('helvetica', 'bold');
+      doc.text('Bill To:', 15, 75);
+      
+      doc.setFontSize(11);
+      doc.setFont('helvetica', 'normal');
+      doc.text('Your Company Name', 15, 82);
+      
+      // Line Items Table
+      const tableData = invoiceData.lineItems.map(item => [
+        item.description,
+        item.category,
+        item.quantity.toString(),
+        `${invoiceData.currency} ${item.unitPrice.toFixed(2)}`,
+        `${invoiceData.currency} ${item.totalPrice.toFixed(2)}`
+      ]);
+      
+      autoTable(doc, {
+        startY: 95,
+        head: [['Description', 'Category', 'Qty', 'Unit Price', 'Total']],
+        body: tableData,
+        theme: 'striped',
+        headStyles: {
+          fillColor: [37, 99, 235],
+          textColor: [255, 255, 255],
+          fontStyle: 'bold',
+        },
+        columnStyles: {
+          0: { cellWidth: 60 },
+          1: { cellWidth: 35 },
+          2: { cellWidth: 20, halign: 'center' },
+          3: { cellWidth: 35, halign: 'right' },
+          4: { cellWidth: 35, halign: 'right' },
+        },
+        margin: { left: 15, right: 15 },
+      });
+      
+      // Get the final Y position after the table
+      const finalY = (doc as any).lastAutoTable.finalY || 95;
+      
+      // Totals Section
+      const totalsStartY = finalY + 10;
+      const rightAlign = 195;
+      
+      doc.setFontSize(11);
+      doc.setFont('helvetica', 'normal');
+      
+      // Subtotal
+      doc.text('Subtotal:', rightAlign - 50, totalsStartY, { align: 'right' });
+      doc.text(`${invoiceData.currency} ${invoiceData.subtotal.toFixed(2)}`, rightAlign, totalsStartY, { align: 'right' });
+      
+      // Tax
+      doc.text('Tax:', rightAlign - 50, totalsStartY + 7, { align: 'right' });
+      doc.text(`${invoiceData.currency} ${invoiceData.taxAmount.toFixed(2)}`, rightAlign, totalsStartY + 7, { align: 'right' });
+      
+      // Total (Bold and larger)
+      doc.setFontSize(14);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(37, 99, 235);
+      doc.text('TOTAL:', rightAlign - 50, totalsStartY + 17, { align: 'right' });
+      doc.text(`${invoiceData.currency} ${invoiceData.totalAmount.toFixed(2)}`, rightAlign, totalsStartY + 17, { align: 'right' });
+      
+      // Confidence Score Badge
+      doc.setTextColor(100, 100, 100);
+      doc.setFontSize(9);
+      doc.setFont('helvetica', 'normal');
+      doc.text(`AI Confidence: ${(invoiceData.confidence * 100).toFixed(1)}%`, 15, totalsStartY + 20);
+      
+      // Footer
+      doc.setTextColor(150, 150, 150);
+      doc.setFontSize(8);
+      doc.text('Generated by InvoiceParse.ai - AI-Powered Invoice Processing', 105, 285, { align: 'center' });
+      
+      // Save the PDF
+      doc.save(`invoice-${invoiceData.invoiceNumber}.pdf`);
+      
+      setPdfGenerated(true);
+      setTimeout(() => setPdfGenerated(false), 3000);
+    } catch (error) {
+      console.error('PDF generation error:', error);
+      setError('Failed to generate PDF. Please try again.');
+    } finally {
+      setGeneratingPDF(false);
     }
   }, [invoiceData]);
 
@@ -522,6 +652,57 @@ export default function InvoiceParser() {
                     <Download className="w-5 h-5" />
                     <span>Download</span>
                   </button>
+                </div>
+
+                {/* PDF Invoice Generation */}
+                <div className="mt-6 pt-6 border-t border-gray-200">
+                  <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border-2 border-blue-200">
+                    <div className="flex items-start justify-between mb-4">
+                      <div>
+                        <h3 className="text-lg font-bold text-gray-900 mb-1 flex items-center">
+                          <FilePlus className="w-5 h-5 mr-2 text-blue-600" />
+                          Professional Invoice PDF
+                        </h3>
+                        <p className="text-sm text-gray-600">
+                          Generate a formatted PDF invoice from extracted data
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <button
+                      onClick={generatePDFInvoice}
+                      disabled={generatingPDF}
+                      className={`w-full py-4 rounded-xl font-bold text-lg transition-all flex items-center justify-center space-x-2 ${
+                        generatingPDF
+                          ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                          : pdfGenerated
+                          ? 'bg-green-500 text-white'
+                          : 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:shadow-xl hover:-translate-y-1'
+                      }`}
+                    >
+                      {generatingPDF ? (
+                        <>
+                          <Loader2 className="w-6 h-6 animate-spin" />
+                          <span>Generating PDF...</span>
+                        </>
+                      ) : pdfGenerated ? (
+                        <>
+                          <CheckCircle className="w-6 h-6" />
+                          <span>PDF Downloaded!</span>
+                        </>
+                      ) : (
+                        <>
+                          <FileText className="w-6 h-6" />
+                          <span>Generate PDF Invoice</span>
+                        </>
+                      )}
+                    </button>
+                    
+                    <div className="mt-4 flex items-center justify-center space-x-2 text-xs text-gray-500">
+                      <CheckCircle className="w-4 h-4 text-green-600" />
+                      <span>Professional layout with line items, totals, and branding</span>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Export Options */}
