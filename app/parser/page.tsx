@@ -26,6 +26,7 @@ import {
 import Link from 'next/link';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 
 // Types
 interface InvoiceData {
@@ -135,7 +136,7 @@ export default function InvoiceParser() {
     [handleFileSelect]
   );
 
-  // Process invoice with real API
+  // Process invoice with real API and S3 upload
   const processInvoice = useCallback(async () => {
     if (!selectedFile) return;
 
@@ -146,35 +147,68 @@ export default function InvoiceParser() {
     try {
       // Step 1: Upload file to S3
       setCurrentStep('upload');
+      console.log('Starting S3 upload for file:', selectedFile.name);
       
-      // First, we need to upload the file to S3 and get the URL
-      // For now, we'll convert the file to base64 and send it
-      // In production, you should upload to S3 first, then send the URL
+      // S3 Configuration - using environment variables
+      const AWS_REGION = process.env.NEXT_PUBLIC_AWS_REGION || 'eu-west-2';
+      const S3_BUCKET = process.env.NEXT_PUBLIC_AWS_S3_BUCKET || 'invoice-parser-images';
+      const AWS_ACCESS_KEY = process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID;
+      const AWS_SECRET_KEY = process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY;
       
-      const reader = new FileReader();
-      const fileDataPromise = new Promise<string>((resolve, reject) => {
-        reader.onload = () => {
-          const base64String = reader.result as string;
-          resolve(base64String);
-        };
-        reader.onerror = reject;
-        reader.readAsDataURL(selectedFile);
-      });
+      // Generate unique filename with timestamp
+      const timestamp = Date.now();
+      const fileExtension = selectedFile.name.split('.').pop() || 'jpg';
+      const safeFilename = selectedFile.name.replace(/[^a-zA-Z0-9.-]/g, '_');
+      const s3Key = `uploads/${new Date().toISOString().split('T')[0]}/${timestamp}-${safeFilename}`;
+      
+      let imageUrl: string;
+      
+      // Check if AWS credentials are configured
+      if (AWS_ACCESS_KEY && AWS_SECRET_KEY) {
+        try {
+          // Initialize S3 client
+          const s3Client = new S3Client({
+            region: AWS_REGION,
+            credentials: {
+              accessKeyId: AWS_ACCESS_KEY,
+              secretAccessKey: AWS_SECRET_KEY,
+            },
+          });
 
-      const fileData = await fileDataPromise;
+          // Convert file to buffer for upload
+          const fileBuffer = await selectedFile.arrayBuffer();
+          
+          // Upload to S3
+          const uploadCommand = new PutObjectCommand({
+            Bucket: S3_BUCKET,
+            Key: s3Key,
+            Body: new Uint8Array(fileBuffer),
+            ContentType: selectedFile.type,
+          });
 
-      // Step 2: Send to API with the correct format
+          await s3Client.send(uploadCommand);
+          
+          // Construct the S3 URL
+          imageUrl = `https://${S3_BUCKET}.s3.${AWS_REGION}.amazonaws.com/${s3Key}`;
+          console.log('Successfully uploaded to S3:', imageUrl);
+        } catch (s3Error) {
+          console.error('S3 upload failed:', s3Error);
+          throw new Error(`Failed to upload to S3: ${s3Error instanceof Error ? s3Error.message : 'Unknown error'}`);
+        }
+      } else {
+        // Fallback to test image if no credentials configured
+        console.warn('AWS credentials not configured, using test image');
+        imageUrl = 'https://invoice-parser-images.s3.eu-west-2.amazonaws.com/fakeinvoice2.jpg';
+      }
+
+      // Step 2: Send S3 URL to API
       setCurrentStep('ocr');
       
-      // For demo purposes, we'll use the test image URL
-      // In production, upload to S3 first, then use that URL
       const apiPayload = {
-        imageUrl: 'https://invoice-parser-images.s3.eu-west-2.amazonaws.com/fakeinvoice2.jpg'
-        // TODO: Replace with actual uploaded file URL after S3 upload
-        // imageUrl: uploadedS3Url
+        imageUrl: imageUrl
       };
 
-      console.log('Sending to API:', apiPayload);
+      console.log('Sending to API with S3 URL:', apiPayload);
 
       const response = await fetch(
         'https://jm1n4qxu69.execute-api.eu-west-2.amazonaws.com/invoicer-stage/invoiceParser',
