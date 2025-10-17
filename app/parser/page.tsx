@@ -202,24 +202,27 @@ export default function InvoiceParser() {
 
       console.log('Parsed result:', result);
 
+      // Extract data from response (handle nested structure)
+      const data = result.data || result;
+
       // Transform API response to our InvoiceData format
       const invoiceData: InvoiceData = {
-        supplier: result.supplier || result.vendor || result.seller || 'Unknown Supplier',
-        invoiceNumber: result.invoiceNumber || result.invoice_number || result.number || result.invoiceNo || 'N/A',
-        date: result.date || result.invoice_date || result.invoiceDate || new Date().toISOString().split('T')[0],
-        dueDate: result.dueDate || result.due_date || result.paymentDue || result.date || new Date().toISOString().split('T')[0],
-        totalAmount: parseFloat(result.total || result.totalAmount || result.total_amount || result.grandTotal || result.amountDue || 0),
-        currency: result.currency || 'GBP',
-        lineItems: (result.lineItems || result.line_items || result.items || result.products || []).map((item: any) => ({
+        supplier: data.vendor?.name || data.supplier || data.vendor || data.seller || 'Unknown Supplier',
+        invoiceNumber: data.invoiceNumber || data.invoice_number || data.number || data.invoiceNo || 'N/A',
+        date: data.invoiceDate || data.date || data.invoice_date || new Date().toISOString().split('T')[0],
+        dueDate: data.dueDate || data.due_date || data.paymentDue || data.invoiceDate || data.date || new Date().toISOString().split('T')[0],
+        totalAmount: parseFloat(data.total || data.totalAmount || data.total_amount || data.grandTotal || data.amountDue || 0),
+        currency: data.currency || 'GBP',
+        lineItems: (data.items || data.lineItems || data.line_items || data.products || []).map((item: any) => ({
           description: item.description || item.name || item.item || item.product || 'Unknown Item',
           quantity: parseFloat(item.quantity || item.qty || item.amount || 1),
           unitPrice: parseFloat(item.unitPrice || item.unit_price || item.price || item.rate || 0),
-          totalPrice: parseFloat(item.totalPrice || item.total_price || item.total || item.amount || item.lineTotal || 0),
+          totalPrice: parseFloat(item.total || item.totalPrice || item.total_price || item.amount || item.lineTotal || 0),
           category: item.category || item.type || item.class || 'General',
         })),
-        taxAmount: parseFloat(result.tax || result.taxAmount || result.tax_amount || result.vat || result.VAT || 0),
-        subtotal: parseFloat(result.subtotal || result.subTotal || result.sub_total || result.netAmount || 0),
-        confidence: parseFloat(result.confidence || result.accuracy || result.score || 0.95),
+        taxAmount: parseFloat(data.tax || data.taxAmount || data.tax_amount || data.vat || data.VAT || 0),
+        subtotal: parseFloat(data.subtotal || data.subTotal || data.sub_total || data.netAmount || 0),
+        confidence: parseFloat(String(data.confidence || data.accuracy || data.score || (result.success ? 0.95 : 0.50))),
       };
 
       console.log('Transformed invoice data:', invoiceData);
