@@ -15,6 +15,13 @@ A world-class, conversion-optimized one-page website for InvoiceParse.ai, the AI
 - **Accessibility** - WCAG compliant with proper semantic HTML
 - **Performance Optimized** - Fast loading with Next.js 14
 
+### 🤖 Invoice Parser Tool
+- **Real AI Integration** - Connected to AWS Lambda backend
+- **Live Processing** - Upload and extract invoice data in seconds
+- **Professional PDF Generation** - Convert extracted data to formatted PDFs
+- **JSON Export** - Download structured data for integrations
+- **High Accuracy** - AI-powered extraction with confidence scores
+
 ### 📱 Key Sections
 1. **Hero Section** - Attention-grabbing headline with live demo visualization
 2. **Social Proof Bar** - Trust signals from major brands
@@ -34,6 +41,8 @@ A world-class, conversion-optimized one-page website for InvoiceParse.ai, the AI
 - **Tailwind CSS** - Utility-first styling
 - **Framer Motion** - Smooth animations
 - **Lucide React** - Beautiful icons
+- **jsPDF + autotable** - Professional PDF generation
+- **AWS Lambda** - Backend API integration
 
 ---
 
@@ -74,6 +83,8 @@ npm start
 /home/user/webapp/
 ├── app/
 │   ├── page.tsx          # Main landing page component
+│   ├── parser/
+│   │   └── page.tsx      # Invoice parser tool (900+ lines)
 │   ├── layout.tsx        # Root layout with metadata
 │   └── globals.css       # Global styles and Tailwind
 ├── components/           # Reusable components (future)
@@ -81,7 +92,10 @@ npm start
 ├── tailwind.config.ts   # Tailwind configuration
 ├── tsconfig.json        # TypeScript configuration
 ├── next.config.js       # Next.js configuration
-└── package.json         # Dependencies and scripts
+├── package.json         # Dependencies and scripts
+├── API_INTEGRATION.md   # AWS Lambda API documentation
+├── S3_UPLOAD_SETUP.md   # S3 file upload guide
+└── PDF_GENERATION.md    # PDF generation feature docs
 ```
 
 ---
@@ -296,6 +310,38 @@ const plans = [
 
 ---
 
+## 📄 PDF Invoice Generation
+
+### ✨ New Feature: Professional PDF Templates
+
+After AI extraction, users can generate beautifully formatted PDF invoices with:
+
+- **Professional Layout** - Blue branded header, clean typography
+- **Complete Line Items Table** - Striped design with all extracted data
+- **Financial Totals** - Subtotal, tax, and bold total amount
+- **AI Confidence Badge** - Transparency about extraction accuracy
+- **Automatic Download** - PDF downloads instantly to user's device
+
+### Implementation
+```typescript
+// Generate PDF with one click
+const generatePDFInvoice = () => {
+  const doc = new jsPDF();
+  // Add header, table, totals, branding
+  doc.save(`invoice-${invoiceNumber}.pdf`);
+};
+```
+
+### Customization
+See `PDF_GENERATION.md` for complete documentation on:
+- Changing brand colors
+- Adding company logos
+- Custom templates
+- Multi-page invoices
+- Email integration
+
+---
+
 ## 📧 Support
 
 **Project Owner:** Sseniseb  
@@ -308,24 +354,29 @@ const plans = [
 
 ### Immediate
 1. ✅ Landing page built
-2. ⏳ Add real brand assets (logo, images)
-3. ⏳ Connect contact form to backend
-4. ⏳ Set up analytics tracking
-5. ⏳ Deploy to production
+2. ✅ Invoice parser tool with real AI backend
+3. ✅ Professional PDF invoice generation
+4. ✅ JSON export functionality
+5. ⏳ Add real brand assets (logo, images)
+6. ⏳ Connect contact form to backend
+7. ⏳ Set up analytics tracking
+8. ⏳ Deploy to production
 
 ### Short-term
-- Create blog for SEO content
-- Build actual demo/trial signup flow
-- Integrate with backend API
-- Add customer portal
+- Implement S3 file upload for custom invoices
+- Add user authentication system
+- Create invoice history storage
+- Build customer portal
 - Set up email marketing
+- Create blog for SEO content
 
 ### Long-term
+- Real QuickBooks/Xero API integrations
 - A/B testing for conversion optimization
 - Multi-language support
 - Video testimonials
 - Live chat integration
-- Interactive ROI calculator
+- Batch invoice processing
 
 ---
 
