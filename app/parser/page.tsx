@@ -65,10 +65,10 @@ export default function InvoiceParser() {
 
   // Handle file selection
   const handleFileSelect = useCallback((file: File) => {
-    // Validate file type
-    const validTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
+    // Validate file type - prioritize images
+    const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'application/pdf'];
     if (!validTypes.includes(file.type)) {
-      setError('Please upload a PDF or image file (JPG, PNG)');
+      setError('Please upload an image file (JPG, PNG, WEBP) or PDF');
       return;
     }
 
@@ -513,7 +513,7 @@ export default function InvoiceParser() {
                   <input
                     ref={fileInputRef}
                     type="file"
-                    accept=".pdf,.jpg,.jpeg,.png"
+                    accept="image/jpeg,image/jpg,image/png,image/webp,.pdf"
                     onChange={handleFileInputChange}
                     className="hidden"
                   />
@@ -522,10 +522,10 @@ export default function InvoiceParser() {
                     <>
                       <Upload className="w-16 h-16 text-gray-400 mx-auto mb-4" />
                       <p className="text-lg font-semibold text-gray-700 mb-2">
-                        Drop invoice here or click to browse
+                        Drop invoice image here or click to browse
                       </p>
                       <p className="text-sm text-gray-500">
-                        Supports PDF, JPG, PNG (max 10MB)
+                        Supports JPG, PNG, WEBP, PDF (max 10MB)
                       </p>
                     </>
                   ) : (
