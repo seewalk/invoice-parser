@@ -28,10 +28,13 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import PageHero from '@/app/components/PageHero';
-import { FeatureCard } from '../components/parser/FeatureCard';
-import { ExportButton } from '../components/parser/ExportButton';
-import { ProcessingSteps, type ProcessingStep } from '../components/parser/ProcessingSteps';
-import { InvoiceDataDisplay } from '../components/parser/InvoiceDataDisplay';
+import { 
+  FeatureCard, 
+  ExportButton, 
+  ProcessingSteps,
+  InvoiceDataDisplay,
+  type ProcessingStep 
+} from '../components/parser';
 import { InvoiceData } from '../types/invoice';
 
 
