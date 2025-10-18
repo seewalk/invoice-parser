@@ -19,6 +19,7 @@ import {
   CheckCircle,
   Star
 } from 'lucide-react';
+import PageHero from '@/app/components/PageHero';
 
 // ============================================================================
 // SEO METADATA

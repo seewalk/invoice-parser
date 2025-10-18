@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, FileText, Search, TrendingUp } from 'lucide-react';
 import { allIndustries } from '@/app/lib/invoiceTemplateLibrary';
+import PageHero from '@/app/components/PageHero';
 
 export const metadata: Metadata = {
   title: 'Invoice Generator | Create Custom Invoices Online',
@@ -50,50 +51,46 @@ export default function InvoiceGeneratorPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       
-      {/* Header */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 border-b border-slate-200 bg-white/50 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto">
-          {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 text-sm text-slate-600 mb-6">
-            <Link href="/" className="hover:text-indigo-600 transition">
-              Home
-            </Link>
-            <span>/</span>
-            <span className="text-slate-900 font-medium">Invoice Generator</span>
-          </nav>
+      {/* Hero Section */}
+      <PageHero
+        badge="Free Invoice Generator"
+        title="Create Your Invoice Online"
+        description="Choose from our library of professional invoice templates, customize with your business details, and download your invoice instantly."
+        size="compact"
+        className="border-b border-slate-200 bg-white/50 backdrop-blur-sm"
+        backgroundElements={false}
+      >
+        {/* Breadcrumb */}
+        <nav className="flex items-center justify-center gap-2 text-sm text-slate-600 mb-8">
+          <Link href="/" className="hover:text-indigo-600 transition">
+            Home
+          </Link>
+          <span>/</span>
+          <span className="text-slate-900 font-medium">Invoice Generator</span>
+        </nav>
 
-          <div className="max-w-3xl">
-            <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-4 leading-tight">
-              Create Your Invoice Online
-            </h1>
-            <p className="text-xl text-slate-600 mb-8 leading-relaxed">
-              Choose from our library of professional invoice templates, customize with your business details, and download your invoice instantly.
-            </p>
-
-            {/* Quick Stats */}
-            <div className="grid grid-cols-3 gap-4">
-              <div className="bg-white rounded-xl p-4 border border-slate-200 shadow-sm">
-                <div className="text-2xl font-bold text-indigo-600 mb-1">
-                  {allTemplates.length}
-                </div>
-                <div className="text-sm text-slate-600">Templates</div>
-              </div>
-              <div className="bg-white rounded-xl p-4 border border-slate-200 shadow-sm">
-                <div className="text-2xl font-bold text-indigo-600 mb-1">
-                  {Object.keys(allIndustries).length}
-                </div>
-                <div className="text-sm text-slate-600">Industries</div>
-              </div>
-              <div className="bg-white rounded-xl p-4 border border-slate-200 shadow-sm">
-                <div className="text-2xl font-bold text-indigo-600 mb-1">
-                  100%
-                </div>
-                <div className="text-sm text-slate-600">Free</div>
-              </div>
+        {/* Quick Stats */}
+        <div className="grid grid-cols-3 gap-4 max-w-2xl mx-auto">
+          <div className="bg-white rounded-xl p-4 border border-slate-200 shadow-sm">
+            <div className="text-2xl font-bold text-indigo-600 mb-1">
+              {allTemplates.length}
             </div>
+            <div className="text-sm text-slate-600">Templates</div>
+          </div>
+          <div className="bg-white rounded-xl p-4 border border-slate-200 shadow-sm">
+            <div className="text-2xl font-bold text-indigo-600 mb-1">
+              {Object.keys(allIndustries).length}
+            </div>
+            <div className="text-sm text-slate-600">Industries</div>
+          </div>
+          <div className="bg-white rounded-xl p-4 border border-slate-200 shadow-sm">
+            <div className="text-2xl font-bold text-indigo-600 mb-1">
+              100%
+            </div>
+            <div className="text-sm text-slate-600">Free</div>
           </div>
         </div>
-      </section>
+      </PageHero>
 
       {/* How It Works */}
       <section className="py-12 px-4 sm:px-6 lg:px-8 bg-white/30">
