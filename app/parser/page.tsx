@@ -24,7 +24,11 @@ import {
   FilePlus,
 } from 'lucide-react';
 import Link from 'next/link';
-import { uploadToS3 } from '../actions/uploadToS3';
+<<<<<<< HEAD
+import { uploadToS3 } from '../actions/UploadToS3';
+=======
+import { uploadToS3 } from '../actions/UploadToS3';
+>>>>>>> origin/main
 import { generatePDFInvoice } from '../actions/generatePDF';
 import { InvoiceData } from '../types/invoice';
 import { type ProcessingStep } from '../components/parser';
