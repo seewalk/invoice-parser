@@ -26,7 +26,7 @@ import {
 import Link from 'next/link';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { uploadToS3 } from '../actions/uploadToS3';
 import PageHero from '@/app/components/PageHero';
 import { 
   FeatureCard, 
@@ -136,61 +136,26 @@ export default function InvoiceParser() {
     setCurrentStep('upload');
 
     try {
-      // Step 1: Upload file to S3
+      // Step 1: Upload file to S3 (using secure server action)
       setCurrentStep('upload');
       console.log('Starting S3 upload for file:', selectedFile.name);
       
-      // S3 Configuration - using environment variables
-      const AWS_REGION = process.env.NEXT_PUBLIC_AWS_REGION || 'eu-west-2';
-      const S3_BUCKET = process.env.NEXT_PUBLIC_AWS_S3_BUCKET || 'invoice-parser-images';
-      const AWS_ACCESS_KEY = process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID;
-      const AWS_SECRET_KEY = process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY;
+      // Convert file to buffer for server action
+      const fileBuffer = await selectedFile.arrayBuffer();
       
-      // Generate unique filename with timestamp
-      const timestamp = Date.now();
-      const fileExtension = selectedFile.name.split('.').pop() || 'jpg';
-      const safeFilename = selectedFile.name.replace(/[^a-zA-Z0-9.-]/g, '_');
-      const s3Key = `uploads/${new Date().toISOString().split('T')[0]}/${timestamp}-${safeFilename}`;
+      // Call server action to upload (credentials stay server-side)
+      const uploadResult = await uploadToS3({
+        fileBuffer,
+        fileName: selectedFile.name,
+        contentType: selectedFile.type,
+      });
       
-      let imageUrl: string;
-      
-      // Check if AWS credentials are configured
-      if (AWS_ACCESS_KEY && AWS_SECRET_KEY) {
-        try {
-          // Initialize S3 client
-          const s3Client = new S3Client({
-            region: AWS_REGION,
-            credentials: {
-              accessKeyId: AWS_ACCESS_KEY,
-              secretAccessKey: AWS_SECRET_KEY,
-            },
-          });
-
-          // Convert file to buffer for upload
-          const fileBuffer = await selectedFile.arrayBuffer();
-          
-          // Upload to S3
-          const uploadCommand = new PutObjectCommand({
-            Bucket: S3_BUCKET,
-            Key: s3Key,
-            Body: new Uint8Array(fileBuffer),
-            ContentType: selectedFile.type,
-          });
-
-          await s3Client.send(uploadCommand);
-          
-          // Construct the S3 URL
-          imageUrl = `https://${S3_BUCKET}.s3.${AWS_REGION}.amazonaws.com/${s3Key}`;
-          console.log('Successfully uploaded to S3:', imageUrl);
-        } catch (s3Error) {
-          console.error('S3 upload failed:', s3Error);
-          throw new Error(`Failed to upload to S3: ${s3Error instanceof Error ? s3Error.message : 'Unknown error'}`);
-        }
-      } else {
-        // Fallback to test image if no credentials configured
-        console.warn('AWS credentials not configured, using test image');
-        imageUrl = 'https://invoice-parser-images.s3.eu-west-2.amazonaws.com/fakeinvoice2.jpg';
+      if (!uploadResult.success || !uploadResult.imageUrl) {
+        throw new Error(uploadResult.error || 'Failed to upload file to S3');
       }
+      
+      const imageUrl = uploadResult.imageUrl;
+      console.log('Successfully uploaded to S3:', imageUrl);
 
       // Step 2: Send S3 URL to API
       setCurrentStep('ocr');
