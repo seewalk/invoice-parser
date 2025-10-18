@@ -28,6 +28,7 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import PageHero from '@/app/components/PageHero';
+import { FeatureCard } from '../components/parser/FeatureCard';
 
 // Types
 interface InvoiceData {
@@ -955,23 +956,4 @@ function ExportButton({ icon: Icon, label }: { icon: any; label: string }) {
   );
 }
 
-// Feature Card Component
-function FeatureCard({
-  icon: Icon,
-  title,
-  description,
-}: {
-  icon: any;
-  title: string;
-  description: string;
-}) {
-  return (
-    <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow">
-      <div className="w-12 h-12 bg-gradient-to-br from-primary-600 to-accent-500 rounded-lg flex items-center justify-center mb-4">
-        <Icon className="w-6 h-6 text-white" />
-      </div>
-      <h3 className="text-lg font-bold text-gray-900 mb-2">{title}</h3>
-      <p className="text-sm text-gray-600">{description}</p>
-    </div>
-  );
-}
+
