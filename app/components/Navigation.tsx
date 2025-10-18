@@ -44,6 +44,20 @@ export default function Navigation() {
             >
               Try Demo
             </Link>
+            <Link
+              href="/invoice-generator"
+              className="text-gray-700 hover:text-primary-600 transition"
+              aria-label="Create custom invoices online"
+            >
+              Invoice Generator
+            </Link>
+            <Link
+              href="/invoice-templates"
+              className="text-gray-700 hover:text-primary-600 transition"
+              aria-label="Browse invoice templates"
+            >
+              Templates
+            </Link>
             <a
               href="/#features"
               className="text-gray-700 hover:text-primary-600 transition"
@@ -58,13 +72,13 @@ export default function Navigation() {
             >
               Pricing
             </Link>
-            <a
-              href="/#testimonials"
+            <Link
+              href="/blog"
               className="text-gray-700 hover:text-primary-600 transition"
-              aria-label="Read customer reviews"
+              aria-label="Invoice automation blog"
             >
-              Reviews
-            </a>
+              Blog
+            </Link>
             <Link
               href="/faq"
               className="text-gray-700 hover:text-primary-600 transition"
@@ -105,6 +119,20 @@ export default function Navigation() {
             >
               Try Demo
             </Link>
+            <Link
+              href="/invoice-generator"
+              className="block px-4 py-2 text-gray-700 hover:bg-gray-50"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Invoice Generator
+            </Link>
+            <Link
+              href="/invoice-templates"
+              className="block px-4 py-2 text-gray-700 hover:bg-gray-50"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Templates
+            </Link>
             <a
               href="/#features"
               className="block px-4 py-2 text-gray-700 hover:bg-gray-50"
@@ -119,13 +147,13 @@ export default function Navigation() {
             >
               Pricing
             </Link>
-            <a
-              href="/#testimonials"
+            <Link
+              href="/blog"
               className="block px-4 py-2 text-gray-700 hover:bg-gray-50"
               onClick={() => setMobileMenuOpen(false)}
             >
-              Reviews
-            </a>
+              Blog
+            </Link>
             <Link
               href="/faq"
               className="block px-4 py-2 text-gray-700 hover:bg-gray-50"

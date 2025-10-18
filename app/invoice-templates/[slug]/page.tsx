@@ -7,6 +7,7 @@ import {
   type InvoiceTemplate,
   type InvoiceField 
 } from '@/app/lib/invoiceTemplateLibrary';
+import InvoiceDownloadButtons from '@/app/components/InvoiceDownloadButtons';
 import { 
   Download, 
   FileText, 
@@ -86,8 +87,9 @@ export async function generateStaticParams() {
 // GENERATE METADATA (SEO)
 // ============================================================================
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const result = getTemplateBySlug(params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const result = getTemplateBySlug(slug);
   
   if (!result) {
     return {
@@ -105,7 +107,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       title: `${template.name} - Free Download`,
       description: template.description,
       type: 'website',
-      url: `https://yourdomain.com/invoice-templates/${params.slug}`,
+      url: `https://yourdomain.com/invoice-templates/${slug}`,
     },
     twitter: {
       card: 'summary_large_image',
@@ -113,7 +115,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       description: template.description,
     },
     alternates: {
-      canonical: `https://yourdomain.com/invoice-templates/${params.slug}`,
+      canonical: `https://yourdomain.com/invoice-templates/${slug}`,
     },
   };
 }
@@ -342,14 +344,18 @@ function InvoicePreview({ template }: InvoicePreviewProps) {
 // MAIN PAGE COMPONENT
 // ============================================================================
 
-export default function TemplateDetailPage({ params }: { params: { slug: string } }) {
-  const result = getTemplateBySlug(params.slug);
+export default async function TemplateDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const result = getTemplateBySlug(slug);
   
   if (!result) {
     notFound();
   }
 
   const { template, industryId, industryName } = result;
+  
+  // Generate slug for invoice generator link
+  const templateSlug = slugify(template.keywords[0]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
@@ -426,14 +432,20 @@ export default function TemplateDetailPage({ params }: { params: { slug: string 
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 mb-6">
-                <button className="flex items-center justify-center gap-2 bg-indigo-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-indigo-700 transition shadow-lg hover:shadow-xl">
+                <Link 
+                  href={`/invoice-generator/${templateSlug}`}
+                  className="flex items-center justify-center gap-2 bg-indigo-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-indigo-700 transition shadow-lg hover:shadow-xl"
+                >
+                  <Edit className="w-5 h-5" />
+                  Create Invoice Now
+                </Link>
+                <a 
+                  href="#download"
+                  className="flex items-center justify-center gap-2 bg-white text-slate-900 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-slate-50 transition border-2 border-slate-200"
+                >
                   <Download className="w-5 h-5" />
                   Download Template
-                </button>
-                <button className="flex items-center justify-center gap-2 bg-white text-slate-900 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-slate-50 transition border-2 border-slate-200">
-                  <Edit className="w-5 h-5" />
-                  Customize Online
-                </button>
+                </a>
               </div>
 
               {/* Features */}
@@ -561,36 +573,7 @@ export default function TemplateDetailPage({ params }: { params: { slug: string 
             <div>
               <div className="sticky top-8 space-y-6">
                 {/* Download Options */}
-                <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-6">
-                  <h3 className="text-xl font-bold text-slate-900 mb-4">
-                    Download Options
-                  </h3>
-                  <div className="space-y-3">
-                    <button className="w-full flex items-center justify-between p-4 bg-indigo-50 border-2 border-indigo-200 rounded-lg hover:bg-indigo-100 transition group">
-                      <div className="flex items-center gap-3">
-                        <FileText className="w-5 h-5 text-indigo-600" />
-                        <span className="font-semibold text-slate-900">Word (.docx)</span>
-                      </div>
-                      <Download className="w-5 h-5 text-indigo-600 group-hover:translate-y-1 transition-transform" />
-                    </button>
-                    
-                    <button className="w-full flex items-center justify-between p-4 bg-green-50 border-2 border-green-200 rounded-lg hover:bg-green-100 transition group">
-                      <div className="flex items-center gap-3">
-                        <FileText className="w-5 h-5 text-green-600" />
-                        <span className="font-semibold text-slate-900">Excel (.xlsx)</span>
-                      </div>
-                      <Download className="w-5 h-5 text-green-600 group-hover:translate-y-1 transition-transform" />
-                    </button>
-                    
-                    <button className="w-full flex items-center justify-between p-4 bg-red-50 border-2 border-red-200 rounded-lg hover:bg-red-100 transition group">
-                      <div className="flex items-center gap-3">
-                        <FileText className="w-5 h-5 text-red-600" />
-                        <span className="font-semibold text-slate-900">PDF (.pdf)</span>
-                      </div>
-                      <Download className="w-5 h-5 text-red-600 group-hover:translate-y-1 transition-transform" />
-                    </button>
-                  </div>
-                </div>
+                <InvoiceDownloadButtons template={template} />
 
                 {/* Quick Actions */}
                 <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-6">
@@ -598,10 +581,16 @@ export default function TemplateDetailPage({ params }: { params: { slug: string 
                     Quick Actions
                   </h3>
                   <div className="space-y-3">
-                    <button className="w-full flex items-center gap-3 p-3 hover:bg-slate-50 rounded-lg transition text-left">
-                      <Edit className="w-5 h-5 text-slate-600" />
-                      <span className="text-slate-900">Customize Online</span>
-                    </button>
+                    <Link 
+                      href={`/invoice-generator/${templateSlug}`}
+                      className="w-full flex items-center gap-3 p-3 hover:bg-indigo-50 rounded-lg transition text-left border-2 border-indigo-200 bg-indigo-50"
+                    >
+                      <Edit className="w-5 h-5 text-indigo-600" />
+                      <div>
+                        <span className="text-slate-900 font-semibold block">Customize Online</span>
+                        <span className="text-xs text-slate-600">Fill in your details and download</span>
+                      </div>
+                    </Link>
                     <button className="w-full flex items-center gap-3 p-3 hover:bg-slate-50 rounded-lg transition text-left">
                       <Mail className="w-5 h-5 text-slate-600" />
                       <span className="text-slate-900">Email Template</span>
