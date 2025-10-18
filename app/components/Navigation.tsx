@@ -73,6 +73,13 @@ export default function Navigation() {
               Pricing
             </Link>
             <Link
+              href="/blog"
+              className="text-gray-700 hover:text-primary-600 transition"
+              aria-label="Invoice automation blog"
+            >
+              Blog
+            </Link>
+            <Link
               href="/faq"
               className="text-gray-700 hover:text-primary-600 transition"
               aria-label="Invoice processing FAQ"
@@ -139,6 +146,13 @@ export default function Navigation() {
               onClick={() => setMobileMenuOpen(false)}
             >
               Pricing
+            </Link>
+            <Link
+              href="/blog"
+              className="block px-4 py-2 text-gray-700 hover:bg-gray-50"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Blog
             </Link>
             <Link
               href="/faq"
