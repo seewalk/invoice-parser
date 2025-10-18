@@ -6,6 +6,7 @@ import { CheckCircle, X, ArrowRight, Rocket } from 'lucide-react';
 import Link from 'next/link';
 import Navigation from '../components/Navigation';
 import FinalCTASection from '../components/FinalCTASection';
+import PageHero from '../components/PageHero';
 
 export default function PricingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -83,41 +84,39 @@ export default function PricingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
 
-      <div className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          {/* Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-16"
+      <PageHero
+        badge="Transparent Pricing"
+        title={
+          <>
+            Invoice Processing <span className="gradient-text">Pricing Plans</span>
+          </>
+        }
+        description="Choose the perfect plan for your business. All plans include a 14-day free trial with no credit card required."
+        size="default"
+      >
+        {/* Annual/Monthly Toggle */}
+        <div className="inline-flex items-center space-x-4 bg-gray-100 rounded-full p-1">
+          <button
+            onClick={() => setIsAnnual(false)}
+            className={`px-6 py-2 rounded-full font-semibold transition-all ${
+              !isAnnual ? 'bg-white shadow-sm' : 'text-gray-600'
+            }`}
           >
-            <h1 className="text-5xl sm:text-6xl font-bold text-gray-900 mb-6">
-              Invoice Processing <span className="gradient-text">Pricing Plans</span>
-            </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-              Choose the perfect plan for your business. All plans include a 14-day free trial with no credit card required.
-            </p>
+            Monthly
+          </button>
+          <button
+            onClick={() => setIsAnnual(true)}
+            className={`px-6 py-2 rounded-full font-semibold transition-all ${
+              isAnnual ? 'bg-white shadow-sm' : 'text-gray-600'
+            }`}
+          >
+            Annual <span className="text-green-600">(Save 25%)</span>
+          </button>
+        </div>
+      </PageHero>
 
-            {/* Annual/Monthly Toggle */}
-            <div className="inline-flex items-center space-x-4 bg-gray-100 rounded-full p-1">
-              <button
-                onClick={() => setIsAnnual(false)}
-                className={`px-6 py-2 rounded-full font-semibold transition-all ${
-                  !isAnnual ? 'bg-white shadow-sm' : 'text-gray-600'
-                }`}
-              >
-                Monthly
-              </button>
-              <button
-                onClick={() => setIsAnnual(true)}
-                className={`px-6 py-2 rounded-full font-semibold transition-all ${
-                  isAnnual ? 'bg-white shadow-sm' : 'text-gray-600'
-                }`}
-              >
-                Annual <span className="text-green-600">(Save 25%)</span>
-              </button>
-            </div>
-          </motion.div>
+      <div className="pb-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
 
           {/* Pricing Cards */}
           <div className="grid md:grid-cols-3 gap-8 mb-16">

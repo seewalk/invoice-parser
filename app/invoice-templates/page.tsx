@@ -19,6 +19,7 @@ import {
   CheckCircle,
   Star
 } from 'lucide-react';
+import PageHero from '@/app/components/PageHero';
 
 // ============================================================================
 // SEO METADATA
@@ -204,142 +205,102 @@ export default function InvoiceTemplatesPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       
-      {/* Hero Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            {/* Breadcrumb */}
-            <nav className="flex justify-center items-center gap-2 text-sm text-slate-600 mb-6">
-              <Link href="/" className="hover:text-indigo-600 transition">
-                Home
-              </Link>
-              <span>/</span>
-              <span className="text-slate-900 font-medium">Invoice Templates</span>
-            </nav>
+      <PageHero
+        badge="Free Invoice Templates UK"
+        title={<>Free UK Invoice Templates<br /><span className="gradient-text">By Industry</span></>}
+        description={`Download professional, industry-specific invoice templates for UK businesses. Choose from ${totalTemplates}+ free templates for restaurants, photographers, builders, freelancers, consultants, and more. Available in Word, Excel, and PDF formats.`}
+        size="default"
+      >
+        <nav className="flex justify-center items-center gap-2 text-sm text-slate-600 mb-6">
+          <Link href="/" className="hover:text-indigo-600 transition">
+            Home
+          </Link>
+          <span>/</span>
+          <span className="text-slate-900 font-medium">Invoice Templates</span>
+        </nav>
 
-            {/* Main Heading - SEO Optimized */}
-            <h1 className="text-5xl sm:text-6xl font-bold text-slate-900 mb-6">
-              Free UK Invoice Templates
-              <br />
-              <span className="bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
-                By Industry
-              </span>
-            </h1>
+        {/* Stats */}
+        <div className="flex flex-wrap justify-center gap-8 mb-8">
+          <div className="bg-white rounded-xl px-6 py-3 shadow-lg">
+            <div className="text-3xl font-bold text-indigo-600 mb-1">{totalTemplates}+</div>
+            <div className="text-sm text-gray-600">Free Templates</div>
+          </div>
+          <div className="bg-white rounded-xl px-6 py-3 shadow-lg">
+            <div className="text-3xl font-bold text-green-600 mb-1">{totalSearchVolume.toLocaleString()}</div>
+            <div className="text-sm text-gray-600">Monthly Searches</div>
+          </div>
+          <div className="bg-white rounded-xl px-6 py-3 shadow-lg">
+            <div className="text-3xl font-bold text-blue-600 mb-1">{Object.keys(allIndustries).length}</div>
+            <div className="text-sm text-gray-600">Industries Covered</div>
+          </div>
+        </div>
 
-            {/* Subheading */}
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-8 leading-relaxed">
-              Download professional, industry-specific invoice templates for UK businesses. 
-              Choose from {totalTemplates}+ free templates for restaurants, photographers, 
-              builders, freelancers, consultants, and more. Available in Word, Excel, and PDF formats.
-            </p>
-
-            {/* Stats */}
-            <div className="flex flex-wrap justify-center gap-8 mb-8">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
-                  <FileText className="w-6 h-6 text-indigo-600" />
-                </div>
-                <div className="text-left">
-                  <div className="text-2xl font-bold text-slate-900">
-                    {totalTemplates}+
-                  </div>
-                  <div className="text-sm text-slate-600">Free Templates</div>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                  <TrendingUp className="w-6 h-6 text-green-600" />
-                </div>
-                <div className="text-left">
-                  <div className="text-2xl font-bold text-slate-900">
-                    {totalSearchVolume.toLocaleString()}
-                  </div>
-                  <div className="text-sm text-slate-600">Monthly Searches</div>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                  <Users className="w-6 h-6 text-blue-600" />
-                </div>
-                <div className="text-left">
-                  <div className="text-2xl font-bold text-slate-900">
-                    {Object.keys(allIndustries).length}
-                  </div>
-                  <div className="text-sm text-slate-600">Industries Covered</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Features */}
-            <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-              <div className="flex items-start gap-3 text-left">
-                <CheckCircle className="w-6 h-6 text-green-500 flex-shrink-0 mt-1" />
-                <div>
-                  <h3 className="font-semibold text-slate-900 mb-1">
-                    100% Free Forever
-                  </h3>
-                  <p className="text-sm text-slate-600">
-                    No sign-up, no credit card, no hidden fees
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3 text-left">
-                <CheckCircle className="w-6 h-6 text-green-500 flex-shrink-0 mt-1" />
-                <div>
-                  <h3 className="font-semibold text-slate-900 mb-1">
-                    UK-Compliant
-                  </h3>
-                  <p className="text-sm text-slate-600">
-                    VAT-ready, HMRC-approved formats
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3 text-left">
-                <CheckCircle className="w-6 h-6 text-green-500 flex-shrink-0 mt-1" />
-                <div>
-                  <h3 className="font-semibold text-slate-900 mb-1">
-                    Easy Customization
-                  </h3>
-                  <p className="text-sm text-slate-600">
-                    Editable Word, Excel, PDF templates
-                  </p>
-                </div>
-              </div>
+        {/* Features */}
+        <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto mt-8">
+          <div className="flex items-start gap-3 text-left">
+            <CheckCircle className="w-6 h-6 text-green-500 flex-shrink-0 mt-1" />
+            <div>
+              <h3 className="font-semibold text-slate-900 mb-1">
+                100% Free Forever
+              </h3>
+              <p className="text-sm text-slate-600">
+                No sign-up, no credit card, no hidden fees
+              </p>
             </div>
           </div>
 
-          {/* Quick Industry Navigation */}
-          <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8 mb-12">
-            <h2 className="text-2xl font-bold text-slate-900 mb-6 text-center">
-              Browse by Industry
-            </h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {Object.entries(allIndustries).map(([key, industry]) => (
-                <a
-                  key={key}
-                  href={`#${key}`}
-                  className="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-200 hover:border-indigo-500 hover:bg-indigo-50 transition group"
-                >
-                  <span className="text-3xl">{industry.icon}</span>
-                  <div className="flex-1">
-                    <div className="font-semibold text-slate-900 group-hover:text-indigo-600 transition">
-                      {industry.name}
-                    </div>
-                    <div className="text-xs text-slate-600">
-                      {stats[key]?.totalTemplates || 0} templates
-                    </div>
-                  </div>
-                  <ArrowRight className="w-5 h-5 text-slate-400 group-hover:text-indigo-600 group-hover:translate-x-1 transition-all" />
-                </a>
-              ))}
+          <div className="flex items-start gap-3 text-left">
+            <CheckCircle className="w-6 h-6 text-green-500 flex-shrink-0 mt-1" />
+            <div>
+              <h3 className="font-semibold text-slate-900 mb-1">
+                UK-Compliant
+              </h3>
+              <p className="text-sm text-slate-600">
+                VAT-ready, HMRC-approved formats
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-3 text-left">
+            <CheckCircle className="w-6 h-6 text-green-500 flex-shrink-0 mt-1" />
+            <div>
+              <h3 className="font-semibold text-slate-900 mb-1">
+                Easy Customization
+              </h3>
+              <p className="text-sm text-slate-600">
+                Editable Word, Excel, PDF templates
+              </p>
             </div>
           </div>
         </div>
-      </section>
+
+        {/* Quick Industry Navigation */}
+        <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8 mt-8">
+          <h2 className="text-2xl font-bold text-slate-900 mb-6 text-center">
+            Browse by Industry
+          </h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {Object.entries(allIndustries).map(([key, industry]) => (
+              <a
+                key={key}
+                href={`#${key}`}
+                className="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-200 hover:border-indigo-500 hover:bg-indigo-50 transition group"
+              >
+                <span className="text-3xl">{industry.icon}</span>
+                <div className="flex-1">
+                  <div className="font-semibold text-slate-900 group-hover:text-indigo-600 transition">
+                    {industry.name}
+                  </div>
+                  <div className="text-xs text-slate-600">
+                    {stats[key]?.totalTemplates || 0} templates
+                  </div>
+                </div>
+                <ArrowRight className="w-5 h-5 text-slate-400 group-hover:text-indigo-600 group-hover:translate-x-1 transition-all" />
+              </a>
+            ))}
+          </div>
+        </div>
+      </PageHero>
 
       {/* Templates by Industry */}
       <section className="py-12 px-4 sm:px-6 lg:px-8">

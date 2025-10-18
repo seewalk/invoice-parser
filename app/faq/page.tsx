@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { Search, Filter, ChevronDown, ArrowRight, FileText, Sparkles } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Search, Filter, ChevronDown, TrendingUp } from 'lucide-react';
 import comprehensiveFAQs, {
     faqCategories,
     getFAQsByCategory,
@@ -11,16 +11,13 @@ import comprehensiveFAQs, {
     type FAQ,
 } from '../lib/faqData';
 import FinalCTASection from '../components/FinalCTASection';
+import PageHero from '../components/PageHero';
+import Footer from '../components/Footer';
 
 export default function FAQPage() {
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState<string>('All');
     const [searchQuery, setSearchQuery] = useState('');
     const [openIndex, setOpenIndex] = useState<number | null>(null);
-
-    const { scrollYProgress } = useScroll();
-    const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
-    const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.8]);
 
     // Get filtered FAQs based on category and search
     const filteredFAQs = (() => {
@@ -42,97 +39,50 @@ export default function FAQPage() {
     return (
         <main className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
          
-            {/* Hero Section - Customized for FAQ */}
-            <section
-                className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
-                aria-labelledby="faq-hero-heading"
-            >
-                {/* Background Elements */}
-                <div className="absolute top-20 right-10 w-72 h-72 bg-primary-200 rounded-full blur-3xl opacity-20 animate-pulse-slow" aria-hidden="true" />
-                <div className="absolute bottom-20 left-10 w-96 h-96 bg-accent-200 rounded-full blur-3xl opacity-20 animate-pulse-slow" aria-hidden="true" />
-
-                <motion.div
-                    style={{ opacity, scale }}
-                    className="max-w-7xl mx-auto text-center relative z-10"
-                >
-                    {/* Badge */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                        className="inline-flex items-center space-x-2 bg-primary-50 border border-primary-200 rounded-full px-4 py-2 mb-8"
-                    >
-                        <Sparkles className="w-4 h-4 text-primary-600" aria-hidden="true" />
-                        <span className="text-sm font-medium text-primary-700">
-                            Complete Invoice Processing Knowledge Base
-                        </span>
-                    </motion.div>
-
-                    {/* Headline */}
-                    <motion.h1
-                        id="faq-hero-heading"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                        className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-gray-900 mb-6 leading-tight"
-                    >
+            {/* Hero Section */}
+            <PageHero
+                badge="Complete Invoice Processing Knowledge Base"
+                title={
+                    <>
                         Invoice Processing
                         <br />
                         <span className="gradient-text"> Knowledge Center</span>
-                    </motion.h1>
+                    </>
+                }
+                description="Everything you need to know about invoice automation, processing, formats, integration, security, and ROI. Your complete guide to modern accounts payable."
+                size="default"
+            >
+                {/* Stats */}
+                <div className="flex flex-wrap justify-center gap-8 mb-12">
+                    <div className="bg-white rounded-xl px-6 py-3 shadow-lg">
+                        <div className="text-3xl font-bold text-primary-600 mb-1">{comprehensiveFAQs.length}</div>
+                        <div className="text-sm text-gray-600">Expert Answers</div>
+                    </div>
+                    <div className="bg-white rounded-xl px-6 py-3 shadow-lg">
+                        <div className="text-3xl font-bold text-primary-600 mb-1">{faqCategories.length}</div>
+                        <div className="text-sm text-gray-600">Categories</div>
+                    </div>
+                    <div className="bg-white rounded-xl px-6 py-3 shadow-lg">
+                        <div className="text-3xl font-bold text-primary-600 mb-1">200+</div>
+                        <div className="text-sm text-gray-600">Keywords Covered</div>
+                    </div>
+                </div>
 
-                    {/* Subheadline */}
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.4 }}
-                        className="text-xl sm:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto"
-                    >
-                        Everything you need to know about invoice automation, processing, formats, integration, security, and ROI. Your complete guide to modern accounts payable.
-                    </motion.p>
-
-                    {/* Stats */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.6 }}
-                        className="flex flex-wrap justify-center gap-8 mb-12"
-                    >
-                        <div className="bg-white rounded-xl px-6 py-3 shadow-lg">
-                            <div className="text-3xl font-bold text-primary-600 mb-1">{comprehensiveFAQs.length}</div>
-                            <div className="text-sm text-gray-600">Expert Answers</div>
-                        </div>
-                        <div className="bg-white rounded-xl px-6 py-3 shadow-lg">
-                            <div className="text-3xl font-bold text-primary-600 mb-1">{faqCategories.length}</div>
-                            <div className="text-sm text-gray-600">Categories</div>
-                        </div>
-                        <div className="bg-white rounded-xl px-6 py-3 shadow-lg">
-                            <div className="text-3xl font-bold text-primary-600 mb-1">200+</div>
-                            <div className="text-sm text-gray-600">Keywords Covered</div>
-                        </div>
-                    </motion.div>
-
-                    {/* Search Bar */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.8 }}
-                        className="max-w-2xl mx-auto"
-                    >
-                        <div className="relative">
-                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                            <input
-                                type="text"
-                                placeholder="Search invoice processing questions..."
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full pl-12 pr-4 py-4 rounded-full border-2 border-gray-200 focus:border-primary-500 focus:outline-none text-lg"
-                                aria-label="Search FAQs"
-                            />
-                        </div>
-                    </motion.div>
-                </motion.div>
-            </section>
+                {/* Search Bar */}
+                <div className="max-w-2xl mx-auto">
+                    <div className="relative">
+                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                        <input
+                            type="text"
+                            placeholder="Search invoice processing questions..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="w-full pl-12 pr-4 py-4 rounded-full border-2 border-gray-200 focus:border-primary-500 focus:outline-none text-lg"
+                            aria-label="Search FAQs"
+                        />
+                    </div>
+                </div>
+            </PageHero>
 
             {/* Category Filter Section */}
             <section className="py-12 px-4 sm:px-6 lg:px-8 bg-white border-y border-gray-200">
@@ -298,107 +248,5 @@ export default function FAQPage() {
             {/* Footer - Reuse from main page or create simplified */}
             <Footer />
         </main>
-    );
-}
-
-// Import TrendingUp for search volume indicator
-import { TrendingUp } from 'lucide-react';
-
-// Simplified Footer component
-function Footer() {
-    return (
-        <footer className="bg-slate-900 text-white py-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-7xl mx-auto">
-                <div className="grid md:grid-cols-4 gap-8 mb-8">
-                    {/* Brand */}
-                    <div>
-                        <div className="flex items-center space-x-2 mb-4">
-                            <div className="w-10 h-10 bg-gradient-to-br from-primary-600 to-accent-500 rounded-lg flex items-center justify-center">
-                                <FileText className="w-6 h-6 text-white" />
-                            </div>
-                            <span className="text-2xl font-bold">InvoiceParse.ai</span>
-                        </div>
-                        <p className="text-slate-400 text-sm">
-                            AI-powered invoice processing for restaurants and warehouses.
-                        </p>
-                    </div>
-
-                    {/* Product */}
-                    <div>
-                        <h3 className="font-bold mb-4">Product</h3>
-                        <ul className="space-y-2 text-slate-400 text-sm">
-                            <li>
-                                <a href="/#features" className="hover:text-white transition">
-                                    Features
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/pricing" className="hover:text-white transition">
-                                    Pricing
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/faq" className="hover:text-white transition">
-                                    FAQ
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/parser" className="hover:text-white transition">
-                                    Try Demo
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    {/* Company */}
-                    <div>
-                        <h3 className="font-bold mb-4">Company</h3>
-                        <ul className="space-y-2 text-slate-400 text-sm">
-                            <li>
-                                <a href="#" className="hover:text-white transition">
-                                    About Us
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" className="hover:text-white transition">
-                                    Blog
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" className="hover:text-white transition">
-                                    Contact
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    {/* Legal */}
-                    <div>
-                        <h3 className="font-bold mb-4">Legal</h3>
-                        <ul className="space-y-2 text-slate-400 text-sm">
-                            <li>
-                                <a href="#" className="hover:text-white transition">
-                                    Privacy Policy
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" className="hover:text-white transition">
-                                    Terms of Service
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" className="hover:text-white transition">
-                                    Security
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div className="border-t border-slate-800 pt-8 text-center text-slate-400 text-sm">
-                    <p>© 2024 InvoiceParse.ai by Sseniseb. All rights reserved.</p>
-                </div>
-            </div>
-        </footer>
     );
 }

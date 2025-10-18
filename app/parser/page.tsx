@@ -27,6 +27,7 @@ import Link from 'next/link';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import PageHero from '@/app/components/PageHero';
 
 // Types
 interface InvoiceData {
@@ -470,16 +471,20 @@ export default function InvoiceParser() {
         </div>
       </header>
 
+      <PageHero
+        badge="AI-Powered Invoice Parser"
+        badgeIcon={Sparkles}
+        title={<>Invoice Parser <span className="gradient-text">Tool</span></>}
+        description="Upload your invoice and watch AI extract all data in seconds"
+        size="compact"
+        stats={[
+          { icon: Zap, label: '< 30 Seconds', color: 'text-blue-500' },
+          { icon: CheckCircle, label: '99% Accurate', color: 'text-green-500' },
+          { icon: Clock, label: '20 hrs/week Saved', color: 'text-purple-500' }
+        ]}
+      />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Page Title */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
-            Invoice Parser <span className="gradient-text">Tool</span>
-          </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Upload your invoice and watch AI extract all data in seconds
-          </p>
-        </div>
 
         {/* Main Content */}
         <div className="grid lg:grid-cols-2 gap-8">
