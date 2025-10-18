@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect, Suspense, lazy } from 'react';
+import dynamic from 'next/dynamic';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Upload,
@@ -8,7 +9,6 @@ import {
   Sparkles,
   CheckCircle,
   Download,
-  X,
   AlertCircle,
   Clock,
   TrendingUp,
@@ -24,18 +24,36 @@ import {
   FilePlus,
 } from 'lucide-react';
 import Link from 'next/link';
-import jsPDF from 'jspdf';
-import autoTable from 'jspdf-autotable';
 import { uploadToS3 } from '../actions/uploadToS3';
-import PageHero from '@/app/components/PageHero';
-import { 
-  FeatureCard, 
-  ExportButton, 
-  ProcessingSteps,
-  InvoiceDataDisplay,
-  type ProcessingStep 
-} from '../components/parser';
+import { generatePDFInvoice } from '../actions/generatePDF';
 import { InvoiceData } from '../types/invoice';
+import { type ProcessingStep } from '../components/parser';
+
+// Dynamic imports for code splitting
+const PageHero = dynamic(() => import('@/app/components/PageHero'), {
+  loading: () => <div className="h-32 bg-gradient-to-br from-slate-50 to-blue-50 animate-pulse" />,
+  ssr: true
+});
+
+const FeatureCard = dynamic(() => 
+  import('../components/parser').then(mod => ({ default: mod.FeatureCard })),
+  { loading: () => <div className="h-40 bg-white rounded-xl animate-pulse" /> }
+);
+
+const ExportButton = dynamic(() => 
+  import('../components/parser').then(mod => ({ default: mod.ExportButton })),
+  { loading: () => <div className="h-20 bg-white rounded-lg animate-pulse" /> }
+);
+
+const ProcessingSteps = dynamic(() => 
+  import('../components/parser').then(mod => ({ default: mod.ProcessingSteps })),
+  { loading: () => <div className="h-64 bg-white rounded-xl animate-pulse" /> }
+);
+
+const InvoiceDataDisplay = dynamic(() => 
+  import('../components/parser').then(mod => ({ default: mod.InvoiceDataDisplay })),
+  { loading: () => <div className="h-96 bg-white rounded-xl animate-pulse" /> }
+);
 
 
 
@@ -77,6 +95,9 @@ export default function InvoiceParser() {
       const reader = new FileReader();
       reader.onload = (e) => {
         setPreviewUrl(e.target?.result as string);
+      };
+      reader.onerror = () => {
+        setError('Failed to read file');
       };
       reader.readAsDataURL(file);
     } else {
@@ -238,7 +259,44 @@ export default function InvoiceParser() {
   }, [selectedFile]);
 
   // Reset function
+  // Cleanup effect for preview URL to prevent memory leaks
+  useEffect(() => {
+    return () => {
+      if (previewUrl && previewUrl.startsWith('blob:')) {
+        URL.revokeObjectURL(previewUrl);
+      }
+    };
+  }, [previewUrl]);
+
+  // Add pageshow event listener for back/forward cache support
+  useEffect(() => {
+    const handlePageShow = (event: PageTransitionEvent) => {
+      // If page was loaded from cache, ensure state is correct
+      if (event.persisted) {
+        console.log('[BFCache] Page restored from cache');
+        // Reset any pending states that might have been interrupted
+        if (processing) {
+          setProcessing(false);
+        }
+        if (generatingPDF) {
+          setGeneratingPDF(false);
+        }
+      }
+    };
+
+    window.addEventListener('pageshow', handlePageShow);
+    
+    return () => {
+      window.removeEventListener('pageshow', handlePageShow);
+    };
+  }, [processing, generatingPDF]);
+
   const resetParser = useCallback(() => {
+    // Clean up preview URL before resetting
+    if (previewUrl && previewUrl.startsWith('blob:')) {
+      URL.revokeObjectURL(previewUrl);
+    }
+    
     setSelectedFile(null);
     setPreviewUrl(null);
     setInvoiceData(null);
@@ -250,7 +308,7 @@ export default function InvoiceParser() {
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
-  }, []);
+  }, [previewUrl]);
 
   // Copy JSON to clipboard
   const copyToClipboard = useCallback(() => {
@@ -278,123 +336,43 @@ export default function InvoiceParser() {
     }
   }, [invoiceData]);
 
-  // Generate and Download PDF Invoice
-  const generatePDFInvoice = useCallback(() => {
+  // Generate and Download PDF Invoice (using server action)
+  const handleGeneratePDF = useCallback(async () => {
     if (!invoiceData) return;
 
     setGeneratingPDF(true);
 
     try {
-      // Create new PDF document
-      const doc = new jsPDF();
+      console.log('[Client] Calling server action to generate PDF');
       
-      // Company/Logo Header
-      doc.setFillColor(37, 99, 235); // Primary blue
-      doc.rect(0, 0, 210, 40, 'F');
+      const result = await generatePDFInvoice(invoiceData);
       
-      doc.setTextColor(255, 255, 255);
-      doc.setFontSize(28);
-      doc.setFont('helvetica', 'bold');
-      doc.text('INVOICE', 15, 25);
+      if (!result.success || !result.pdfBase64 || !result.fileName) {
+        throw new Error(result.error || 'Failed to generate PDF');
+      }
       
-      // Invoice metadata in header
-      doc.setFontSize(10);
-      doc.setFont('helvetica', 'normal');
-      doc.text(`Invoice #: ${invoiceData.invoiceNumber}`, 150, 15, { align: 'right' });
-      doc.text(`Date: ${invoiceData.date}`, 150, 22, { align: 'right' });
-      doc.text(`Due Date: ${invoiceData.dueDate}`, 150, 29, { align: 'right' });
+      // Convert base64 to blob and trigger download
+      const binaryString = atob(result.pdfBase64);
+      const bytes = new Uint8Array(binaryString.length);
+      for (let i = 0; i < binaryString.length; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+      }
+      const blob = new Blob([bytes], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
       
-      // Supplier Information
-      doc.setTextColor(0, 0, 0);
-      doc.setFontSize(12);
-      doc.setFont('helvetica', 'bold');
-      doc.text('From:', 15, 55);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = result.fileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
       
-      doc.setFontSize(11);
-      doc.setFont('helvetica', 'normal');
-      doc.text(invoiceData.supplier, 15, 62);
-      
-      // Bill To section (placeholder - can be enhanced)
-      doc.setFontSize(12);
-      doc.setFont('helvetica', 'bold');
-      doc.text('Bill To:', 15, 75);
-      
-      doc.setFontSize(11);
-      doc.setFont('helvetica', 'normal');
-      doc.text('Your Company Name', 15, 82);
-      
-      // Line Items Table
-      const tableData = invoiceData.lineItems.map(item => [
-        item.description,
-        item.category,
-        item.quantity.toString(),
-        `${invoiceData.currency} ${item.unitPrice.toFixed(2)}`,
-        `${invoiceData.currency} ${item.totalPrice.toFixed(2)}`
-      ]);
-      
-      autoTable(doc, {
-        startY: 95,
-        head: [['Description', 'Category', 'Qty', 'Unit Price', 'Total']],
-        body: tableData,
-        theme: 'striped',
-        headStyles: {
-          fillColor: [37, 99, 235],
-          textColor: [255, 255, 255],
-          fontStyle: 'bold',
-        },
-        columnStyles: {
-          0: { cellWidth: 60 },
-          1: { cellWidth: 35 },
-          2: { cellWidth: 20, halign: 'center' },
-          3: { cellWidth: 35, halign: 'right' },
-          4: { cellWidth: 35, halign: 'right' },
-        },
-        margin: { left: 15, right: 15 },
-      });
-      
-      // Get the final Y position after the table
-      const finalY = (doc as any).lastAutoTable.finalY || 95;
-      
-      // Totals Section
-      const totalsStartY = finalY + 10;
-      const rightAlign = 195;
-      
-      doc.setFontSize(11);
-      doc.setFont('helvetica', 'normal');
-      
-      // Subtotal
-      doc.text('Subtotal:', rightAlign - 50, totalsStartY, { align: 'right' });
-      doc.text(`${invoiceData.currency} ${invoiceData.subtotal.toFixed(2)}`, rightAlign, totalsStartY, { align: 'right' });
-      
-      // Tax
-      doc.text('Tax:', rightAlign - 50, totalsStartY + 7, { align: 'right' });
-      doc.text(`${invoiceData.currency} ${invoiceData.taxAmount.toFixed(2)}`, rightAlign, totalsStartY + 7, { align: 'right' });
-      
-      // Total (Bold and larger)
-      doc.setFontSize(14);
-      doc.setFont('helvetica', 'bold');
-      doc.setTextColor(37, 99, 235);
-      doc.text('TOTAL:', rightAlign - 50, totalsStartY + 17, { align: 'right' });
-      doc.text(`${invoiceData.currency} ${invoiceData.totalAmount.toFixed(2)}`, rightAlign, totalsStartY + 17, { align: 'right' });
-      
-      // Confidence Score Badge
-      doc.setTextColor(100, 100, 100);
-      doc.setFontSize(9);
-      doc.setFont('helvetica', 'normal');
-      doc.text(`AI Confidence: ${(invoiceData.confidence * 100).toFixed(1)}%`, 15, totalsStartY + 20);
-      
-      // Footer
-      doc.setTextColor(150, 150, 150);
-      doc.setFontSize(8);
-      doc.text('Generated by InvoiceParse.ai - AI-Powered Invoice Processing', 105, 285, { align: 'center' });
-      
-      // Save the PDF
-      doc.save(`invoice-${invoiceData.invoiceNumber}.pdf`);
-      
+      console.log('[Client] PDF downloaded successfully:', result.fileName);
       setPdfGenerated(true);
       setTimeout(() => setPdfGenerated(false), 3000);
     } catch (error) {
-      console.error('PDF generation error:', error);
+      console.error('[Client] PDF generation error:', error);
       setError('Failed to generate PDF. Please try again.');
     } finally {
       setGeneratingPDF(false);
@@ -664,7 +642,7 @@ export default function InvoiceParser() {
                     </div>
                     
                     <button
-                      onClick={generatePDFInvoice}
+                      onClick={handleGeneratePDF}
                       disabled={generatingPDF}
                       className={`w-full py-4 rounded-xl font-bold text-lg transition-all flex items-center justify-center space-x-2 ${
                         generatingPDF
