@@ -26,30 +26,20 @@ import {
 import Link from 'next/link';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { uploadToS3 } from '../actions/UploadToS3';
 import PageHero from '@/app/components/PageHero';
+import { 
+  FeatureCard, 
+  ExportButton, 
+  ProcessingSteps,
+  InvoiceDataDisplay,
+  type ProcessingStep 
+} from '../components/parser';
+import { InvoiceData } from '../types/invoice';
 
-// Types
-interface InvoiceData {
-  supplier: string;
-  invoiceNumber: string;
-  date: string;
-  dueDate: string;
-  totalAmount: number;
-  currency: string;
-  lineItems: Array<{
-    description: string;
-    quantity: number;
-    unitPrice: number;
-    totalPrice: number;
-    category: string;
-  }>;
-  taxAmount: number;
-  subtotal: number;
-  confidence: number;
-}
 
-type ProcessingStep = 'upload' | 'ocr' | 'parsing' | 'complete';
+
+
 
 export default function InvoiceParser() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -146,61 +136,26 @@ export default function InvoiceParser() {
     setCurrentStep('upload');
 
     try {
-      // Step 1: Upload file to S3
+      // Step 1: Upload file to S3 (using secure server action)
       setCurrentStep('upload');
       console.log('Starting S3 upload for file:', selectedFile.name);
       
-      // S3 Configuration - using environment variables
-      const AWS_REGION = process.env.NEXT_PUBLIC_AWS_REGION || 'eu-west-2';
-      const S3_BUCKET = process.env.NEXT_PUBLIC_AWS_S3_BUCKET || 'invoice-parser-images';
-      const AWS_ACCESS_KEY = process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID;
-      const AWS_SECRET_KEY = process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY;
+      // Convert file to buffer for server action
+      const fileBuffer = await selectedFile.arrayBuffer();
       
-      // Generate unique filename with timestamp
-      const timestamp = Date.now();
-      const fileExtension = selectedFile.name.split('.').pop() || 'jpg';
-      const safeFilename = selectedFile.name.replace(/[^a-zA-Z0-9.-]/g, '_');
-      const s3Key = `uploads/${new Date().toISOString().split('T')[0]}/${timestamp}-${safeFilename}`;
+      // Call server action to upload (credentials stay server-side)
+      const uploadResult = await uploadToS3({
+        fileBuffer,
+        fileName: selectedFile.name,
+        contentType: selectedFile.type,
+      });
       
-      let imageUrl: string;
-      
-      // Check if AWS credentials are configured
-      if (AWS_ACCESS_KEY && AWS_SECRET_KEY) {
-        try {
-          // Initialize S3 client
-          const s3Client = new S3Client({
-            region: AWS_REGION,
-            credentials: {
-              accessKeyId: AWS_ACCESS_KEY,
-              secretAccessKey: AWS_SECRET_KEY,
-            },
-          });
-
-          // Convert file to buffer for upload
-          const fileBuffer = await selectedFile.arrayBuffer();
-          
-          // Upload to S3
-          const uploadCommand = new PutObjectCommand({
-            Bucket: S3_BUCKET,
-            Key: s3Key,
-            Body: new Uint8Array(fileBuffer),
-            ContentType: selectedFile.type,
-          });
-
-          await s3Client.send(uploadCommand);
-          
-          // Construct the S3 URL
-          imageUrl = `https://${S3_BUCKET}.s3.${AWS_REGION}.amazonaws.com/${s3Key}`;
-          console.log('Successfully uploaded to S3:', imageUrl);
-        } catch (s3Error) {
-          console.error('S3 upload failed:', s3Error);
-          throw new Error(`Failed to upload to S3: ${s3Error instanceof Error ? s3Error.message : 'Unknown error'}`);
-        }
-      } else {
-        // Fallback to test image if no credentials configured
-        console.warn('AWS credentials not configured, using test image');
-        imageUrl = 'https://invoice-parser-images.s3.eu-west-2.amazonaws.com/fakeinvoice2.jpg';
+      if (!uploadResult.success || !uploadResult.imageUrl) {
+        throw new Error(uploadResult.error || 'Failed to upload file to S3');
       }
+      
+      const imageUrl = uploadResult.imageUrl;
+      console.log('Successfully uploaded to S3:', imageUrl);
 
       // Step 2: Send S3 URL to API
       setCurrentStep('ocr');
@@ -789,189 +744,9 @@ export default function InvoiceParser() {
   );
 }
 
-// Processing Steps Component
-function ProcessingSteps({
-  currentStep,
-  processing,
-}: {
-  currentStep: ProcessingStep;
-  processing: boolean;
-}) {
-  const steps = [
-    { id: 'upload', label: 'Uploading', icon: Upload, duration: '0.8s' },
-    { id: 'ocr', label: 'OCR Processing', icon: FileText, duration: '1.5s' },
-    { id: 'parsing', label: 'AI Parsing', icon: Sparkles, duration: '1.8s' },
-    { id: 'complete', label: 'Complete', icon: CheckCircle, duration: '0s' },
-  ];
 
-  const stepIndex = steps.findIndex((s) => s.id === currentStep);
 
-  return (
-    <div className="space-y-4">
-      {steps.map((step, index) => {
-        const isActive = index === stepIndex && processing;
-        const isComplete = index < stepIndex || (index === stepIndex && !processing);
-        const isPending = index > stepIndex;
 
-        return (
-          <motion.div
-            key={step.id}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: index * 0.1 }}
-            className={`flex items-center space-x-4 p-4 rounded-lg border-2 transition-all ${
-              isActive
-                ? 'border-primary-500 bg-primary-50'
-                : isComplete
-                ? 'border-green-500 bg-green-50'
-                : 'border-gray-200 bg-gray-50'
-            }`}
-          >
-            <div
-              className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                isActive
-                  ? 'bg-primary-600 animate-pulse'
-                  : isComplete
-                  ? 'bg-green-500'
-                  : 'bg-gray-300'
-              }`}
-            >
-              {isActive ? (
-                <Loader2 className="w-6 h-6 text-white animate-spin" />
-              ) : (
-                <step.icon className="w-6 h-6 text-white" />
-              )}
-            </div>
-            <div className="flex-1">
-              <h3
-                className={`font-semibold ${
-                  isActive
-                    ? 'text-primary-700'
-                    : isComplete
-                    ? 'text-green-700'
-                    : 'text-gray-600'
-                }`}
-              >
-                {step.label}
-              </h3>
-              <p className="text-sm text-gray-500">
-                {isActive
-                  ? `Processing... (~${step.duration})`
-                  : isComplete
-                  ? 'Completed ✓'
-                  : 'Pending'}
-              </p>
-            </div>
-          </motion.div>
-        );
-      })}
-    </div>
-  );
-}
 
-// Invoice Data Display Component
-function InvoiceDataDisplay({ data }: { data: InvoiceData }) {
-  return (
-    <div className="space-y-4">
-      {/* Header Info */}
-      <div className="grid grid-cols-2 gap-4">
-        <div>
-          <p className="text-xs text-gray-500 mb-1">Supplier</p>
-          <p className="font-semibold text-gray-900">{data.supplier}</p>
-        </div>
-        <div>
-          <p className="text-xs text-gray-500 mb-1">Invoice Number</p>
-          <p className="font-semibold text-gray-900">{data.invoiceNumber}</p>
-        </div>
-        <div>
-          <p className="text-xs text-gray-500 mb-1">Date</p>
-          <p className="font-semibold text-gray-900">{data.date}</p>
-        </div>
-        <div>
-          <p className="text-xs text-gray-500 mb-1">Due Date</p>
-          <p className="font-semibold text-gray-900">{data.dueDate}</p>
-        </div>
-      </div>
 
-      {/* Line Items */}
-      <div className="mt-6">
-        <h4 className="text-sm font-bold text-gray-700 mb-3">
-          Line Items ({data.lineItems.length})
-        </h4>
-        <div className="space-y-2 max-h-60 overflow-y-auto">
-          {data.lineItems.map((item, index) => (
-            <div
-              key={index}
-              className="bg-gray-50 rounded-lg p-3 border border-gray-200"
-            >
-              <div className="flex justify-between items-start mb-1">
-                <span className="font-medium text-gray-900 text-sm">
-                  {item.description}
-                </span>
-                <span className="text-sm font-bold text-gray-900">
-                  £{item.totalPrice.toFixed(2)}
-                </span>
-              </div>
-              <div className="flex items-center space-x-4 text-xs text-gray-600">
-                <span>Qty: {item.quantity}</span>
-                <span>@£{item.unitPrice.toFixed(2)}</span>
-                <span className="bg-primary-100 text-primary-700 px-2 py-0.5 rounded">
-                  {item.category}
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
 
-      {/* Totals */}
-      <div className="border-t border-gray-200 pt-4 space-y-2">
-        <div className="flex justify-between text-sm">
-          <span className="text-gray-600">Subtotal:</span>
-          <span className="font-semibold">£{data.subtotal.toFixed(2)}</span>
-        </div>
-        <div className="flex justify-between text-sm">
-          <span className="text-gray-600">Tax:</span>
-          <span className="font-semibold">£{data.taxAmount.toFixed(2)}</span>
-        </div>
-        <div className="flex justify-between text-lg font-bold border-t border-gray-300 pt-2">
-          <span>Total:</span>
-          <span className="text-primary-600">£{data.totalAmount.toFixed(2)}</span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// Export Button Component
-function ExportButton({ icon: Icon, label }: { icon: any; label: string }) {
-  return (
-    <button className="bg-white border-2 border-gray-200 rounded-lg p-3 hover:border-primary-500 hover:bg-primary-50 transition-all group">
-      <Icon className="w-5 h-5 text-gray-400 group-hover:text-primary-600 mx-auto mb-1" />
-      <span className="text-xs font-medium text-gray-700 group-hover:text-primary-700">
-        {label}
-      </span>
-    </button>
-  );
-}
-
-// Feature Card Component
-function FeatureCard({
-  icon: Icon,
-  title,
-  description,
-}: {
-  icon: any;
-  title: string;
-  description: string;
-}) {
-  return (
-    <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow">
-      <div className="w-12 h-12 bg-gradient-to-br from-primary-600 to-accent-500 rounded-lg flex items-center justify-center mb-4">
-        <Icon className="w-6 h-6 text-white" />
-      </div>
-      <h3 className="text-lg font-bold text-gray-900 mb-2">{title}</h3>
-      <p className="text-sm text-gray-600">{description}</p>
-    </div>
-  );
-}
