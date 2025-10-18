@@ -2,27 +2,47 @@ import React from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import dynamic from 'next/dynamic';
 import { 
   allIndustries,
   type InvoiceTemplate,
-  type InvoiceField 
 } from '@/app/lib/invoiceTemplateLibrary';
-import InvoiceDownloadButtons from '@/app/components/InvoiceDownloadButtons';
 import { 
   Download, 
   FileText, 
-  CheckCircle,
   TrendingUp,
   Users,
-  ArrowLeft,
-  ArrowRight,
   Eye,
   Edit,
   Printer,
-  Mail,
-  Info,
   AlertCircle
 } from 'lucide-react';
+
+// Dynamic imports with SSR for components (maintains SEO while enabling code splitting)
+const TemplatePreview = dynamic(() => 
+  import('@/app/components/templates').then(mod => ({ default: mod.TemplatePreview })),
+  { ssr: true }
+);
+
+const TemplateFeaturesList = dynamic(() => 
+  import('@/app/components/templates').then(mod => ({ default: mod.TemplateFeaturesList })),
+  { ssr: true }
+);
+
+const TemplateDownloadSection = dynamic(() => 
+  import('@/app/components/templates').then(mod => ({ default: mod.TemplateDownloadSection })),
+  { ssr: true }
+);
+
+const RelatedTemplates = dynamic(() => 
+  import('@/app/components/templates').then(mod => ({ default: mod.RelatedTemplates })),
+  { ssr: true }
+);
+
+const FieldList = dynamic(() => 
+  import('@/app/components/templates').then(mod => ({ default: mod.FieldList })),
+  { ssr: true }
+);
 
 // ============================================================================
 // HELPER FUNCTIONS
@@ -118,226 +138,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       canonical: `https://yourdomain.com/invoice-templates/${slug}`,
     },
   };
-}
-
-// ============================================================================
-// FIELD DISPLAY COMPONENT
-// ============================================================================
-
-interface FieldListProps {
-  fields: InvoiceField[];
-  title: string;
-  description: string;
-}
-
-function FieldList({ fields, title, description }: FieldListProps) {
-  return (
-    <div className="mb-8">
-      <h3 className="text-xl font-bold text-slate-900 mb-2">{title}</h3>
-      <p className="text-sm text-slate-600 mb-4">{description}</p>
-      <div className="grid md:grid-cols-2 gap-4">
-        {fields.map((field, idx) => (
-          <div 
-            key={idx}
-            className="bg-slate-50 rounded-lg p-4 border border-slate-200"
-          >
-            <div className="flex items-start justify-between mb-2">
-              <div className="font-semibold text-slate-900">{field.label}</div>
-              <span className="text-xs px-2 py-1 bg-slate-200 text-slate-700 rounded">
-                {field.type}
-              </span>
-            </div>
-            {field.helpText && (
-              <p className="text-sm text-slate-600 mb-2">{field.helpText}</p>
-            )}
-            {field.placeholder && (
-              <div className="text-xs text-slate-500 italic">
-                Example: {field.placeholder}
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ============================================================================
-// INVOICE PREVIEW COMPONENT
-// ============================================================================
-
-interface InvoicePreviewProps {
-  template: InvoiceTemplate;
-}
-
-function InvoicePreview({ template }: InvoicePreviewProps) {
-  const sample = template.sampleData;
-  
-  return (
-    <div className="bg-white rounded-xl shadow-2xl border-2 border-slate-200 p-8 md:p-12">
-      {/* Invoice Header */}
-      <div className="grid md:grid-cols-2 gap-8 mb-8 pb-8 border-b-2 border-slate-200">
-        <div>
-          <h2 className="text-3xl font-bold text-slate-900 mb-2">
-            {sample.businessName}
-          </h2>
-          <div className="text-sm text-slate-600 whitespace-pre-line">
-            {sample.businessAddress}
-          </div>
-          {sample.businessPhone && (
-            <div className="text-sm text-slate-600 mt-2">
-              Tel: {sample.businessPhone}
-            </div>
-          )}
-          {sample.businessEmail && (
-            <div className="text-sm text-slate-600">
-              Email: {sample.businessEmail}
-            </div>
-          )}
-          {sample.vatNumber && (
-            <div className="text-sm text-slate-600 mt-2">
-              VAT: {sample.vatNumber}
-            </div>
-          )}
-        </div>
-        
-        <div className="text-right">
-          <h1 className="text-4xl font-bold text-indigo-600 mb-4">INVOICE</h1>
-          <div className="space-y-2 text-sm">
-            <div className="flex justify-end gap-4">
-              <span className="font-semibold text-slate-700">Invoice #:</span>
-              <span className="text-slate-900">{sample.invoiceNumber}</span>
-            </div>
-            <div className="flex justify-end gap-4">
-              <span className="font-semibold text-slate-700">Date:</span>
-              <span className="text-slate-900">{sample.invoiceDate}</span>
-            </div>
-            {sample.dueDate && (
-              <div className="flex justify-end gap-4">
-                <span className="font-semibold text-slate-700">Due Date:</span>
-                <span className="text-slate-900">{sample.dueDate}</span>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* Bill To */}
-      <div className="mb-8">
-        <h3 className="text-sm font-bold text-slate-700 uppercase mb-2">Bill To:</h3>
-        <div className="text-slate-900 font-semibold">{sample.clientName}</div>
-        {sample.clientAddress && (
-          <div className="text-sm text-slate-600 whitespace-pre-line mt-1">
-            {sample.clientAddress}
-          </div>
-        )}
-      </div>
-
-      {/* Line Items Table */}
-      <div className="mb-8">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b-2 border-slate-300">
-              <th className="text-left py-3 px-2 text-sm font-bold text-slate-700">Description</th>
-              <th className="text-right py-3 px-2 text-sm font-bold text-slate-700">Qty</th>
-              <th className="text-right py-3 px-2 text-sm font-bold text-slate-700">Rate</th>
-              <th className="text-right py-3 px-2 text-sm font-bold text-slate-700">Amount</th>
-            </tr>
-          </thead>
-          <tbody>
-            {sample.lineItems?.map((item: any, idx: number) => (
-              <tr key={idx} className="border-b border-slate-200">
-                <td className="py-3 px-2 text-sm text-slate-900">{item.description}</td>
-                <td className="text-right py-3 px-2 text-sm text-slate-900">{item.quantity}</td>
-                <td className="text-right py-3 px-2 text-sm text-slate-900">
-                  £{typeof item.rate === 'number' ? item.rate.toFixed(2) : item.rate}
-                </td>
-                <td className="text-right py-3 px-2 text-sm text-slate-900 font-semibold">
-                  £{typeof item.amount === 'number' ? item.amount.toFixed(2) : item.amount}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      {/* Totals */}
-      <div className="flex justify-end mb-8">
-        <div className="w-full md:w-1/2 space-y-2">
-          <div className="flex justify-between py-2 text-sm">
-            <span className="text-slate-700">Subtotal:</span>
-            <span className="text-slate-900 font-semibold">
-              £{typeof sample.subtotal === 'number' ? sample.subtotal.toFixed(2) : sample.subtotal}
-            </span>
-          </div>
-          
-          {sample.serviceCharge && (
-            <div className="flex justify-between py-2 text-sm">
-              <span className="text-slate-700">Service Charge:</span>
-              <span className="text-slate-900 font-semibold">
-                £{typeof sample.serviceCharge === 'number' ? sample.serviceCharge.toFixed(2) : sample.serviceCharge}
-              </span>
-            </div>
-          )}
-          
-          {sample.vatAmount && sample.vatAmount > 0 && (
-            <div className="flex justify-between py-2 text-sm">
-              <span className="text-slate-700">VAT (20%):</span>
-              <span className="text-slate-900 font-semibold">
-                £{typeof sample.vatAmount === 'number' ? sample.vatAmount.toFixed(2) : sample.vatAmount}
-              </span>
-            </div>
-          )}
-          
-          <div className="flex justify-between py-3 border-t-2 border-slate-300 text-lg">
-            <span className="font-bold text-slate-900">Total:</span>
-            <span className="font-bold text-indigo-600">
-              £{typeof sample.totalAmount === 'number' ? sample.totalAmount.toFixed(2) : sample.totalAmount}
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* Payment Info */}
-      {(sample.bankName || sample.paymentTerms) && (
-        <div className="bg-slate-50 rounded-lg p-6 mb-8">
-          <h3 className="text-sm font-bold text-slate-700 uppercase mb-3">Payment Information</h3>
-          {sample.bankName && (
-            <div className="space-y-1 text-sm mb-4">
-              <div className="flex gap-4">
-                <span className="font-semibold text-slate-700 min-w-[120px]">Bank:</span>
-                <span className="text-slate-900">{sample.bankName}</span>
-              </div>
-              {sample.accountNumber && (
-                <div className="flex gap-4">
-                  <span className="font-semibold text-slate-700 min-w-[120px]">Account Number:</span>
-                  <span className="text-slate-900">{sample.accountNumber}</span>
-                </div>
-              )}
-              {sample.sortCode && (
-                <div className="flex gap-4">
-                  <span className="font-semibold text-slate-700 min-w-[120px]">Sort Code:</span>
-                  <span className="text-slate-900">{sample.sortCode}</span>
-                </div>
-              )}
-            </div>
-          )}
-          {sample.paymentTerms && (
-            <div className="text-sm text-slate-600 leading-relaxed">
-              <span className="font-semibold text-slate-700">Payment Terms:</span> {sample.paymentTerms}
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* Notes */}
-      {sample.notes && (
-        <div className="text-sm text-slate-600 italic leading-relaxed">
-          {sample.notes}
-        </div>
-      )}
-    </div>
-  );
 }
 
 // ============================================================================
@@ -448,25 +248,8 @@ export default async function TemplateDetailPage({ params }: { params: Promise<{
                 </a>
               </div>
 
-              {/* Features */}
-              <div className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <span className="text-slate-700">100% Free - No sign-up required</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <span className="text-slate-700">UK-compliant & HMRC-approved</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <span className="text-slate-700">Available in Word, Excel, PDF</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <span className="text-slate-700">Easy to customize & edit</span>
-                </div>
-              </div>
+              {/* Features - Using extracted component */}
+              <TemplateFeaturesList />
             </div>
 
             {/* Right Column - Preview Thumbnail */}
@@ -484,10 +267,8 @@ export default async function TemplateDetailPage({ params }: { params: Promise<{
                   </div>
                 </div>
                 <div className="aspect-[8.5/11] bg-slate-100 rounded-lg border-2 border-slate-200 overflow-hidden">
-                  {/* Miniature preview */}
-                  <div className="scale-[0.35] origin-top-left w-[285%] h-[285%]">
-                    <InvoicePreview template={template} />
-                  </div>
+                  {/* Miniature preview - Using extracted component with scale */}
+                  <TemplatePreview template={template} scale={0.35} />
                 </div>
                 <button className="w-full mt-4 flex items-center justify-center gap-2 bg-slate-900 text-white px-6 py-3 rounded-lg font-semibold hover:bg-slate-800 transition">
                   <Eye className="w-5 h-5" />
@@ -505,15 +286,15 @@ export default async function TemplateDetailPage({ params }: { params: Promise<{
           <div className="grid lg:grid-cols-3 gap-12">
             {/* Main Content */}
             <div className="lg:col-span-2">
-              {/* Full Preview */}
+              {/* Full Preview - Using extracted component */}
               <div className="mb-12">
                 <h2 className="text-3xl font-bold text-slate-900 mb-6">
                   Template Preview
                 </h2>
-                <InvoicePreview template={template} />
+                <TemplatePreview template={template} />
               </div>
 
-              {/* Fields */}
+              {/* Fields - Using extracted component */}
               <FieldList 
                 fields={template.requiredFields}
                 title="Required Fields"
@@ -569,52 +350,17 @@ export default async function TemplateDetailPage({ params }: { params: Promise<{
               )}
             </div>
 
-            {/* Sidebar */}
+            {/* Sidebar - Using extracted components */}
             <div>
               <div className="sticky top-8 space-y-6">
-                {/* Download Options */}
-                <InvoiceDownloadButtons template={template} />
-
-                {/* Quick Actions */}
-                <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-6">
-                  <h3 className="text-xl font-bold text-slate-900 mb-4">
-                    Quick Actions
-                  </h3>
-                  <div className="space-y-3">
-                    <Link 
-                      href={`/invoice-generator/${templateSlug}`}
-                      className="w-full flex items-center gap-3 p-3 hover:bg-indigo-50 rounded-lg transition text-left border-2 border-indigo-200 bg-indigo-50"
-                    >
-                      <Edit className="w-5 h-5 text-indigo-600" />
-                      <div>
-                        <span className="text-slate-900 font-semibold block">Customize Online</span>
-                        <span className="text-xs text-slate-600">Fill in your details and download</span>
-                      </div>
-                    </Link>
-                    <button className="w-full flex items-center gap-3 p-3 hover:bg-slate-50 rounded-lg transition text-left">
-                      <Mail className="w-5 h-5 text-slate-600" />
-                      <span className="text-slate-900">Email Template</span>
-                    </button>
-                    <button className="w-full flex items-center gap-3 p-3 hover:bg-slate-50 rounded-lg transition text-left">
-                      <Printer className="w-5 h-5 text-slate-600" />
-                      <span className="text-slate-900">Print Preview</span>
-                    </button>
-                  </div>
-                </div>
+                {/* Download Options + Quick Actions */}
+                <TemplateDownloadSection 
+                  template={template}
+                  templateSlug={templateSlug}
+                />
 
                 {/* Related Templates */}
-                <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-6">
-                  <h3 className="text-xl font-bold text-slate-900 mb-4">
-                    More {industryName} Templates
-                  </h3>
-                  <Link 
-                    href="/invoice-templates"
-                    className="text-indigo-600 hover:text-indigo-700 font-semibold flex items-center gap-2"
-                  >
-                    View All Templates
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
+                <RelatedTemplates industryName={industryName} />
               </div>
             </div>
           </div>

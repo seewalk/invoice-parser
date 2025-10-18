@@ -86,20 +86,21 @@ export default function BlogPage() {
                 <Clock className="w-6 h-6 text-green-600" />
               </div>
               <div>
-                <div className="text-2xl font-bold text-slate-900">{stats.avgReadingTime}</div>
+                <div className="text-2xl font-bold text-slate-900">{stats.averageReadingTime}</div>
                 <div className="text-sm text-slate-600">Min Read</div>
               </div>
             </div>
           </div>
 
+          
           <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-purple-100 rounded-lg">
-                <Users className="w-6 h-6 text-purple-600" />
+                <Tag className="w-6 h-6 text-purple-600" />
               </div>
               <div>
-                <div className="text-2xl font-bold text-slate-900">{stats.totalAuthors}</div>
-                <div className="text-sm text-slate-600">Contributors</div>
+                <div className="text-2xl font-bold text-slate-900">{stats.totalCategories}</div>
+                <div className="text-sm text-slate-600">Categories</div>
               </div>
             </div>
           </div>
