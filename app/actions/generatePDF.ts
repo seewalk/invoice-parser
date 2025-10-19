@@ -21,13 +21,30 @@ interface PDFGenerationResult {
  * @returns Base64 encoded PDF for download
  */
 export async function generatePDFInvoice(
-  invoiceData: InvoiceData
+  invoiceData: InvoiceData,
+  includeWatermark: boolean = true
 ): Promise<PDFGenerationResult> {
   try {
     console.log('[PDF Generation] Starting server-side PDF generation');
     
     // Create new PDF document
     const doc = new jsPDF();
+    
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+    
+    // Add watermark if enabled (same as template generator)
+    if (includeWatermark) {
+      doc.setFontSize(60);
+      doc.setTextColor(240, 240, 240);
+      doc.text('SAMPLE', pageWidth / 2, pageHeight / 2, {
+        align: 'center',
+        angle: 45,
+      });
+    }
+    
+    // Reset text color
+    doc.setTextColor(0, 0, 0);
     
     // Company/Logo Header
     doc.setFillColor(37, 99, 235); // Primary blue
@@ -149,4 +166,16 @@ export async function generatePDFInvoice(
       error: error instanceof Error ? error.message : 'Failed to generate PDF'
     };
   }
+}
+
+/**
+ * Server Action: Generate PDF invoice without watermark (for premium users)
+ * 
+ * @param invoiceData - The invoice data to generate PDF from
+ * @returns Base64 encoded PDF for download
+ */
+export async function generateCleanPDFInvoice(
+  invoiceData: InvoiceData
+): Promise<PDFGenerationResult> {
+  return generatePDFInvoice(invoiceData, false);
 }
