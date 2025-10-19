@@ -18,7 +18,7 @@ import {
   Printer
 } from 'lucide-react';
 import { InvoiceTemplate } from '@/app/lib/invoiceTemplateLibrary';
-import { generateInvoicePDF } from '@/app/lib/generateInvoicePDF';
+import { generateTemplatePDF } from '@/app/actions/generateTemplatePDF';
 
 interface LineItem {
   description: string;
@@ -161,7 +161,7 @@ export default function InvoiceGeneratorClient({
     });
   };
 
-  const handleDownloadPDF = () => {
+  const handleDownloadPDF = async () => {
     setIsGenerating(true);
     
     try {
@@ -175,11 +175,37 @@ export default function InvoiceGeneratorClient({
         }
       };
       
-      generateInvoicePDF(customTemplate);
+      // Call server action to generate PDF
+      const result = await generateTemplatePDF(customTemplate);
       
-      setTimeout(() => {
-        setIsGenerating(false);
-      }, 2000);
+      if (result.success && result.pdfBase64 && result.fileName) {
+        // Convert base64 to blob and trigger download
+        const byteCharacters = atob(result.pdfBase64);
+        const byteNumbers = new Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+          byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+        const blob = new Blob([byteArray], { type: 'application/pdf' });
+        
+        // Create download link
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = result.fileName;
+        document.body.appendChild(link);
+        link.click();
+        
+        // Cleanup
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+        
+        setTimeout(() => {
+          setIsGenerating(false);
+        }, 2000);
+      } else {
+        throw new Error(result.error || 'Failed to generate PDF');
+      }
     } catch (error) {
       console.error('Error generating PDF:', error);
       alert('Failed to generate PDF. Please try again.');
