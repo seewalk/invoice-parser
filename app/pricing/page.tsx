@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Navigation from '../components/Navigation';
 import FinalCTASection from '../components/FinalCTASection';
 import PageHero from '../components/PageHero';
+import IndividualTemplatePricing from '../components/pricing/IndividualTemplatePricing';
 
 export default function PricingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -117,6 +118,19 @@ export default function PricingPage() {
 
       <div className="pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
+
+          {/* Individual Templates Section (Pay-As-You-Go) */}
+          <IndividualTemplatePricing />
+
+          {/* Subscription Plans Heading */}
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-3">
+              Subscription Plans
+            </h2>
+            <p className="text-lg text-gray-600">
+              For businesses with ongoing invoice processing needs
+            </p>
+          </div>
 
           {/* Pricing Cards */}
           <div className="grid md:grid-cols-3 gap-8 mb-16">

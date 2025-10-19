@@ -2,8 +2,20 @@
 
 import { memo } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronDown, TrendingUp } from 'lucide-react';
+import { ChevronDown, TrendingUp, ExternalLink } from 'lucide-react';
+import Link from 'next/link';
 import { FAQ } from '@/app/lib/faqData';
+
+/**
+ * Generate blog post slug from FAQ question
+ * This matches the slugify function in blogData.ts
+ */
+function generateBlogSlug(question: string): string {
+  return question
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
 
 interface FAQItemProps {
   /**
@@ -27,14 +39,20 @@ interface FAQItemProps {
 /**
  * FAQItem Component
  * 
- * Individual FAQ accordion item with smooth animations.
+ * Individual FAQ accordion item with smooth animations and blog interlinking.
  * 
  * Features:
  * - Smooth expand/collapse animation
  * - Category badge
- * - Keywords display
+ * - Clickable keywords that link to blog posts
+ * - "Read Full Article" button for deep-dive content
  * - Search volume indicator for high-demand topics
  * - Responsive layout
+ * 
+ * SEO Benefits:
+ * - Internal linking between FAQ and blog pages
+ * - Improved crawlability and page authority
+ * - Enhanced user engagement with related content
  * 
  * Optimizations:
  * - Memoized to prevent unnecessary re-renders
@@ -83,20 +101,26 @@ function FAQItemComponent({ faq, index, isOpen, onToggle }: FAQItemProps) {
               {faq.answer}
             </p>
 
-            {/* Keywords */}
+            {/* Keywords - Clickable links to blog posts */}
             {faq.keywords && faq.keywords.length > 0 && (
               <div className="flex flex-wrap gap-2 pt-4 border-t border-gray-100">
                 <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
                   Related Topics:
                 </span>
-                {faq.keywords.map((keyword, i) => (
-                  <span
-                    key={i}
-                    className="text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded"
-                  >
-                    {keyword}
-                  </span>
-                ))}
+                {faq.keywords.map((keyword, i) => {
+                  const blogSlug = generateBlogSlug(faq.question);
+                  return (
+                    <Link
+                      key={i}
+                      href={`/blog/${blogSlug}`}
+                      className="group inline-flex items-center gap-1 text-xs text-gray-600 bg-gray-100 hover:bg-primary-100 hover:text-primary-700 px-2 py-1 rounded transition-colors"
+                      title={`Read full article about ${keyword}`}
+                    >
+                      {keyword}
+                      <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </Link>
+                  );
+                })}
               </div>
             )}
 
@@ -107,6 +131,17 @@ function FAQItemComponent({ faq, index, isOpen, onToggle }: FAQItemProps) {
                 High-demand topic ({faq.searchVolume}+ monthly searches)
               </div>
             )}
+
+            {/* Read Full Article Button */}
+            <div className="mt-6 pt-4 border-t border-gray-100">
+              <Link
+                href={`/blog/${generateBlogSlug(faq.question)}`}
+                className="inline-flex items-center gap-2 text-sm font-medium text-primary-600 hover:text-primary-700 group"
+              >
+                <span>Read Full Article</span>
+                <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              </Link>
+            </div>
           </div>
         </motion.div>
       )}

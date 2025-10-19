@@ -17,6 +17,14 @@ import { uploadToS3 } from '../actions/UploadToS3';
 import { generatePDFInvoice } from '../actions/generatePDF';
 import { InvoiceData } from '../types/invoice';
 import { type ProcessingStep } from '../components/parser';
+import { useLeadCapture } from '../hooks/useLeadCapture';
+import LeadCaptureModal from '../components/LeadCaptureModal';
+
+// Lazy-load UpgradePrompt for performance
+const UpgradePrompt = dynamic(
+  () => import('@/app/components/monetization/UpgradePrompt'),
+  { ssr: false }
+);
 
 // Dynamic imports for code splitting
 const PageHero = dynamic(() => import('@/app/components/PageHero'), {
@@ -59,6 +67,23 @@ export default function InvoiceParser() {
   const [copied, setCopied] = useState(false);
   const [generatingPDF, setGeneratingPDF] = useState(false);
   const [pdfGenerated, setPdfGenerated] = useState(false);
+  const [pendingPDFDownload, setPendingPDFDownload] = useState(false);
+  const [showUpgradePrompt, setShowUpgradePrompt] = useState(false);
+
+  // Lead capture hook
+  const {
+    showModal,
+    openModal,
+    closeModal,
+    handleLeadSubmit,
+    hasSubmittedLead,
+    isLeadCaptureRequired,
+  } = useLeadCapture({
+    source: 'parser',
+    metadata: {
+      templateName: 'Invoice Parser',
+    },
+  });
 
   // Handle file selection
   const handleFileSelect = useCallback((file: File) => {
@@ -313,7 +338,9 @@ export default function InvoiceParser() {
   }, [invoiceData]);
 
   // Generate and Download PDF Invoice (using server action)
-  const handleGeneratePDF = useCallback(async () => {
+  // This is the actual PDF generation logic, called after lead capture
+  const generateAndDownloadPDF = useCallback(async () => {
+    console.log('[Parser] Generating PDF from parsed invoice data');
     if (!invoiceData) return;
 
     setGeneratingPDF(true);
@@ -347,16 +374,80 @@ export default function InvoiceParser() {
       console.log('[Client] PDF downloaded successfully:', result.fileName);
       setPdfGenerated(true);
       setTimeout(() => setPdfGenerated(false), 3000);
+      
+      // Show upgrade prompt 2 seconds after download
+      setTimeout(() => {
+        setShowUpgradePrompt(true);
+      }, 2000);
     } catch (error) {
       console.error('[Client] PDF generation error:', error);
       setError('Failed to generate PDF. Please try again.');
     } finally {
       setGeneratingPDF(false);
+      setPendingPDFDownload(false);
     }
   }, [invoiceData]);
 
+  /**
+   * Handle PDF download button click
+   * Intercepts to show lead capture modal if needed
+   */
+  const handleGeneratePDF = useCallback(async () => {
+    // Check if we need to capture lead first
+    if (isLeadCaptureRequired) {
+      console.log('[Parser] Lead capture required, showing modal');
+      setPendingPDFDownload(true);
+      openModal();
+      return;
+    }
+
+    // User has already submitted lead, proceed with download
+    console.log('[Parser] Lead already captured, proceeding with PDF generation');
+    await generateAndDownloadPDF();
+  }, [isLeadCaptureRequired, openModal, generateAndDownloadPDF]);
+
+  /**
+   * Handle lead submission from modal
+   * After successful submission, trigger the PDF download
+   */
+  const handleLeadCaptured = useCallback(
+    async (data: any) => {
+      console.log('[Parser] Lead captured, proceeding with PDF generation');
+      await handleLeadSubmit(data);
+
+      // Lead is captured, now generate and download PDF
+      if (pendingPDFDownload) {
+        await generateAndDownloadPDF();
+      }
+    },
+    [handleLeadSubmit, pendingPDFDownload, generateAndDownloadPDF]
+  );
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
+    <>
+      {/* Lead Capture Modal */}
+      <LeadCaptureModal
+        isOpen={showModal}
+        onClose={() => {
+          closeModal();
+          setPendingPDFDownload(false);
+        }}
+        onSubmit={handleLeadCaptured}
+        source="parser"
+        metadata={{
+          templateName: 'Invoice Parser',
+        }}
+      />
+
+      {/* Upgrade Prompt Modal (shown 2s after successful download) */}
+      <UpgradePrompt
+        isOpen={showUpgradePrompt}
+        onClose={() => setShowUpgradePrompt(false)}
+        source="parser"
+        templateName="Invoice Parser"
+      />
+
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
       {/* Header */}
       <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -476,12 +567,6 @@ export default function InvoiceParser() {
         )}
       </div>
     </div>
+    </>
   );
 }
-
-
-
-
-
-
-

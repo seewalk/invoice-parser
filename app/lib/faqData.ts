@@ -386,6 +386,158 @@ export const comprehensiveFAQs: FAQ[] = [
     keywords: ['recurring invoices', 'subscription invoices', 'repeat invoices', 'automatic invoice processing'],
     searchVolume: 140,
   },
+
+  // GOLD NUGGET KEYWORDS - High opportunity, low competition
+  {
+    question: 'What is a proforma invoice and when is it used?',
+    answer:
+      'A proforma invoice is a preliminary bill of sale sent to buyers before goods or services are delivered. Unlike a standard commercial invoice, a proforma invoice is not a demand for payment but rather a quote or commitment to provide products/services at specified prices and terms. Proforma invoices are commonly used in international trade for customs clearance, import/export documentation, letter of credit applications, and advance payment requests. They include similar details to regular invoices (description, quantity, price, delivery terms) but are marked "Proforma Invoice" or "For Customs Purposes Only". Key differences from commercial invoices: not recorded in accounts payable, not legally binding for payment, often followed by a final commercial invoice after delivery. Common uses include: quoting prices to international customers, providing documentation for import permits and customs valuation, securing advance payments before manufacturing, and establishing terms before formal purchase orders. Proforma invoices help buyers prepare for actual costs including duties and taxes.',
+    category: 'Invoice Formats & Templates',
+    keywords: ['invoice proforma', 'proforma invoice', 'proforma invoice template', 'what is proforma invoice'],
+    searchVolume: 9900,
+  },
+  {
+    question: 'What is a VAT receipt and how does it differ from a standard receipt?',
+    answer:
+      'A VAT receipt (Value Added Tax receipt) is a document that shows the breakdown of VAT charged on goods or services, required for businesses to reclaim VAT from tax authorities. In the UK and EU, VAT receipts must include: seller\'s name and address, VAT registration number, unique receipt number, date of supply, description of goods/services, amount excluding VAT, VAT rate applied (20% standard, 5% reduced, 0% zero-rated), VAT amount, and total including VAT. VAT receipts differ from standard receipts by explicitly separating the VAT component, enabling businesses to claim back VAT on eligible expenses. For purchases over £250, additional details are required including buyer\'s name and address. Simplified VAT receipts are allowed for retail transactions under £250. Businesses must retain VAT receipts for at least 6 years for HMRC compliance. Digital VAT receipts are acceptable if they contain all required information. Common mistakes include missing VAT numbers, incorrect VAT calculations, or unclear VAT breakdowns, which can result in rejected VAT reclaims during audits.',
+    category: 'Invoice Formats & Templates',
+    keywords: ['receipt vat', 'VAT receipt', 'VAT invoice', 'VAT receipt template', 'VAT receipt requirements'],
+    searchVolume: 1900,
+  },
+  {
+    question: 'How do I create a receipt for a car sale in the UK?',
+    answer:
+      'A car sale receipt is a crucial legal document when selling a vehicle privately in the UK. Essential elements include: (1) Seller Details - full name, address, contact number, and signature; (2) Buyer Details - full name, address, and contact information; (3) Vehicle Information - make, model, year, color, registration number, VIN/chassis number, and mileage; (4) Sale Details - sale date, purchase price (written in numbers and words), payment method; (5) Condition Statement - "sold as seen" or any warranty information; (6) Additional Items - include any items sold with vehicle (spare keys, manuals, service history); (7) Declaration - statement that the vehicle is owned by seller and free from finance (or disclose if finance outstanding). Both parties should sign and keep copies. Important: The receipt proves ownership transfer but does not replace official DVLA processes. The seller must complete the V5C logbook section notifying DVLA of the sale, and the buyer must register as the new keeper. For purchases from VAT-registered car dealers, a proper VAT invoice is required. Private sales don\'t include VAT but should clearly state "private sale" on the receipt.',
+    category: 'Invoice Formats & Templates',
+    keywords: ['receipt for car sale', 'car sale receipt', 'vehicle sale receipt', 'car sale receipt template UK'],
+    searchVolume: 1300,
+  },
+  {
+    question: 'How do I get my Amazon invoice for business purchases?',
+    answer:
+      'Amazon invoices are essential for business expense claims and VAT reclaims. To access Amazon invoices: (1) Log into your Amazon account; (2) Go to "Returns & Orders"; (3) Find your order and click "Invoice" next to the order details; (4) Download the PDF invoice which includes all required details (VAT number, order details, prices, VAT breakdown). For Amazon Business accounts, invoices are automatically generated and include VAT details suitable for reclaiming. Important: Standard Amazon receipts are not VAT invoices - you need the proper invoice document. For bulk orders or missing invoices, contact Amazon Customer Service. Amazon provides invoices at dispatch (not order placement), so wait until items ship. For Subscribe & Save orders, separate invoices are generated for each delivery. Amazon Business account benefits include: consolidated invoicing, business-only pricing, multi-user accounts, approval workflows, and integration with procurement systems. To claim VAT on Amazon purchases, ensure your invoice includes Amazon\'s VAT registration number, clear VAT breakdown per item, and your business details if requested during checkout.',
+    category: 'Invoice Formats & Templates',
+    keywords: ['invoice amazon', 'amazon invoice', 'amazon business invoice', 'get amazon invoice', 'amazon VAT invoice'],
+    searchVolume: 720,
+  },
+
+  // SILVER NUGGET KEYWORDS - High priority targets
+  {
+    question: 'Where can I find free invoice templates for UK businesses?',
+    answer:
+      'Free UK invoice templates are available from multiple sources: (1) Gov.uk - official templates meeting HMRC requirements for VAT invoices; (2) Microsoft Office - Word and Excel templates with UK formatting; (3) Google Docs/Sheets - free templates in Google Workspace; (4) Accounting Software Free Tiers - Wave, Zoho Invoice, and Invoice Simple offer free basic invoicing; (5) Invoice Generator Websites - platforms like InvoiceParse, Invoice Generator, and Invoiced provide free downloadable templates. Key features to look for in UK templates: space for VAT registration number, UK address formatting, pound sterling (£) currency, net/VAT/gross breakdown, payment terms in days, and bank details section. When choosing templates, ensure they include: invoice number field, date issued, payment due date, detailed line items, subtotal and VAT calculation, terms and conditions section, and professional branding space. Free templates are ideal for freelancers, sole traders, and small businesses starting out. For growing businesses, consider accounting software that generates compliant invoices automatically while tracking payments and integrating with bookkeeping.',
+    category: 'Invoice Formats & Templates',
+    keywords: ['invoice template uk free', 'free invoice template uk', 'uk invoice template', 'free uk invoice'],
+    searchVolume: 1600,
+  },
+  {
+    question: 'What are the best free invoice generators for UK businesses?',
+    answer:
+      'Top free invoice generators for UK businesses include: (1) Wave - completely free invoicing with unlimited invoices, automatic payment reminders, online payment acceptance (2.9% + 30p per transaction), and basic accounting features; (2) Zoho Invoice - free for up to 1,000 invoices/year with 5 customers, includes time tracking and expense management; (3) Invoice Simple - free basic plan with professional templates and mobile app; (4) PayPal Invoicing - free invoice creation and sending with PayPal payment integration; (5) InvoiceParse - free invoice templates with UK formatting and AI-powered parsing. Features to expect: customizable templates with logo, automatic calculations including VAT, sequential invoice numbering, PDF generation, email sending, payment tracking, and client database. Limitations of free plans typically include: branding/watermarks, limited invoices per month, basic features only, no integrations, limited support. For businesses sending 5+ invoices monthly, paid plans (£10-30/month) offer: removal of branding, recurring invoices, accounting software integration, multiple users, advanced reporting, and priority support.',
+    category: 'Invoice Software & Tools',
+    keywords: ['invoice generator free uk', 'free invoice generator', 'uk invoice generator', 'free invoice maker uk'],
+    searchVolume: 720,
+  },
+  {
+    question: 'What are the best receipt design templates for businesses?',
+    answer:
+      'Professional receipt design templates help businesses create branded, compliant receipts: (1) Retail Receipt Templates - point-of-sale style with itemized products, quantities, and totals; (2) Service Receipt Templates - time-based or milestone billing for consultants and contractors; (3) Rent Receipt Templates - landlord/tenant documentation with property details; (4) Donation Receipt Templates - charity and non-profit contribution records; (5) Payment Receipt Templates - general confirmation of payment received. Key design elements include: clear business branding (logo, colors), receipt number and date, itemized breakdown, payment method, subtotal/tax/total, terms and conditions, contact information, and return/refund policy. Digital receipt templates can include: QR codes for online order tracking, links to customer portals, promotional codes for future purchases, and environmental messaging (paperless). Best practices: ensure text is readable (minimum 10pt font), include all legal requirements (VAT details if applicable), maintain consistent branding, use clear hierarchy for information, and optimize for both print and digital viewing. Popular formats: PDF for professional printing, HTML for email receipts, and mobile-optimized designs for SMS/app receipts.',
+    category: 'Invoice Formats & Templates',
+    keywords: ['receipt design template', 'receipt template design', 'professional receipt template', 'receipt layout'],
+    searchVolume: 3600,
+  },
+  {
+    question: 'What is a receipt of payment and when is it required?',
+    answer:
+      'A receipt of payment (also called payment receipt or proof of payment) is a document acknowledging that money has been received from a payer to a payee. It serves as legal proof of transaction completion and is required for: (1) Accounting Records - documenting cash flow and revenue for bookkeeping; (2) Tax Compliance - supporting tax returns and VAT reclaims; (3) Expense Claims - employees proving business expense payments; (4) Dispute Resolution - evidence in case of payment disagreements; (5) Warranty/Returns - proof of purchase for product returns or warranty claims; (6) Audits - providing transaction trail for financial audits. Essential elements of payment receipts: receipt number, date of payment, payer name and details, payee/business information, amount paid, payment method, description of goods/services, invoice reference number, balance due if partial payment, and authorized signature. Payment receipts differ from invoices: invoices request payment before receiving it, receipts confirm payment after receiving it. In accounting, receipts are recorded in cash receipts journal. For digital transactions, email confirmations and bank statements can serve as payment receipts if they contain sufficient detail.',
+    category: 'Invoice Processing Basics',
+    keywords: ['receipt payment', 'payment receipt', 'proof of payment', 'payment receipt template'],
+    searchVolume: 1600,
+  },
+  {
+    question: 'What is the difference between a receipt and an invoice?',
+    answer:
+      'Receipts and invoices serve different purposes in business transactions: INVOICE - A request for payment issued before or at the time of sale, showing what is owed. Used to: request payment from customers, establish payment terms, record accounts receivable, track outstanding debts. Invoice timing: sent before payment is received. RECEIPT - Proof of payment issued after money is received, confirming the transaction is complete. Used to: acknowledge payment received, provide proof of purchase, record accounts receivable, close the transaction. Receipt timing: issued after payment is received. Key differences: (1) Purpose - invoice requests, receipt confirms; (2) Timing - invoice before payment, receipt after payment; (3) Accounting - invoice creates receivable, receipt reduces receivable; (4) Legal Status - invoice is payment demand, receipt is payment evidence. In practice: retail stores often issue receipts immediately (payment at point of sale), while B2B transactions typically involve invoices with payment terms (Net 30) followed by receipts after payment. Some businesses combine both on a single document for immediate payments, marking it "Invoice/Receipt" or "Paid Invoice".',
+    category: 'Invoice Processing Basics',
+    keywords: ['receipt invoice', 'invoice vs receipt', 'difference between invoice and receipt', 'invoice receipt'],
+    searchVolume: 880,
+  },
+
+  // BRONZE NUGGET KEYWORDS - Medium priority, good opportunities
+  {
+    question: 'How should self-employed individuals create invoices in the UK?',
+    answer:
+      'Self-employed individuals in the UK must create professional invoices that meet HMRC requirements: (1) Essential Details - your business name (or full name), address, contact details, client name and address, unique invoice number, invoice date, payment due date, description of work/services, price per item/hourly rate, total amount due, and payment terms; (2) VAT Requirements - if VAT-registered (turnover over £85,000), include your VAT number, VAT amount, and total including VAT; (3) Payment Information - bank details for BACs transfers, accepted payment methods, and any late payment terms. Invoicing best practices for self-employed: use sequential numbering (e.g., INV-001), send invoices promptly upon completion, clearly state payment terms (e.g., "Payment due within 14 days"), include detailed descriptions to avoid queries, keep copies for tax returns and records (minimum 5 years for HMRC), and follow up on overdue invoices professionally. Tools for self-employed invoicing: free options include Wave, PayPal, and Google Docs templates; paid solutions (£5-20/month) like QuickBooks Self-Employed, FreshBooks, and Crunch offer automated invoicing, expense tracking, and Making Tax Digital (MTD) compliance. Many self-employed professionals use invoice templates in Word or Excel to start, transitioning to accounting software as their business grows.',
+    category: 'Invoice Formats & Templates',
+    keywords: ['invoice for self employed', 'self employed invoice', 'freelance invoice uk', 'sole trader invoice'],
+    searchVolume: 1600,
+  },
+  {
+    question: 'How do I create an invoice using Excel templates?',
+    answer:
+      'Excel invoice templates provide flexible, customizable invoicing for businesses: (1) Finding Templates - Microsoft Office template library includes free invoice templates, Excel\'s "File > New" search for "invoice" reveals dozens of options, or download templates from reputable websites; (2) Setting Up - enter your business details (name, logo, address, contact), set up automatic calculations using formulas (=SUM for totals, =quantity*price for line items), add tax calculations (=subtotal*VAT_rate), and format for professional appearance; (3) Customizing - add your branding (colors, fonts, logo), create dropdown lists for products/services, include terms and conditions, add payment instructions, and protect cells to prevent accidental changes; (4) Using Templates - duplicate the template for each new invoice, increment invoice numbers manually or use formulas, save each invoice as separate file, and export to PDF before sending. Excel formula tips: =TEXT(TODAY(),"DD/MM/YYYY") for automatic dates, =invoice_number+1 for sequential numbering, =IF(payment_received="Yes","PAID","OUTSTANDING") for status tracking. Advantages: one-time cost (or free with Microsoft 365), works offline, highly customizable, familiar interface. Disadvantages: manual processes, no automation, no payment tracking, version control challenges. For businesses outgrowing Excel, consider accounting software.',
+    category: 'Invoice Formats & Templates',
+    keywords: ['invoice excel template', 'excel invoice', 'invoice template excel', 'excel invoice template uk'],
+    searchVolume: 2900,
+  },
+  {
+    question: 'How do I create an invoice using Google Docs templates?',
+    answer:
+      'Google Docs invoice templates offer free, cloud-based invoicing with real-time collaboration: (1) Accessing Templates - open Google Docs, click "Template Gallery" at top, browse "Work" category for invoice templates, or search Google Docs Template Gallery online; (2) Customizing Template - click template to create copy, add your business branding (logo, colors, fonts), fill in business and banking details, adjust tax rates for your region, and customize line item descriptions; (3) Creating Invoices - make copy of template for each invoice ("File > Make a copy"), rename with client name and invoice number, fill in client details and services, Google Docs auto-saves to Drive, and share via link or download as PDF; (4) Automation - use Google Sheets for calculations and data management, create invoice generator with formulas, link Sheet data to Docs template using mail merge add-ons. Benefits of Google Docs invoicing: completely free, accessible anywhere with internet, automatic cloud backup, easy sharing and collaboration, works on any device/browser, integrates with Google Workspace. Add-ons to enhance: "Invoice Generator" for automated creation, "PDF Mage" for bulk PDF conversion, "HelloSign" for electronic signatures. Limitations: no payment tracking, manual process, limited automation, requires internet connection. Best for: freelancers, startups, occasional invoicing needs.',
+    category: 'Invoice Formats & Templates',
+    keywords: ['invoice google doc template', 'google docs invoice', 'google invoice template', 'invoice template google docs'],
+    searchVolume: 2400,
+  },
+  {
+    question: 'How does invoice processing work with Xero accounting software?',
+    answer:
+      'Xero is a cloud accounting platform with robust invoice processing capabilities: (1) Invoice Receipt - receive invoices via dedicated email (bills@xero.com), manual upload, or supplier portal; (2) Data Extraction - Xero\'s AI extracts invoice data (supplier, date, amount, tax); (3) Review & Approval - invoices appear in "Bills to Review", assign to correct account codes and tracking categories, route for approval if workflows enabled; (4) Matching - match to purchase orders or quotes, reconcile with bank feeds when paid; (5) Payment - schedule payments individually or in batches, pay via bank transfer, Stripe, GoCardless, or direct debit, Xero updates bank reconciliation automatically; (6) Reporting - track payables, supplier balances, cash flow forecasts, and spending by category. Advanced features: multi-currency support, recurring bill templates, supplier payment terms tracking, approval workflows for large invoices, integration with 800+ apps (bill payment, procurement, inventory). Xero pricing: £12-37.50/month depending on features. Benefits over manual processing: 75% faster invoice processing, automatic bank reconciliation, real-time financial reports, supplier portal access, mobile app for approvals, and Making Tax Digital (MTD) compliance for UK businesses.',
+    category: 'Invoice Software & Tools',
+    keywords: ['invoice xero', 'xero invoice processing', 'xero bills', 'xero accounts payable'],
+    searchVolume: 1600,
+  },
+  {
+    question: 'What is a purchase order form and how does it relate to invoicing?',
+    answer:
+      'A purchase order (PO) form is a commercial document issued by a buyer to a supplier authorizing a purchase transaction. The PO becomes a legally binding contract when accepted by the supplier. Key elements: PO number (unique identifier), buyer information (company, address, contact), supplier/vendor details, order date, required delivery date, shipping address, billing address, itemized list (product/service descriptions, quantities, agreed prices), total amount, payment terms, special instructions, and authorized signature. Purchase orders relate to invoicing through the "Procure-to-Pay" cycle: (1) Buyer issues PO to supplier; (2) Supplier accepts PO and fulfills order; (3) Supplier ships goods and sends delivery receipt; (4) Supplier issues invoice referencing PO number; (5) Buyer performs 3-way matching (PO, receipt, invoice); (6) Invoice approved and paid if everything matches. Benefits of PO system: budget control (commitments tracked), prevents unauthorized purchases, simplifies invoice matching and approval, provides audit trail, clarifies order specifications, reduces disputes. Many organizations require PO numbers on invoices for payment processing. Modern procurement systems generate POs automatically from approved requisitions and integrate with invoice processing for touchless matching.',
+    category: 'Invoice Processing Basics',
+    keywords: ['purchase order form', 'purchase order template', 'PO form', 'what is purchase order'],
+    searchVolume: 260,
+  },
+
+  // HIGH-VALUE COMMERCIAL KEYWORDS - Strong monetization potential
+  {
+    question: 'What is invoice finance and how does it work for businesses?',
+    answer:
+      'Invoice finance (also called invoice factoring or accounts receivable financing) is a funding method where businesses sell their outstanding invoices to a finance company at a discount to access immediate cash flow rather than waiting 30-90 days for customer payment. How it works: (1) Business provides goods/services and issues invoice to customer; (2) Business sells invoice to finance company; (3) Finance company advances 70-90% of invoice value immediately; (4) Customer pays finance company on due date; (5) Finance company releases remaining balance minus fees to business. Types of invoice finance: Invoice Factoring - finance company manages collections and customer relationships; Invoice Discounting - business retains collection responsibility, finance company remains invisible to customers; Selective Invoice Finance - choose which invoices to finance rather than whole ledger. Costs: typically 1-5% of invoice value plus interest (0.5-1.5% monthly on advanced amount). Benefits: immediate cash flow for growth, no debt on balance sheet, covers credit risk, flexible (grows with sales). Ideal for: businesses with 30-90 day payment terms, growing companies needing working capital, seasonal businesses, and companies with large outstanding invoices. Requirements: established trading history, creditworthy customers, minimum turnover (usually £50,000-100,000+).',
+    category: 'Cost & ROI',
+    keywords: ['invoice finance', 'invoice factoring', 'invoice financing', 'accounts receivable financing'],
+    searchVolume: 2900,
+  },
+  {
+    question: 'What is invoice discounting and how does it differ from factoring?',
+    answer:
+      'Invoice discounting is a confidential financing arrangement where businesses borrow against their unpaid invoices while maintaining full control of sales ledger and customer relationships. Key differences from factoring: INVOICE DISCOUNTING - Confidential (customers don\'t know about arrangement), business manages own credit control and collections, suitable for established businesses with strong admin, typically lower fees, requires minimum turnover (£250,000-500,000+), business retains customer relationships. INVOICE FACTORING - Customers know about arrangement, finance company handles collections, suitable for businesses wanting to outsource credit control, includes bad debt protection options, available to smaller businesses, finance company manages customer communication. How invoice discounting works: (1) Business continues invoicing customers normally; (2) Copies of invoices submitted to finance company; (3) Finance company advances 80-95% of invoice value; (4) Business collects payment from customers; (5) Payments forwarded to finance company; (6) Finance company releases remaining balance minus fees. Costs: 0.5-3% of turnover plus interest on funds used. Best for: established businesses (3+ years trading), companies with strong customer base, businesses wanting confidential funding, firms with good credit control systems. Benefits: improved cash flow, business maintains customer control, confidential funding, flexible facility that grows with sales.',
+    category: 'Cost & ROI',
+    keywords: ['invoice discounting', 'confidential invoice finance', 'invoice discounting vs factoring'],
+    searchVolume: 1300,
+  },
+  {
+    question: 'What invoice software solutions are available for businesses?',
+    answer:
+      'Invoice software streamlines billing and payment collection for businesses of all sizes: SMALL BUSINESS (1-10 employees): Wave (Free) - invoicing, payments, basic accounting; FreshBooks (£17-55/month) - time tracking, invoicing, expense management; QuickBooks Online (£12-47/month) - comprehensive accounting with invoicing; Zoho Invoice (Free-£22/month) - invoicing with client portal and multi-currency. MID-MARKET (10-250 employees): Xero (£13-38/month) - cloud accounting with unlimited invoicing; Sage Business Cloud (£10-40/month) - accounting, invoicing, payment tracking; QuickBooks Plus/Advanced - advanced features, inventory, projects; Bill.com - AP/AR automation with invoice processing. ENTERPRISE (250+ employees): SAP Concur - expense and invoice management; Oracle NetSuite - ERP with invoicing module; Workday Financials - comprehensive financial management; Coupa - spend management and invoice automation. Key features to evaluate: customizable templates, recurring invoicing, multi-currency support, payment gateway integration (Stripe, PayPal, GoCardless), automatic reminders, expense tracking, financial reporting, mobile apps, accounting integration, and client portal. Industry-specific solutions: Field service businesses need mobile invoicing, e-commerce requires integration with online platforms, subscriptions need recurring billing automation. Most platforms offer free trials - test before committing.',
+    category: 'Invoice Software & Tools',
+    keywords: ['invoice software', 'invoicing software', 'invoice management software', 'best invoice software'],
+    searchVolume: 2900,
+  },
+  {
+    question: 'What is the best invoice app for freelancers and mobile billing?',
+    answer:
+      'Top invoice apps for on-the-go freelancers and mobile professionals: (1) FreshBooks Mobile - create and send invoices from phone, track time and expenses, snap photos of receipts, accept online payments, get paid faster with automatic reminders. iOS/Android, £17-55/month; (2) QuickBooks Self-Employed - mileage tracking, invoice creation, expense categorization, tax estimation, connects to bank accounts. Perfect for freelancers, £6-12/month; (3) Invoice Simple - quick invoice creation with templates, expense and mileage tracking, estimate creation, basic but powerful. iOS/Android, £5.99-16.99/month with free trial; (4) Zoho Invoice - professional invoices, time tracking, expense management, payment gateway integration, client portal. iOS/Android, free for up to 1,000 invoices/year; (5) Wave Invoicing - completely free unlimited invoicing, payment processing (2.9% + 30p), receipt scanning, accounting features, clean mobile interface. iOS/Android, Free. Key mobile features: create invoices in minutes, save client details for quick reuse, duplicate previous invoices, photo receipt capture, real-time payment notifications, signature capture for on-site work, offline mode with sync. Best practices: set up templates with your branding before job site visits, use recurring invoices for regular clients, enable payment links for faster collection, sync with accounting software to avoid double entry.',
+    category: 'Invoice Software & Tools',
+    keywords: ['invoice app', 'mobile invoice app', 'invoice app for freelancers', 'best invoice app'],
+    searchVolume: 2400,
+  },
 ];
 
 // Helper function to get FAQs by category

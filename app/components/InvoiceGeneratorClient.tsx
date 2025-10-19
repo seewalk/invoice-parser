@@ -19,6 +19,15 @@ import {
 } from 'lucide-react';
 import { InvoiceTemplate } from '@/app/lib/invoiceTemplateLibrary';
 import { generateTemplatePDF } from '@/app/actions/generateTemplatePDF';
+import { useLeadCapture } from '@/app/hooks/useLeadCapture';
+import LeadCaptureModal from '@/app/components/LeadCaptureModal';
+import dynamic from 'next/dynamic';
+
+// Lazy-load UpgradePrompt for performance
+const UpgradePrompt = dynamic(
+  () => import('@/app/components/monetization/UpgradePrompt'),
+  { ssr: false }
+);
 
 interface LineItem {
   description: string;
@@ -80,6 +89,24 @@ export default function InvoiceGeneratorClient({
   const [showPreview, setShowPreview] = useState(true);
   const [isGenerating, setIsGenerating] = useState(false);
   const [currentStep, setCurrentStep] = useState<'business' | 'client' | 'items' | 'payment'>('business');
+  const [pendingDownload, setPendingDownload] = useState(false);
+  const [showUpgradePrompt, setShowUpgradePrompt] = useState(false);
+
+  // Lead capture hook
+  const {
+    showModal,
+    openModal,
+    closeModal,
+    handleLeadSubmit,
+    hasSubmittedLead,
+    isLeadCaptureRequired,
+  } = useLeadCapture({
+    source: 'invoice-generator',
+    metadata: {
+      templateName: template.name,
+      templateId: template.id,
+    },
+  });
 
   // Initialize form data with template sample data
   const [formData, setFormData] = useState<InvoiceData>(() => {
@@ -161,10 +188,16 @@ export default function InvoiceGeneratorClient({
     });
   };
 
-  const handleDownloadPDF = async () => {
+  /**
+   * Generate PDF and trigger download
+   * This is the actual PDF generation logic, called after lead capture
+   */
+  const generateAndDownloadPDF = async () => {
     setIsGenerating(true);
     
     try {
+      console.log('[Invoice Generator] Generating PDF for:', template.name);
+      
       // Create a modified template with user's data
       const customTemplate: InvoiceTemplate = {
         ...template,
@@ -200,16 +233,57 @@ export default function InvoiceGeneratorClient({
         document.body.removeChild(link);
         window.URL.revokeObjectURL(url);
         
+        console.log('[Invoice Generator] PDF downloaded successfully:', result.fileName);
+        
         setTimeout(() => {
           setIsGenerating(false);
+          setPendingDownload(false);
+        }, 2000);
+        
+        // Show upgrade prompt 2 seconds after download
+        setTimeout(() => {
+          setShowUpgradePrompt(true);
         }, 2000);
       } else {
         throw new Error(result.error || 'Failed to generate PDF');
       }
     } catch (error) {
-      console.error('Error generating PDF:', error);
+      console.error('[Invoice Generator] Error generating PDF:', error);
       alert('Failed to generate PDF. Please try again.');
       setIsGenerating(false);
+      setPendingDownload(false);
+    }
+  };
+
+  /**
+   * Handle PDF download button click
+   * Intercepts to show lead capture modal if needed
+   */
+  const handleDownloadPDF = async () => {
+    // Check if we need to capture lead first
+    if (isLeadCaptureRequired) {
+      console.log('[Invoice Generator] Lead capture required, showing modal');
+      setPendingDownload(true);
+      openModal();
+      return;
+    }
+
+    // User has already submitted lead, proceed with download
+    console.log('[Invoice Generator] Lead already captured, proceeding with download');
+    await generateAndDownloadPDF();
+  };
+
+  /**
+   * Handle lead submission from modal
+   * After successful submission, trigger the PDF download
+   */
+  const handleLeadCaptured = async (data: any) => {
+    console.log('[Invoice Generator] Lead captured, proceeding with PDF generation');
+    await handleLeadSubmit(data);
+    
+    // Lead is captured, now generate and download PDF
+    if (pendingDownload) {
+      await generateAndDownloadPDF();
     }
   };
 
@@ -639,7 +713,32 @@ export default function InvoiceGeneratorClient({
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <>
+      {/* Lead Capture Modal */}
+      <LeadCaptureModal
+        isOpen={showModal}
+        onClose={() => {
+          closeModal();
+          setPendingDownload(false);
+        }}
+        onSubmit={handleLeadCaptured}
+        source="invoice-generator"
+        metadata={{
+          templateName: template.name,
+          templateId: template.id,
+        }}
+      />
+
+      {/* Upgrade Prompt Modal (shown 2s after successful download) */}
+      <UpgradePrompt
+        isOpen={showUpgradePrompt}
+        onClose={() => setShowUpgradePrompt(false)}
+        source="invoice-generator"
+        templateName={template.name}
+        templateId={template.id}
+      />
+
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       
       {/* Header */}
       <div className="bg-white border-b border-slate-200 sticky top-0 z-10 shadow-sm">
@@ -1340,6 +1439,7 @@ export default function InvoiceGeneratorClient({
 
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

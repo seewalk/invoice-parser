@@ -2,8 +2,9 @@
 
 import { memo } from 'react';
 import Link from 'next/link';
-import { FileText, TrendingUp, Users, ArrowRight } from 'lucide-react';
+import { FileText, TrendingUp, Users, ArrowRight, Sparkles } from 'lucide-react';
 import { InvoiceTemplate } from '@/app/lib/invoiceTemplateLibrary';
+import { PRICING_CONSTANTS } from '@/app/types/pricing';
 
 interface TemplateCardProps {
   template: InvoiceTemplate;
@@ -77,6 +78,17 @@ function TemplateCardComponent({ template, slug }: TemplateCardProps) {
               {keyword}
             </span>
           ))}
+        </div>
+
+        {/* Pricing Info */}
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-3 mb-4 border border-blue-200">
+          <div className="flex items-center justify-between mb-1">
+            <span className="text-xs font-medium text-gray-700">FREE with watermark</span>
+            <Sparkles className="w-4 h-4 text-blue-600" />
+          </div>
+          <div className="text-sm font-semibold text-gray-900">
+            or <span className="text-blue-700">£{PRICING_CONSTANTS.TEMPLATE_PRICE}</span> to remove watermark
+          </div>
         </div>
 
         {/* CTA */}
