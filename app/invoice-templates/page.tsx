@@ -1,12 +1,11 @@
-import React from 'react';
-import { Metadata } from 'next';
+'use client';
+
+import React, { useMemo } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { 
   allIndustries, 
   getIndustryStats,
-  type Industry,
-  type Category,
-  type SubCategory,
   type InvoiceTemplate 
 } from '@/app/lib/invoiceTemplateLibrary';
 import { 
@@ -21,29 +20,17 @@ import {
 } from 'lucide-react';
 import PageHero from '@/app/components/PageHero';
 
-// ============================================================================
-// SEO METADATA
-// ============================================================================
+// Import first industry section immediately (above fold)
+import { IndustrySection } from '@/app/components/template-landing';
 
-export const metadata: Metadata = {
-  title: 'Free Invoice Templates UK | 10+ Professional Invoice Templates by Industry',
-  description: 'Download free, professional invoice templates for UK businesses. Choose from 10+ industry-specific templates: restaurants, photography, construction, freelance, and more. Word, Excel, PDF formats.',
-  keywords: 'invoice template, free invoice template, invoice template uk, professional invoice template, business invoice template, freelance invoice, construction invoice, photography invoice',
-  openGraph: {
-    title: 'Free UK Invoice Templates - Professional & Industry-Specific',
-    description: 'Download 10+ free invoice templates for UK businesses. Industry-specific templates for restaurants, photographers, builders, freelancers, and more.',
-    type: 'website',
-    url: 'https://yourdomain.com/invoice-templates',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Free UK Invoice Templates',
-    description: '10+ professional invoice templates for UK businesses',
-  },
-  alternates: {
-    canonical: 'https://yourdomain.com/invoice-templates',
-  },
-};
+// Lazy load below-fold industry sections with skeletons
+const LazyIndustrySection = dynamic(
+  () => import('@/app/components/template-landing').then(mod => ({ default: mod.IndustrySection })),
+  { 
+    loading: () => import('@/app/components/template-landing').then(mod => <mod.IndustrySectionSkeleton cardCount={3} />),
+    ssr: true // Maintain SEO
+  }
+);
 
 // ============================================================================
 // HELPER FUNCTIONS
@@ -61,139 +48,6 @@ function getTemplateSlug(template: InvoiceTemplate): string {
 }
 
 // ============================================================================
-// TEMPLATE CARD COMPONENT
-// ============================================================================
-
-interface TemplateCardProps {
-  template: InvoiceTemplate;
-  industryId: string;
-}
-
-function TemplateCard({ template, industryId }: TemplateCardProps) {
-  const slug = getTemplateSlug(template);
-  
-  return (
-    <Link 
-      href={`/invoice-templates/${slug}`}
-      className="block group"
-    >
-      <div className="bg-white rounded-xl border-2 border-slate-200 hover:border-indigo-500 transition-all hover:shadow-xl p-6 h-full">
-        {/* Header */}
-        <div className="flex items-start justify-between mb-4">
-          <div className="flex-1">
-            <h3 className="text-xl font-bold text-slate-900 group-hover:text-indigo-600 transition mb-2">
-              {template.name}
-            </h3>
-            <p className="text-sm text-slate-600 leading-relaxed">
-              {template.description}
-            </p>
-          </div>
-          <FileText className="w-8 h-8 text-indigo-600 flex-shrink-0 ml-4" />
-        </div>
-
-        {/* Stats */}
-        <div className="grid grid-cols-2 gap-3 mb-4">
-          <div className="bg-slate-50 rounded-lg p-3">
-            <div className="flex items-center gap-2 text-sm text-slate-600 mb-1">
-              <TrendingUp className="w-4 h-4" />
-              <span>Search Volume</span>
-            </div>
-            <div className="text-lg font-bold text-slate-900">
-              {template.searchVolume.toLocaleString()}/mo
-            </div>
-          </div>
-          <div className="bg-green-50 rounded-lg p-3">
-            <div className="flex items-center gap-2 text-sm text-green-700 mb-1">
-              <Users className="w-4 h-4" />
-              <span>CPC Value</span>
-            </div>
-            <div className="text-lg font-bold text-green-700">
-              £{template.cpc.toFixed(2)}
-            </div>
-          </div>
-        </div>
-
-        {/* Keywords */}
-        <div className="flex flex-wrap gap-2 mb-4">
-          {template.keywords.slice(0, 3).map((keyword, idx) => (
-            <span 
-              key={idx}
-              className="text-xs px-2 py-1 bg-indigo-50 text-indigo-700 rounded"
-            >
-              {keyword}
-            </span>
-          ))}
-        </div>
-
-        {/* CTA */}
-        <div className="flex items-center justify-between">
-          <span className="text-sm font-medium text-indigo-600 group-hover:text-indigo-700">
-            View Template
-          </span>
-          <ArrowRight className="w-5 h-5 text-indigo-600 group-hover:translate-x-1 transition-transform" />
-        </div>
-      </div>
-    </Link>
-  );
-}
-
-// ============================================================================
-// INDUSTRY SECTION COMPONENT
-// ============================================================================
-
-interface IndustrySectionProps {
-  industryId: string;
-  industry: Industry;
-}
-
-function IndustrySection({ industryId, industry }: IndustrySectionProps) {
-  // Collect all templates from this industry
-  const templates: InvoiceTemplate[] = [];
-  
-  Object.values(industry.categories).forEach(category => {
-    Object.values(category.subCategories).forEach(subCategory => {
-      templates.push(...subCategory.templates);
-    });
-  });
-
-  return (
-    <section id={industryId} className="mb-20">
-      {/* Industry Header */}
-      <div className="flex items-center gap-4 mb-8">
-        <div className="text-5xl">{industry.icon}</div>
-        <div className="flex-1">
-          <h2 className="text-3xl font-bold text-slate-900 mb-2">
-            {industry.name}
-          </h2>
-          <p className="text-lg text-slate-600">
-            {industry.description}
-          </p>
-          <div className="flex items-center gap-4 mt-3 text-sm text-slate-500">
-            <span className="flex items-center gap-1">
-              <TrendingUp className="w-4 h-4" />
-              {industry.totalSearchVolume.toLocaleString()} searches/month
-            </span>
-            <span>•</span>
-            <span>{templates.length} templates available</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Templates Grid */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {templates.map(template => (
-          <TemplateCard 
-            key={template.id} 
-            template={template} 
-            industryId={industryId}
-          />
-        ))}
-      </div>
-    </section>
-  );
-}
-
-// ============================================================================
 // MAIN PAGE COMPONENT
 // ============================================================================
 
@@ -201,6 +55,12 @@ export default function InvoiceTemplatesPage() {
   const stats = getIndustryStats();
   const totalTemplates = Object.values(stats).reduce((sum, stat) => sum + stat.totalTemplates, 0);
   const totalSearchVolume = Object.values(stats).reduce((sum, stat) => sum + stat.totalSearchVolume, 0);
+  
+  // Memoize industry entries for performance
+  const industryEntries = useMemo(() => Object.entries(allIndustries), []);
+  
+  // Split industries: first one immediately, rest lazy loaded
+  const [firstIndustry, ...restIndustries] = industryEntries;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
@@ -280,7 +140,7 @@ export default function InvoiceTemplatesPage() {
             Browse by Industry
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {Object.entries(allIndustries).map(([key, industry]) => (
+            {industryEntries.map(([key, industry]) => (
               <a
                 key={key}
                 href={`#${key}`}
@@ -305,11 +165,23 @@ export default function InvoiceTemplatesPage() {
       {/* Templates by Industry */}
       <section className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          {Object.entries(allIndustries).map(([key, industry]) => (
+          {/* First Industry Section - Load Immediately (Above Fold) */}
+          {firstIndustry && (
             <IndustrySection 
+              key={firstIndustry[0]} 
+              industryId={firstIndustry[0]} 
+              industry={firstIndustry[1]}
+              getTemplateSlug={getTemplateSlug}
+            />
+          )}
+          
+          {/* Remaining Industry Sections - Lazy Loaded (Below Fold) */}
+          {restIndustries.map(([key, industry]) => (
+            <LazyIndustrySection 
               key={key} 
               industryId={key} 
-              industry={industry} 
+              industry={industry}
+              getTemplateSlug={getTemplateSlug}
             />
           ))}
         </div>
@@ -421,14 +293,17 @@ export default function InvoiceTemplatesPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/invoice-automation"
+              href="/parser"
               className="bg-white text-indigo-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-indigo-50 transition shadow-xl"
             >
-              Try Invoice Automation
+              Try Invoice Parser
             </Link>
-            <button className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white/10 transition">
-              View All Features
-            </button>
+            <Link
+              href="/pricing"
+              className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white/10 transition"
+            >
+              View Pricing
+            </Link>
           </div>
         </div>
       </section>
