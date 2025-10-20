@@ -34,6 +34,16 @@ export async function generateTemplatePDF(
 ): Promise<PDFGenerationResult> {
   try {
     console.log('[Template PDF Generation] Starting server-side PDF generation for:', template.name);
+    console.log('[Template PDF Generation] UK Compliance Fields Received:', {
+      vatNumber: template.sampleData?.vatNumber,
+      companyNumber: template.sampleData?.companyNumber,
+      gasSafeNumber: template.sampleData?.gasSafeNumber,
+      niceicNumber: template.sampleData?.niceicNumber,
+      clientVatNumber: template.sampleData?.clientVatNumber,
+      cisDeductionRate: template.sampleData?.cisDeductionRate,
+      cisDeductionAmount: template.sampleData?.cisDeductionAmount,
+      amountDue: template.sampleData?.amountDue
+    });
     
     const {
       fontSize = 10,
@@ -62,6 +72,27 @@ export async function generateTemplatePDF(
       const lines = doc.splitTextToSize(text, maxWidth);
       doc.text(lines, x, y, textOptions);
       return y + (lines.length * (textOptions.lineHeight || 5));
+    };
+
+    // Helper function to format date to UK format (DD/MM/YYYY)
+    const formatDateToUK = (isoDate: string): string => {
+      if (!isoDate) return '';
+      const date = new Date(isoDate);
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const year = date.getFullYear();
+      return `${day}/${month}/${year}`;
+    };
+
+    // Helper function to get VAT rate name
+    const getVATRateName = (rate: number): string => {
+      switch (rate) {
+        case 0: return 'Zero-Rated';
+        case 5: return 'Reduced Rate';
+        case 20: return 'Standard Rate';
+        case -1: return 'VAT Exempt';
+        default: return 'Standard Rate';
+      }
     };
 
     // Add watermark if enabled
@@ -105,6 +136,28 @@ export async function generateTemplatePDF(
       doc.text(contactText, leftMargin, 35);
     }
 
+    // UK Compliance Information (VAT, Company Number, etc.)
+    yPosition = 42;
+    if (sample.vatNumber || sample.companyNumber || sample.gasSafeNumber || sample.niceicNumber) {
+      doc.setFontSize(8);
+      doc.setTextColor(255, 255, 255);
+      if (sample.vatNumber) {
+        doc.text(`VAT Reg: ${sample.vatNumber}`, rightMargin, yPosition, { align: 'right' });
+        yPosition += 4;
+      }
+      if (sample.companyNumber) {
+        doc.text(`Company No: ${sample.companyNumber}`, rightMargin, yPosition, { align: 'right' });
+        yPosition += 4;
+      }
+      if (sample.gasSafeNumber) {
+        doc.text(`Gas Safe Reg: ${sample.gasSafeNumber}`, rightMargin, yPosition, { align: 'right' });
+        yPosition += 4;
+      }
+      if (sample.niceicNumber) {
+        doc.text(`NICEIC Reg: ${sample.niceicNumber}`, rightMargin, yPosition, { align: 'right' });
+      }
+    }
+
     yPosition = 50;
 
     // INVOICE TITLE
@@ -122,8 +175,8 @@ export async function generateTemplatePDF(
 
     const invoiceDetails = [
       { label: 'Invoice Number:', value: sample.invoiceNumber || 'N/A' },
-      { label: 'Invoice Date:', value: sample.invoiceDate || new Date().toISOString().split('T')[0] },
-      { label: 'Due Date:', value: sample.dueDate || sample.invoiceDate || 'Upon Receipt' },
+      { label: 'Invoice Date:', value: formatDateToUK(sample.invoiceDate || new Date().toISOString().split('T')[0]) },
+      { label: 'Due Date:', value: sample.dueDate ? formatDateToUK(sample.dueDate) : 'Upon Receipt' },
     ];
 
     if (sample.poNumber) {
@@ -172,6 +225,13 @@ export async function generateTemplatePDF(
       yPosition += 6;
     }
 
+    if (sample.clientVatNumber) {
+      doc.setFont('helvetica', 'bold');
+      doc.text(`VAT Reg: ${sample.clientVatNumber}`, leftMargin, yPosition);
+      doc.setFont('helvetica', 'normal');
+      yPosition += 6;
+    }
+
     yPosition += 10;
 
     // LINE ITEMS TABLE
@@ -179,8 +239,8 @@ export async function generateTemplatePDF(
       const tableData = sample.lineItems.map((item: any) => [
         item.description || '',
         item.quantity?.toString() || '1',
-        item.rate ? `$${item.rate.toFixed(2)}` : '$0.00',
-        item.amount ? `$${item.amount.toFixed(2)}` : '$0.00',
+        item.rate ? `£${item.rate.toFixed(2)}` : '£0.00',
+        item.amount ? `£${item.amount.toFixed(2)}` : '£0.00',
       ]);
 
       autoTable(doc, {
@@ -222,27 +282,61 @@ export async function generateTemplatePDF(
     if (sample.subtotal !== undefined) {
       doc.setFont('helvetica', 'normal');
       doc.text('Subtotal:', totalsX, yPosition);
-      doc.text(`$${sample.subtotal.toFixed(2)}`, valuesX, yPosition, { align: 'right' });
+      doc.text(`£${sample.subtotal.toFixed(2)}`, valuesX, yPosition, { align: 'right' });
       yPosition += 6;
     }
 
-    // Tax/VAT
-    if (sample.taxAmount !== undefined) {
+    // VAT (UK-specific with rate names)
+    if (sample.vatAmount !== undefined) {
+      // Determine VAT rate name
+      let vatLabel = 'VAT:';
+      if (sample.vatRate !== undefined) {
+        if (sample.vatRate === 20) {
+          vatLabel = `VAT (Standard Rate - ${sample.vatRate}%):`;
+        } else if (sample.vatRate === 5) {
+          vatLabel = `VAT (Reduced Rate - ${sample.vatRate}%):`;
+        } else if (sample.vatRate === 0) {
+          vatLabel = `VAT (Zero-Rated - ${sample.vatRate}%):`;
+        } else if (sample.vatRate === -1) {
+          vatLabel = 'VAT Exempt:';
+        } else {
+          vatLabel = `VAT (${sample.vatRate}%):`;
+        }
+      }
+      
+      // Handle reverse charge
+      if (sample.reverseCharge) {
+        doc.setTextColor(0, 0, 255); // Blue for reverse charge
+        doc.text('VAT (Reverse Charge):', totalsX, yPosition);
+        doc.text('£0.00', valuesX, yPosition, { align: 'right' });
+        doc.setTextColor(0, 0, 0);
+        yPosition += 6;
+      } else if (sample.vatRate !== -1) {
+        doc.text(vatLabel, totalsX, yPosition);
+        doc.text(`£${sample.vatAmount.toFixed(2)}`, valuesX, yPosition, { align: 'right' });
+        yPosition += 6;
+      } else {
+        // VAT Exempt
+        doc.setTextColor(100, 100, 100);
+        doc.text('VAT Exempt', totalsX, yPosition);
+        doc.text('£0.00', valuesX, yPosition, { align: 'right' });
+        doc.setTextColor(0, 0, 0);
+        yPosition += 6;
+      }
+    } else if (sample.taxAmount !== undefined) {
+      // Fallback for old taxAmount field
       const taxLabel = sample.taxRate ? `Tax (${sample.taxRate}%):` : 'Tax:';
       doc.text(taxLabel, totalsX, yPosition);
-      doc.text(`$${sample.taxAmount.toFixed(2)}`, valuesX, yPosition, { align: 'right' });
-      yPosition += 6;
-    } else if (sample.vatAmount !== undefined) {
-      const vatLabel = sample.vatRate ? `VAT (${sample.vatRate}%):` : 'VAT:';
-      doc.text(vatLabel, totalsX, yPosition);
-      doc.text(`$${sample.vatAmount.toFixed(2)}`, valuesX, yPosition, { align: 'right' });
+      doc.text(`£${sample.taxAmount.toFixed(2)}`, valuesX, yPosition, { align: 'right' });
       yPosition += 6;
     }
 
     // Discount
     if (sample.discountAmount !== undefined && sample.discountAmount > 0) {
+      doc.setTextColor(0, 150, 0); // Green for discount
       doc.text('Discount:', totalsX, yPosition);
-      doc.text(`-$${sample.discountAmount.toFixed(2)}`, valuesX, yPosition, { align: 'right' });
+      doc.text(`-£${sample.discountAmount.toFixed(2)}`, valuesX, yPosition, { align: 'right' });
+      doc.setTextColor(0, 0, 0);
       yPosition += 6;
     }
 
@@ -253,10 +347,44 @@ export async function generateTemplatePDF(
     
     doc.setFontSize(12);
     doc.setFont('helvetica', 'bold');
-    doc.text('Total:', totalsX, yPosition + 5);
-    doc.text(`$${sample.totalAmount.toFixed(2)}`, valuesX, yPosition + 5, { align: 'right' });
+    doc.text('Total (inc. VAT):', totalsX, yPosition + 5);
+    doc.text(`£${sample.totalAmount.toFixed(2)}`, valuesX, yPosition + 5, { align: 'right' });
     
-    yPosition += 15;
+    yPosition += 12;
+
+    // CIS Deduction (Construction Industry Scheme)
+    if (sample.cisDeductionRate !== undefined && sample.cisDeductionRate > 0) {
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'normal');
+      doc.setDrawColor(200, 200, 200);
+      doc.line(totalsX - 5, yPosition - 2, valuesX, yPosition - 2);
+      
+      // CIS Deduction label
+      let cisLabel = `CIS Deduction (${sample.cisDeductionRate}%):`
+      if (sample.cisDeductionRate === 20) {
+        cisLabel = `CIS Deduction (Registered - ${sample.cisDeductionRate}%):`;
+      } else if (sample.cisDeductionRate === 30) {
+        cisLabel = `CIS Deduction (Not Registered - ${sample.cisDeductionRate}%):`;
+      }
+      
+      doc.setTextColor(220, 38, 38); // Red for deduction
+      doc.text(cisLabel, totalsX, yPosition + 3);
+      doc.text(`-£${sample.cisDeductionAmount.toFixed(2)}`, valuesX, yPosition + 3, { align: 'right' });
+      yPosition += 8;
+      
+      // Amount Due (after CIS deduction)
+      doc.setDrawColor(16, 185, 129); // Green
+      doc.line(totalsX - 5, yPosition - 2, valuesX, yPosition - 2);
+      doc.setFontSize(12);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(5, 150, 105); // Green for amount due
+      doc.text('Amount Due:', totalsX, yPosition + 5);
+      doc.text(`£${sample.amountDue.toFixed(2)}`, valuesX, yPosition + 5, { align: 'right' });
+      doc.setTextColor(0, 0, 0);
+      yPosition += 12;
+    } else {
+      yPosition += 3;
+    }
 
     // PAYMENT INFORMATION
     if (sample.paymentTerms || sample.bankName || sample.accountNumber || sample.sortCode) {

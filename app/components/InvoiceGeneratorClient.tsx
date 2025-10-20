@@ -15,13 +15,39 @@ import {
   Calendar,
   CreditCard,
   FileCheck,
-  Printer
+  Printer,
+  ShieldCheck,
+  AlertCircle
 } from 'lucide-react';
 import { InvoiceTemplate } from '@/app/lib/invoiceTemplateLibrary';
 import { generateTemplatePDF } from '@/app/actions/generateTemplatePDF';
 import { useLeadCapture } from '@/app/hooks/useLeadCapture';
 import LeadCaptureModal from '@/app/components/LeadCaptureModal';
 import dynamic from 'next/dynamic';
+import {
+  validateUKVATNumber,
+  formatUKVATNumber,
+  validateUKPostcode,
+  formatUKPostcode,
+  validateUKPhone,
+  formatUKPhone,
+  validateUKSortCode,
+  formatUKSortCode,
+  validateUKAccountNumber,
+  validateUKCompanyNumber,
+  formatUKCompanyNumber,
+  validateGasSafeNumber,
+  validateNICEICNumber,
+  validateCISRate,
+  validateVATRate,
+  getVATRateName,
+  formatDateToUK,
+  formatDateFromUK,
+  calculateDueDate,
+  formatGBP,
+  formatIBAN,
+  validateIBAN
+} from '@/app/lib/ukValidation';
 
 // Lazy-load UpgradePrompt for performance
 const UpgradePrompt = dynamic(
@@ -34,6 +60,7 @@ interface LineItem {
   quantity: number;
   rate: number;
   amount: number;
+  vatRate: number; // UK VAT rate per line item (0%, 5%, 20%, or -1 for exempt)
 }
 
 interface InvoiceData {
@@ -42,11 +69,17 @@ interface InvoiceData {
   businessAddress: string;
   businessEmail: string;
   businessPhone: string;
+  
+  // UK Business Compliance Fields
+  vatNumber: string;          // UK VAT registration number (GB123456789)
+  companyNumber: string;       // Companies House number
+  gasSafeNumber: string;       // Gas Safe registration (for plumbers/gas engineers)
+  niceicNumber: string;        // NICEIC registration (for electricians)
 
   // Invoice Details
   invoiceNumber: string;
-  invoiceDate: string;
-  dueDate: string;
+  invoiceDate: string;         // ISO format for internal use
+  dueDate: string;             // ISO format for internal use
   poNumber: string;
 
   // Client Info
@@ -54,27 +87,37 @@ interface InvoiceData {
   clientAddress: string;
   clientEmail: string;
   clientPhone: string;
+  clientVatNumber: string;     // Client's VAT number (optional)
 
   // Line Items
   lineItems: LineItem[];
 
   // Totals
   subtotal: number;
-  taxRate: number;
-  taxAmount: number;
+  vatRate: number;             // Default VAT rate (20% standard)
+  vatAmount: number;           // Total VAT amount
+  
+  // UK-specific calculations
+  cisDeductionRate: number;    // CIS deduction rate (0%, 20%, or 30%)
+  cisDeductionAmount: number;  // CIS deduction amount
+  
   discountAmount: number;
-  totalAmount: number;
+  totalAmount: number;         // Total after VAT and CIS
+  amountDue: number;           // Amount due after CIS deduction
 
   // Payment Info
   paymentTerms: string;
   bankName: string;
-  accountNumber: string;
-  sortCode: string;
-  iban: string;
-  swiftCode: string;
+  accountNumber: string;       // 8-digit UK account number
+  sortCode: string;            // XX-XX-XX format
+  iban: string;                // UK IBAN (22 characters)
+  swiftCode: string;           // BIC/SWIFT code
 
   // Notes
   notes: string;
+  
+  // HMRC Compliance
+  reverseCharge: boolean;      // Reverse charge VAT (for specific services)
 }
 
 interface InvoiceGeneratorClientProps {
@@ -111,50 +154,110 @@ export default function InvoiceGeneratorClient({
   // Initialize form data with template sample data
   const [formData, setFormData] = useState<InvoiceData>(() => {
     const sample = template.sampleData;
+    const today = new Date().toISOString().split('T')[0];
+    const dueDate30Days = calculateDueDate(today, 'Net 30');
+    
     return {
+      // Business Info
       businessName: sample.businessName || '',
       businessAddress: sample.businessAddress || '',
       businessEmail: sample.businessEmail || '',
       businessPhone: sample.businessPhone || '',
-      invoiceNumber: sample.invoiceNumber || `INV-${Date.now()}`,
-      invoiceDate: sample.invoiceDate || new Date().toISOString().split('T')[0],
-      dueDate: sample.dueDate || '',
+      
+      // UK Business Compliance
+      vatNumber: sample.vatNumber || '',
+      companyNumber: sample.companyNumber || '',
+      gasSafeNumber: sample.gasSafeNumber || '',
+      niceicNumber: sample.niceicNumber || '',
+      
+      // Invoice Details
+      invoiceNumber: sample.invoiceNumber || `INV-${String(Date.now()).slice(-6)}`,
+      invoiceDate: sample.invoiceDate || today,
+      dueDate: sample.dueDate || dueDate30Days,
       poNumber: sample.poNumber || '',
+      
+      // Client Info
       clientName: sample.clientName || '',
       clientAddress: sample.clientAddress || '',
       clientEmail: sample.clientEmail || '',
       clientPhone: sample.clientPhone || '',
-      lineItems: sample.lineItems || [
-        { description: '', quantity: 1, rate: 0, amount: 0 }
+      clientVatNumber: sample.clientVatNumber || '',
+      
+      // Line Items (initialize with UK VAT rate)
+      lineItems: sample.lineItems?.map((item: any) => ({
+        ...item,
+        vatRate: item.vatRate || 20 // Default to 20% standard rate
+      })) || [
+        { description: '', quantity: 1, rate: 0, amount: 0, vatRate: 20 }
       ],
+      
+      // Totals
       subtotal: sample.subtotal || 0,
-      taxRate: sample.taxRate || sample.vatRate || 20,
-      taxAmount: sample.taxAmount || sample.vatAmount || 0,
+      vatRate: sample.taxRate || sample.vatRate || 20, // UK standard rate
+      vatAmount: sample.taxAmount || sample.vatAmount || 0,
+      
+      // UK-specific
+      cisDeductionRate: sample.cisDeductionRate || 0,
+      cisDeductionAmount: sample.cisDeductionAmount || 0,
+      
       discountAmount: sample.discountAmount || 0,
       totalAmount: sample.totalAmount || 0,
+      amountDue: sample.amountDue || 0,
+      
+      // Payment Info
       paymentTerms: sample.paymentTerms || 'Net 30',
       bankName: sample.bankName || '',
       accountNumber: sample.accountNumber || '',
       sortCode: sample.sortCode || '',
       iban: sample.iban || '',
       swiftCode: sample.swiftCode || '',
+      
+      // Notes
       notes: sample.notes || '',
+      
+      // HMRC Compliance
+      reverseCharge: sample.reverseCharge || false,
     };
   });
 
-  // Calculate totals whenever line items or tax rate changes
+  // Calculate totals whenever line items, VAT rate, CIS, or discount changes
   useEffect(() => {
+    // Calculate subtotal from line items
     const subtotal = formData.lineItems.reduce((sum, item) => sum + item.amount, 0);
-    const taxAmount = (subtotal * formData.taxRate) / 100;
-    const totalAmount = subtotal + taxAmount - formData.discountAmount;
+    
+    // Calculate VAT amount (if not exempt)
+    let vatAmount = 0;
+    if (formData.vatRate >= 0 && !formData.reverseCharge) {
+      vatAmount = (subtotal * formData.vatRate) / 100;
+    }
+    
+    // Calculate total after VAT and discount
+    const totalAmount = subtotal + vatAmount - formData.discountAmount;
+    
+    // Calculate CIS deduction (applies after VAT)
+    let cisDeductionAmount = 0;
+    if (formData.cisDeductionRate > 0) {
+      cisDeductionAmount = (totalAmount * formData.cisDeductionRate) / 100;
+    }
+    
+    // Calculate amount due (after CIS deduction)
+    const amountDue = totalAmount - cisDeductionAmount;
 
     setFormData(prev => ({
       ...prev,
       subtotal,
-      taxAmount,
+      vatAmount,
       totalAmount,
+      cisDeductionAmount,
+      amountDue,
     }));
-  }, [formData.lineItems, formData.taxRate, formData.discountAmount]);
+  }, [
+    formData.lineItems, 
+    formData.vatRate, 
+    formData.cisDeductionRate, 
+    formData.discountAmount,
+    formData.reverseCharge
+  ]);
 
   const updateField = (field: keyof InvoiceData, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -163,7 +266,7 @@ export default function InvoiceGeneratorClient({
   const addLineItem = () => {
     setFormData(prev => ({
       ...prev,
-      lineItems: [...prev.lineItems, { description: '', quantity: 1, rate: 0, amount: 0 }]
+      lineItems: [...prev.lineItems, { description: '', quantity: 1, rate: 0, amount: 0, vatRate: 20 }]
     }));
   };
 
@@ -197,16 +300,35 @@ export default function InvoiceGeneratorClient({
     
     try {
       console.log('[Invoice Generator] Generating PDF for:', template.name);
+      console.log('[Invoice Generator] Form Data:', {
+        vatNumber: formData.vatNumber,
+        companyNumber: formData.companyNumber,
+        gasSafeNumber: formData.gasSafeNumber,
+        niceicNumber: formData.niceicNumber,
+        clientVatNumber: formData.clientVatNumber,
+        cisDeductionRate: formData.cisDeductionRate,
+        cisDeductionAmount: formData.cisDeductionAmount,
+        amountDue: formData.amountDue
+      });
       
       // Create a modified template with user's data
       const customTemplate: InvoiceTemplate = {
         ...template,
         sampleData: {
           ...formData,
-          vatAmount: formData.taxAmount,
-          vatRate: formData.taxRate,
+          vatAmount: formData.vatAmount,
+          vatRate: formData.vatRate,
         }
       };
+      
+      console.log('[Invoice Generator] Sample Data being sent to PDF:', {
+        vatNumber: customTemplate.sampleData.vatNumber,
+        companyNumber: customTemplate.sampleData.companyNumber,
+        gasSafeNumber: customTemplate.sampleData.gasSafeNumber,
+        niceicNumber: customTemplate.sampleData.niceicNumber,
+        clientVatNumber: customTemplate.sampleData.clientVatNumber,
+        cisDeductionRate: customTemplate.sampleData.cisDeductionRate
+      });
       
       // Call server action to generate PDF
       const result = await generateTemplatePDF(customTemplate);
@@ -564,6 +686,10 @@ export default function InvoiceGeneratorClient({
             <div class="company-details">
               ${formData.businessAddress ? formData.businessAddress.split('\n').join('<br>') : ''}<br>
               ${formData.businessEmail || ''} ${formData.businessEmail && formData.businessPhone ? '|' : ''} ${formData.businessPhone || ''}
+              ${formData.vatNumber ? `<br><strong style="color: #059669;">🛡️ VAT Reg: ${formData.vatNumber}</strong>` : ''}
+              ${formData.companyNumber ? `<br>Company No: ${formData.companyNumber}` : ''}
+              ${formData.gasSafeNumber ? `<br>Gas Safe Reg: ${formData.gasSafeNumber}` : ''}
+              ${formData.niceicNumber ? `<br>NICEIC Reg: ${formData.niceicNumber}` : ''}
             </div>
           </div>
 
@@ -577,6 +703,7 @@ export default function InvoiceGeneratorClient({
                 ${formData.clientAddress ? formData.clientAddress.split('\n').join('<br>') : ''}<br>
                 ${formData.clientEmail || ''}<br>
                 ${formData.clientPhone || ''}
+                ${formData.clientVatNumber ? `<br><strong>VAT Reg: ${formData.clientVatNumber}</strong>` : ''}
               </div>
             </div>
 
@@ -587,12 +714,12 @@ export default function InvoiceGeneratorClient({
               </div>
               <div class="detail-row">
                 <span class="detail-label">Date:</span>
-                <span>${formData.invoiceDate}</span>
+                <span>${formatDateToUK(formData.invoiceDate)}</span>
               </div>
               ${formData.dueDate ? `
               <div class="detail-row">
                 <span class="detail-label">Due Date:</span>
-                <span>${formData.dueDate}</span>
+                <span>${formatDateToUK(formData.dueDate)}</span>
               </div>
               ` : ''}
               ${formData.poNumber ? `
@@ -631,10 +758,22 @@ export default function InvoiceGeneratorClient({
                 <span>Subtotal:</span>
                 <span>£${formData.subtotal.toFixed(2)}</span>
               </div>
-              <div class="totals-row subtotal">
-                <span>Tax (${formData.taxRate}%):</span>
-                <span>£${formData.taxAmount.toFixed(2)}</span>
+              ${formData.reverseCharge ? `
+              <div class="totals-row subtotal" style="color: #2563eb; font-style: italic;">
+                <span>VAT (Reverse Charge):</span>
+                <span>£0.00</span>
               </div>
+              ` : formData.vatRate === -1 ? `
+              <div class="totals-row subtotal" style="color: #64748b; font-style: italic;">
+                <span>VAT Exempt:</span>
+                <span>£0.00</span>
+              </div>
+              ` : `
+              <div class="totals-row subtotal">
+                <span>VAT (${getVATRateName(formData.vatRate)} - ${formData.vatRate}%):</span>
+                <span>£${formData.vatAmount.toFixed(2)}</span>
+              </div>
+              `}
               ${formData.discountAmount > 0 ? `
               <div class="totals-row subtotal" style="color: #10b981;">
                 <span>Discount:</span>
@@ -642,9 +781,19 @@ export default function InvoiceGeneratorClient({
               </div>
               ` : ''}
               <div class="totals-row total">
-                <span>Total:</span>
+                <span>Total (inc. VAT):</span>
                 <span>£${formData.totalAmount.toFixed(2)}</span>
               </div>
+              ${formData.cisDeductionRate > 0 ? `
+              <div class="totals-row subtotal" style="color: #dc2626; border-top: 1px solid #e5e7eb; padding-top: 8px; margin-top: 8px;">
+                <span>CIS Deduction (${formData.cisDeductionRate}%):</span>
+                <span>-£${formData.cisDeductionAmount.toFixed(2)}</span>
+              </div>
+              <div class="totals-row total" style="color: #059669; border-top: 2px solid #10b981;">
+                <span>Amount Due:</span>
+                <span>£${formData.amountDue.toFixed(2)}</span>
+              </div>
+              ` : ''}
             </div>
           </div>
 
@@ -878,10 +1027,107 @@ export default function InvoiceGeneratorClient({
                       <input
                         type="tel"
                         value={formData.businessPhone}
-                        onChange={(e) => updateField('businessPhone', e.target.value)}
+                        onChange={(e) => updateField('businessPhone', formatUKPhone(e.target.value))}
                         className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                         placeholder="020 1234 5678"
                       />
+                    </div>
+                  </div>
+
+                  {/* UK Business Compliance Section */}
+                  <div className="border-t border-slate-200 pt-4 mt-6">
+                    <div className="flex items-center gap-2 mb-4">
+                      <ShieldCheck className="w-5 h-5 text-green-600" />
+                      <h3 className="text-base font-semibold text-slate-900">UK Compliance Information</h3>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-slate-700 mb-2">
+                          VAT Registration Number
+                          <span className="text-slate-500 text-xs ml-1">(Optional)</span>
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.vatNumber}
+                          onChange={(e) => {
+                            const formatted = formatUKVATNumber(e.target.value);
+                            updateField('vatNumber', formatted);
+                          }}
+                          onBlur={(e) => {
+                            if (e.target.value && !validateUKVATNumber(e.target.value)) {
+                              alert('Invalid UK VAT number format. Expected format: GB123456789');
+                            }
+                          }}
+                          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                          placeholder="GB123456789"
+                        />
+                        <p className="text-xs text-slate-500 mt-1">Required if VAT registered</p>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-slate-700 mb-2">
+                          Company Number
+                          <span className="text-slate-500 text-xs ml-1">(Optional)</span>
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.companyNumber}
+                          onChange={(e) => {
+                            const formatted = formatUKCompanyNumber(e.target.value);
+                            updateField('companyNumber', formatted);
+                          }}
+                          onBlur={(e) => {
+                            if (e.target.value && !validateUKCompanyNumber(e.target.value)) {
+                              alert('Invalid UK company number format. Expected: 8 digits or SC/NI prefix');
+                            }
+                          }}
+                          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                          placeholder="12345678"
+                        />
+                        <p className="text-xs text-slate-500 mt-1">Companies House registration</p>
+                      </div>
+                    </div>
+
+                    {/* Industry-Specific Registration Numbers */}
+                    <div className="grid grid-cols-2 gap-4 mt-4">
+                      <div>
+                        <label className="block text-sm font-medium text-slate-700 mb-2">
+                          Gas Safe Registration
+                          <span className="text-slate-500 text-xs ml-1">(Plumbers/Gas Engineers)</span>
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.gasSafeNumber}
+                          onChange={(e) => updateField('gasSafeNumber', e.target.value)}
+                          onBlur={(e) => {
+                            if (e.target.value && !validateGasSafeNumber(e.target.value)) {
+                              alert('Invalid Gas Safe number format. Expected: 6-7 digits');
+                            }
+                          }}
+                          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                          placeholder="123456"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-slate-700 mb-2">
+                          NICEIC Registration
+                          <span className="text-slate-500 text-xs ml-1">(Electricians)</span>
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.niceicNumber}
+                          onChange={(e) => updateField('niceicNumber', e.target.value.toUpperCase())}
+                          onBlur={(e) => {
+                            if (e.target.value && !validateNICEICNumber(e.target.value)) {
+                              alert('Invalid NICEIC number format. Expected: 5-8 alphanumeric characters');
+                            }
+                          }}
+                          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                          placeholder="ABC12345"
+                        />
+                      </div>
                     </div>
                   </div>
 
@@ -997,11 +1243,35 @@ export default function InvoiceGeneratorClient({
                       <input
                         type="tel"
                         value={formData.clientPhone}
-                        onChange={(e) => updateField('clientPhone', e.target.value)}
+                        onChange={(e) => updateField('clientPhone', formatUKPhone(e.target.value))}
                         className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                         placeholder="0161 123 4567"
                       />
                     </div>
+                  </div>
+
+                  {/* Client VAT Number */}
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">
+                      Client VAT Number
+                      <span className="text-slate-500 text-xs ml-1">(Optional)</span>
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.clientVatNumber}
+                      onChange={(e) => {
+                        const formatted = formatUKVATNumber(e.target.value);
+                        updateField('clientVatNumber', formatted);
+                      }}
+                      onBlur={(e) => {
+                        if (e.target.value && !validateUKVATNumber(e.target.value)) {
+                          alert('Invalid UK VAT number format. Expected format: GB123456789');
+                        }
+                      }}
+                      className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                      placeholder="GB123456789"
+                    />
+                    <p className="text-xs text-slate-500 mt-1">Required for B2B VAT invoices</p>
                   </div>
                 </div>
 
@@ -1119,31 +1389,59 @@ export default function InvoiceGeneratorClient({
                   ))}
                 </div>
 
-                {/* Totals Summary */}
-                <div className="mt-6 border-t border-slate-200 pt-4 space-y-2">
+                {/* UK VAT and Totals Summary */}
+                <div className="mt-6 border-t border-slate-200 pt-4 space-y-3">
                   <div className="flex justify-between text-sm">
                     <span className="text-slate-600">Subtotal:</span>
                     <span className="font-semibold text-slate-900">£{formData.subtotal.toFixed(2)}</span>
                   </div>
                   
+                  {/* UK VAT Rate Selector */}
                   <div className="flex justify-between items-center text-sm">
-                    <span className="text-slate-600">Tax Rate (%):</span>
-                    <input
-                      type="number"
-                      value={formData.taxRate}
-                      onChange={(e) => updateField('taxRate', parseFloat(e.target.value) || 0)}
-                      min="0"
-                      max="100"
-                      step="0.1"
-                      className="w-20 px-2 py-1 text-sm border border-slate-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-right"
-                    />
+                    <span className="text-slate-600 flex items-center gap-2">
+                      VAT Rate:
+                      <ShieldCheck className="w-4 h-4 text-green-600" />
+                    </span>
+                    <select
+                      value={formData.vatRate}
+                      onChange={(e) => updateField('vatRate', parseInt(e.target.value))}
+                      className="px-3 py-1 text-sm border border-slate-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    >
+                      <option value="20">20% (Standard Rate)</option>
+                      <option value="5">5% (Reduced Rate)</option>
+                      <option value="0">0% (Zero-Rated)</option>
+                      <option value="-1">VAT Exempt</option>
+                    </select>
                   </div>
 
-                  <div className="flex justify-between text-sm">
-                    <span className="text-slate-600">Tax Amount:</span>
-                    <span className="font-semibold text-slate-900">£{formData.taxAmount.toFixed(2)}</span>
+                  {/* Reverse Charge VAT */}
+                  <div className="flex justify-between items-center text-sm">
+                    <label className="flex items-center gap-2 text-slate-600 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={formData.reverseCharge}
+                        onChange={(e) => updateField('reverseCharge', e.target.checked)}
+                        className="w-4 h-4 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500"
+                      />
+                      <span>Reverse Charge VAT</span>
+                      <span className="text-xs text-slate-400">(Customer to account for VAT)</span>
+                    </label>
                   </div>
 
+                  {!formData.reverseCharge && formData.vatRate >= 0 && (
+                    <div className="flex justify-between text-sm">
+                      <span className="text-slate-600">VAT Amount ({getVATRateName(formData.vatRate)}):</span>
+                      <span className="font-semibold text-slate-900">£{formData.vatAmount.toFixed(2)}</span>
+                    </div>
+                  )}
+
+                  {formData.reverseCharge && (
+                    <div className="flex justify-between text-sm">
+                      <span className="text-slate-600 text-xs italic">Customer to account for VAT</span>
+                    </div>
+                  )}
+
+                  {/* Discount */}
                   <div className="flex justify-between items-center text-sm">
                     <span className="text-slate-600">Discount (£):</span>
                     <input
@@ -1152,13 +1450,42 @@ export default function InvoiceGeneratorClient({
                       onChange={(e) => updateField('discountAmount', parseFloat(e.target.value) || 0)}
                       min="0"
                       step="0.01"
-                      className="w-20 px-2 py-1 text-sm border border-slate-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-right"
+                      className="w-24 px-2 py-1 text-sm border border-slate-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-right"
                     />
                   </div>
 
                   <div className="flex justify-between text-base font-bold pt-2 border-t border-slate-300">
-                    <span className="text-slate-900">Total:</span>
+                    <span className="text-slate-900">Total (inc. VAT):</span>
                     <span className="text-indigo-600">£{formData.totalAmount.toFixed(2)}</span>
+                  </div>
+
+                  {/* CIS Deduction (Construction Industry Scheme) */}
+                  <div className="border-t border-slate-200 pt-3 mt-3">
+                    <div className="flex justify-between items-center text-sm mb-2">
+                      <span className="text-slate-700 font-medium">CIS Deduction:</span>
+                      <select
+                        value={formData.cisDeductionRate}
+                        onChange={(e) => updateField('cisDeductionRate', parseInt(e.target.value))}
+                        className="px-3 py-1 text-sm border border-slate-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                      >
+                        <option value="0">None</option>
+                        <option value="20">20% (CIS Registered)</option>
+                        <option value="30">30% (Not Registered)</option>
+                      </select>
+                    </div>
+                    
+                    {formData.cisDeductionRate > 0 && (
+                      <>
+                        <div className="flex justify-between text-sm text-slate-600">
+                          <span>CIS Deduction ({formData.cisDeductionRate}%):</span>
+                          <span className="text-red-600">-£{formData.cisDeductionAmount.toFixed(2)}</span>
+                        </div>
+                        <div className="flex justify-between text-base font-bold pt-2 border-t border-slate-200 mt-2">
+                          <span className="text-slate-900">Amount Due:</span>
+                          <span className="text-green-600">£{formData.amountDue.toFixed(2)}</span>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
 
@@ -1227,12 +1554,19 @@ export default function InvoiceGeneratorClient({
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-slate-700 mb-2">
-                        Account Number
+                        UK Account Number
+                        <span className="text-slate-500 text-xs ml-1">(8 digits)</span>
                       </label>
                       <input
                         type="text"
                         value={formData.accountNumber}
                         onChange={(e) => updateField('accountNumber', e.target.value)}
+                        onBlur={(e) => {
+                          if (e.target.value && !validateUKAccountNumber(e.target.value)) {
+                            alert('Invalid UK account number. Must be 8 digits.');
+                          }
+                        }}
+                        maxLength={8}
                         className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                         placeholder="12345678"
                       />
@@ -1240,12 +1574,19 @@ export default function InvoiceGeneratorClient({
 
                     <div>
                       <label className="block text-sm font-medium text-slate-700 mb-2">
-                        Sort Code
+                        UK Sort Code
+                        <span className="text-slate-500 text-xs ml-1">(XX-XX-XX)</span>
                       </label>
                       <input
                         type="text"
                         value={formData.sortCode}
-                        onChange={(e) => updateField('sortCode', e.target.value)}
+                        onChange={(e) => updateField('sortCode', formatUKSortCode(e.target.value))}
+                        onBlur={(e) => {
+                          if (e.target.value && !validateUKSortCode(e.target.value)) {
+                            alert('Invalid UK sort code. Expected format: XX-XX-XX');
+                          }
+                        }}
+                        maxLength={8}
                         className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                         placeholder="12-34-56"
                       />
@@ -1255,12 +1596,19 @@ export default function InvoiceGeneratorClient({
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-slate-700 mb-2">
-                        IBAN (Optional)
+                        UK IBAN (Optional)
+                        <span className="text-slate-500 text-xs ml-1">(International payments)</span>
                       </label>
                       <input
                         type="text"
                         value={formData.iban}
-                        onChange={(e) => updateField('iban', e.target.value)}
+                        onChange={(e) => updateField('iban', formatIBAN(e.target.value))}
+                        onBlur={(e) => {
+                          if (e.target.value && !validateIBAN(e.target.value)) {
+                            alert('Invalid UK IBAN format. Expected: GB + 2 digits + 4 letters + 14 digits');
+                          }
+                        }}
+                        maxLength={27}
                         className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                         placeholder="GB29 NWBK 6016 1331 9268 19"
                       />
@@ -1269,14 +1617,31 @@ export default function InvoiceGeneratorClient({
                     <div>
                       <label className="block text-sm font-medium text-slate-700 mb-2">
                         SWIFT/BIC (Optional)
+                        <span className="text-slate-500 text-xs ml-1">(International transfers)</span>
                       </label>
                       <input
                         type="text"
                         value={formData.swiftCode}
-                        onChange={(e) => updateField('swiftCode', e.target.value)}
+                        onChange={(e) => updateField('swiftCode', e.target.value.toUpperCase())}
+                        maxLength={11}
                         className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                         placeholder="NWBKGB2L"
                       />
+                    </div>
+                  </div>
+
+                  {/* HMRC Making Tax Digital Compliance Notice */}
+                  <div className="border border-blue-200 bg-blue-50 rounded-lg p-4">
+                    <div className="flex items-start gap-3">
+                      <ShieldCheck className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                      <div className="text-sm">
+                        <p className="font-semibold text-blue-900 mb-1">HMRC Making Tax Digital Compliant</p>
+                        <p className="text-blue-700 text-xs leading-relaxed">
+                          This invoice generator meets HMRC Making Tax Digital (MTD) requirements for digital record keeping. 
+                          All invoices include VAT registration numbers (where applicable), proper date formatting (DD/MM/YYYY), 
+                          and Construction Industry Scheme (CIS) deductions when required.
+                        </p>
+                      </div>
                     </div>
                   </div>
 
@@ -1289,7 +1654,7 @@ export default function InvoiceGeneratorClient({
                       onChange={(e) => updateField('notes', e.target.value)}
                       rows={4}
                       className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                      placeholder="Thank you for your business. Payment is due within 30 days."
+                      placeholder="Thank you for your business. Payment is due within 30 days of invoice date."
                     />
                   </div>
                 </div>
@@ -1330,36 +1695,55 @@ export default function InvoiceGeneratorClient({
           {showPreview && (
             <div className="lg:sticky lg:top-24 space-y-4">
               <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-8">
-                <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+                <div className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
                   <Eye className="w-5 h-5 text-indigo-600" />
                   Live Preview
-                </h3>
+                </div>
                 
                 <div className="border border-slate-300 rounded-lg p-6 bg-white text-sm">
                   {/* Invoice Preview */}
                   <div className="space-y-6">
                     {/* Header */}
                     <div className="border-b-2 border-indigo-600 pb-4">
-                      <h2 className="text-2xl font-bold text-slate-900">{formData.businessName || 'Your Business Name'}</h2>
+                      <div className="text-2xl font-bold text-slate-900">{formData.businessName || 'Your Business Name'}</div>
                       <p className="text-xs text-slate-600 whitespace-pre-line">{formData.businessAddress}</p>
                       {formData.businessEmail && <p className="text-xs text-slate-600">{formData.businessEmail}</p>}
                       {formData.businessPhone && <p className="text-xs text-slate-600">{formData.businessPhone}</p>}
+                      {formData.vatNumber && (
+                        <p className="text-xs text-slate-700 font-semibold mt-2">
+                          <ShieldCheck className="w-3 h-3 inline mr-1 text-green-600" />
+                          VAT Reg: {formData.vatNumber}
+                        </p>
+                      )}
+                      {formData.companyNumber && (
+                        <p className="text-xs text-slate-600">Company No: {formData.companyNumber}</p>
+                      )}
+                      {formData.gasSafeNumber && (
+                        <p className="text-xs text-slate-600">Gas Safe Reg: {formData.gasSafeNumber}</p>
+                      )}
+                      {formData.niceicNumber && (
+                        <p className="text-xs text-slate-600">NICEIC Reg: {formData.niceicNumber}</p>
+                      )}
                     </div>
 
                     {/* Invoice Details */}
                     <div className="flex justify-between">
                       <div>
-                        <h3 className="text-lg font-bold text-slate-900 mb-2">INVOICE</h3>
+                        <div className="text-lg font-bold text-slate-900 mb-2">INVOICE</div>
                         <div className="space-y-1 text-xs">
                           <p><span className="font-semibold">Invoice #:</span> {formData.invoiceNumber}</p>
-                          <p><span className="font-semibold">Date:</span> {formData.invoiceDate}</p>
-                          {formData.dueDate && <p><span className="font-semibold">Due:</span> {formData.dueDate}</p>}
+                          <p><span className="font-semibold">Date:</span> {formatDateToUK(formData.invoiceDate)}</p>
+                          {formData.dueDate && <p><span className="font-semibold">Due:</span> {formatDateToUK(formData.dueDate)}</p>}
+                          {formData.poNumber && <p><span className="font-semibold">PO Number:</span> {formData.poNumber}</p>}
                         </div>
                       </div>
                       <div className="text-right">
-                        <h4 className="font-semibold text-sm text-slate-900 mb-2">Bill To:</h4>
+                        <div className="font-semibold text-sm text-slate-900 mb-2">Bill To:</div>
                         <p className="text-xs font-semibold text-slate-900">{formData.clientName || 'Client Name'}</p>
                         <p className="text-xs text-slate-600 whitespace-pre-line">{formData.clientAddress}</p>
+                        {formData.clientVatNumber && (
+                          <p className="text-xs text-slate-600 mt-1">VAT Reg: {formData.clientVatNumber}</p>
+                        )}
                       </div>
                     </div>
 
@@ -1387,34 +1771,62 @@ export default function InvoiceGeneratorClient({
                       </table>
                     </div>
 
-                    {/* Totals */}
+                    {/* UK Totals with VAT and CIS */}
                     <div className="flex justify-end">
                       <div className="w-64 space-y-2 text-xs">
                         <div className="flex justify-between">
                           <span>Subtotal:</span>
                           <span>£{formData.subtotal.toFixed(2)}</span>
                         </div>
-                        <div className="flex justify-between">
-                          <span>Tax ({formData.taxRate}%):</span>
-                          <span>£{formData.taxAmount.toFixed(2)}</span>
-                        </div>
+                        
+                        {formData.reverseCharge ? (
+                          <div className="flex justify-between text-blue-600 italic">
+                            <span>VAT (Reverse Charge):</span>
+                            <span>£0.00</span>
+                          </div>
+                        ) : formData.vatRate >= 0 ? (
+                          <div className="flex justify-between">
+                            <span>VAT ({getVATRateName(formData.vatRate)} - {formData.vatRate}%):</span>
+                            <span>£{formData.vatAmount.toFixed(2)}</span>
+                          </div>
+                        ) : (
+                          <div className="flex justify-between text-slate-500 italic">
+                            <span>VAT Exempt:</span>
+                            <span>£0.00</span>
+                          </div>
+                        )}
+                        
                         {formData.discountAmount > 0 && (
                           <div className="flex justify-between text-green-600">
                             <span>Discount:</span>
                             <span>-£{formData.discountAmount.toFixed(2)}</span>
                           </div>
                         )}
+                        
                         <div className="flex justify-between font-bold text-base border-t-2 border-slate-300 pt-2">
-                          <span>Total:</span>
+                          <span>Total (inc. VAT):</span>
                           <span>£{formData.totalAmount.toFixed(2)}</span>
                         </div>
+                        
+                        {formData.cisDeductionRate > 0 && (
+                          <>
+                            <div className="flex justify-between text-red-600 border-t border-slate-200 pt-2">
+                              <span>CIS Deduction ({formData.cisDeductionRate}%):</span>
+                              <span>-£{formData.cisDeductionAmount.toFixed(2)}</span>
+                            </div>
+                            <div className="flex justify-between font-bold text-base text-green-600 border-t-2 border-green-300 pt-2">
+                              <span>Amount Due:</span>
+                              <span>£{formData.amountDue.toFixed(2)}</span>
+                            </div>
+                          </>
+                        )}
                       </div>
                     </div>
 
                     {/* Payment Info */}
                     {formData.bankName && (
                       <div className="border-t border-slate-300 pt-4 text-xs">
-                        <h4 className="font-semibold text-sm mb-2">Payment Information</h4>
+                        <div className="font-semibold text-sm mb-2">Payment Information</div>
                         <div className="space-y-1">
                           <p><span className="font-semibold">Terms:</span> {formData.paymentTerms}</p>
                           {formData.bankName && <p><span className="font-semibold">Bank:</span> {formData.bankName}</p>}
@@ -1427,7 +1839,7 @@ export default function InvoiceGeneratorClient({
                     {/* Notes */}
                     {formData.notes && (
                       <div className="border-t border-slate-300 pt-4 text-xs">
-                        <h4 className="font-semibold text-sm mb-2">Notes</h4>
+                        <div className="font-semibold text-sm mb-2">Notes</div>
                         <p className="text-slate-600 whitespace-pre-line">{formData.notes}</p>
                       </div>
                     )}
