@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Script from 'next/script';
 import { motion } from 'framer-motion';
 import { CheckCircle, X, ArrowRight, Rocket } from 'lucide-react';
 import Link from 'next/link';
@@ -8,7 +9,10 @@ import Navigation from '../components/Navigation';
 import FinalCTASection from '../components/FinalCTASection';
 import PageHero from '../components/PageHero';
 import IndividualTemplatePricing from '../components/pricing/IndividualTemplatePricing';
-import PricingPageSchema from '../components/PricingPageSchema';
+import { 
+  generateProductComparisonSchema,
+  generateBreadcrumbSchema 
+} from '../lib/schemaConfig';
 
 export default function PricingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -83,10 +87,41 @@ export default function PricingPage() {
     },
   ];
 
+  // Generate pricing schemas (server-side)
+  const pricingSchema = generateProductComparisonSchema(
+    plans.map(plan => ({
+      name: plan.name,
+      description: plan.description,
+      price: plan.monthlyPrice.toString(),
+      features: plan.features,
+      url: '/pricing'
+    }))
+  );
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Pricing', url: '/pricing' }
+  ]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
-      {/* Pricing Page Schema */}
-      <PricingPageSchema />
+      {/* Server-Rendered Pricing Schemas */}
+      <Script
+        id="pricing-comparison"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(pricingSchema)
+        }}
+        strategy="beforeInteractive"
+      />
+      <Script
+        id="pricing-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema)
+        }}
+        strategy="beforeInteractive"
+      />
 
       <PageHero
         badge="Transparent Pricing"

@@ -1,0 +1,2087 @@
+{
+  "totalPages": 85,
+  "schemas": {
+    "found": 67,
+    "missing": 18,
+    "details": [
+      {
+        "file": ".next\\server\\app\\_not-found.html",
+        "status": "fail",
+        "count": 0,
+        "types": [],
+        "message": "❌ No schemas found"
+      },
+      {
+        "file": ".next\\server\\app\\pricing.html",
+        "status": "fail",
+        "count": 0,
+        "types": [],
+        "message": "❌ No schemas found"
+      },
+      {
+        "file": ".next\\server\\app\\parser.html",
+        "status": "fail",
+        "count": 0,
+        "types": [],
+        "message": "❌ No schemas found"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates.html",
+        "status": "fail",
+        "count": 0,
+        "types": [],
+        "message": "❌ No schemas found"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator.html",
+        "status": "fail",
+        "count": 0,
+        "types": [],
+        "message": "❌ No schemas found"
+      },
+      {
+        "file": ".next\\server\\app\\index.html",
+        "status": "fail",
+        "count": 0,
+        "types": [],
+        "message": "❌ No schemas found"
+      },
+      {
+        "file": ".next\\server\\app\\faq.html",
+        "status": "fail",
+        "count": 0,
+        "types": [],
+        "message": "❌ No schemas found"
+      },
+      {
+        "file": ".next\\server\\app\\blog.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "ItemList",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\restaurant-invoice.html",
+        "status": "warning",
+        "count": 1,
+        "types": [
+          "DigitalDocument"
+        ],
+        "message": "⚠️  1 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\plumbing-invoice.html",
+        "status": "warning",
+        "count": 1,
+        "types": [
+          "DigitalDocument"
+        ],
+        "message": "⚠️  1 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\photography-invoice.html",
+        "status": "warning",
+        "count": 1,
+        "types": [
+          "DigitalDocument"
+        ],
+        "message": "⚠️  1 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\hotel-invoice.html",
+        "status": "warning",
+        "count": 1,
+        "types": [
+          "DigitalDocument"
+        ],
+        "message": "⚠️  1 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\graphic-design-invoice.html",
+        "status": "warning",
+        "count": 1,
+        "types": [
+          "DigitalDocument"
+        ],
+        "message": "⚠️  1 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\freelance-invoice.html",
+        "status": "warning",
+        "count": 1,
+        "types": [
+          "DigitalDocument"
+        ],
+        "message": "⚠️  1 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\electrical-invoice.html",
+        "status": "warning",
+        "count": 1,
+        "types": [
+          "DigitalDocument"
+        ],
+        "message": "⚠️  1 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\consulting-invoice.html",
+        "status": "warning",
+        "count": 1,
+        "types": [
+          "DigitalDocument"
+        ],
+        "message": "⚠️  1 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\construction-invoice.html",
+        "status": "warning",
+        "count": 1,
+        "types": [
+          "DigitalDocument"
+        ],
+        "message": "⚠️  1 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\commercial-photography-invoice.html",
+        "status": "warning",
+        "count": 1,
+        "types": [
+          "DigitalDocument"
+        ],
+        "message": "⚠️  1 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\catering-invoice.html",
+        "status": "warning",
+        "count": 1,
+        "types": [
+          "DigitalDocument"
+        ],
+        "message": "⚠️  1 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\restaurant-invoice.html",
+        "status": "fail",
+        "count": 0,
+        "types": [],
+        "message": "❌ No schemas found"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\plumbing-invoice.html",
+        "status": "fail",
+        "count": 0,
+        "types": [],
+        "message": "❌ No schemas found"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\photography-invoice.html",
+        "status": "fail",
+        "count": 0,
+        "types": [],
+        "message": "❌ No schemas found"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\hotel-invoice.html",
+        "status": "fail",
+        "count": 0,
+        "types": [],
+        "message": "❌ No schemas found"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\graphic-design-invoice.html",
+        "status": "fail",
+        "count": 0,
+        "types": [],
+        "message": "❌ No schemas found"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\freelance-invoice.html",
+        "status": "fail",
+        "count": 0,
+        "types": [],
+        "message": "❌ No schemas found"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\electrical-invoice.html",
+        "status": "fail",
+        "count": 0,
+        "types": [],
+        "message": "❌ No schemas found"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\consulting-invoice.html",
+        "status": "fail",
+        "count": 0,
+        "types": [],
+        "message": "❌ No schemas found"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\construction-invoice.html",
+        "status": "fail",
+        "count": 0,
+        "types": [],
+        "message": "❌ No schemas found"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\commercial-photography-invoice.html",
+        "status": "fail",
+        "count": 0,
+        "types": [],
+        "message": "❌ No schemas found"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\catering-invoice.html",
+        "status": "fail",
+        "count": 0,
+        "types": [],
+        "message": "❌ No schemas found"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\where-can-i-find-free-invoice-templates-for-uk-businesses.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-touchless-invoice-processing.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-the-roi-of-invoice-automation.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-the-difference-between-invoice-software-and-accounting-software.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-the-difference-between-a-receipt-and-an-invoice.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-the-best-invoice-app-for-freelancers-and-mobile-billing.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-supplier-invoice-management.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-ocr-for-invoices.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-invoice-processing.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-invoice-processing-for-manufacturing-companies.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-invoice-management-software.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-invoice-fraud-and-how-can-it-be-prevented.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-invoice-finance-and-how-does-it-work-for-businesses.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-invoice-exception-handling.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-invoice-discounting-and-how-does-it-differ-from-factoring.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-invoice-data-extraction.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-invoice-automation.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-an-invoice.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-an-invoice-template.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-an-invoice-processing-api.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-an-invoice-generator.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-an-electronic-invoice-e-invoice.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-ai-powered-invoice-processing.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-accounts-payable-invoice-processing.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-accounts-payable-automation-software.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-a-vat-receipt-and-how-does-it-differ-from-a-standard-receipt.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-a-receipt-of-payment-and-when-is-it-required.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-a-purchase-order-form-and-how-does-it-relate-to-invoicing.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-a-proforma-invoice-and-when-is-it-used.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-3-way-matching-in-invoice-processing.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-invoice-software-solutions-are-available-for-businesses.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-invoice-processing-software-is-best-for-small-businesses.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-compliance-requirements-apply-to-invoice-processing.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-are-the-common-invoice-formats.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-are-the-best-receipt-design-templates-for-businesses.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-are-the-best-free-invoice-generators-for-uk-businesses.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-are-invoice-processing-kpis-and-metrics.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\how-should-self-employed-individuals-create-invoices-in-the-uk.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\how-secure-is-cloud-based-invoice-processing.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\how-much-does-invoice-processing-software-cost.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\how-long-does-it-take-to-implement-invoice-processing-automation.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\how-does-invoice-processing-work.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\how-does-invoice-processing-work-with-xero-accounting-software.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\how-does-invoice-processing-work-for-restaurants-and-food-service.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\how-does-invoice-processing-integrate-with-quickbooks.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\how-does-invoice-processing-handle-recurring-invoices.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\how-does-invoice-processing-handle-multiple-currencies.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\how-does-invoice-approval-workflow-automation-work.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\how-do-invoice-processing-systems-handle-email-invoices.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\how-do-i-get-my-amazon-invoice-for-business-purchases.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\how-do-i-create-an-invoice.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\how-do-i-create-an-invoice-using-google-docs-templates.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\how-do-i-create-an-invoice-using-excel-templates.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\how-do-i-create-a-receipt-for-a-car-sale-in-the-uk.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\can-invoice-processing-systems-integrate-with-erps-like-sap-or-oracle.html",
+        "status": "warning",
+        "count": 2,
+        "types": [
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "⚠️  2 schema(s) but missing Organization"
+      }
+    ]
+  },
+  "metaTags": {
+    "found": 85,
+    "missing": 0,
+    "details": [
+      {
+        "file": ".next\\server\\app\\_not-found.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "404: This page could not be found.",
+          "description": "Automate invoice processing in 30 seconds with AI-powered OCR. Extract data from supplier invoices automatically. Perfect for UK restaurants &amp; warehouses. Free trial—10 invoices free. By Elektroluma Ltd (Companies House #16392032).",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
+          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
+          "ogUrl": "https://elektroluma.co.uk"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\pricing.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Invoice Processing &amp; Automation Software UK | InvoiceParse.ai by Elektroluma Ltd",
+          "description": "Automate invoice processing in 30 seconds with AI-powered OCR. Extract data from supplier invoices automatically. Perfect for UK restaurants &amp; warehouses. Free trial—10 invoices free. By Elektroluma Ltd (Companies House #16392032).",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
+          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
+          "ogUrl": "https://elektroluma.co.uk"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\parser.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Invoice Processing &amp; Automation Software UK | InvoiceParse.ai by Elektroluma Ltd",
+          "description": "Automate invoice processing in 30 seconds with AI-powered OCR. Extract data from supplier invoices automatically. Perfect for UK restaurants &amp; warehouses. Free trial—10 invoices free. By Elektroluma Ltd (Companies House #16392032).",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
+          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
+          "ogUrl": "https://elektroluma.co.uk"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Invoice Processing &amp; Automation Software UK | InvoiceParse.ai by Elektroluma Ltd",
+          "description": "Automate invoice processing in 30 seconds with AI-powered OCR. Extract data from supplier invoices automatically. Perfect for UK restaurants &amp; warehouses. Free trial—10 invoices free. By Elektroluma Ltd (Companies House #16392032).",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
+          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
+          "ogUrl": "https://elektroluma.co.uk"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Invoice Generator | Create Custom Invoices Online",
+          "description": "Generate professional invoices online with our free invoice generator. Choose from industry-specific templates and customize for your business needs.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
+          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
+          "ogUrl": "https://elektroluma.co.uk"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\index.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Invoice Processing &amp; Automation Software UK | InvoiceParse.ai by Elektroluma Ltd",
+          "description": "Automate invoice processing in 30 seconds with AI-powered OCR. Extract data from supplier invoices automatically. Perfect for UK restaurants &amp; warehouses. Free trial—10 invoices free. By Elektroluma Ltd (Companies House #16392032).",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
+          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
+          "ogUrl": "https://elektroluma.co.uk"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\faq.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Invoice Processing &amp; Automation Software UK | InvoiceParse.ai by Elektroluma Ltd",
+          "description": "Automate invoice processing in 30 seconds with AI-powered OCR. Extract data from supplier invoices automatically. Perfect for UK restaurants &amp; warehouses. Free trial—10 invoices free. By Elektroluma Ltd (Companies House #16392032).",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
+          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
+          "ogUrl": "https://elektroluma.co.uk"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Invoice Parsing &amp; Automation Blog | Expert Insights &amp; Best Practices",
+          "description": "Discover expert insights on invoice parsing, OCR technology, AP automation, and financial process optimization. Learn from real-world case studies and implementation guides.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Invoice Parsing &amp; Automation Blog | Expert Insights",
+          "ogDescription": "Expert insights on invoice parsing, OCR technology, and AP automation. Real-world case studies and implementation guides.",
+          "ogUrl": "https://yourdomain.com/blog"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\restaurant-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Restaurant Dine-In Invoice | Free UK Invoice Template Download",
+          "description": "Standard invoice for restaurant table service Download free restaurant dine-in invoice for UK businesses. 480 monthly searches. Word, Excel, PDF formats available.",
+          "canonical": "https://yourdomain.com/invoice-templates/restaurant-invoice",
+          "ogTitle": "Restaurant Dine-In Invoice - Free Download",
+          "ogDescription": "Standard invoice for restaurant table service",
+          "ogUrl": "https://yourdomain.com/invoice-templates/restaurant-invoice"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\plumbing-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Plumber Invoice | Free UK Invoice Template Download",
+          "description": "Invoice for plumbing installation, repairs, and maintenance Download free plumber invoice for UK businesses. 110 monthly searches. Word, Excel, PDF formats available.",
+          "canonical": "https://yourdomain.com/invoice-templates/plumbing-invoice",
+          "ogTitle": "Plumber Invoice - Free Download",
+          "ogDescription": "Invoice for plumbing installation, repairs, and maintenance",
+          "ogUrl": "https://yourdomain.com/invoice-templates/plumbing-invoice"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\photography-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Wedding Photography Invoice | Free UK Invoice Template Download",
+          "description": "Invoice for wedding photography services and packages Download free wedding photography invoice for UK businesses. 390 monthly searches. Word, Excel, PDF formats available.",
+          "canonical": "https://yourdomain.com/invoice-templates/photography-invoice",
+          "ogTitle": "Wedding Photography Invoice - Free Download",
+          "ogDescription": "Invoice for wedding photography services and packages",
+          "ogUrl": "https://yourdomain.com/invoice-templates/photography-invoice"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\hotel-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Hotel Room Invoice | Free UK Invoice Template Download",
+          "description": "Standard invoice for hotel accommodation Download free hotel room invoice for UK businesses. 90 monthly searches. Word, Excel, PDF formats available.",
+          "canonical": "https://yourdomain.com/invoice-templates/hotel-invoice",
+          "ogTitle": "Hotel Room Invoice - Free Download",
+          "ogDescription": "Standard invoice for hotel accommodation",
+          "ogUrl": "https://yourdomain.com/invoice-templates/hotel-invoice"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\graphic-design-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Logo Design Invoice | Free UK Invoice Template Download",
+          "description": "Invoice for logo design and brand identity services Download free logo design invoice for UK businesses. 140 monthly searches. Word, Excel, PDF formats available.",
+          "canonical": "https://yourdomain.com/invoice-templates/graphic-design-invoice",
+          "ogTitle": "Logo Design Invoice - Free Download",
+          "ogDescription": "Invoice for logo design and brand identity services",
+          "ogUrl": "https://yourdomain.com/invoice-templates/graphic-design-invoice"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\freelance-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Freelance Invoice - Hourly Rate | Free UK Invoice Template Download",
+          "description": "Standard freelance invoice for hourly or day rate work Download free freelance invoice - hourly rate for UK businesses. 1300 monthly searches. Word, Excel, PDF formats available.",
+          "canonical": "https://yourdomain.com/invoice-templates/freelance-invoice",
+          "ogTitle": "Freelance Invoice - Hourly Rate - Free Download",
+          "ogDescription": "Standard freelance invoice for hourly or day rate work",
+          "ogUrl": "https://yourdomain.com/invoice-templates/freelance-invoice"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\electrical-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Electrician Invoice | Free UK Invoice Template Download",
+          "description": "Invoice for electrical installation, testing, and certification Download free electrician invoice for UK businesses. 110 monthly searches. Word, Excel, PDF formats available.",
+          "canonical": "https://yourdomain.com/invoice-templates/electrical-invoice",
+          "ogTitle": "Electrician Invoice - Free Download",
+          "ogDescription": "Invoice for electrical installation, testing, and certification",
+          "ogUrl": "https://yourdomain.com/invoice-templates/electrical-invoice"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\consulting-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Consulting Invoice - Project Based | Free UK Invoice Template Download",
+          "description": "Invoice for consulting projects and advisory services Download free consulting invoice - project based for UK businesses. 320 monthly searches. Word, Excel, PDF formats available.",
+          "canonical": "https://yourdomain.com/invoice-templates/consulting-invoice",
+          "ogTitle": "Consulting Invoice - Project Based - Free Download",
+          "ogDescription": "Invoice for consulting projects and advisory services",
+          "ogUrl": "https://yourdomain.com/invoice-templates/consulting-invoice"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\construction-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Builder Invoice - Residential | Free UK Invoice Template Download",
+          "description": "Standard invoice for residential building and construction work Download free builder invoice - residential for UK businesses. 590 monthly searches. Word, Excel, PDF formats available.",
+          "canonical": "https://yourdomain.com/invoice-templates/construction-invoice",
+          "ogTitle": "Builder Invoice - Residential - Free Download",
+          "ogDescription": "Standard invoice for residential building and construction work",
+          "ogUrl": "https://yourdomain.com/invoice-templates/construction-invoice"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\commercial-photography-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Product Photography Invoice | Free UK Invoice Template Download",
+          "description": "Invoice for commercial product photography services Download free product photography invoice for UK businesses. 260 monthly searches. Word, Excel, PDF formats available.",
+          "canonical": "https://yourdomain.com/invoice-templates/commercial-photography-invoice",
+          "ogTitle": "Product Photography Invoice - Free Download",
+          "ogDescription": "Invoice for commercial product photography services",
+          "ogUrl": "https://yourdomain.com/invoice-templates/commercial-photography-invoice"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\catering-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Catering Event Invoice | Free UK Invoice Template Download",
+          "description": "Invoice for catering services at events and functions Download free catering event invoice for UK businesses. 90 monthly searches. Word, Excel, PDF formats available.",
+          "canonical": "https://yourdomain.com/invoice-templates/catering-invoice",
+          "ogTitle": "Catering Event Invoice - Free Download",
+          "ogDescription": "Invoice for catering services at events and functions",
+          "ogUrl": "https://yourdomain.com/invoice-templates/catering-invoice"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\restaurant-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Create Restaurant Dine-In Invoice | Invoice Generator",
+          "description": "Generate professional restaurant dine-in invoice online. Standard invoice for restaurant table service Free invoice maker with instant PDF download.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
+          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
+          "ogUrl": "https://elektroluma.co.uk"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\plumbing-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Create Plumber Invoice | Invoice Generator",
+          "description": "Generate professional plumber invoice online. Invoice for plumbing installation, repairs, and maintenance Free invoice maker with instant PDF download.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
+          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
+          "ogUrl": "https://elektroluma.co.uk"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\photography-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Create Wedding Photography Invoice | Invoice Generator",
+          "description": "Generate professional wedding photography invoice online. Invoice for wedding photography services and packages Free invoice maker with instant PDF download.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
+          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
+          "ogUrl": "https://elektroluma.co.uk"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\hotel-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Create Hotel Room Invoice | Invoice Generator",
+          "description": "Generate professional hotel room invoice online. Standard invoice for hotel accommodation Free invoice maker with instant PDF download.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
+          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
+          "ogUrl": "https://elektroluma.co.uk"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\graphic-design-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Create Logo Design Invoice | Invoice Generator",
+          "description": "Generate professional logo design invoice online. Invoice for logo design and brand identity services Free invoice maker with instant PDF download.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
+          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
+          "ogUrl": "https://elektroluma.co.uk"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\freelance-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Create Freelance Invoice - Hourly Rate | Invoice Generator",
+          "description": "Generate professional freelance invoice - hourly rate online. Standard freelance invoice for hourly or day rate work Free invoice maker with instant PDF download.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
+          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
+          "ogUrl": "https://elektroluma.co.uk"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\electrical-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Create Electrician Invoice | Invoice Generator",
+          "description": "Generate professional electrician invoice online. Invoice for electrical installation, testing, and certification Free invoice maker with instant PDF download.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
+          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
+          "ogUrl": "https://elektroluma.co.uk"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\consulting-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Create Consulting Invoice - Project Based | Invoice Generator",
+          "description": "Generate professional consulting invoice - project based online. Invoice for consulting projects and advisory services Free invoice maker with instant PDF download.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
+          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
+          "ogUrl": "https://elektroluma.co.uk"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\construction-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Create Builder Invoice - Residential | Invoice Generator",
+          "description": "Generate professional builder invoice - residential online. Standard invoice for residential building and construction work Free invoice maker with instant PDF download.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
+          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
+          "ogUrl": "https://elektroluma.co.uk"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\commercial-photography-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Create Product Photography Invoice | Invoice Generator",
+          "description": "Generate professional product photography invoice online. Invoice for commercial product photography services Free invoice maker with instant PDF download.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
+          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
+          "ogUrl": "https://elektroluma.co.uk"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\catering-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Create Catering Event Invoice | Invoice Generator",
+          "description": "Generate professional catering event invoice online. Invoice for catering services at events and functions Free invoice maker with instant PDF download.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
+          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
+          "ogUrl": "https://elektroluma.co.uk"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\where-can-i-find-free-invoice-templates-for-uk-businesses.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Where can I find free invoice templates for UK businesses? | InvoiceParse.ai Blog",
+          "description": "Free UK invoice templates are available from multiple sources: (1) Gov.uk - official templates meeting HMRC requirements for VAT invoices; (2) Microsoft...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Where can I find free invoice templates for UK businesses?",
+          "ogDescription": "Free UK invoice templates are available from multiple sources: (1) Gov.uk - official templates meeting HMRC requirements for VAT invoices; (2) Microsoft...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-touchless-invoice-processing.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Understanding Touchless invoice processing? | InvoiceParse.ai Blog",
+          "description": "Touchless invoice processing (also called straight-through processing) is when invoices are received, extracted, validated, approved, and posted to...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Understanding Touchless invoice processing?",
+          "ogDescription": "Touchless invoice processing (also called straight-through processing) is when invoices are received, extracted, validated, approved, and posted to...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-the-roi-of-invoice-automation.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Understanding The ROI of invoice automation? | InvoiceParse.ai Blog",
+          "description": "Invoice automation typically delivers 300-500% ROI within the first year through: (1) Labor Savings - reduce processing time from 10-15 minutes to 1-2...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Understanding The ROI of invoice automation?",
+          "ogDescription": "Invoice automation typically delivers 300-500% ROI within the first year through: (1) Labor Savings - reduce processing time from 10-15 minutes to 1-2...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-the-difference-between-invoice-software-and-accounting-software.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Understanding The difference between invoice software and accounting software? | InvoiceParse.ai Blog",
+          "description": "Invoice software focuses specifically on creating, sending, and tracking invoices and payments, while accounting software provides comprehensive financial...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Understanding The difference between invoice software and accounting software?",
+          "ogDescription": "Invoice software focuses specifically on creating, sending, and tracking invoices and payments, while accounting software provides comprehensive financial...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-the-difference-between-a-receipt-and-an-invoice.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Understanding The difference between a receipt and an invoice? | InvoiceParse.ai Blog",
+          "description": "Receipts and invoices serve different purposes in business transactions: INVOICE - A request for payment issued before or at the time of sale, showing...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Understanding The difference between a receipt and an invoice?",
+          "ogDescription": "Receipts and invoices serve different purposes in business transactions: INVOICE - A request for payment issued before or at the time of sale, showing...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-the-best-invoice-app-for-freelancers-and-mobile-billing.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Understanding The best invoice app for freelancers and mobile billing? | InvoiceParse.ai Blog",
+          "description": "Top invoice apps for on-the-go freelancers and mobile professionals: (1) FreshBooks Mobile - create and send invoices from phone, track time and expenses,...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Understanding The best invoice app for freelancers and mobile billing?",
+          "ogDescription": "Top invoice apps for on-the-go freelancers and mobile professionals: (1) FreshBooks Mobile - create and send invoices from phone, track time and expenses,...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-supplier-invoice-management.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Understanding Supplier invoice management? | InvoiceParse.ai Blog",
+          "description": "Supplier invoice management encompasses all processes for handling invoices from vendors/suppliers: (1) Supplier Onboarding - collecting W-9/W-8, bank...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Understanding Supplier invoice management?",
+          "ogDescription": "Supplier invoice management encompasses all processes for handling invoices from vendors/suppliers: (1) Supplier Onboarding - collecting W-9/W-8, bank...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-ocr-for-invoices.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Understanding OCR for invoices? | InvoiceParse.ai Blog",
+          "description": "OCR (Optical Character Recognition) for invoices is technology that automatically reads and extracts text and data from invoice images or PDFs. It...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Understanding OCR for invoices?",
+          "ogDescription": "OCR (Optical Character Recognition) for invoices is technology that automatically reads and extracts text and data from invoice images or PDFs. It...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-invoice-processing.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Understanding Invoice processing? | InvoiceParse.ai Blog",
+          "description": "Invoice processing is the complete workflow of receiving, reviewing, approving, and paying supplier invoices.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Understanding Invoice processing?",
+          "ogDescription": "Invoice processing is the complete workflow of receiving, reviewing, approving, and paying supplier invoices.",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-invoice-processing-for-manufacturing-companies.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Understanding Invoice processing for manufacturing companies? | InvoiceParse.ai Blog",
+          "description": "Manufacturing invoice processing manages complex procurement workflows: (1) Direct Material Invoices - raw materials and components with strict 3-way...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Understanding Invoice processing for manufacturing companies?",
+          "ogDescription": "Manufacturing invoice processing manages complex procurement workflows: (1) Direct Material Invoices - raw materials and components with strict 3-way...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-invoice-management-software.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Understanding Invoice management software? | InvoiceParse.ai Blog",
+          "description": "Invoice management software is a system that helps businesses receive, process, track, and pay invoices efficiently.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Understanding Invoice management software?",
+          "ogDescription": "Invoice management software is a system that helps businesses receive, process, track, and pay invoices efficiently.",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-invoice-fraud-and-how-can-it-be-prevented.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Understanding Invoice fraud and how can it be prevented? | InvoiceParse.ai Blog",
+          "description": "Invoice fraud occurs when criminals submit fake invoices or manipulate legitimate ones to steal money.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Understanding Invoice fraud and how can it be prevented?",
+          "ogDescription": "Invoice fraud occurs when criminals submit fake invoices or manipulate legitimate ones to steal money.",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-invoice-finance-and-how-does-it-work-for-businesses.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Understanding Invoice finance and how does it work for businesses? | InvoiceParse.ai Blog",
+          "description": "Invoice finance (also called invoice factoring or accounts receivable financing) is a funding method where businesses sell their outstanding invoices to a...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Understanding Invoice finance and how does it work for businesses?",
+          "ogDescription": "Invoice finance (also called invoice factoring or accounts receivable financing) is a funding method where businesses sell their outstanding invoices to a...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-invoice-exception-handling.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Understanding Invoice exception handling? | InvoiceParse.ai Blog",
+          "description": "Invoice exception handling manages invoices that fail automated processing due to discrepancies or issues. Common exceptions include: (1) Missing PO...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Understanding Invoice exception handling?",
+          "ogDescription": "Invoice exception handling manages invoices that fail automated processing due to discrepancies or issues. Common exceptions include: (1) Missing PO...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-invoice-discounting-and-how-does-it-differ-from-factoring.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Understanding Invoice discounting and how does it differ from factoring? | InvoiceParse.ai Blog",
+          "description": "Invoice discounting is a confidential financing arrangement where businesses borrow against their unpaid invoices while maintaining full control of sales...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Understanding Invoice discounting and how does it differ from factoring?",
+          "ogDescription": "Invoice discounting is a confidential financing arrangement where businesses borrow against their unpaid invoices while maintaining full control of sales...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-invoice-data-extraction.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Understanding Invoice data extraction? | InvoiceParse.ai Blog",
+          "description": "Invoice data extraction is the automated process of identifying and capturing specific data fields from invoice documents using OCR, AI, and machine...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Understanding Invoice data extraction?",
+          "ogDescription": "Invoice data extraction is the automated process of identifying and capturing specific data fields from invoice documents using OCR, AI, and machine...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-invoice-automation.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Understanding Invoice automation? | InvoiceParse.ai Blog",
+          "description": "Invoice automation is the use of software to automatically capture, extract, validate, and process invoice data without manual intervention.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Understanding Invoice automation?",
+          "ogDescription": "Invoice automation is the use of software to automatically capture, extract, validate, and process invoice data without manual intervention.",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-an-invoice.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Understanding An invoice? | InvoiceParse.ai Blog",
+          "description": "An invoice is a commercial document issued by a seller to a buyer that itemizes products or services provided and states the payment amount due.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Understanding An invoice?",
+          "ogDescription": "An invoice is a commercial document issued by a seller to a buyer that itemizes products or services provided and states the payment amount due.",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-an-invoice-template.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Understanding An invoice template? | InvoiceParse.ai Blog",
+          "description": "An invoice template is a pre-designed document format that businesses use to create consistent, professional invoices.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Understanding An invoice template?",
+          "ogDescription": "An invoice template is a pre-designed document format that businesses use to create consistent, professional invoices.",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-an-invoice-processing-api.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Understanding An invoice processing API? | InvoiceParse.ai Blog",
+          "description": "An invoice processing API (Application Programming Interface) is a set of protocols that allows different software systems to communicate and exchange...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Understanding An invoice processing API?",
+          "ogDescription": "An invoice processing API (Application Programming Interface) is a set of protocols that allows different software systems to communicate and exchange...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-an-invoice-generator.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Understanding An invoice generator? | InvoiceParse.ai Blog",
+          "description": "An invoice generator is software or an online tool that automates invoice creation.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Understanding An invoice generator?",
+          "ogDescription": "An invoice generator is software or an online tool that automates invoice creation.",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-an-electronic-invoice-e-invoice.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Understanding An electronic invoice (e-invoice)? | InvoiceParse.ai Blog",
+          "description": "An electronic invoice (e-invoice) is a digital invoice created, sent, received, and processed in a structured electronic format without paper.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Understanding An electronic invoice (e-invoice)?",
+          "ogDescription": "An electronic invoice (e-invoice) is a digital invoice created, sent, received, and processed in a structured electronic format without paper.",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-ai-powered-invoice-processing.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Understanding AI-powered invoice processing? | InvoiceParse.ai Blog",
+          "description": "AI-powered invoice processing uses artificial intelligence and machine learning to automatically extract, validate, and process invoice data with minimal...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Understanding AI-powered invoice processing?",
+          "ogDescription": "AI-powered invoice processing uses artificial intelligence and machine learning to automatically extract, validate, and process invoice data with minimal...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-accounts-payable-invoice-processing.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Understanding Accounts payable invoice processing? | InvoiceParse.ai Blog",
+          "description": "Accounts payable (AP) invoice processing is the accounting function responsible for managing money owed to suppliers.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Understanding Accounts payable invoice processing?",
+          "ogDescription": "Accounts payable (AP) invoice processing is the accounting function responsible for managing money owed to suppliers.",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-accounts-payable-automation-software.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Understanding Accounts payable automation software? | InvoiceParse.ai Blog",
+          "description": "Accounts payable (AP) automation software digitizes and automates the entire invoice-to-pay process. It handles: invoice receipt (email, EDI, portal,...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Understanding Accounts payable automation software?",
+          "ogDescription": "Accounts payable (AP) automation software digitizes and automates the entire invoice-to-pay process. It handles: invoice receipt (email, EDI, portal,...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-a-vat-receipt-and-how-does-it-differ-from-a-standard-receipt.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Understanding A VAT receipt and how does it differ from a standard receipt? | InvoiceParse.ai Blog",
+          "description": "A VAT receipt (Value Added Tax receipt) is a document that shows the breakdown of VAT charged on goods or services, required for businesses to reclaim VAT...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Understanding A VAT receipt and how does it differ from a standard receipt?",
+          "ogDescription": "A VAT receipt (Value Added Tax receipt) is a document that shows the breakdown of VAT charged on goods or services, required for businesses to reclaim VAT...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-a-receipt-of-payment-and-when-is-it-required.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Understanding A receipt of payment and when is it required? | InvoiceParse.ai Blog",
+          "description": "A receipt of payment (also called payment receipt or proof of payment) is a document acknowledging that money has been received from a payer to a payee....",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Understanding A receipt of payment and when is it required?",
+          "ogDescription": "A receipt of payment (also called payment receipt or proof of payment) is a document acknowledging that money has been received from a payer to a payee....",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-a-purchase-order-form-and-how-does-it-relate-to-invoicing.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Understanding A purchase order form and how does it relate to invoicing? | InvoiceParse.ai Blog",
+          "description": "A purchase order (PO) form is a commercial document issued by a buyer to a supplier authorizing a purchase transaction. The PO becomes a legally binding...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Understanding A purchase order form and how does it relate to invoicing?",
+          "ogDescription": "A purchase order (PO) form is a commercial document issued by a buyer to a supplier authorizing a purchase transaction. The PO becomes a legally binding...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-a-proforma-invoice-and-when-is-it-used.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Understanding A proforma invoice and when is it used? | InvoiceParse.ai Blog",
+          "description": "A proforma invoice is a preliminary bill of sale sent to buyers before goods or services are delivered. Unlike a standard commercial invoice, a proforma...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Understanding A proforma invoice and when is it used?",
+          "ogDescription": "A proforma invoice is a preliminary bill of sale sent to buyers before goods or services are delivered. Unlike a standard commercial invoice, a proforma...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-3-way-matching-in-invoice-processing.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Understanding 3-way matching in invoice processing? | InvoiceParse.ai Blog",
+          "description": "3-way matching is an accounts payable control process that verifies invoice accuracy by comparing three documents before payment: (1) Purchase Order (PO)...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Understanding 3-way matching in invoice processing?",
+          "ogDescription": "3-way matching is an accounts payable control process that verifies invoice accuracy by comparing three documents before payment: (1) Purchase Order (PO)...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-invoice-software-solutions-are-available-for-businesses.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "What invoice software solutions are available for businesses? | InvoiceParse.ai Blog",
+          "description": "Invoice software streamlines billing and payment collection for businesses of all sizes: SMALL BUSINESS (1-10 employees): Wave (Free) - invoicing,...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "What invoice software solutions are available for businesses?",
+          "ogDescription": "Invoice software streamlines billing and payment collection for businesses of all sizes: SMALL BUSINESS (1-10 employees): Wave (Free) - invoicing,...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-invoice-processing-software-is-best-for-small-businesses.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "What invoice processing software is best for small businesses? | InvoiceParse.ai Blog",
+          "description": "Best invoice processing software for small businesses includes: (1) QuickBooks Online - comprehensive accounting with built-in invoice creation, receipt...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "What invoice processing software is best for small businesses?",
+          "ogDescription": "Best invoice processing software for small businesses includes: (1) QuickBooks Online - comprehensive accounting with built-in invoice creation, receipt...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-compliance-requirements-apply-to-invoice-processing.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "What compliance requirements apply to invoice processing? | InvoiceParse.ai Blog",
+          "description": "Invoice processing must comply with various regulations depending on industry and location: (1) Tax Compliance - proper invoice formats for VAT/GST,...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "What compliance requirements apply to invoice processing?",
+          "ogDescription": "Invoice processing must comply with various regulations depending on industry and location: (1) Tax Compliance - proper invoice formats for VAT/GST,...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-are-the-common-invoice-formats.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "The common invoice formats? | InvoiceParse.ai Blog",
+          "description": "Common invoice formats include: (1) PDF Invoices - most popular format, universally readable and preserves formatting; (2) Paper Invoices - traditional...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "The common invoice formats?",
+          "ogDescription": "Common invoice formats include: (1) PDF Invoices - most popular format, universally readable and preserves formatting; (2) Paper Invoices - traditional...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-are-the-best-receipt-design-templates-for-businesses.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "The best receipt design templates for businesses? | InvoiceParse.ai Blog",
+          "description": "Professional receipt design templates help businesses create branded, compliant receipts: (1) Retail Receipt Templates - point-of-sale style with itemized...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "The best receipt design templates for businesses?",
+          "ogDescription": "Professional receipt design templates help businesses create branded, compliant receipts: (1) Retail Receipt Templates - point-of-sale style with itemized...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-are-the-best-free-invoice-generators-for-uk-businesses.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "The best free invoice generators for UK businesses? | InvoiceParse.ai Blog",
+          "description": "Top free invoice generators for UK businesses include: (1) Wave - completely free invoicing with unlimited invoices, automatic payment reminders, online...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "The best free invoice generators for UK businesses?",
+          "ogDescription": "Top free invoice generators for UK businesses include: (1) Wave - completely free invoicing with unlimited invoices, automatic payment reminders, online...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-are-invoice-processing-kpis-and-metrics.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Invoice processing KPIs and metrics? | InvoiceParse.ai Blog",
+          "description": "Key Performance Indicators for invoice processing include: (1) Processing Time - average days from invoice receipt to payment; (2) Cost Per Invoice -...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Invoice processing KPIs and metrics?",
+          "ogDescription": "Key Performance Indicators for invoice processing include: (1) Processing Time - average days from invoice receipt to payment; (2) Cost Per Invoice -...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\how-should-self-employed-individuals-create-invoices-in-the-uk.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Should self-employed individuals create invoices in the UK? | InvoiceParse.ai Blog",
+          "description": "Self-employed individuals in the UK must create professional invoices that meet HMRC requirements: (1) Essential Details - your business name (or full...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Should self-employed individuals create invoices in the UK?",
+          "ogDescription": "Self-employed individuals in the UK must create professional invoices that meet HMRC requirements: (1) Essential Details - your business name (or full...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\how-secure-is-cloud-based-invoice-processing.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Secure is cloud-based invoice processing? | InvoiceParse.ai Blog",
+          "description": "Modern cloud-based invoice processing systems implement enterprise-grade security: (1) Encryption - AES-256 encryption for data at rest and TLS 1.3 for...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Secure is cloud-based invoice processing?",
+          "ogDescription": "Modern cloud-based invoice processing systems implement enterprise-grade security: (1) Encryption - AES-256 encryption for data at rest and TLS 1.3 for...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\how-much-does-invoice-processing-software-cost.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Much does invoice processing software cost? | InvoiceParse.ai Blog",
+          "description": "Invoice processing software pricing varies by features and scale: (1) Small Business Solutions - $20-100/month for basic automation (Wave, Zoho Books,...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Much does invoice processing software cost?",
+          "ogDescription": "Invoice processing software pricing varies by features and scale: (1) Small Business Solutions - $20-100/month for basic automation (Wave, Zoho Books,...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\how-long-does-it-take-to-implement-invoice-processing-automation.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Long does it take to implement invoice processing automation? | InvoiceParse.ai Blog",
+          "description": "Implementation time varies by solution complexity: (1) Simple Cloud Solutions - 1-2 weeks for small businesses using QuickBooks/Xero integration with...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Long does it take to implement invoice processing automation?",
+          "ogDescription": "Implementation time varies by solution complexity: (1) Simple Cloud Solutions - 1-2 weeks for small businesses using QuickBooks/Xero integration with...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\how-does-invoice-processing-work.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "How Invoice processing work? | InvoiceParse.ai Blog",
+          "description": "Invoice processing typically follows these steps: (1) Invoice Receipt - receiving invoices via email, mail, or supplier portals; (2) Data Capture -...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "How Invoice processing work?",
+          "ogDescription": "Invoice processing typically follows these steps: (1) Invoice Receipt - receiving invoices via email, mail, or supplier portals; (2) Data Capture -...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\how-does-invoice-processing-work-with-xero-accounting-software.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "How Invoice processing work with Xero accounting software? | InvoiceParse.ai Blog",
+          "description": "Xero is a cloud accounting platform with robust invoice processing capabilities: (1) Invoice Receipt - receive invoices via dedicated email...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "How Invoice processing work with Xero accounting software?",
+          "ogDescription": "Xero is a cloud accounting platform with robust invoice processing capabilities: (1) Invoice Receipt - receive invoices via dedicated email...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\how-does-invoice-processing-work-for-restaurants-and-food-service.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "How Invoice processing work for restaurants and food service? | InvoiceParse.ai Blog",
+          "description": "Restaurant invoice processing handles unique challenges: (1) High Volume - restaurants process 20-100+ invoices weekly from multiple food suppliers; (2)...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "How Invoice processing work for restaurants and food service?",
+          "ogDescription": "Restaurant invoice processing handles unique challenges: (1) High Volume - restaurants process 20-100+ invoices weekly from multiple food suppliers; (2)...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\how-does-invoice-processing-integrate-with-quickbooks.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "How Invoice processing integrate with QuickBooks? | InvoiceParse.ai Blog",
+          "description": "Invoice processing systems integrate with QuickBooks via API (Application Programming Interface) or direct data synchronization. The integration:...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "How Invoice processing integrate with QuickBooks?",
+          "ogDescription": "Invoice processing systems integrate with QuickBooks via API (Application Programming Interface) or direct data synchronization. The integration:...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\how-does-invoice-processing-handle-recurring-invoices.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "How Invoice processing handle recurring invoices? | InvoiceParse.ai Blog",
+          "description": "Recurring invoice processing automates regular, predictable invoices from suppliers: (1) Pattern Recognition - AI identifies recurring invoices based on...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "How Invoice processing handle recurring invoices?",
+          "ogDescription": "Recurring invoice processing automates regular, predictable invoices from suppliers: (1) Pattern Recognition - AI identifies recurring invoices based on...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\how-does-invoice-processing-handle-multiple-currencies.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "How Invoice processing handle multiple currencies? | InvoiceParse.ai Blog",
+          "description": "Multi-currency invoice processing manages international supplier invoices with: (1) Currency Recognition - automatically detect invoice currency from ISO...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "How Invoice processing handle multiple currencies?",
+          "ogDescription": "Multi-currency invoice processing manages international supplier invoices with: (1) Currency Recognition - automatically detect invoice currency from ISO...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\how-does-invoice-approval-workflow-automation-work.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "How Invoice approval workflow automation work? | InvoiceParse.ai Blog",
+          "description": "Invoice approval workflow automation routes invoices to the right approvers based on predefined business rules without manual intervention.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "How Invoice approval workflow automation work?",
+          "ogDescription": "Invoice approval workflow automation routes invoices to the right approvers based on predefined business rules without manual intervention.",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\how-do-invoice-processing-systems-handle-email-invoices.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "How Invoice processing systems handle email invoices? | InvoiceParse.ai Blog",
+          "description": "Invoice processing systems capture invoices from email automatically using dedicated email addresses or connected inboxes. The process: (1) Vendor sends...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "How Invoice processing systems handle email invoices?",
+          "ogDescription": "Invoice processing systems capture invoices from email automatically using dedicated email addresses or connected inboxes. The process: (1) Vendor sends...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\how-do-i-get-my-amazon-invoice-for-business-purchases.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "How I get my Amazon invoice for business purchases? | InvoiceParse.ai Blog",
+          "description": "Amazon invoices are essential for business expense claims and VAT reclaims. To access Amazon invoices: (1) Log into your Amazon account; (2) Go to...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "How I get my Amazon invoice for business purchases?",
+          "ogDescription": "Amazon invoices are essential for business expense claims and VAT reclaims. To access Amazon invoices: (1) Log into your Amazon account; (2) Go to...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\how-do-i-create-an-invoice.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "How I create an invoice? | InvoiceParse.ai Blog",
+          "description": "To create an invoice: (1) Choose a method - use invoice templates (Word/Excel), accounting software (QuickBooks, Xero), or online invoice generators; (2)...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "How I create an invoice?",
+          "ogDescription": "To create an invoice: (1) Choose a method - use invoice templates (Word/Excel), accounting software (QuickBooks, Xero), or online invoice generators; (2)...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\how-do-i-create-an-invoice-using-google-docs-templates.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "How I create an invoice using Google Docs templates? | InvoiceParse.ai Blog",
+          "description": "Google Docs invoice templates offer free, cloud-based invoicing with real-time collaboration: (1) Accessing Templates - open Google Docs, click &quot;Template...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "How I create an invoice using Google Docs templates?",
+          "ogDescription": "Google Docs invoice templates offer free, cloud-based invoicing with real-time collaboration: (1) Accessing Templates - open Google Docs, click &quot;Template...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\how-do-i-create-an-invoice-using-excel-templates.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "How I create an invoice using Excel templates? | InvoiceParse.ai Blog",
+          "description": "Excel invoice templates provide flexible, customizable invoicing for businesses: (1) Finding Templates - Microsoft Office template library includes free...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "How I create an invoice using Excel templates?",
+          "ogDescription": "Excel invoice templates provide flexible, customizable invoicing for businesses: (1) Finding Templates - Microsoft Office template library includes free...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\how-do-i-create-a-receipt-for-a-car-sale-in-the-uk.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "How I create a receipt for a car sale in the UK? | InvoiceParse.ai Blog",
+          "description": "A car sale receipt is a crucial legal document when selling a vehicle privately in the UK. Essential elements include: (1) Seller Details - full name,...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "How I create a receipt for a car sale in the UK?",
+          "ogDescription": "A car sale receipt is a crucial legal document when selling a vehicle privately in the UK. Essential elements include: (1) Seller Details - full name,...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\can-invoice-processing-systems-integrate-with-erps-like-sap-or-oracle.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Invoice processing systems integrate with ERPs like SAP or Oracle? | InvoiceParse.ai Blog",
+          "description": "Yes, modern invoice processing systems integrate with major ERP platforms including SAP, Oracle, Microsoft Dynamics, NetSuite, and others. Integration...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Invoice processing systems integrate with ERPs like SAP or Oracle?",
+          "ogDescription": "Yes, modern invoice processing systems integrate with major ERP platforms including SAP, Oracle, Microsoft Dynamics, NetSuite, and others. Integration...",
+          "ogUrl": null
+        }
+      }
+    ]
+  },
+  "staticGeneration": {
+    "static": 0,
+    "dynamic": 0,
+    "details": []
+  },
+  "overall": {
+    "score": 89,
+    "issues": [],
+    "warnings": [],
+    "successes": [
+      ".next\\server\\app\\_not-found.html: Organization entity consistent",
+      ".next\\server\\app\\pricing.html: Organization entity consistent",
+      ".next\\server\\app\\parser.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-templates.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-generator.html: Organization entity consistent",
+      ".next\\server\\app\\index.html: Organization entity consistent",
+      ".next\\server\\app\\faq.html: Organization entity consistent",
+      ".next\\server\\app\\blog.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-templates\\restaurant-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-templates\\plumbing-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-templates\\photography-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-templates\\hotel-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-templates\\graphic-design-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-templates\\freelance-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-templates\\electrical-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-templates\\consulting-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-templates\\construction-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-templates\\commercial-photography-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-templates\\catering-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-generator\\restaurant-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-generator\\plumbing-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-generator\\photography-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-generator\\hotel-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-generator\\graphic-design-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-generator\\freelance-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-generator\\electrical-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-generator\\consulting-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-generator\\construction-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-generator\\commercial-photography-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-generator\\catering-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\where-can-i-find-free-invoice-templates-for-uk-businesses.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-is-touchless-invoice-processing.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-is-the-roi-of-invoice-automation.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-is-the-difference-between-invoice-software-and-accounting-software.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-is-the-difference-between-a-receipt-and-an-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-is-the-best-invoice-app-for-freelancers-and-mobile-billing.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-is-supplier-invoice-management.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-is-ocr-for-invoices.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-is-invoice-processing.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-is-invoice-processing-for-manufacturing-companies.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-is-invoice-management-software.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-is-invoice-fraud-and-how-can-it-be-prevented.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-is-invoice-finance-and-how-does-it-work-for-businesses.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-is-invoice-exception-handling.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-is-invoice-discounting-and-how-does-it-differ-from-factoring.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-is-invoice-data-extraction.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-is-invoice-automation.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-is-an-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-is-an-invoice-template.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-is-an-invoice-processing-api.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-is-an-invoice-generator.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-is-an-electronic-invoice-e-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-is-ai-powered-invoice-processing.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-is-accounts-payable-invoice-processing.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-is-accounts-payable-automation-software.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-is-a-vat-receipt-and-how-does-it-differ-from-a-standard-receipt.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-is-a-receipt-of-payment-and-when-is-it-required.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-is-a-purchase-order-form-and-how-does-it-relate-to-invoicing.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-is-a-proforma-invoice-and-when-is-it-used.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-is-3-way-matching-in-invoice-processing.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-invoice-software-solutions-are-available-for-businesses.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-invoice-processing-software-is-best-for-small-businesses.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-compliance-requirements-apply-to-invoice-processing.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-are-the-common-invoice-formats.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-are-the-best-receipt-design-templates-for-businesses.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-are-the-best-free-invoice-generators-for-uk-businesses.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-are-invoice-processing-kpis-and-metrics.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\how-should-self-employed-individuals-create-invoices-in-the-uk.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\how-secure-is-cloud-based-invoice-processing.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\how-much-does-invoice-processing-software-cost.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\how-long-does-it-take-to-implement-invoice-processing-automation.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\how-does-invoice-processing-work.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\how-does-invoice-processing-work-with-xero-accounting-software.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\how-does-invoice-processing-work-for-restaurants-and-food-service.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\how-does-invoice-processing-integrate-with-quickbooks.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\how-does-invoice-processing-handle-recurring-invoices.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\how-does-invoice-processing-handle-multiple-currencies.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\how-does-invoice-approval-workflow-automation-work.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\how-do-invoice-processing-systems-handle-email-invoices.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\how-do-i-get-my-amazon-invoice-for-business-purchases.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\how-do-i-create-an-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\how-do-i-create-an-invoice-using-google-docs-templates.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\how-do-i-create-an-invoice-using-excel-templates.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\how-do-i-create-a-receipt-for-a-car-sale-in-the-uk.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\can-invoice-processing-systems-integrate-with-erps-like-sap-or-oracle.html: Organization entity consistent"
+    ]
+  }
+}

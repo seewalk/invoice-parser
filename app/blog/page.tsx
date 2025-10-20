@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import { getAllBlogArticles, getFeaturedArticles, getBlogCategories, getBlogStats } from '../lib/blogData';
 import PageHero from '../components/PageHero';
-import BlogPageSchema from '../components/BlogPageSchema';
 import { BlogCard, FeaturedArticles, BlogSidebar } from '../components/blog';
 import Link from 'next/link';
 import { 
@@ -10,6 +9,7 @@ import {
   Users,
   Tag 
 } from 'lucide-react';
+import { BUSINESS_INFO, generateBreadcrumbSchema } from '../lib/schemaConfig';
 
 export const metadata: Metadata = {
   title: 'Invoice Parsing & Automation Blog | Expert Insights & Best Practices',
@@ -48,10 +48,49 @@ export default function BlogPage() {
   const featuredSlugs = new Set(featuredArticles.map(a => a.slug));
   const regularArticles = allArticles.filter(a => !featuredSlugs.has(a.slug));
 
+  // Generate blog index schemas
+  const itemListSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Invoice Processing & Automation Blog',
+    description: 'Expert insights on invoice parsing, OCR technology, and accounts payable automation',
+    itemListElement: allArticles.slice(0, 50).map((article, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'Article',
+        '@id': `${BUSINESS_INFO.url}/blog/${article.slug}`,
+        headline: article.title,
+        datePublished: article.publishedDate,
+        author: {
+          '@type': 'Organization',
+          '@id': `${BUSINESS_INFO.url}/#organization`,
+          name: BUSINESS_INFO.legalName
+        }
+      }
+    }))
+  };
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Blog', url: '/blog' }
+  ]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
-      {/* Blog Page Schema */}
-      <BlogPageSchema />
+      {/* Server-Rendered Blog Index Schemas */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(itemListSchema)
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema)
+        }}
+      />
       
       {/* Hero Section with Stats */}
       <PageHero
