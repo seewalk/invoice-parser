@@ -8,6 +8,7 @@ import Navigation from '../components/Navigation';
 import FinalCTASection from '../components/FinalCTASection';
 import PageHero from '../components/PageHero';
 import IndividualTemplatePricing from '../components/pricing/IndividualTemplatePricing';
+import PricingPageSchema from '../components/PricingPageSchema';
 
 export default function PricingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -84,6 +85,8 @@ export default function PricingPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
+      {/* Pricing Page Schema */}
+      <PricingPageSchema />
 
       <PageHero
         badge="Transparent Pricing"

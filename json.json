@@ -1,0 +1,146 @@
+{
+  "supplier": "Alex Thompson - Freelance Developer",
+  "invoiceNumber": "FL-2024-0890",
+  "date": "2024-10-18",
+  "dueDate": "2024-11-01",
+  "totalAmount": 21960.16,
+  "currency": "USD",
+  "lineItems": [
+    {
+      "description": "Website Development (Week 1)",
+      "quantity": 40,
+      "unitPrice": 50,
+      "totalPrice": 2000,
+      "category": "General"
+    },
+    {
+      "description": "Website Development (Week 2)",
+      "quantity": 38,
+      "unitPrice": 50,
+      "totalPrice": 1900,
+      "category": "General"
+    },
+    {
+      "description": "Bug Fixes & Testing",
+      "quantity": 8,
+      "unitPrice": 50,
+      "totalPrice": 400,
+      "category": "General"
+    },
+    {
+      "description": "Bug Fixes & Testing",
+      "quantity": 1,
+      "unitPrice": 500,
+      "totalPrice": 500,
+      "category": "General"
+    },
+    {
+      "description": "Bug Fixes & Testing",
+      "quantity": 1,
+      "unitPrice": 500,
+      "totalPrice": 500,
+      "category": "General"
+    },
+    {
+      "description": "Bug Fixes & Testing",
+      "quantity": 1,
+      "unitPrice": 500,
+      "totalPrice": 500,
+      "category": "General"
+    },
+    {
+      "description": "Bug Fixes & Testing",
+      "quantity": 1,
+      "unitPrice": 500,
+      "totalPrice": 500,
+      "category": "General"
+    },
+    {
+      "description": "Bug Fixes & Testing",
+      "quantity": 1,
+      "unitPrice": 500,
+      "totalPrice": 500,
+      "category": "General"
+    },
+    {
+      "description": "Bug Fixes & Testing",
+      "quantity": 1,
+      "unitPrice": 500,
+      "totalPrice": 500,
+      "category": "General"
+    },
+    {
+      "description": "Bug Fixes & Testing",
+      "quantity": 1,
+      "unitPrice": 500,
+      "totalPrice": 500,
+      "category": "General"
+    },
+    {
+      "description": "Bug Fixes & Testing",
+      "quantity": 1,
+      "unitPrice": 500,
+      "totalPrice": 500,
+      "category": "General"
+    },
+    {
+      "description": "Bug Fixes & Testing",
+      "quantity": 1,
+      "unitPrice": 500,
+      "totalPrice": 500,
+      "category": "General"
+    },
+    {
+      "description": "Bug Fixes & Testing",
+      "quantity": 1,
+      "unitPrice": 500,
+      "totalPrice": 500,
+      "category": "General"
+    },
+    {
+      "description": "Bug Fixes & Testing",
+      "quantity": 1,
+      "unitPrice": 500,
+      "totalPrice": 500,
+      "category": "General"
+    },
+    {
+      "description": "Bug Fixes & Testing",
+      "quantity": 1,
+      "unitPrice": 500,
+      "totalPrice": 500,
+      "category": "General"
+    },
+    {
+      "description": "Bug Fixes & Testing",
+      "quantity": 1,
+      "unitPrice": 500,
+      "totalPrice": 500,
+      "category": "General"
+    },
+    {
+      "description": "Bug Fixes & Testing",
+      "quantity": 1,
+      "unitPrice": 500,
+      "totalPrice": 500,
+      "category": "General"
+    },
+    {
+      "description": "Bug Fixes & Testing",
+      "quantity": 1,
+      "unitPrice": 500.13,
+      "totalPrice": 500.13,
+      "category": "General"
+    },
+    {
+      "description": "Bug Fixes & Testing",
+      "quantity": 1,
+      "unitPrice": 500,
+      "totalPrice": 500,
+      "category": "General"
+    }
+  ],
+  "taxAmount": 3660.03,
+  "subtotal": 18300.13,
+  "confidence": 0.95
+}

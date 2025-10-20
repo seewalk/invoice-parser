@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { getAllBlogArticles, getFeaturedArticles, getBlogCategories, getBlogStats } from '../lib/blogData';
 import PageHero from '../components/PageHero';
+import BlogPageSchema from '../components/BlogPageSchema';
 import { BlogCard, FeaturedArticles, BlogSidebar } from '../components/blog';
 import Link from 'next/link';
 import { 
@@ -49,6 +50,9 @@ export default function BlogPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+      {/* Blog Page Schema */}
+      <BlogPageSchema />
+      
       {/* Hero Section with Stats */}
       <PageHero
         title="Knowledge Base"

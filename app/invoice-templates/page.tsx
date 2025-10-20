@@ -19,6 +19,7 @@ import {
   Star
 } from 'lucide-react';
 import PageHero from '@/app/components/PageHero';
+import TemplateLibrarySchema from '@/app/components/TemplateLibrarySchema';
 
 // Import first industry section immediately (above fold)
 import { IndustrySection } from '@/app/components/template-landing';
@@ -64,6 +65,8 @@ export default function InvoiceTemplatesPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+      {/* Template Library Schema */}
+      <TemplateLibrarySchema totalTemplates={totalTemplates} />
       
       <PageHero
         badge="Free Invoice Templates UK"
@@ -308,25 +311,7 @@ export default function InvoiceTemplatesPage() {
         </div>
       </section>
 
-      {/* Schema.org Structured Data */}
-      <script 
-        type="application/ld+json" 
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "CollectionPage",
-            "name": "Free UK Invoice Templates by Industry",
-            "description": "Download professional, industry-specific invoice templates for UK businesses. Free templates for restaurants, photographers, builders, freelancers, and more.",
-            "url": "https://yourdomain.com/invoice-templates",
-            "numberOfItems": totalTemplates,
-            "about": {
-              "@type": "Thing",
-              "name": "Invoice Templates",
-              "description": "Professional invoice templates for UK businesses"
-            }
-          })
-        }} 
-      />
+
     </div>
   );
 }

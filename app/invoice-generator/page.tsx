@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ArrowRight, FileText, Search, TrendingUp } from 'lucide-react';
 import { allIndustries } from '@/app/lib/invoiceTemplateLibrary';
 import PageHero from '@/app/components/PageHero';
+import InvoiceGeneratorSchema from '@/app/components/InvoiceGeneratorSchema';
 
 export const metadata: Metadata = {
   title: 'Invoice Generator | Create Custom Invoices Online',
@@ -50,6 +51,8 @@ export default function InvoiceGeneratorPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+      {/* Invoice Generator Schema */}
+      <InvoiceGeneratorSchema templateCount={allTemplates.length} />
       
       {/* Hero Section */}
       <PageHero
