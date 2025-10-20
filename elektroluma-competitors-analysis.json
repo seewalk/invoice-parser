@@ -1,0 +1,1447 @@
+"id": "docsumo",
+      "name": "Docsumo",
+      "slug": "docsumo",
+      "website": "https://www.docsumo.com",
+      "description": "Docsumo is an AI-powered document processing platform that automates invoice data extraction with 99% accuracy. Built for finance teams, the platform handles unstructured documents and transforms them into structured data 10x faster than manual processing.",
+      "shortDescription": "AI document extraction with 99% accuracy for finance teams",
+      
+      "company": {
+        "founded": 2019,
+        "headquarters": "San Jose, California, USA",
+        "employees": "51-200",
+        "funding": "$7.3M Series A",
+        "valuation": "~$30M estimated"
+      },
+      
+      "segment": "ai-parser",
+      "traffic": {
+        "monthlyUsers": 10000,
+        "description": "10,000+ data-driven businesses use Docsumo for document processing"
+      },
+      
+      "features": {
+        "aiPowered": true,
+        "ukCompliance": false,
+        "vatSupport": false,
+        "cisSupport": false,
+        "automation": true,
+        "accountingIntegration": ["QuickBooks", "Xero", "NetSuite", "Sage"],
+        "mobileApp": false,
+        "apiAccess": true,
+        "customTemplates": true,
+        "multiCurrency": true,
+        "batchProcessing": true,
+        "ocrAccuracy": 99
+      },
+      
+      "pricing": {
+        "model": "subscription",
+        "currency": "USD",
+        "tiers": [
+          {
+            "name": "Free Trial",
+            "price": 0,
+            "billingPeriod": "one-time",
+            "features": [
+              "14-day trial",
+              "100 pages",
+              "1 user",
+              "Basic support"
+            ],
+            "limits": {
+              "pages": 100,
+              "users": 1
+            }
+          },
+          {
+            "name": "Growth",
+            "price": 499,
+            "billingPeriod": "month",
+            "features": [
+              "3,000 pages/month",
+              "Up to 3 users",
+              "API access",
+              "Webhooks",
+              "AI prompting",
+              "Pre-built integrations",
+              "1-year data retention"
+            ],
+            "limits": {
+              "pages": 3000,
+              "users": 3
+            }
+          },
+          {
+            "name": "Pro",
+            "price": 999,
+            "billingPeriod": "month",
+            "features": [
+              "Up to 10 users",
+              "Custom validations",
+              "Classification & splitting",
+              "Email parsing",
+              "Dedicated account manager",
+              "Private Slack channel"
+            ],
+            "limits": {
+              "users": 10
+            }
+          },
+          {
+            "name": "Enterprise",
+            "price": 2500,
+            "billingPeriod": "month",
+            "features": [
+              "Unlimited users",
+              "Custom fine-tuned models",
+              "AI workflows",
+              "Document analytics",
+              "Priority processing",
+              "Custom data retention"
+            ]
+          }
+        ]
+      },
+      
+      "strengths": [
+        "Exceptional 99% accuracy with continuous learning",
+        "Strong API-first approach for developers",
+        "Excellent table extraction capabilities",
+        "95%+ straight-through processing rate",
+        "SOC 2, GDPR, HIPAA compliant",
+        "Process documents 10x faster than manual entry"
+      ],
+      
+      "weaknesses": [
+        "Expensive for SMBs (£499/month minimum)",
+        "No UK-specific compliance features (VAT, CIS)",
+        "No mobile app for on-the-go processing",
+        "Complex pricing structure with per-page costs",
+        "Steep learning curve for non-technical users",
+        "14-day trial too short to test thoroughly"
+      ],
+      
+      "targetMarket": {
+        "description": "Mid-market to enterprise finance teams in lending, insurance, CRE, and logistics",
+        "businessSize": "medium",
+        "industry": ["Finance", "Insurance", "Lending", "Real Estate", "Logistics"],
+        "geography": ["North America", "Global"]
+      },
+      
+      "reviews": {
+        "overall": 4.7,
+        "g2": 4.7,
+        "capterra": 4.6,
+        "userComments": [
+          "What took days now only takes seconds - 7 minutes down to 30 seconds",
+          "95%+ STP rate means we don't review 95 out of 100 documents",
+          "Very good for debt settlement letters with high variability",
+          "Best document AI solution for CRE lenders"
+        ]
+      },
+      
+      "keywords": [
+        "invoice OCR software",
+        "document AI",
+        "invoice processing software",
+        "invoice data extraction",
+        "AI invoice automation"
+      ],
+      "searchVolume": 8900,
+      "alternativeKeywords": [
+        "Docsumo alternative",
+        "invoice extraction API",
+        "document processing automation"
+      ],
+      
+      "elektrolumaDifferentiators": [
+        "Elektroluma is 94% cheaper (£29/mo vs $499/mo minimum)",
+        "Built specifically for UK compliance (VAT, CIS, Gas Safe)",
+        "Mobile-first for tradespeople on job sites",
+        "No per-page costs - truly unlimited processing",
+        "Simple pricing with no hidden setup fees",
+        "Trade-focused vs. enterprise-focused"
+      ],
+      
+      "migrationPath": "Docsumo users facing high costs can save £400+/month with Elektroluma while maintaining 99% accuracy. Export existing invoices and migrate UK clients to Elektroluma's trade-focused platform."
+    },
+    {
+      "id": "veryfi",
+      "name": "Veryfi",
+      "slug": "veryfi",
+      "website": "https://www.veryfi.com",
+      "description": "Veryfi offers multimodal OCR APIs for invoices, receipts, and financial documents with industry-leading accuracy and fraud prevention. Their platform transforms documents into structured data with enterprise-grade security and 99.995% uptime.",
+      "shortDescription": "Multi-modal OCR APIs with fraud prevention and 99.995% uptime",
+      
+      "company": {
+        "founded": 2014,
+        "headquarters": "San Francisco, California, USA",
+        "employees": "11-50",
+        "funding": "Bootstrapped",
+        "valuation": "~$20M estimated"
+      },
+      
+      "segment": "api-service",
+      "traffic": {
+        "monthlyUsers": 5000,
+        "description": "5,000+ developers and businesses using Veryfi APIs"
+      },
+      
+      "features": {
+        "aiPowered": true,
+        "ukCompliance": false,
+        "vatSupport": false,
+        "cisSupport": false,
+        "automation": true,
+        "accountingIntegration": ["QuickBooks", "Xero", "SAP"],
+        "mobileApp": true,
+        "apiAccess": true,
+        "customTemplates": true,
+        "multiCurrency": true,
+        "batchProcessing": true,
+        "ocrAccuracy": 98
+      },
+      
+      "pricing": {
+        "model": "usage-based",
+        "currency": "USD",
+        "tiers": [
+          {
+            "name": "Free",
+            "price": 0,
+            "billingPeriod": "month",
+            "features": [
+              "Up to 100 documents/month",
+              "All document types",
+              "SDKs for development",
+              "Limited storage",
+              "Email support"
+            ],
+            "limits": {
+              "invoices": 100
+            }
+          },
+          {
+            "name": "Starter",
+            "price": 500,
+            "billingPeriod": "month",
+            "features": [
+              "$0.16 per invoice",
+              "$0.08 per receipt",
+              "All document types",
+              "Limited storage",
+              "Email support"
+            ]
+          },
+          {
+            "name": "Growth",
+            "price": 1000,
+            "billingPeriod": "month",
+            "features": [
+              "Volume discounts",
+              "Fraud detection",
+              "Document capture",
+              "Priority support",
+              "Custom SLAs"
+            ]
+          }
+        ],
+        "usageFees": {
+          "perInvoice": 0.16,
+          "description": "$0.16 per invoice, $0.08 per receipt with volume discounts"
+        }
+      },
+      
+      "strengths": [
+        "Exceptional 99.995% uptime guarantee",
+        "Support for 38 languages and 91+ currencies",
+        "SOC 2 Type 2, HIPAA, GDPR, CCPA compliant",
+        "Deterministic AI (no hallucinations)",
+        "In-house models trained on H100/A100 GPUs",
+        "Generous 100 docs/month free tier",
+        "Fraud detection included"
+      ],
+      
+      "weaknesses": [
+        "Expensive per-document pricing ($0.16/invoice)",
+        "No UK-specific compliance features",
+        "$500/month minimum for paid plans",
+        "15-page limit per document (custom needed for more)",
+        "Developer-focused, not user-friendly for non-technical users",
+        "Limited storage on lower tiers"
+      ],
+      
+      "targetMarket": {
+        "description": "Developers and tech companies building invoice processing into their applications",
+        "businessSize": "small",
+        "industry": ["FinTech", "SaaS", "Technology", "Financial Services"],
+        "geography": ["Global", "North America"]
+      },
+      
+      "reviews": {
+        "overall": 4.5,
+        "g2": 4.6,
+        "capterra": 4.4,
+        "userComments": [
+          "Best OCR API for developers - easy to integrate",
+          "Excellent fraud detection catches duplicate invoices",
+          "99.995% uptime is real - never had downtime",
+          "Pricing adds up quickly at scale"
+        ]
+      },
+      
+      "keywords": [
+        "invoice OCR API",
+        "receipt scanning API",
+        "document extraction API",
+        "OCR API pricing",
+        "fraud detection OCR"
+      ],
+      "searchVolume": 6200,
+      "alternativeKeywords": [
+        "Veryfi alternative",
+        "invoice API",
+        "receipt OCR API"
+      ],
+      
+      "elektrolumaDifferentiators": [
+        "Elektroluma offers unlimited invoices at £29/mo vs $500+ minimum",
+        "No per-document fees - process 1,000s without extra costs",
+        "Built for UK tradespeople, not developers",
+        "VAT and CIS compliance out of the box",
+        "No technical skills required",
+        "Mobile app designed for job sites"
+      ],
+      
+      "migrationPath": "Veryfi API users can save thousands monthly by switching to Elektroluma's unlimited processing. No coding required - just upload and process."
+    },
+    {
+      "id": "invoice-ninja",
+      "name": "Invoice Ninja",
+      "slug": "invoice-ninja",
+      "website": "https://invoiceninja.com",
+      "description": "Invoice Ninja is a free, open-source invoicing platform for freelancers and small businesses. It offers unlimited invoicing with a forever-free plan supporting up to 20 clients, customizable templates, and online payment processing.",
+      "shortDescription": "Free open-source invoicing with unlimited invoices for up to 20 clients",
+      
+      "company": {
+        "founded": 2014,
+        "headquarters": "Washington, USA",
+        "employees": "11-50",
+        "funding": "Bootstrapped",
+        "parentCompany": "Invoice Ninja LLC"
+      },
+      
+      "segment": "free-generator",
+      "traffic": {
+        "monthlyUsers": 500000,
+        "description": "500,000+ freelancers and small businesses worldwide"
+      },
+      
+      "features": {
+        "aiPowered": false,
+        "ukCompliance": false,
+        "vatSupport": true,
+        "cisSupport": false,
+        "automation": true,
+        "accountingIntegration": ["Zapier", "Make", "n8n"],
+        "mobileApp": true,
+        "apiAccess": true,
+        "customTemplates": true,
+        "multiCurrency": true,
+        "batchProcessing": false,
+        "ocrAccuracy": 0
+      },
+      
+      "pricing": {
+        "model": "freemium",
+        "currency": "USD",
+        "tiers": [
+          {
+            "name": "Forever Free",
+            "price": 0,
+            "billingPeriod": "month",
+            "features": [
+              "Up to 20 clients",
+              "Unlimited invoices",
+              "4 invoice templates",
+              "Auto-billing",
+              "Recurring invoices",
+              "Client portal",
+              "Online payments"
+            ],
+            "limits": {
+              "invoices": 99999,
+              "users": 1
+            }
+          },
+          {
+            "name": "Ninja Pro",
+            "price": 10,
+            "billingPeriod": "month",
+            "features": [
+              "Unlimited clients",
+              "11 invoice templates",
+              "Remove branding",
+              "Custom domain",
+              "API access",
+              "Email reminders"
+            ]
+          },
+          {
+            "name": "Enterprise",
+            "price": 14,
+            "billingPeriod": "month",
+            "features": [
+              "All Pro features",
+              "White label",
+              "Priority support",
+              "Custom integrations"
+            ]
+          }
+        ]
+      },
+      
+      "strengths": [
+        "Truly free forever - no forced upgrades",
+        "Unlimited invoicing even on free plan",
+        "Open-source with self-hosting option",
+        "Strong automation features (recurring invoices, reminders)",
+        "Mobile apps for iOS and Android",
+        "Active community support",
+        "Very affordable Pro plan ($10/month)"
+      ],
+      
+      "weaknesses": [
+        "No AI-powered invoice parsing/extraction",
+        "Limited templates on free plan (only 4)",
+        "No UK-specific compliance (CIS, Gas Safe)",
+        "Dated user interface",
+        "20-client limit on free plan restrictive for growing businesses",
+        "Limited accounting integrations",
+        "No receipt scanning or OCR capabilities"
+      ],
+      
+      "targetMarket": {
+        "description": "Freelancers, contractors, and micro-businesses needing basic invoicing without costs",
+        "businessSize": "freelancer",
+        "industry": ["Freelancing", "Consulting", "Creative Services", "IT Services"],
+        "geography": ["Global", "North America", "Europe"]
+      },
+      
+      "reviews": {
+        "overall": 4.4,
+        "g2": 4.4,
+        "capterra": 4.3,
+        "trustpilot": 4.5,
+        "userComments": [
+          "Perfect for freelancers just starting out",
+          "Love that it's truly free with no hidden costs",
+          "Open-source means I can customize everything",
+          "Interface feels a bit outdated compared to competitors"
+        ]
+      },
+      
+      "keywords": [
+        "free invoice software",
+        "Invoice Ninja",
+        "open source invoicing",
+        "free invoicing for freelancers",
+        "unlimited invoices free"
+      ],
+      "searchVolume": 12400,
+      "alternativeKeywords": [
+        "Invoice Ninja alternative",
+        "free invoice generator",
+        "Invoice Ninja vs FreshBooks"
+      ],
+      
+      "elektrolumaDifferentiators": [
+        "Elektroluma adds AI-powered invoice parsing - Invoice Ninja is manual only",
+        "UK compliance built-in (VAT, CIS, Gas Safe)",
+        "Receipt scanning and OCR for tradespeople",
+        "Job-site focused mobile app",
+        "Automated invoice capture from photos",
+        "Trade-specific templates (electrical, plumbing, gas)"
+      ],
+      
+      "migrationPath": "Invoice Ninja users can upgrade to Elektroluma for £29/mo to add AI automation, UK compliance, and receipt scanning while keeping unlimited invoicing."
+    },
+    {
+      "id": "tipalti",
+      "name": "Tipalti",
+      "slug": "tipalti",
+      "website": "https://tipalti.com",
+      "description": "Tipalti is a global payables automation platform for mid-market and enterprise companies. It handles invoice processing, global payments, supplier onboarding, and tax compliance with AI-driven automation and supports payments to 190+ countries.",
+      "shortDescription": "Enterprise AP automation with global payment capabilities to 190+ countries",
+      
+      "company": {
+        "founded": 2010,
+        "headquarters": "Foster City, California, USA",
+        "employees": "501-1000",
+        "funding": "$565M (Series F)",
+        "valuation": "$8.3B (2021)"
+      },
+      
+      "segment": "ai-parser",
+      "traffic": {
+        "monthlyUsers": 50000,
+        "description": "Powers AP for 3,000+ mid-market and enterprise customers globally"
+      },
+      
+      "features": {
+        "aiPowered": true,
+        "ukCompliance": true,
+        "vatSupport": true,
+        "cisSupport": false,
+        "automation": true,
+        "accountingIntegration": ["QuickBooks", "Xero", "NetSuite", "SAP", "Oracle"],
+        "mobileApp": true,
+        "apiAccess": true,
+        "customTemplates": true,
+        "multiCurrency": true,
+        "batchProcessing": true,
+        "ocrAccuracy": 97
+      },
+      
+      "pricing": {
+        "model": "subscription",
+        "currency": "USD",
+        "tiers": [
+          {
+            "name": "Select",
+            "price": 99,
+            "billingPeriod": "month",
+            "features": [
+              "AI-driven invoice processing",
+              "VAT ID validation",
+              "Basic supplier onboarding",
+              "Email support"
+            ]
+          },
+          {
+            "name": "Advanced",
+            "price": 199,
+            "billingPeriod": "month",
+            "features": [
+              "All Select features",
+              "Purchase order matching",
+              "Multi-entity support",
+              "Priority support"
+            ]
+          },
+          {
+            "name": "Elevate",
+            "price": 500,
+            "billingPeriod": "month",
+            "features": [
+              "All Advanced features",
+              "Custom workflows",
+              "Dedicated account manager",
+              "Global payment infrastructure",
+              "Tax compliance automation"
+            ]
+          }
+        ]
+      },
+      
+      "strengths": [
+        "Enterprise-grade with 8.3B valuation",
+        "Supports payments to 190+ countries",
+        "Excellent tax compliance automation",
+        "Strong fraud detection and controls",
+        "Deep ERP integrations (NetSuite, SAP, Oracle)",
+        "Handles global supplier onboarding",
+        "99.9% uptime guarantee"
+      ],
+      
+      "weaknesses": [
+        "Expensive for SMBs (£99/month minimum)",
+        "Complex implementation (typically 1-3 months)",
+        "Steep learning curve due to feature complexity",
+        "Overkill for businesses with <100 invoices/month",
+        "Implementation fees start at £1,500+",
+        "Not designed for tradespeople or field workers",
+        "No CIS support for UK construction"
+      ],
+      
+      "targetMarket": {
+        "description": "Mid-market to enterprise companies with high invoice volumes and global suppliers",
+        "businessSize": "enterprise",
+        "industry": ["Technology", "E-commerce", "Manufacturing", "Media & Entertainment"],
+        "geography": ["Global", "North America", "Europe", "UK"]
+      },
+      
+      "reviews": {
+        "overall": 4.3,
+        "g2": 4.2,
+        "capterra": 4.3,
+        "userComments": [
+          "Great for global payments but expensive",
+          "Implementation took 3 months - longer than expected",
+          "Powerful but complex - needed training for team",
+          "Excellent for managing 1000s of suppliers"
+        ]
+      },
+      
+      "keywords": [
+        "AP automation software",
+        "global payables automation",
+        "Tipalti pricing",
+        "accounts payable software UK",
+        "invoice automation enterprise"
+      ],
+      "searchVolume": 9800,
+      "alternativeKeywords": [
+        "Tipalti alternative",
+        "Tipalti vs BILL",
+        "AP automation UK"
+      ],
+      
+      "elektrolumaDifferentiators": [
+        "Elektroluma is 70% cheaper (£29/mo vs £99/mo minimum)",
+        "No implementation fees or onboarding costs",
+        "Designed for UK tradespeople with CIS support",
+        "Simple setup in minutes, not months",
+        "Perfect for SMBs with 10-500 invoices/month",
+        "Mobile-first for job site use"
+      ],
+      
+      "migrationPath": "Tipalti is overkill for UK SMBs. Switch to Elektroluma to save £840/year while getting UK-specific features like CIS deductions and trade compliance."
+    },
+    {
+      "id": "autoentry",
+      "name": "AutoEntry",
+      "slug": "autoentry-sage",
+      "website": "https://www.autoentry.com",
+      "description": "AutoEntry is Sage's cloud-based OCR tool that automates data entry by capturing invoices, receipts, and statements. It integrates seamlessly with Sage, QuickBooks, and Xero to eliminate manual bookkeeping for accountants and SMEs.",
+      "shortDescription": "Sage-owned OCR automation for accountants and bookkeepers",
+      
+      "company": {
+        "founded": 2010,
+        "headquarters": "Cork, Ireland",
+        "employees": "51-200",
+        "parentCompany": "Sage Group plc"
+      },
+      
+      "segment": "ai-parser",
+      "traffic": {
+        "monthlyUsers": 25000,
+        "description": "25,000+ accountants and SMEs using AutoEntry through Sage"
+      },
+      
+      "features": {
+        "aiPowered": true,
+        "ukCompliance": true,
+        "vatSupport": true,
+        "cisSupport": false,
+        "automation": true,
+        "accountingIntegration": ["Sage", "QuickBooks", "Xero"],
+        "mobileApp": true,
+        "apiAccess": false,
+        "customTemplates": false,
+        "multiCurrency": true,
+        "batchProcessing": true,
+        "ocrAccuracy": 96
+      },
+      
+      "pricing": {
+        "model": "usage-based",
+        "currency": "GBP",
+        "tiers": [
+          {
+            "name": "Starter",
+            "price": 9,
+            "billingPeriod": "month",
+            "features": [
+              "50 documents/month",
+              "Unlimited users",
+              "Mobile app",
+              "Email support",
+              "Bank statement capture"
+            ],
+            "limits": {
+              "pages": 50
+            }
+          },
+          {
+            "name": "Standard",
+            "price": 25,
+            "billingPeriod": "month",
+            "features": [
+              "150 documents/month",
+              "Line item extraction",
+              "Purchase order matching",
+              "Priority support"
+            ],
+            "limits": {
+              "pages": 150
+            }
+          },
+          {
+            "name": "Premium",
+            "price": 50,
+            "billingPeriod": "month",
+            "features": [
+              "400 documents/month",
+              "Advanced features",
+              "Dedicated support"
+            ],
+            "limits": {
+              "pages": 400
+            }
+          }
+        ],
+        "usageFees": {
+          "description": "Unused credits roll over for 90 days"
+        }
+      },
+      
+      "strengths": [
+        "Owned by Sage - seamless integration",
+        "Strong UK presence and VAT support",
+        "Affordable entry point (£9/month)",
+        "Unused credits roll over for 90 days",
+        "Unlimited users on all plans",
+        "Good mobile app for receipt capture",
+        "Designed for UK accountants"
+      ],
+      
+      "weaknesses": [
+        "Only 96% accuracy (lower than competitors)",
+        "Limited to 50 docs/month on cheapest plan",
+        "No API access for custom integrations",
+        "No CIS support for construction",
+        "Owned by Sage - lock-in concerns",
+        "Limited to 3 accounting platforms",
+        "Not designed for tradespeople"
+      ],
+      
+      "targetMarket": {
+        "description": "UK accountants, bookkeepers, and SMEs already using Sage ecosystem",
+        "businessSize": "small",
+        "industry": ["Accounting", "Bookkeeping", "Professional Services"],
+        "geography": ["UK", "Ireland", "Europe"]
+      },
+      
+      "reviews": {
+        "overall": 4.2,
+        "g2": 4.3,
+        "capterra": 4.1,
+        "userComments": [
+          "Works great with Sage - seamless integration",
+          "Credit rollover is helpful for variable month",
+          "Accuracy could be better - still need to review",
+          "Good value for accountants managing multiple clients"
+        ]
+      },
+      
+      "keywords": [
+        "AutoEntry Sage",
+        "Sage OCR",
+        "AutoEntry pricing UK",
+        "receipt scanning UK",
+        "Sage data entry automation"
+      ],
+      "searchVolume": 5400,
+      "alternativeKeywords": [
+        "AutoEntry alternative",
+        "Sage AutoEntry review",
+        "receipt OCR UK"
+      ],
+      
+      "elektrolumaDifferentiators": [
+        "Elektroluma offers 99% accuracy vs AutoEntry's 96%",
+        "Unlimited invoices at £29/mo vs pay-per-document",
+        "CIS support for UK construction trades",
+        "Trade-specific features (Gas Safe, NICEIC)",
+        "Not locked into Sage ecosystem",
+        "Mobile app designed for job sites, not offices"
+      ],
+      
+      "migrationPath": "AutoEntry users processing 150+ docs/month can save money and get better accuracy with Elektroluma's unlimited plan. Export data and switch platforms easily."
+    },
+    {
+      "id": "xero",
+      "name": "Xero",
+      "slug": "xero",
+      "website": "https://www.xero.com/uk",
+      "description": "Xero is a leading cloud accounting platform for small businesses in the UK. It offers comprehensive accounting with unlimited invoicing, bank reconciliation, VAT returns, and Making Tax Digital compliance. Dominates UK market with 89% share alongside QuickBooks.",
+      "shortDescription": "UK market-leading cloud accounting with unlimited invoicing",
+      
+      "company": {
+        "founded": 2006,
+        "headquarters": "Wellington, New Zealand (UK office in London)",
+        "employees": "4,000+",
+        "funding": "Public (ASX: XRO)",
+        "valuation": "$18B market cap"
+      },
+      
+      "segment": "accounting-software",
+      "traffic": {
+        "monthlyUsers": 3800000,
+        "description": "3.8M+ subscribers globally, 1M+ in UK"
+      },
+      
+      "features": {
+        "aiPowered": false,
+        "ukCompliance": true,
+        "vatSupport": true,
+        "cisSupport": true,
+        "automation": true,
+        "accountingIntegration": ["N/A - is the accounting software"],
+        "mobileApp": true,
+        "apiAccess": true,
+        "customTemplates": true,
+        "multiCurrency": true,
+        "batchProcessing": true,
+        "ocrAccuracy": 0
+      },
+      
+      "pricing": {
+        "model": "subscription",
+        "currency": "GBP",
+        "tiers": [
+          {
+            "name": "Ignite",
+            "price": 16,
+            "billingPeriod": "month",
+            "features": [
+              "Send 10 invoices/quotes",
+              "Enter 5 bills",
+              "Bank reconciliation",
+              "MTD ready"
+            ],
+            "limits": {
+              "invoices": 10
+            }
+          },
+          {
+            "name": "Grow",
+            "price": 33,
+            "billingPeriod": "month",
+            "features": [
+              "Unlimited invoices",
+              "Multi-currency",
+              "Projects",
+              "Expenses",
+              "Hubdoc included (receipt capture)"
+            ]
+          },
+          {
+            "name": "Comprehensive",
+            "price": 47,
+            "billingPeriod": "month",
+            "features": [
+              "All Grow features",
+              "Advanced reporting",
+              "Multi-currency",
+              "Projects & job costing"
+            ]
+          },
+          {
+            "name": "Ultimate",
+            "price": 59,
+            "billingPeriod": "month",
+            "features": [
+              "All Comprehensive features",
+              "Payroll included",
+              "24/7 support",
+              "Forecasting tools"
+            ]
+          }
+        ]
+      },
+      
+      "strengths": [
+        "UK market leader with 89% market share",
+        "Excellent Making Tax Digital integration",
+        "Unlimited invoices on Grow plan and above",
+        "Strong ecosystem with 1,000+ integrations",
+        "Hubdoc included for receipt capture",
+        "CIS support for construction",
+        "Excellent mobile app",
+        "24/7 support on higher tiers"
+      ],
+      
+      "weaknesses": [
+        "Expensive (£33-59/month for most businesses)",
+        "Ignite plan only allows 10 invoices (very limiting)",
+        "Full accounting platform - overkill if you only need invoicing",
+        "No AI-powered invoice parsing",
+        "Hubdoc accuracy only ~95%",
+        "Annual price increases common",
+        "Complex for tradespeople who just need invoicing"
+      ],
+      
+      "targetMarket": {
+        "description": "UK small businesses needing full accounting, not just invoicing",
+        "businessSize": "small",
+        "industry": ["All industries", "Construction", "Professional Services", "Retail"],
+        "geography": ["UK", "Australia", "New Zealand", "Global"]
+      },
+      
+      "reviews": {
+        "overall": 4.4,
+        "g2": 4.3,
+        "capterra": 4.4,
+        "trustpilot": 4.1,
+        "userComments": [
+          "Best accounting software for UK businesses",
+          "MTD integration is seamless",
+          "Expensive but worth it for full accounting",
+          "Steep learning curve for beginners"
+        ]
+      },
+      
+      "keywords": [
+        "Xero UK",
+        "Xero pricing",
+        "Xero accounting",
+        "Making Tax Digital software",
+        "cloud accounting UK"
+      ],
+      "searchVolume": 45000,
+      "alternativeKeywords": [
+        "Xero alternative UK",
+        "Xero vs QuickBooks UK",
+        "best accounting software UK"
+      ],
+      
+      "elektrolumaDifferentiators": [
+        "Elektroluma is just invoicing - 56% cheaper than Xero Grow (£29 vs £33)",
+        "AI-powered invoice extraction - Xero requires manual entry",
+        "Trade-focused vs general accounting",
+        "Mobile-first for job sites",
+        "No accounting knowledge required",
+        "Integrates WITH Xero - use both together"
+      ],
+      
+      "migrationPath": "Don't migrate FROM Xero - use Elektroluma alongside it! Let Elektroluma handle invoice capture/parsing, then sync to Xero for accounting. Best of both worlds."
+    },
+    {
+      "id": "wave",
+      "name": "Wave Accounting",
+      "slug": "wave",
+      "website": "https://www.waveapps.com",
+      "description": "Wave is a completely free accounting and invoicing platform for small businesses and freelancers. It offers unlimited invoicing, expense tracking, and financial reporting with no monthly fees. Revenue comes from optional paid services like payment processing and payroll.",
+      "shortDescription": "100% free accounting and unlimited invoicing for small businesses",
+      
+      "company": {
+        "founded": 2010,
+        "headquarters": "Toronto, Canada",
+        "employees": "201-500",
+        "parentCompany": "H&R Block (acquired 2019, spun off 2021)"
+      },
+      
+      "segment": "accounting-software",
+      "traffic": {
+        "monthlyUsers": 2000000,
+        "description": "2M+ small businesses use Wave globally"
+      },
+      
+      "features": {
+        "aiPowered": false,
+        "ukCompliance": false,
+        "vatSupport": false,
+        "cisSupport": false,
+        "automation": true,
+        "accountingIntegration": ["N/A - is the accounting software"],
+        "mobileApp": true,
+        "apiAccess": false,
+        "customTemplates": true,
+        "multiCurrency": true,
+        "batchProcessing": false,
+        "ocrAccuracy": 0
+      },
+      
+      "pricing": {
+        "model": "free",
+        "currency": "USD",
+        "tiers": [
+          {
+            "name": "Free Forever",
+            "price": 0,
+            "billingPeriod": "month",
+            "features": [
+              "Unlimited invoicing",
+              "Unlimited expense tracking",
+              "Receipt scanning",
+              "Financial reporting",
+              "Bank connections",
+              "Double-entry accounting"
+            ]
+          },
+          {
+            "name": "Pro",
+            "price": 19,
+            "billingPeriod": "month",
+            "features": [
+              "All Free features",
+              "Automated workflows",
+              "Recurring invoices automation",
+              "Email support"
+            ]
+          }
+        ],
+        "usageFees": {
+          "description": "2.9% + $0.60 per card payment, 1% for bank payments ($1.50 min)"
+        }
+      },
+      
+      "strengths": [
+        "Completely free forever - no forced upgrades",
+        "Unlimited invoicing and expenses",
+        "Simple, clean interface",
+        "Great for North American freelancers",
+        "Good mobile app",
+        "Receipt scanning included",
+        "No monthly fees ever"
+      ],
+      
+      "weaknesses": [
+        "No UK compliance (no VAT, no CIS, no MTD)",
+        "US/Canada focused - poor for UK businesses",
+        "No AI-powered invoice extraction",
+        "2.9% payment processing fees (expensive)",
+        "Very limited automation on free plan",
+        "No API access",
+        "Customer support only for paid customers",
+        "Not suitable for UK tax requirements"
+      ],
+      
+      "targetMarket": {
+        "description": "North American freelancers and micro-businesses with simple accounting needs",
+        "businessSize": "freelancer",
+        "industry": ["Freelancing", "Consulting", "Creative Services"],
+        "geography": ["North America", "Canada", "USA"]
+      },
+      
+      "reviews": {
+        "overall": 4.4,
+        "g2": 4.4,
+        "capterra": 4.5,
+        "trustpilot": 4.2,
+        "userComments": [
+          "Perfect for freelancers just starting out",
+          "Love that it's truly free",
+          "Payment processing fees are high",
+          "Not good for UK businesses - missing VAT features"
+        ]
+      },
+      
+      "keywords": [
+        "Wave accounting",
+        "free accounting software",
+        "Wave invoice",
+        "free invoicing software",
+        "Wave app"
+      ],
+      "searchVolume": 38000,
+      "alternativeKeywords": [
+        "Wave alternative",
+        "free accounting software UK",
+        "Wave vs QuickBooks"
+      ],
+      
+      "elektrolumaDifferentiators": [
+        "Elektroluma built for UK market with VAT and CIS compliance",
+        "AI-powered invoice extraction - Wave is manual only",
+        "Trade-specific features (Gas Safe, NICEIC, CIS)",
+        "Mobile app designed for UK tradespeople",
+        "Lower payment processing fees",
+        "UK support team"
+      ],
+      
+      "migrationPath": "Wave doesn't work for UK businesses due to missing VAT/MTD features. Migrate to Elektroluma for £29/mo to get UK compliance plus AI automation."
+    },
+    {
+      "id": "conta",
+      "name": "Conta",
+      "slug": "conta",
+      "website": "https://conta.com",
+      "description": "Conta is a free invoice generator and accounting software for small businesses, freelancers, and contractors. It offers unlimited invoices with no hidden fees, professional templates, and mobile apps for iOS and Android to invoice on the go.",
+      "shortDescription": "Free unlimited invoicing with mobile app for freelancers",
+      
+      "company": {
+        "founded": 2019,
+        "headquarters": "Remote-first (European team)",
+        "employees": "11-50",
+        "funding": "Bootstrapped"
+      },
+      
+      "segment": "free-generator",
+      "traffic": {
+        "monthlyUsers": 200000,
+        "description": "200,000+ freelancers and small businesses across 10 countries"
+      },
+      
+      "features": {
+        "aiPowered": false,
+        "ukCompliance": false,
+        "vatSupport": true,
+        "cisSupport": false,
+        "automation": true,
+        "accountingIntegration": [],
+        "mobileApp": true,
+        "apiAccess": false,
+        "customTemplates": true,
+        "multiCurrency": true,
+        "batchProcessing": false,
+        "ocrAccuracy": 0
+      },
+      
+      "pricing": {
+        "model": "free",
+        "currency": "USD",
+        "tiers": [
+          {
+            "name": "Free Forever",
+            "price": 0,
+            "billingPeriod": "month",
+            "features": [
+              "Unlimited invoices",
+              "Unlimited clients",
+              "Unlimited products/services",
+              "Upload your logo",
+              "Send directly to clients",
+              "Mobile app (iOS & Android)",
+              "Professional templates"
+            ]
+          }
+        ]
+      },
+      
+      "strengths": [
+        "Completely free with no limits",
+        "Clean, modern interface",
+        "Great mobile apps for iOS and Android",
+        "Fast invoice creation in seconds",
+        "No sign-up required for basic use",
+        "Multi-country support (10 countries)",
+        "Professional templates included"
+      ],
+      
+      "weaknesses": [
+        "No AI-powered features",
+        "No invoice parsing or OCR",
+        "Limited accounting integrations",
+        "No UK-specific compliance (CIS)",
+        "Manual data entry for every invoice",
+        "No automation beyond basic recurring invoices",
+        "Limited customer support",
+        "No API access"
+      ],
+      
+      "targetMarket": {
+        "description": "Freelancers and micro-businesses needing simple invoicing without costs",
+        "businessSize": "freelancer",
+        "industry": ["Freelancing", "Consulting", "Creative Services", "IT Services"],
+        "geography": ["Europe", "USA", "Global"]
+      },
+      
+      "reviews": {
+        "overall": 4.5,
+        "g2": 4.6,
+        "trustpilot": 4.5,
+        "userComments": [
+          "So easy to use - creates invoices in seconds",
+          "Love the mobile app for invoicing clients on the go",
+          "Perfect for freelancers who need simple invoicing",
+          "Wish it had more automation features"
+        ]
+      },
+      
+      "keywords": [
+        "Conta invoice",
+        "free invoice generator",
+        "Conta app",
+        "free invoicing software",
+        "invoice generator online"
+      ],
+      "searchVolume": 8900,
+      "alternativeKeywords": [
+        "Conta alternative",
+        "free invoice maker",
+        "Conta review"
+      ],
+      
+      "elektrolumaDifferentiators": [
+        "Elektroluma adds AI-powered invoice extraction - Conta is manual only",
+        "Receipt scanning and OCR for expense tracking",
+        "UK compliance built-in (VAT, CIS, Gas Safe)",
+        "Trade-specific templates and features",
+        "Invoice capture from photos",
+        "Integrates with Xero/QuickBooks"
+      ],
+      
+      "migrationPath": "Conta users can upgrade to Elektroluma for £29/mo to add AI automation, UK compliance, and receipt scanning while keeping unlimited invoicing."
+    },
+    {
+      "id": "freeagent",
+      "name": "FreeAgent",
+      "slug": "freeagent",
+      "website": "https://www.freeagent.com",
+      "description": "FreeAgent is UK-focused accounting software designed for freelancers, micro-businesses, and contractors. It offers invoicing, expenses, projects, VAT returns, and Making Tax Digital compliance with excellent UK tax features including CIS for construction.",
+      "shortDescription": "UK-focused accounting for freelancers with excellent tax features",
+      
+      "company": {
+        "founded": 2007,
+        "headquarters": "Edinburgh, Scotland",
+        "employees": "101-250",
+        "parentCompany": "RBC (Royal Bank of Canada acquired 2018)"
+      },
+      
+      "segment": "accounting-software",
+      "traffic": {
+        "monthlyUsers": 100000,
+        "description": "100,000+ UK freelancers and contractors"
+      },
+      
+      "features": {
+        "aiPowered": true,
+        "ukCompliance": true,
+        "vatSupport": true,
+        "cisSupport": true,
+        "automation": true,
+        "accountingIntegration": ["N/A - is the accounting software"],
+        "mobileApp": true,
+        "apiAccess": true,
+        "customTemplates": true,
+        "multiCurrency": true,
+        "batchProcessing": false,
+        "ocrAccuracy": 0
+      },
+      
+      "pricing": {
+        "model": "subscription",
+        "currency": "GBP",
+        "tiers": [
+          {
+            "name": "Monthly",
+            "price": 33,
+            "billingPeriod": "month",
+            "features": [
+              "50% off first 6 months (£16.50)",
+              "Unlimited invoices",
+              "Expense tracking",
+              "Project management",
+              "MTD VAT filing",
+              "Self Assessment",
+              "CIS support"
+            ]
+          },
+          {
+            "name": "Annual",
+            "price": 330,
+            "billingPeriod": "year",
+            "features": [
+              "50% off first year (£165)",
+              "All features included",
+              "Save £66/year vs monthly",
+              "Priority support"
+            ]
+          }
+        ]
+      },
+      
+      "strengths": [
+        "Excellent UK tax features (VAT, CIS, Self Assessment)",
+        "Direct HMRC filing for VAT and Self Assessment",
+        "Great for UK contractors and freelancers",
+        "CIS support for construction",
+        "Time tracking and project management",
+        "Smart Capture AI for receipt scanning",
+        "Strong UK customer support",
+        "50% discount for first 6 months"
+      ],
+      
+      "weaknesses": [
+        "Expensive at £33/month after discount period",
+        "Full accounting platform - overkill for just invoicing",
+        "Smart Capture AI is £6/month extra",
+        "Not designed for larger teams",
+        "Limited integrations vs Xero",
+        "Primarily UK-only features",
+        "Annual price increases"
+      ],
+      
+      "targetMarket": {
+        "description": "UK freelancers, contractors, and micro-businesses with 1-5 employees",
+        "businessSize": "freelancer",
+        "industry": ["Freelancing", "Construction", "IT Contracting", "Consulting"],
+        "geography": ["UK"]
+      },
+      
+      "reviews": {
+        "overall": 4.5,
+        "g2": 4.4,
+        "capterra": 4.5,
+        "trustpilot": 4.6,
+        "userComments": [
+          "Perfect for UK contractors - CIS support is excellent",
+          "Self Assessment filing is seamless",
+          "A bit expensive but worth it for UK features",
+          "Great customer support team"
+        ]
+      },
+      
+      "keywords": [
+        "FreeAgent UK",
+        "FreeAgent pricing",
+        "accounting software UK freelancers",
+        "CIS accounting software",
+        "contractor accounting UK"
+      ],
+      "searchVolume": 18000,
+      "alternativeKeywords": [
+        "FreeAgent alternative",
+        "FreeAgent vs Xero",
+        "best accounting for UK contractors"
+      ],
+      
+      "elektrolumaDifferentiators": [
+        "Elektroluma is just invoicing - 12% cheaper (£29 vs £33)",
+        "AI-powered invoice extraction - FreeAgent requires manual entry",
+        "Mobile-first for tradespeople on job sites",
+        "Trade certifications (Gas Safe, NICEIC) built in",
+        "No accounting knowledge required",
+        "Can integrate WITH FreeAgent - use both together"
+      ],
+      
+      "migrationPath": "Don't replace FreeAgent - use Elektroluma alongside it! Let Elektroluma handle invoice capture from photos, then sync to FreeAgent for accounting and tax. Save time and money."
+    },
+    {
+      "id": "kofax-tungsten",
+      "name": "Tungsten Automation (Kofax ReadSoft)",
+      "slug": "tungsten-readsoft",
+      "website": "https://www.tungstenautomation.com",
+      "description": "Tungsten Automation (formerly Kofax) offers enterprise invoice automation with ReadSoft Invoices for high-volume AP processing. It's designed for large organizations processing 1,000+ invoices/hour with deep ERP integration and complex workflows.",
+      "shortDescription": "Enterprise invoice automation for high-volume AP teams",
+      
+      "company": {
+        "founded": 1985,
+        "headquarters": "Irvine, California, USA",
+        "employees": "2,000+",
+        "parentCompany": "Clearlake Capital Group (acquired 2021)",
+        "funding": "Private Equity"
+      },
+      
+      "segment": "ai-parser",
+      "traffic": {
+        "description": "3,000+ enterprise customers globally"
+      },
+      
+      "features": {
+        "aiPowered": true,
+        "ukCompliance": true,
+        "vatSupport": true,
+        "cisSupport": false,
+        "automation": true,
+        "accountingIntegration": ["SAP", "Oracle", "NetSuite", "Microsoft Dynamics", "Workday"],
+        "mobileApp": false,
+        "apiAccess": true,
+        "customTemplates": true,
+        "multiCurrency": true,
+        "batchProcessing": true,
+        "ocrAccuracy": 98
+      },
+      
+      "pricing": {
+        "model": "enterprise",
+        "currency": "USD",
+        "tiers": [
+          {
+            "name": "ReadSoft Online",
+            "price": 2000,
+            "billingPeriod": "year",
+            "features": [
+              "Cloud-based SaaS",
+              "Subscription pricing",
+              "Lower upfront costs",
+              "Adaptive self-learning OCR",
+              "ERP integration"
+            ]
+          },
+          {
+            "name": "Enterprise",
+            "price": 50000,
+            "billingPeriod": "year",
+            "features": [
+              "On-premise deployment",
+              "Unlimited invoices",
+              "Custom workflows",
+              "Dedicated support",
+              "Professional services",
+              "Process 1,000+ invoices/hour"
+            ]
+          }
+        ]
+      },
+      
+      "strengths": [
+        "Enterprise-grade for Fortune 500 companies",
+        "Process 1,000+ invoices per hour",
+        "Deep SAP integration (ReadSoft Process Director)",
+        "Excellent for high-volume AP departments",
+        "Adaptive self-learning OCR",
+        "Strong compliance and audit trails",
+        "Global deployment capabilities"
+      ],
+      
+      "weaknesses": [
+        "Extremely expensive (£2,000-50,000+/year)",
+        "Complex implementation (6-12 months typical)",
+        "Requires dedicated IT team",
+        "Overkill for SMBs and mid-market",
+        "Old interface and technology",
+        "Poor user experience vs modern solutions",
+        "Not suitable for <1,000 invoices/month",
+        "No mobile capabilities"
+      ],
+      
+      "targetMarket": {
+        "description": "Fortune 500 and large enterprises with 10,000+ invoices/month",
+        "businessSize": "enterprise",
+        "industry": ["Manufacturing", "Healthcare", "Government", "Large Corporates"],
+        "geography": ["Global", "North America", "Europe"]
+      },
+      
+      "reviews": {
+        "overall": 3.9,
+        "g2": 4.0,
+        "capterra": 3.8,
+        "userComments": [
+          "Powerful but complex - needed 6 months to implement",
+          "Great for SAP integration",
+          "Very expensive but handles our volume",
+          "Interface feels outdated compared to modern tools"
+        ]
+      },
+      
+      "keywords": [
+        "Kofax invoice automation",
+        "ReadSoft invoices",
+        "Tungsten Automation",
+        "enterprise invoice processing",
+        "SAP invoice automation"
+      ],
+      "searchVolume": 4200,
+      "alternativeKeywords": [
+        "Kofax alternative",
+        "ReadSoft alternative",
+        "enterprise AP automation"
+      ],
+      
+      "elektrolumaDifferentiators": [
+        "Elektroluma is 99.85% cheaper (£29/mo vs £4,000+/mo)",
+        "Setup in minutes vs 6-12 months",
+        "Designed for UK SMBs, not Fortune 500",
+        "Modern mobile-first interface",
+        "Perfect for 10-500 invoices/month",
+        "No IT team required",
+        "CIS support for UK construction"
+      ],
+      
+      "migrationPath": "Tungsten is enterprise-only. UK SMBs should use Elektroluma instead - save 99% of costs while getting modern features designed for your scale."
+    }
+  ]
