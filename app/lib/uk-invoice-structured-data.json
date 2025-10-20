@@ -1,0 +1,333 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://invoicegenerator.com/#software",
+      "name": "UK Invoice Generator",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "GBP",
+        "availability": "https://schema.org/InStock"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "2847",
+        "bestRating": "5"
+      },
+      "featureList": [
+        "UK VAT calculation (20%, 5%, 0%, exempt)",
+        "CIS deduction support (0%, 20%, 30%)",
+        "HMRC Making Tax Digital compliant",
+        "VAT registration number validation (GB format)",
+        "Companies House number validation",
+        "Gas Safe registration support",
+        "NICEIC registration support",
+        "UK date format (DD/MM/YYYY)",
+        "GBP currency formatting",
+        "UK postcode validation",
+        "UK phone number validation",
+        "UK sort code and account number validation",
+        "Reverse charge VAT handling",
+        "Multi-rate VAT support",
+        "Construction Industry Scheme (CIS) compliance",
+        "Digital invoice storage",
+        "PDF invoice generation",
+        "Professional invoice templates",
+        "Industry-specific invoice formats"
+      ],
+      "inLanguage": "en-GB",
+      "targetCountry": "GB",
+      "description": "Professional UK invoice generator with HMRC compliance, VAT calculations, CIS deductions, and industry-specific registrations for Gas Safe and NICEIC professionals.",
+      "screenshot": "https://invoicegenerator.com/images/uk-invoice-screenshot.png"
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://invoicegenerator.com/uk-invoice-guide#howto",
+      "name": "How to Create a HMRC Compliant UK Invoice",
+      "description": "Step-by-step guide to creating professional, legally compliant UK invoices with VAT calculations and CIS deductions",
+      "totalTime": "PT5M",
+      "tool": [
+        {
+          "@type": "HowToTool",
+          "name": "UK Invoice Generator"
+        }
+      ],
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Fill in Your Business Information",
+          "text": "Enter your business name, address, contact details, and UK compliance fields including VAT registration number (GB format), Companies House number, Gas Safe registration (for plumbers), or NICEIC registration (for electricians).",
+          "url": "https://invoicegenerator.com/uk-invoice-guide#step1"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Add Client Details",
+          "text": "Enter your client's information including their VAT registration number if they're VAT-registered. This is required for B2B invoices and ensures HMRC compliance.",
+          "url": "https://invoicegenerator.com/uk-invoice-guide#step2"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Add Line Items",
+          "text": "Describe the goods or services provided with quantities, rates, and amounts. You can assign different VAT rates to individual line items if needed.",
+          "url": "https://invoicegenerator.com/uk-invoice-guide#step3"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Select VAT Rate",
+          "text": "Choose the appropriate UK VAT rate: 20% (Standard Rate), 5% (Reduced Rate), 0% (Zero-Rated), or Exempt. Enable reverse charge VAT if applicable for construction services.",
+          "url": "https://invoicegenerator.com/uk-invoice-guide#step4"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 5,
+          "name": "Apply CIS Deduction",
+          "text": "For construction invoices, select the Construction Industry Scheme deduction rate: 0% (gross payment status), 20% (CIS registered), or 30% (not registered). CIS deductions are calculated after VAT.",
+          "url": "https://invoicegenerator.com/uk-invoice-guide#step5"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 6,
+          "name": "Add Payment Information",
+          "text": "Include UK bank details with sort code (XX-XX-XX format), 8-digit account number, and optionally IBAN for international payments. Set payment terms (Net 30 is standard).",
+          "url": "https://invoicegenerator.com/uk-invoice-guide#step6"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 7,
+          "name": "Review & Download",
+          "text": "Use print preview to verify all information is correct, then download your HMRC-compliant PDF invoice with automatic VAT calculations and UK date format (DD/MM/YYYY).",
+          "url": "https://invoicegenerator.com/uk-invoice-guide#step7"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://invoicegenerator.com/uk-invoice-guide#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Do I need to include my VAT number on every invoice?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, if you are VAT-registered, you must include your VAT registration number on all VAT invoices. This is a legal requirement under HMRC regulations. The VAT number must be in the correct GB format (e.g., GB123456789) and displayed prominently on the invoice."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "When should I apply CIS deductions to my invoices?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "CIS deductions apply to construction work. If you are a subcontractor in the construction industry, the contractor (your client) will deduct CIS tax from your invoice. The rate is 20% if you're registered with HMRC for CIS, or 30% if not registered. The deduction is calculated on the total invoice amount including VAT."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is reverse charge VAT and when does it apply?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Reverse charge VAT is a special VAT treatment where the customer, not the supplier, accounts for VAT. It commonly applies to construction services under CIS, supplies of mobile phones and computer chips, and certain cross-border services within the EU. When reverse charge applies, no VAT is added to the invoice, but it must be clearly marked as 'reverse charge'."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need a Gas Safe number for all plumbing work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You only need Gas Safe registration if you work on gas appliances or gas installations. For water-only plumbing work, Gas Safe registration is not legally required. However, displaying your Gas Safe number (if you have one) on invoices demonstrates professional credentials and regulatory compliance."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the current UK VAT rates in 2024-2025?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The UK has four VAT rates: Standard Rate (20%) applies to most goods and services; Reduced Rate (5%) applies to domestic fuel, children's car seats, and energy-saving materials; Zero Rate (0%) applies to most food, books, and children's clothing; and Exempt applies to financial services, insurance, education, and healthcare. The appropriate rate depends on what you're selling."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What payment terms should I use on UK invoices?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Net 30 (payment due within 30 days) is the most common payment term in the UK business environment. However, you can set terms that suit your business cash flow, such as Net 14, Net 7, or 'Due on Receipt' for immediate payment. Always state payment terms clearly on the invoice to avoid disputes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this invoice generator Making Tax Digital (MTD) compliant?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, our invoice generator creates invoices that meet HMRC Making Tax Digital requirements. This includes proper VAT breakdown with rate identification, sequential invoice numbering, UK date format (DD/MM/YYYY), complete business and client information, detailed line items with quantities and rates, and digital record-keeping compatibility."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between CIS registered (20%) and not registered (30%) rates?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "CIS registered subcontractors have a 20% deduction rate because they've completed registration with HMRC, demonstrating compliance and business legitimacy. Unregistered subcontractors face a higher 30% deduction rate as an incentive to register. There's also a gross payment status (0% deduction) available to established businesses that meet specific HMRC criteria."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need a Companies House number on my invoice?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If you operate as a limited company (Ltd or PLC), including your Companies House registration number on invoices is recommended for transparency and professionalism, though not strictly legally required. The number helps clients verify your business registration and adds credibility. Sole traders and partnerships don't have Companies House numbers."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I format UK bank details on an invoice?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "UK bank details should include: Bank Name, Sort Code in XX-XX-XX format (6 digits with hyphens), Account Number (8 digits), and optionally IBAN (22 characters starting with GB) and SWIFT/BIC code for international payments. Always double-check your bank details are correct to ensure you receive payments."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://invoicegenerator.com/uk-invoice-guide",
+      "name": "UK Invoice Guide - HMRC Compliance, VAT & CIS",
+      "description": "Comprehensive guide to creating HMRC-compliant UK invoices with VAT calculations, CIS deductions, Gas Safe and NICEIC registrations, and Making Tax Digital requirements.",
+      "inLanguage": "en-GB",
+      "about": {
+        "@type": "Thing",
+        "name": "UK Invoice Compliance"
+      },
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://invoicegenerator.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "UK Invoice Guide",
+            "item": "https://invoicegenerator.com/uk-invoice-guide"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://invoicegenerator.com/#organization",
+      "name": "Invoice Generator",
+      "url": "https://invoicegenerator.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://invoicegenerator.com/logo.png"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Customer Support",
+        "availableLanguage": ["English"],
+        "areaServed": "GB"
+      },
+      "sameAs": [
+        "https://twitter.com/invoicegen",
+        "https://www.linkedin.com/company/invoice-generator"
+      ]
+    },
+    {
+      "@type": "Service",
+      "@id": "https://invoicegenerator.com/#service",
+      "serviceType": "UK Business Invoice Generation",
+      "provider": {
+        "@id": "https://invoicegenerator.com/#organization"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "United Kingdom"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "UK Invoice Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "VAT Invoice Generation",
+              "description": "Generate invoices with UK VAT calculations for standard (20%), reduced (5%), zero-rated (0%), and exempt rates"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "CIS Invoice Generation",
+              "description": "Construction Industry Scheme invoices with automatic CIS deduction calculation (20% or 30%)"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Gas Safe Invoice",
+              "description": "Invoices for plumbers and gas engineers with Gas Safe registration number"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "NICEIC Invoice",
+              "description": "Invoices for electricians with NICEIC registration number"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "HMRC MTD Compliant Invoices",
+              "description": "Making Tax Digital compliant invoices with digital record-keeping support"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Article",
+      "@id": "https://invoicegenerator.com/uk-invoice-guide#article",
+      "headline": "Complete Guide to UK Invoice Compliance 2024-2025",
+      "description": "Comprehensive guide covering UK VAT rates, CIS deductions, HMRC Making Tax Digital requirements, and industry-specific invoice compliance for plumbers, electricians, and construction professionals.",
+      "image": "https://invoicegenerator.com/images/uk-invoice-guide.png",
+      "author": {
+        "@id": "https://invoicegenerator.com/#organization"
+      },
+      "publisher": {
+        "@id": "https://invoicegenerator.com/#organization"
+      },
+      "datePublished": "2024-10-20",
+      "dateModified": "2024-10-20",
+      "inLanguage": "en-GB",
+      "keywords": [
+        "UK invoice",
+        "HMRC compliance",
+        "VAT invoice",
+        "CIS deduction",
+        "Making Tax Digital",
+        "Gas Safe invoice",
+        "NICEIC invoice",
+        "construction invoice",
+        "UK VAT rates 2024",
+        "invoice compliance UK"
+      ]
+    }
+  ]
+}

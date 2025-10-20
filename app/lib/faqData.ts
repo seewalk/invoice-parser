@@ -68,6 +68,11 @@ export const faqCategories: FAQCategory[] = [
     description: 'Advanced capabilities like OCR, AI, and machine learning',
     icon: '⚡',
   },
+  {
+    name: 'UK Invoice Guide',
+    description: 'UK-specific invoicing, VAT, CIS, and HMRC compliance',
+    icon: '🇬🇧',
+  },
 ];
 
 export const comprehensiveFAQs: FAQ[] = [
@@ -537,6 +542,88 @@ export const comprehensiveFAQs: FAQ[] = [
     category: 'Invoice Software & Tools',
     keywords: ['invoice app', 'mobile invoice app', 'invoice app for freelancers', 'best invoice app'],
     searchVolume: 2400,
+  },
+
+  // UK INVOICE GUIDE - HMRC Compliance, VAT, and CIS
+  {
+    question: 'Do I need to include my VAT number on every invoice?',
+    answer:
+      'Yes, if you are VAT-registered, you must include your VAT registration number on all VAT invoices. This is a legal requirement under HMRC regulations. The VAT number must be in the correct GB format (e.g., GB123456789) and displayed prominently on the invoice.',
+    category: 'UK Invoice Guide',
+    keywords: ['UK VAT number', 'VAT invoice UK', 'HMRC VAT requirements', 'VAT registration number'],
+    searchVolume: 880,
+  },
+  {
+    question: 'When should I apply CIS deductions to my invoices?',
+    answer:
+      "CIS deductions apply to construction work. If you are a subcontractor in the construction industry, the contractor (your client) will deduct CIS tax from your invoice. The rate is 20% if you're registered with HMRC for CIS, or 30% if not registered. The deduction is calculated on the total invoice amount including VAT.",
+    category: 'UK Invoice Guide',
+    keywords: ['CIS deduction', 'Construction Industry Scheme', 'CIS invoice', 'CIS tax UK'],
+    searchVolume: 720,
+  },
+  {
+    question: 'What is reverse charge VAT and when does it apply?',
+    answer:
+      "Reverse charge VAT is a special VAT treatment where the customer, not the supplier, accounts for VAT. It commonly applies to construction services under CIS, supplies of mobile phones and computer chips, and certain cross-border services within the EU. When reverse charge applies, no VAT is added to the invoice, but it must be clearly marked as 'reverse charge'.",
+    category: 'UK Invoice Guide',
+    keywords: ['reverse charge VAT', 'VAT reverse charge', 'UK reverse charge', 'CIS reverse charge'],
+    searchVolume: 590,
+  },
+  {
+    question: 'Do I need a Gas Safe number for all plumbing work?',
+    answer:
+      'You only need Gas Safe registration if you work on gas appliances or gas installations. For water-only plumbing work, Gas Safe registration is not legally required. However, displaying your Gas Safe number (if you have one) on invoices demonstrates professional credentials and regulatory compliance.',
+    category: 'UK Invoice Guide',
+    keywords: ['Gas Safe number', 'Gas Safe registration', 'plumber invoice UK', 'gas engineer invoice'],
+    searchVolume: 480,
+  },
+  {
+    question: 'What are the current UK VAT rates in 2024-2025?',
+    answer:
+      "The UK has four VAT rates: Standard Rate (20%) applies to most goods and services; Reduced Rate (5%) applies to domestic fuel, children's car seats, and energy-saving materials; Zero Rate (0%) applies to most food, books, and children's clothing; and Exempt applies to financial services, insurance, education, and healthcare. The appropriate rate depends on what you're selling.",
+    category: 'UK Invoice Guide',
+    keywords: ['UK VAT rates', 'VAT rates 2024', 'UK VAT rates 2025', 'standard VAT rate UK'],
+    searchVolume: 1600,
+  },
+  {
+    question: 'What payment terms should I use on UK invoices?',
+    answer:
+      "Net 30 (payment due within 30 days) is the most common payment term in the UK business environment. However, you can set terms that suit your business cash flow, such as Net 14, Net 7, or 'Due on Receipt' for immediate payment. Always state payment terms clearly on the invoice to avoid disputes.",
+    category: 'UK Invoice Guide',
+    keywords: ['UK payment terms', 'Net 30 UK', 'invoice payment terms', 'UK invoice terms'],
+    searchVolume: 340,
+  },
+  {
+    question: 'Is this invoice generator Making Tax Digital (MTD) compliant?',
+    answer:
+      'Yes, our invoice generator creates invoices that meet HMRC Making Tax Digital requirements. This includes proper VAT breakdown with rate identification, sequential invoice numbering, UK date format (DD/MM/YYYY), complete business and client information, detailed line items with quantities and rates, and digital record-keeping compatibility.',
+    category: 'UK Invoice Guide',
+    keywords: ['Making Tax Digital', 'MTD compliant invoice', 'HMRC MTD', 'digital tax UK'],
+    searchVolume: 1200,
+  },
+  {
+    question: 'What is the difference between CIS registered (20%) and not registered (30%) rates?',
+    answer:
+      "CIS registered subcontractors have a 20% deduction rate because they've completed registration with HMRC, demonstrating compliance and business legitimacy. Unregistered subcontractors face a higher 30% deduction rate as an incentive to register. There's also a gross payment status (0% deduction) available to established businesses that meet specific HMRC criteria.",
+    category: 'UK Invoice Guide',
+    keywords: ['CIS rates', 'CIS 20 percent', 'CIS 30 percent', 'CIS registered vs unregistered'],
+    searchVolume: 450,
+  },
+  {
+    question: 'Do I need a Companies House number on my invoice?',
+    answer:
+      'If you operate as a limited company (Ltd or PLC), including your Companies House registration number on invoices is recommended for transparency and professionalism, though not strictly legally required. The number helps clients verify your business registration and adds credibility. Sole traders and partnerships do not have Companies House numbers.',
+    category: 'UK Invoice Guide',
+    keywords: ['Companies House number', 'company registration number', 'UK limited company invoice', 'company number invoice'],
+    searchVolume: 380,
+  },
+  {
+    question: 'How do I format UK bank details on an invoice?',
+    answer:
+      'UK bank details should include: Bank Name, Sort Code in XX-XX-XX format (6 digits with hyphens), Account Number (8 digits), and optionally IBAN (22 characters starting with GB) and SWIFT/BIC code for international payments. Always double-check your bank details are correct to ensure you receive payments.',
+    category: 'UK Invoice Guide',
+    keywords: ['UK bank details', 'sort code format', 'UK IBAN', 'invoice bank details'],
+    searchVolume: 520,
   },
 ];
 

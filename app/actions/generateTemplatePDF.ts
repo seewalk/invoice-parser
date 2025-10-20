@@ -108,9 +108,19 @@ export async function generateTemplatePDF(
     // Reset text color
     doc.setTextColor(0, 0, 0);
 
-    // HEADER SECTION
+    // HEADER SECTION - Calculate dynamic height based on UK compliance fields
+    // Count how many UK compliance fields we have
+    let ukFieldsCount = 0;
+    if (sample.vatNumber) ukFieldsCount++;
+    if (sample.companyNumber) ukFieldsCount++;
+    if (sample.gasSafeNumber) ukFieldsCount++;
+    if (sample.niceicNumber) ukFieldsCount++;
+    
+    // Base header height (40) + space for UK fields (4px per field + 2px initial offset)
+    const headerHeight = ukFieldsCount > 0 ? 40 + 2 + (ukFieldsCount * 4) : 40;
+    
     doc.setFillColor(...headerColor);
-    doc.rect(0, 0, pageWidth, 40, 'F');
+    doc.rect(0, 0, pageWidth, headerHeight, 'F');
 
     // Business Name
     doc.setFontSize(20);
@@ -137,28 +147,31 @@ export async function generateTemplatePDF(
     }
 
     // UK Compliance Information (VAT, Company Number, etc.)
-    yPosition = 42;
+    // Now rendered INSIDE the blue header with proper spacing
     if (sample.vatNumber || sample.companyNumber || sample.gasSafeNumber || sample.niceicNumber) {
+      let complianceY = 20; // Start at same level as business name (right side)
       doc.setFontSize(8);
       doc.setTextColor(255, 255, 255);
+      
       if (sample.vatNumber) {
-        doc.text(`VAT Reg: ${sample.vatNumber}`, rightMargin, yPosition, { align: 'right' });
-        yPosition += 4;
+        doc.text(`VAT Reg: ${sample.vatNumber}`, rightMargin, complianceY, { align: 'right' });
+        complianceY += 4;
       }
       if (sample.companyNumber) {
-        doc.text(`Company No: ${sample.companyNumber}`, rightMargin, yPosition, { align: 'right' });
-        yPosition += 4;
+        doc.text(`Company No: ${sample.companyNumber}`, rightMargin, complianceY, { align: 'right' });
+        complianceY += 4;
       }
       if (sample.gasSafeNumber) {
-        doc.text(`Gas Safe Reg: ${sample.gasSafeNumber}`, rightMargin, yPosition, { align: 'right' });
-        yPosition += 4;
+        doc.text(`Gas Safe Reg: ${sample.gasSafeNumber}`, rightMargin, complianceY, { align: 'right' });
+        complianceY += 4;
       }
       if (sample.niceicNumber) {
-        doc.text(`NICEIC Reg: ${sample.niceicNumber}`, rightMargin, yPosition, { align: 'right' });
+        doc.text(`NICEIC Reg: ${sample.niceicNumber}`, rightMargin, complianceY, { align: 'right' });
       }
     }
 
-    yPosition = 50;
+    // Set yPosition to just after header
+    yPosition = headerHeight + 10;
 
     // INVOICE TITLE
     doc.setFontSize(24);
@@ -183,16 +196,19 @@ export async function generateTemplatePDF(
       invoiceDetails.push({ label: 'PO Number:', value: sample.poNumber });
     }
 
+    // Store the right-side yPosition for later
+    let rightSideY = yPosition;
+    
     invoiceDetails.forEach((detail) => {
       doc.setFont('helvetica', 'bold');
-      doc.text(detail.label, rightMargin - 60, yPosition, { align: 'left' });
+      doc.text(detail.label, rightMargin - 60, rightSideY, { align: 'left' });
       doc.setFont('helvetica', 'normal');
-      doc.text(detail.value, rightMargin, yPosition, { align: 'right' });
-      yPosition += 6;
+      doc.text(detail.value, rightMargin, rightSideY, { align: 'right' });
+      rightSideY += 6;
     });
 
-    // BILL TO SECTION (Left side)
-    yPosition = 65;
+    // BILL TO SECTION (Left side) - starts at same level as invoice details
+    // Reset yPosition to where INVOICE title ended + 15px
     doc.setFontSize(11);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(...accentColor);
@@ -232,7 +248,8 @@ export async function generateTemplatePDF(
       yPosition += 6;
     }
 
-    yPosition += 10;
+    // Ensure we use the max of left-side (BILL TO) and right-side (INVOICE DETAILS) positions
+    yPosition = Math.max(yPosition, rightSideY) + 10;
 
     // LINE ITEMS TABLE
     if (sample.lineItems && sample.lineItems.length > 0) {
