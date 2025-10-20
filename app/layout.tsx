@@ -11,8 +11,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 // SEO Metadata Configuration
 export const metadata = {
-  title: 'Invoice Processing & Automation Software UK | InvoiceParse.ai by Elektroluma Ltd',
-  description: 'Automate invoice processing in 30 seconds with AI-powered OCR. Extract data from supplier invoices automatically. Perfect for UK restaurants & warehouses. Free trial—10 invoices free. By Elektroluma Ltd (Companies House #16392032).',
+  title: 'Invoice Processing & Automation Tool UK | Invoice Generator',
+  description: 'Automate invoice processing in 30 seconds with AI-powered OCR. Extract data from supplier invoices automatically. Perfect for UK restaurants & warehouses.',
   keywords: 'invoice processing, invoice automation, invoice processing software, automated invoice processing, invoice OCR, UK invoice automation, restaurant invoice software, Elektroluma',
   openGraph: {
     title: 'AI Invoice Processing & Automation for UK Businesses',

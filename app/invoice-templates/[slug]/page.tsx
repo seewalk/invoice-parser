@@ -192,43 +192,8 @@ export default async function TemplateDetailPage({ params }: { params: Promise<{
                 {template.description}
               </p>
 
-              {/* Stats */}
-              <div className="grid grid-cols-2 gap-4 mb-6">
-                <div className="bg-white rounded-xl p-4 border border-slate-200 shadow-sm">
-                  <div className="flex items-center gap-2 text-sm text-slate-600 mb-2">
-                    <TrendingUp className="w-4 h-4" />
-                    <span>Search Volume</span>
-                  </div>
-                  <div className="text-2xl font-bold text-slate-900">
-                    {template.searchVolume.toLocaleString()}/mo
-                  </div>
-                </div>
-                
-                <div className="bg-white rounded-xl p-4 border border-slate-200 shadow-sm">
-                  <div className="flex items-center gap-2 text-sm text-slate-600 mb-2">
-                    <Users className="w-4 h-4" />
-                    <span>CPC Value</span>
-                  </div>
-                  <div className="text-2xl font-bold text-green-600">
-                    £{template.cpc.toFixed(2)}
-                  </div>
-                </div>
-              </div>
-
-              {/* Keywords */}
-              <div className="mb-6">
-                <h3 className="text-sm font-bold text-slate-700 uppercase mb-2">Keywords</h3>
-                <div className="flex flex-wrap gap-2">
-                  {template.keywords.map((keyword, idx) => (
-                    <span 
-                      key={idx}
-                      className="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-sm"
-                    >
-                      {keyword}
-                    </span>
-                  ))}
-                </div>
-              </div>
+              {/* Stats - Hidden from frontend (SEO/internal use only) */}
+              {/* Keywords - Hidden from frontend (SEO/internal use only) */}
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 mb-6">
@@ -256,7 +221,7 @@ export default async function TemplateDetailPage({ params }: { params: Promise<{
             <div className="lg:sticky lg:top-8">
               <div className="bg-white rounded-2xl shadow-xl border-2 border-slate-200 p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-bold text-slate-900">Live Preview</h3>
+                  <div className="text-lg font-bold text-slate-900">Live Preview</div>
                   <div className="flex items-center gap-2">
                     <button className="p-2 hover:bg-slate-100 rounded-lg transition">
                       <Eye className="w-5 h-5 text-slate-600" />
@@ -288,8 +253,8 @@ export default async function TemplateDetailPage({ params }: { params: Promise<{
             <div className="lg:col-span-2">
               {/* Full Preview - Using extracted component */}
               <div className="mb-12">
-                <h2 className="text-3xl font-bold text-slate-900 mb-6">
-                  Template Preview
+                <h2 className="text-2xl font-bold text-slate-900 mb-6">
+                  What's Included in This Template
                 </h2>
                 <TemplatePreview template={template} />
               </div>
@@ -315,7 +280,7 @@ export default async function TemplateDetailPage({ params }: { params: Promise<{
                   <div className="flex items-start gap-3 mb-4">
                     <AlertCircle className="w-6 h-6 text-amber-600 flex-shrink-0 mt-1" />
                     <div>
-                      <h3 className="text-xl font-bold text-slate-900 mb-2">
+                      <h3 className="text-lg font-semibold text-slate-900 mb-2">
                         Industry Compliance Standards
                       </h3>
                       <p className="text-sm text-slate-600">

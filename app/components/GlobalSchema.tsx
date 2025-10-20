@@ -1,26 +1,23 @@
 // app/components/GlobalSchema.tsx
-import Script from 'next/script';
+// Server Component - renders inline schemas for SSG
 import { organizationSchema, websiteSchema } from '../lib/schemaConfig';
 
-// Remove 'use client' directive
 export default function GlobalSchema() {
   return (
     <>
-      <Script
-        id="organization-schema"
+      {/* Organization Schema - MUST appear on all 85 pages */}
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(organizationSchema),
         }}
-        strategy="beforeInteractive"
       />
-      <Script
-        id="website-schema"
+      {/* Website Schema - main site identity */}
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(websiteSchema),
         }}
-        strategy="beforeInteractive"
       />
     </>
   );

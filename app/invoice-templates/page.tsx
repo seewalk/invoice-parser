@@ -143,7 +143,7 @@ export default function InvoiceTemplatesPage() {
       
       <PageHero
         badge="Free Invoice Templates UK"
-        title={<>Free UK Invoice Templates<br /><span className="gradient-text">By Industry</span></>}
+        title={<>Free UK Invoice Templates<br /><span className="gradient-text"> By Industry</span></>}
         description={`Download professional, industry-specific invoice templates for UK businesses. Choose from ${totalTemplates}+ free templates for restaurants, photographers, builders, freelancers, consultants, and more. Available in Word, Excel, and PDF formats.`}
         size="default"
       >

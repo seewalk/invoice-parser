@@ -1,793 +1,984 @@
 {
   "totalPages": 85,
   "schemas": {
-    "found": 67,
-    "missing": 18,
+    "found": 85,
+    "missing": 0,
     "details": [
       {
         "file": ".next\\server\\app\\_not-found.html",
-        "status": "fail",
-        "count": 0,
-        "types": [],
-        "message": "❌ No schemas found"
+        "status": "pass",
+        "count": 2,
+        "types": [
+          "Organization",
+          "WebSite"
+        ],
+        "message": "✅ 2 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\pricing.html",
-        "status": "fail",
-        "count": 0,
-        "types": [],
-        "message": "❌ No schemas found"
+        "status": "pass",
+        "count": 2,
+        "types": [
+          "Organization",
+          "WebSite"
+        ],
+        "message": "✅ 2 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\parser.html",
-        "status": "fail",
-        "count": 0,
-        "types": [],
-        "message": "❌ No schemas found"
+        "status": "pass",
+        "count": 2,
+        "types": [
+          "Organization",
+          "WebSite"
+        ],
+        "message": "✅ 2 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\invoice-templates.html",
-        "status": "fail",
-        "count": 0,
-        "types": [],
-        "message": "❌ No schemas found"
+        "status": "pass",
+        "count": 2,
+        "types": [
+          "Organization",
+          "WebSite"
+        ],
+        "message": "✅ 2 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\invoice-generator.html",
-        "status": "fail",
-        "count": 0,
-        "types": [],
-        "message": "❌ No schemas found"
+        "status": "pass",
+        "count": 2,
+        "types": [
+          "Organization",
+          "WebSite"
+        ],
+        "message": "✅ 2 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\index.html",
-        "status": "fail",
-        "count": 0,
-        "types": [],
-        "message": "❌ No schemas found"
+        "status": "pass",
+        "count": 5,
+        "types": [
+          "Organization",
+          "WebSite",
+          "SoftwareApplication",
+          "FAQPage",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 5 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\faq.html",
-        "status": "fail",
-        "count": 0,
-        "types": [],
-        "message": "❌ No schemas found"
+        "status": "pass",
+        "count": 2,
+        "types": [
+          "Organization",
+          "WebSite"
+        ],
+        "message": "✅ 2 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "ItemList",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
-      },
-      {
-        "file": ".next\\server\\app\\invoice-templates\\restaurant-invoice.html",
-        "status": "warning",
-        "count": 1,
-        "types": [
-          "DigitalDocument"
-        ],
-        "message": "⚠️  1 schema(s) but missing Organization"
-      },
-      {
-        "file": ".next\\server\\app\\invoice-templates\\plumbing-invoice.html",
-        "status": "warning",
-        "count": 1,
-        "types": [
-          "DigitalDocument"
-        ],
-        "message": "⚠️  1 schema(s) but missing Organization"
-      },
-      {
-        "file": ".next\\server\\app\\invoice-templates\\photography-invoice.html",
-        "status": "warning",
-        "count": 1,
-        "types": [
-          "DigitalDocument"
-        ],
-        "message": "⚠️  1 schema(s) but missing Organization"
-      },
-      {
-        "file": ".next\\server\\app\\invoice-templates\\hotel-invoice.html",
-        "status": "warning",
-        "count": 1,
-        "types": [
-          "DigitalDocument"
-        ],
-        "message": "⚠️  1 schema(s) but missing Organization"
-      },
-      {
-        "file": ".next\\server\\app\\invoice-templates\\graphic-design-invoice.html",
-        "status": "warning",
-        "count": 1,
-        "types": [
-          "DigitalDocument"
-        ],
-        "message": "⚠️  1 schema(s) but missing Organization"
-      },
-      {
-        "file": ".next\\server\\app\\invoice-templates\\freelance-invoice.html",
-        "status": "warning",
-        "count": 1,
-        "types": [
-          "DigitalDocument"
-        ],
-        "message": "⚠️  1 schema(s) but missing Organization"
-      },
-      {
-        "file": ".next\\server\\app\\invoice-templates\\electrical-invoice.html",
-        "status": "warning",
-        "count": 1,
-        "types": [
-          "DigitalDocument"
-        ],
-        "message": "⚠️  1 schema(s) but missing Organization"
-      },
-      {
-        "file": ".next\\server\\app\\invoice-templates\\consulting-invoice.html",
-        "status": "warning",
-        "count": 1,
-        "types": [
-          "DigitalDocument"
-        ],
-        "message": "⚠️  1 schema(s) but missing Organization"
-      },
-      {
-        "file": ".next\\server\\app\\invoice-templates\\construction-invoice.html",
-        "status": "warning",
-        "count": 1,
-        "types": [
-          "DigitalDocument"
-        ],
-        "message": "⚠️  1 schema(s) but missing Organization"
-      },
-      {
-        "file": ".next\\server\\app\\invoice-templates\\commercial-photography-invoice.html",
-        "status": "warning",
-        "count": 1,
-        "types": [
-          "DigitalDocument"
-        ],
-        "message": "⚠️  1 schema(s) but missing Organization"
-      },
-      {
-        "file": ".next\\server\\app\\invoice-templates\\catering-invoice.html",
-        "status": "warning",
-        "count": 1,
-        "types": [
-          "DigitalDocument"
-        ],
-        "message": "⚠️  1 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\invoice-generator\\restaurant-invoice.html",
-        "status": "fail",
-        "count": 0,
-        "types": [],
-        "message": "❌ No schemas found"
+        "status": "pass",
+        "count": 2,
+        "types": [
+          "Organization",
+          "WebSite"
+        ],
+        "message": "✅ 2 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\invoice-generator\\plumbing-invoice.html",
-        "status": "fail",
-        "count": 0,
-        "types": [],
-        "message": "❌ No schemas found"
+        "status": "pass",
+        "count": 2,
+        "types": [
+          "Organization",
+          "WebSite"
+        ],
+        "message": "✅ 2 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\invoice-generator\\photography-invoice.html",
-        "status": "fail",
-        "count": 0,
-        "types": [],
-        "message": "❌ No schemas found"
+        "status": "pass",
+        "count": 2,
+        "types": [
+          "Organization",
+          "WebSite"
+        ],
+        "message": "✅ 2 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\invoice-generator\\hotel-invoice.html",
-        "status": "fail",
-        "count": 0,
-        "types": [],
-        "message": "❌ No schemas found"
+        "status": "pass",
+        "count": 2,
+        "types": [
+          "Organization",
+          "WebSite"
+        ],
+        "message": "✅ 2 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\invoice-generator\\graphic-design-invoice.html",
-        "status": "fail",
-        "count": 0,
-        "types": [],
-        "message": "❌ No schemas found"
+        "status": "pass",
+        "count": 2,
+        "types": [
+          "Organization",
+          "WebSite"
+        ],
+        "message": "✅ 2 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\invoice-generator\\freelance-invoice.html",
-        "status": "fail",
-        "count": 0,
-        "types": [],
-        "message": "❌ No schemas found"
+        "status": "pass",
+        "count": 2,
+        "types": [
+          "Organization",
+          "WebSite"
+        ],
+        "message": "✅ 2 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\invoice-generator\\electrical-invoice.html",
-        "status": "fail",
-        "count": 0,
-        "types": [],
-        "message": "❌ No schemas found"
+        "status": "pass",
+        "count": 2,
+        "types": [
+          "Organization",
+          "WebSite"
+        ],
+        "message": "✅ 2 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\invoice-generator\\consulting-invoice.html",
-        "status": "fail",
-        "count": 0,
-        "types": [],
-        "message": "❌ No schemas found"
+        "status": "pass",
+        "count": 2,
+        "types": [
+          "Organization",
+          "WebSite"
+        ],
+        "message": "✅ 2 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\invoice-generator\\construction-invoice.html",
-        "status": "fail",
-        "count": 0,
-        "types": [],
-        "message": "❌ No schemas found"
+        "status": "pass",
+        "count": 2,
+        "types": [
+          "Organization",
+          "WebSite"
+        ],
+        "message": "✅ 2 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\invoice-generator\\commercial-photography-invoice.html",
-        "status": "fail",
-        "count": 0,
-        "types": [],
-        "message": "❌ No schemas found"
+        "status": "pass",
+        "count": 2,
+        "types": [
+          "Organization",
+          "WebSite"
+        ],
+        "message": "✅ 2 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\invoice-generator\\catering-invoice.html",
-        "status": "fail",
-        "count": 0,
-        "types": [],
-        "message": "❌ No schemas found"
+        "status": "pass",
+        "count": 2,
+        "types": [
+          "Organization",
+          "WebSite"
+        ],
+        "message": "✅ 2 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\restaurant-invoice.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "DigitalDocument"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\plumbing-invoice.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "DigitalDocument"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\photography-invoice.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "DigitalDocument"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\hotel-invoice.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "DigitalDocument"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\graphic-design-invoice.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "DigitalDocument"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\freelance-invoice.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "DigitalDocument"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\electrical-invoice.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "DigitalDocument"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\consulting-invoice.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "DigitalDocument"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\construction-invoice.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "DigitalDocument"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\commercial-photography-invoice.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "DigitalDocument"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\catering-invoice.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "DigitalDocument"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\where-can-i-find-free-invoice-templates-for-uk-businesses.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-is-touchless-invoice-processing.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-is-the-roi-of-invoice-automation.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-is-the-difference-between-invoice-software-and-accounting-software.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-is-the-difference-between-a-receipt-and-an-invoice.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-is-the-best-invoice-app-for-freelancers-and-mobile-billing.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-is-supplier-invoice-management.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-is-ocr-for-invoices.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-is-invoice-processing.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-is-invoice-processing-for-manufacturing-companies.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-is-invoice-management-software.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-is-invoice-fraud-and-how-can-it-be-prevented.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-is-invoice-finance-and-how-does-it-work-for-businesses.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-is-invoice-exception-handling.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-is-invoice-discounting-and-how-does-it-differ-from-factoring.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-is-invoice-data-extraction.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-is-invoice-automation.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-is-an-invoice.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-is-an-invoice-template.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-is-an-invoice-processing-api.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-is-an-invoice-generator.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-is-an-electronic-invoice-e-invoice.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-is-ai-powered-invoice-processing.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-is-accounts-payable-invoice-processing.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-is-accounts-payable-automation-software.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-is-a-vat-receipt-and-how-does-it-differ-from-a-standard-receipt.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-is-a-receipt-of-payment-and-when-is-it-required.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-is-a-purchase-order-form-and-how-does-it-relate-to-invoicing.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-is-a-proforma-invoice-and-when-is-it-used.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-is-3-way-matching-in-invoice-processing.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-invoice-software-solutions-are-available-for-businesses.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-invoice-processing-software-is-best-for-small-businesses.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-compliance-requirements-apply-to-invoice-processing.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-are-the-common-invoice-formats.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-are-the-best-receipt-design-templates-for-businesses.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-are-the-best-free-invoice-generators-for-uk-businesses.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\what-are-invoice-processing-kpis-and-metrics.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\how-should-self-employed-individuals-create-invoices-in-the-uk.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\how-secure-is-cloud-based-invoice-processing.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\how-much-does-invoice-processing-software-cost.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\how-long-does-it-take-to-implement-invoice-processing-automation.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\how-does-invoice-processing-work.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\how-does-invoice-processing-work-with-xero-accounting-software.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\how-does-invoice-processing-work-for-restaurants-and-food-service.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\how-does-invoice-processing-integrate-with-quickbooks.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\how-does-invoice-processing-handle-recurring-invoices.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\how-does-invoice-processing-handle-multiple-currencies.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\how-does-invoice-approval-workflow-automation-work.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\how-do-invoice-processing-systems-handle-email-invoices.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\how-do-i-get-my-amazon-invoice-for-business-purchases.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\how-do-i-create-an-invoice.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\how-do-i-create-an-invoice-using-google-docs-templates.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\how-do-i-create-an-invoice-using-excel-templates.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\how-do-i-create-a-receipt-for-a-car-sale-in-the-uk.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\blog\\can-invoice-processing-systems-integrate-with-erps-like-sap-or-oracle.html",
-        "status": "warning",
-        "count": 2,
+        "status": "pass",
+        "count": 4,
         "types": [
+          "Organization",
+          "WebSite",
           "Article",
           "BreadcrumbList"
         ],
-        "message": "⚠️  2 schema(s) but missing Organization"
+        "message": "✅ 4 schema(s) including Organization"
       }
     ]
   },
@@ -905,160 +1096,6 @@
           "ogTitle": "Invoice Parsing &amp; Automation Blog | Expert Insights",
           "ogDescription": "Expert insights on invoice parsing, OCR technology, and AP automation. Real-world case studies and implementation guides.",
           "ogUrl": "https://yourdomain.com/blog"
-        }
-      },
-      {
-        "file": ".next\\server\\app\\invoice-templates\\restaurant-invoice.html",
-        "status": "pass",
-        "count": 6,
-        "message": "✅ 6/6 meta tags present",
-        "tags": {
-          "title": "Restaurant Dine-In Invoice | Free UK Invoice Template Download",
-          "description": "Standard invoice for restaurant table service Download free restaurant dine-in invoice for UK businesses. 480 monthly searches. Word, Excel, PDF formats available.",
-          "canonical": "https://yourdomain.com/invoice-templates/restaurant-invoice",
-          "ogTitle": "Restaurant Dine-In Invoice - Free Download",
-          "ogDescription": "Standard invoice for restaurant table service",
-          "ogUrl": "https://yourdomain.com/invoice-templates/restaurant-invoice"
-        }
-      },
-      {
-        "file": ".next\\server\\app\\invoice-templates\\plumbing-invoice.html",
-        "status": "pass",
-        "count": 6,
-        "message": "✅ 6/6 meta tags present",
-        "tags": {
-          "title": "Plumber Invoice | Free UK Invoice Template Download",
-          "description": "Invoice for plumbing installation, repairs, and maintenance Download free plumber invoice for UK businesses. 110 monthly searches. Word, Excel, PDF formats available.",
-          "canonical": "https://yourdomain.com/invoice-templates/plumbing-invoice",
-          "ogTitle": "Plumber Invoice - Free Download",
-          "ogDescription": "Invoice for plumbing installation, repairs, and maintenance",
-          "ogUrl": "https://yourdomain.com/invoice-templates/plumbing-invoice"
-        }
-      },
-      {
-        "file": ".next\\server\\app\\invoice-templates\\photography-invoice.html",
-        "status": "pass",
-        "count": 6,
-        "message": "✅ 6/6 meta tags present",
-        "tags": {
-          "title": "Wedding Photography Invoice | Free UK Invoice Template Download",
-          "description": "Invoice for wedding photography services and packages Download free wedding photography invoice for UK businesses. 390 monthly searches. Word, Excel, PDF formats available.",
-          "canonical": "https://yourdomain.com/invoice-templates/photography-invoice",
-          "ogTitle": "Wedding Photography Invoice - Free Download",
-          "ogDescription": "Invoice for wedding photography services and packages",
-          "ogUrl": "https://yourdomain.com/invoice-templates/photography-invoice"
-        }
-      },
-      {
-        "file": ".next\\server\\app\\invoice-templates\\hotel-invoice.html",
-        "status": "pass",
-        "count": 6,
-        "message": "✅ 6/6 meta tags present",
-        "tags": {
-          "title": "Hotel Room Invoice | Free UK Invoice Template Download",
-          "description": "Standard invoice for hotel accommodation Download free hotel room invoice for UK businesses. 90 monthly searches. Word, Excel, PDF formats available.",
-          "canonical": "https://yourdomain.com/invoice-templates/hotel-invoice",
-          "ogTitle": "Hotel Room Invoice - Free Download",
-          "ogDescription": "Standard invoice for hotel accommodation",
-          "ogUrl": "https://yourdomain.com/invoice-templates/hotel-invoice"
-        }
-      },
-      {
-        "file": ".next\\server\\app\\invoice-templates\\graphic-design-invoice.html",
-        "status": "pass",
-        "count": 6,
-        "message": "✅ 6/6 meta tags present",
-        "tags": {
-          "title": "Logo Design Invoice | Free UK Invoice Template Download",
-          "description": "Invoice for logo design and brand identity services Download free logo design invoice for UK businesses. 140 monthly searches. Word, Excel, PDF formats available.",
-          "canonical": "https://yourdomain.com/invoice-templates/graphic-design-invoice",
-          "ogTitle": "Logo Design Invoice - Free Download",
-          "ogDescription": "Invoice for logo design and brand identity services",
-          "ogUrl": "https://yourdomain.com/invoice-templates/graphic-design-invoice"
-        }
-      },
-      {
-        "file": ".next\\server\\app\\invoice-templates\\freelance-invoice.html",
-        "status": "pass",
-        "count": 6,
-        "message": "✅ 6/6 meta tags present",
-        "tags": {
-          "title": "Freelance Invoice - Hourly Rate | Free UK Invoice Template Download",
-          "description": "Standard freelance invoice for hourly or day rate work Download free freelance invoice - hourly rate for UK businesses. 1300 monthly searches. Word, Excel, PDF formats available.",
-          "canonical": "https://yourdomain.com/invoice-templates/freelance-invoice",
-          "ogTitle": "Freelance Invoice - Hourly Rate - Free Download",
-          "ogDescription": "Standard freelance invoice for hourly or day rate work",
-          "ogUrl": "https://yourdomain.com/invoice-templates/freelance-invoice"
-        }
-      },
-      {
-        "file": ".next\\server\\app\\invoice-templates\\electrical-invoice.html",
-        "status": "pass",
-        "count": 6,
-        "message": "✅ 6/6 meta tags present",
-        "tags": {
-          "title": "Electrician Invoice | Free UK Invoice Template Download",
-          "description": "Invoice for electrical installation, testing, and certification Download free electrician invoice for UK businesses. 110 monthly searches. Word, Excel, PDF formats available.",
-          "canonical": "https://yourdomain.com/invoice-templates/electrical-invoice",
-          "ogTitle": "Electrician Invoice - Free Download",
-          "ogDescription": "Invoice for electrical installation, testing, and certification",
-          "ogUrl": "https://yourdomain.com/invoice-templates/electrical-invoice"
-        }
-      },
-      {
-        "file": ".next\\server\\app\\invoice-templates\\consulting-invoice.html",
-        "status": "pass",
-        "count": 6,
-        "message": "✅ 6/6 meta tags present",
-        "tags": {
-          "title": "Consulting Invoice - Project Based | Free UK Invoice Template Download",
-          "description": "Invoice for consulting projects and advisory services Download free consulting invoice - project based for UK businesses. 320 monthly searches. Word, Excel, PDF formats available.",
-          "canonical": "https://yourdomain.com/invoice-templates/consulting-invoice",
-          "ogTitle": "Consulting Invoice - Project Based - Free Download",
-          "ogDescription": "Invoice for consulting projects and advisory services",
-          "ogUrl": "https://yourdomain.com/invoice-templates/consulting-invoice"
-        }
-      },
-      {
-        "file": ".next\\server\\app\\invoice-templates\\construction-invoice.html",
-        "status": "pass",
-        "count": 6,
-        "message": "✅ 6/6 meta tags present",
-        "tags": {
-          "title": "Builder Invoice - Residential | Free UK Invoice Template Download",
-          "description": "Standard invoice for residential building and construction work Download free builder invoice - residential for UK businesses. 590 monthly searches. Word, Excel, PDF formats available.",
-          "canonical": "https://yourdomain.com/invoice-templates/construction-invoice",
-          "ogTitle": "Builder Invoice - Residential - Free Download",
-          "ogDescription": "Standard invoice for residential building and construction work",
-          "ogUrl": "https://yourdomain.com/invoice-templates/construction-invoice"
-        }
-      },
-      {
-        "file": ".next\\server\\app\\invoice-templates\\commercial-photography-invoice.html",
-        "status": "pass",
-        "count": 6,
-        "message": "✅ 6/6 meta tags present",
-        "tags": {
-          "title": "Product Photography Invoice | Free UK Invoice Template Download",
-          "description": "Invoice for commercial product photography services Download free product photography invoice for UK businesses. 260 monthly searches. Word, Excel, PDF formats available.",
-          "canonical": "https://yourdomain.com/invoice-templates/commercial-photography-invoice",
-          "ogTitle": "Product Photography Invoice - Free Download",
-          "ogDescription": "Invoice for commercial product photography services",
-          "ogUrl": "https://yourdomain.com/invoice-templates/commercial-photography-invoice"
-        }
-      },
-      {
-        "file": ".next\\server\\app\\invoice-templates\\catering-invoice.html",
-        "status": "pass",
-        "count": 6,
-        "message": "✅ 6/6 meta tags present",
-        "tags": {
-          "title": "Catering Event Invoice | Free UK Invoice Template Download",
-          "description": "Invoice for catering services at events and functions Download free catering event invoice for UK businesses. 90 monthly searches. Word, Excel, PDF formats available.",
-          "canonical": "https://yourdomain.com/invoice-templates/catering-invoice",
-          "ogTitle": "Catering Event Invoice - Free Download",
-          "ogDescription": "Invoice for catering services at events and functions",
-          "ogUrl": "https://yourdomain.com/invoice-templates/catering-invoice"
         }
       },
       {
@@ -1213,6 +1250,160 @@
           "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
           "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
           "ogUrl": "https://elektroluma.co.uk"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\restaurant-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Restaurant Dine-In Invoice | Free UK Invoice Template Download",
+          "description": "Standard invoice for restaurant table service Download free restaurant dine-in invoice for UK businesses. 480 monthly searches. Word, Excel, PDF formats available.",
+          "canonical": "https://yourdomain.com/invoice-templates/restaurant-invoice",
+          "ogTitle": "Restaurant Dine-In Invoice - Free Download",
+          "ogDescription": "Standard invoice for restaurant table service",
+          "ogUrl": "https://yourdomain.com/invoice-templates/restaurant-invoice"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\plumbing-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Plumber Invoice | Free UK Invoice Template Download",
+          "description": "Invoice for plumbing installation, repairs, and maintenance Download free plumber invoice for UK businesses. 110 monthly searches. Word, Excel, PDF formats available.",
+          "canonical": "https://yourdomain.com/invoice-templates/plumbing-invoice",
+          "ogTitle": "Plumber Invoice - Free Download",
+          "ogDescription": "Invoice for plumbing installation, repairs, and maintenance",
+          "ogUrl": "https://yourdomain.com/invoice-templates/plumbing-invoice"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\photography-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Wedding Photography Invoice | Free UK Invoice Template Download",
+          "description": "Invoice for wedding photography services and packages Download free wedding photography invoice for UK businesses. 390 monthly searches. Word, Excel, PDF formats available.",
+          "canonical": "https://yourdomain.com/invoice-templates/photography-invoice",
+          "ogTitle": "Wedding Photography Invoice - Free Download",
+          "ogDescription": "Invoice for wedding photography services and packages",
+          "ogUrl": "https://yourdomain.com/invoice-templates/photography-invoice"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\hotel-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Hotel Room Invoice | Free UK Invoice Template Download",
+          "description": "Standard invoice for hotel accommodation Download free hotel room invoice for UK businesses. 90 monthly searches. Word, Excel, PDF formats available.",
+          "canonical": "https://yourdomain.com/invoice-templates/hotel-invoice",
+          "ogTitle": "Hotel Room Invoice - Free Download",
+          "ogDescription": "Standard invoice for hotel accommodation",
+          "ogUrl": "https://yourdomain.com/invoice-templates/hotel-invoice"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\graphic-design-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Logo Design Invoice | Free UK Invoice Template Download",
+          "description": "Invoice for logo design and brand identity services Download free logo design invoice for UK businesses. 140 monthly searches. Word, Excel, PDF formats available.",
+          "canonical": "https://yourdomain.com/invoice-templates/graphic-design-invoice",
+          "ogTitle": "Logo Design Invoice - Free Download",
+          "ogDescription": "Invoice for logo design and brand identity services",
+          "ogUrl": "https://yourdomain.com/invoice-templates/graphic-design-invoice"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\freelance-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Freelance Invoice - Hourly Rate | Free UK Invoice Template Download",
+          "description": "Standard freelance invoice for hourly or day rate work Download free freelance invoice - hourly rate for UK businesses. 1300 monthly searches. Word, Excel, PDF formats available.",
+          "canonical": "https://yourdomain.com/invoice-templates/freelance-invoice",
+          "ogTitle": "Freelance Invoice - Hourly Rate - Free Download",
+          "ogDescription": "Standard freelance invoice for hourly or day rate work",
+          "ogUrl": "https://yourdomain.com/invoice-templates/freelance-invoice"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\electrical-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Electrician Invoice | Free UK Invoice Template Download",
+          "description": "Invoice for electrical installation, testing, and certification Download free electrician invoice for UK businesses. 110 monthly searches. Word, Excel, PDF formats available.",
+          "canonical": "https://yourdomain.com/invoice-templates/electrical-invoice",
+          "ogTitle": "Electrician Invoice - Free Download",
+          "ogDescription": "Invoice for electrical installation, testing, and certification",
+          "ogUrl": "https://yourdomain.com/invoice-templates/electrical-invoice"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\consulting-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Consulting Invoice - Project Based | Free UK Invoice Template Download",
+          "description": "Invoice for consulting projects and advisory services Download free consulting invoice - project based for UK businesses. 320 monthly searches. Word, Excel, PDF formats available.",
+          "canonical": "https://yourdomain.com/invoice-templates/consulting-invoice",
+          "ogTitle": "Consulting Invoice - Project Based - Free Download",
+          "ogDescription": "Invoice for consulting projects and advisory services",
+          "ogUrl": "https://yourdomain.com/invoice-templates/consulting-invoice"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\construction-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Builder Invoice - Residential | Free UK Invoice Template Download",
+          "description": "Standard invoice for residential building and construction work Download free builder invoice - residential for UK businesses. 590 monthly searches. Word, Excel, PDF formats available.",
+          "canonical": "https://yourdomain.com/invoice-templates/construction-invoice",
+          "ogTitle": "Builder Invoice - Residential - Free Download",
+          "ogDescription": "Standard invoice for residential building and construction work",
+          "ogUrl": "https://yourdomain.com/invoice-templates/construction-invoice"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\commercial-photography-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Product Photography Invoice | Free UK Invoice Template Download",
+          "description": "Invoice for commercial product photography services Download free product photography invoice for UK businesses. 260 monthly searches. Word, Excel, PDF formats available.",
+          "canonical": "https://yourdomain.com/invoice-templates/commercial-photography-invoice",
+          "ogTitle": "Product Photography Invoice - Free Download",
+          "ogDescription": "Invoice for commercial product photography services",
+          "ogUrl": "https://yourdomain.com/invoice-templates/commercial-photography-invoice"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-templates\\catering-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Catering Event Invoice | Free UK Invoice Template Download",
+          "description": "Invoice for catering services at events and functions Download free catering event invoice for UK businesses. 90 monthly searches. Word, Excel, PDF formats available.",
+          "canonical": "https://yourdomain.com/invoice-templates/catering-invoice",
+          "ogTitle": "Catering Event Invoice - Free Download",
+          "ogDescription": "Invoice for catering services at events and functions",
+          "ogUrl": "https://yourdomain.com/invoice-templates/catering-invoice"
         }
       },
       {
@@ -1993,7 +2184,7 @@
     "details": []
   },
   "overall": {
-    "score": 89,
+    "score": 100,
     "issues": [],
     "warnings": [],
     "successes": [
@@ -2005,17 +2196,6 @@
       ".next\\server\\app\\index.html: Organization entity consistent",
       ".next\\server\\app\\faq.html: Organization entity consistent",
       ".next\\server\\app\\blog.html: Organization entity consistent",
-      ".next\\server\\app\\invoice-templates\\restaurant-invoice.html: Organization entity consistent",
-      ".next\\server\\app\\invoice-templates\\plumbing-invoice.html: Organization entity consistent",
-      ".next\\server\\app\\invoice-templates\\photography-invoice.html: Organization entity consistent",
-      ".next\\server\\app\\invoice-templates\\hotel-invoice.html: Organization entity consistent",
-      ".next\\server\\app\\invoice-templates\\graphic-design-invoice.html: Organization entity consistent",
-      ".next\\server\\app\\invoice-templates\\freelance-invoice.html: Organization entity consistent",
-      ".next\\server\\app\\invoice-templates\\electrical-invoice.html: Organization entity consistent",
-      ".next\\server\\app\\invoice-templates\\consulting-invoice.html: Organization entity consistent",
-      ".next\\server\\app\\invoice-templates\\construction-invoice.html: Organization entity consistent",
-      ".next\\server\\app\\invoice-templates\\commercial-photography-invoice.html: Organization entity consistent",
-      ".next\\server\\app\\invoice-templates\\catering-invoice.html: Organization entity consistent",
       ".next\\server\\app\\invoice-generator\\restaurant-invoice.html: Organization entity consistent",
       ".next\\server\\app\\invoice-generator\\plumbing-invoice.html: Organization entity consistent",
       ".next\\server\\app\\invoice-generator\\photography-invoice.html: Organization entity consistent",
@@ -2027,6 +2207,17 @@
       ".next\\server\\app\\invoice-generator\\construction-invoice.html: Organization entity consistent",
       ".next\\server\\app\\invoice-generator\\commercial-photography-invoice.html: Organization entity consistent",
       ".next\\server\\app\\invoice-generator\\catering-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-templates\\restaurant-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-templates\\plumbing-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-templates\\photography-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-templates\\hotel-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-templates\\graphic-design-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-templates\\freelance-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-templates\\electrical-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-templates\\consulting-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-templates\\construction-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-templates\\commercial-photography-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-templates\\catering-invoice.html: Organization entity consistent",
       ".next\\server\\app\\blog\\where-can-i-find-free-invoice-templates-for-uk-businesses.html: Organization entity consistent",
       ".next\\server\\app\\blog\\what-is-touchless-invoice-processing.html: Organization entity consistent",
       ".next\\server\\app\\blog\\what-is-the-roi-of-invoice-automation.html: Organization entity consistent",

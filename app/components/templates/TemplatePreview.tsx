@@ -48,9 +48,9 @@ function TemplatePreviewComponent({ template, scale, className = '' }: TemplateP
         {/* Invoice Header */}
         <div className="grid md:grid-cols-2 gap-8 mb-8 pb-8 border-b-2 border-slate-200">
           <div>
-            <h2 className="text-3xl font-bold text-slate-900 mb-2">
+            <div className="text-3xl font-bold text-slate-900 mb-2">
               {sample.businessName}
-            </h2>
+            </div>
             <div className="text-sm text-slate-600 whitespace-pre-line">
               {sample.businessAddress}
             </div>
@@ -72,7 +72,7 @@ function TemplatePreviewComponent({ template, scale, className = '' }: TemplateP
           </div>
           
           <div className="text-right">
-            <h1 className="text-4xl font-bold text-indigo-600 mb-4">INVOICE</h1>
+            <div className="text-4xl font-bold text-indigo-600 mb-4">INVOICE</div>
             <div className="space-y-2 text-sm">
               <div className="flex justify-end gap-4">
                 <span className="font-semibold text-slate-700">Invoice #:</span>
@@ -94,7 +94,7 @@ function TemplatePreviewComponent({ template, scale, className = '' }: TemplateP
 
         {/* Bill To */}
         <div className="mb-8">
-          <h3 className="text-sm font-bold text-slate-700 uppercase mb-2">Bill To:</h3>
+          <div className="text-sm font-bold text-slate-700 uppercase mb-2">Bill To:</div>
           <div className="text-slate-900 font-semibold">{sample.clientName}</div>
           {sample.clientAddress && (
             <div className="text-sm text-slate-600 whitespace-pre-line mt-1">
@@ -171,7 +171,7 @@ function TemplatePreviewComponent({ template, scale, className = '' }: TemplateP
         {/* Payment Info */}
         {(sample.bankName || sample.paymentTerms) && (
           <div className="bg-slate-50 rounded-lg p-6 mb-8">
-            <h3 className="text-sm font-bold text-slate-700 uppercase mb-3">Payment Information</h3>
+            <div className="text-sm font-bold text-slate-700 uppercase mb-3">Payment Information</div>
             {sample.bankName && (
               <div className="space-y-1 text-sm mb-4">
                 <div className="flex gap-4">
