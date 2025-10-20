@@ -10,6 +10,7 @@ import comprehensiveFAQs, {
 import FinalCTASection from '../components/FinalCTASection';
 import PageHero from '../components/PageHero';
 import Footer from '../components/Footer';
+import FAQPageSchema from '../components/FAQPageSchema';
 import { 
   FAQSearchBar, 
   FAQCategoryFilter, 
@@ -75,6 +76,8 @@ export default function FAQPage() {
 
     return (
         <main className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
+            {/* FAQ Page Schema */}
+            <FAQPageSchema />
          
             {/* Hero Section */}
             <PageHero

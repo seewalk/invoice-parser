@@ -19,6 +19,7 @@ import { InvoiceData } from '../types/invoice';
 import { type ProcessingStep } from '../components/parser';
 import { useLeadCapture } from '../hooks/useLeadCapture';
 import LeadCaptureModal from '../components/LeadCaptureModal';
+import { convertPdfToImage, convertPdfToImages, isPdfFile, isImageFile } from '../utils/pdfToImage';
 
 // Lazy-load UpgradePrompt for performance
 const UpgradePrompt = dynamic(
@@ -57,8 +58,8 @@ const ParserResultsDisplay = dynamic(() =>
 
 
 export default function InvoiceParser() {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [previewUrls, setPreviewUrls] = useState<string[]>([]);
   const [processing, setProcessing] = useState(false);
   const [currentStep, setCurrentStep] = useState<ProcessingStep>('upload');
   const [invoiceData, setInvoiceData] = useState<InvoiceData | null>(null);
@@ -85,36 +86,50 @@ export default function InvoiceParser() {
     },
   });
 
-  // Handle file selection
-  const handleFileSelect = useCallback((file: File) => {
-    // Validate file type - prioritize images
+  // Handle file selection (supports multiple files)
+  const handleFileSelect = useCallback((files: FileList | File[]) => {
     const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'application/pdf'];
-    if (!validTypes.includes(file.type)) {
-      setError('Please upload an image file (JPG, PNG, WEBP) or PDF');
-      return;
+    const fileArray = Array.from(files);
+    
+    // Validate all files
+    for (const file of fileArray) {
+      if (!validTypes.includes(file.type)) {
+        setError('Please upload image files (JPG, PNG, WEBP) or PDFs only');
+        return;
+      }
+      if (file.size > 10 * 1024 * 1024) {
+        setError(`File ${file.name} is too large. Max size is 10MB`);
+        return;
+      }
     }
 
-    // Validate file size (max 10MB)
-    if (file.size > 10 * 1024 * 1024) {
-      setError('File size must be less than 10MB');
-      return;
-    }
-
-    setSelectedFile(file);
+    setSelectedFiles(fileArray);
     setError(null);
 
-    // Create preview for images
-    if (file.type.startsWith('image/')) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setPreviewUrl(e.target?.result as string);
-      };
-      reader.onerror = () => {
-        setError('Failed to read file');
-      };
-      reader.readAsDataURL(file);
-    } else {
-      setPreviewUrl(null);
+    // Create previews for image files
+    const newPreviewUrls: string[] = [];
+    let loadedCount = 0;
+
+    fileArray.forEach((file, index) => {
+      if (file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          newPreviewUrls[index] = e.target?.result as string;
+          loadedCount++;
+          if (loadedCount === fileArray.filter(f => f.type.startsWith('image/')).length) {
+            setPreviewUrls(newPreviewUrls.filter(url => url)); // Remove undefined entries
+          }
+        };
+        reader.onerror = () => {
+          setError('Failed to read file');
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // If no images, clear preview URLs
+    if (fileArray.every(f => !f.type.startsWith('image/'))) {
+      setPreviewUrls([]);
     }
   }, []);
 
@@ -144,7 +159,7 @@ export default function InvoiceParser() {
 
       const files = e.dataTransfer.files;
       if (files.length > 0) {
-        handleFileSelect(files[0]);
+        handleFileSelect(files);
       }
     },
     [handleFileSelect]
@@ -154,42 +169,91 @@ export default function InvoiceParser() {
 
   // Process invoice with real API and S3 upload
   const processInvoice = useCallback(async () => {
-    if (!selectedFile) return;
+    if (selectedFiles.length === 0) return;
 
     setProcessing(true);
     setError(null);
     setCurrentStep('upload');
 
     try {
-      // Step 1: Upload file to S3 (using secure server action)
-      setCurrentStep('upload');
-      console.log('Starting S3 upload for file:', selectedFile.name);
+      // Step 1: Process all selected files (PDFs and images)
+      let imagesToUpload: File[] = [];
 
-      // Convert file to buffer for server action
-      const fileBuffer = await selectedFile.arrayBuffer();
+      for (const file of selectedFiles) {
+        if (isPdfFile(file)) {
+          console.log('[Parser] PDF detected, converting all pages to images...');
+          
+          const conversionResults = await convertPdfToImages(file);
+          
+          if (!conversionResults || conversionResults.length === 0) {
+            throw new Error(`Failed to convert PDF ${file.name} to images`);
+          }
 
-      // Call server action to upload (credentials stay server-side)
-      const uploadResult = await uploadToS3({
-        fileBuffer,
-        fileName: selectedFile.name,
-        contentType: selectedFile.type,
-      });
+          console.log(`[Parser] PDF converted successfully: ${conversionResults.length} page(s)`, {
+            originalSize: file.size,
+            fileName: file.name,
+            pages: conversionResults.map(r => ({
+              page: r.pageNumber,
+              size: r.blob?.size || 0,
+              fileName: r.fileName
+            }))
+          });
 
-      if (!uploadResult.success || !uploadResult.imageUrl) {
-        throw new Error(uploadResult.error || 'Failed to upload file to S3');
+          // Create File objects from blobs and add to upload list
+          const pdfImages = conversionResults
+            .filter(result => result.blob && result.fileName)
+            .map(result => 
+              new File([result.blob!], result.fileName!, {
+                type: 'image/jpeg'
+              })
+            );
+          imagesToUpload.push(...pdfImages);
+        } else {
+          console.log('[Parser] Image file detected, no conversion needed:', file.name);
+          imagesToUpload.push(file);
+        }
       }
 
-      const imageUrl = uploadResult.imageUrl;
-      console.log('Successfully uploaded to S3:', imageUrl);
+      console.log(`[Parser] Total images to upload: ${imagesToUpload.length}`);
 
-      // Step 2: Send S3 URL to API
+      // Step 2: Upload each image to S3 sequentially
+      setCurrentStep('upload');
+      console.log(`Starting S3 upload for ${imagesToUpload.length} image(s)`);
+
+      const imageUrls: string[] = [];
+      
+      for (let i = 0; i < imagesToUpload.length; i++) {
+        const imageFile = imagesToUpload[i];
+        console.log(`Uploading image ${i + 1}/${imagesToUpload.length}:`, imageFile.name);
+
+        // Convert file to buffer for server action
+        const fileBuffer = await imageFile.arrayBuffer();
+
+        // Call server action to upload (credentials stay server-side)
+        const uploadResult = await uploadToS3({
+          fileBuffer,
+          fileName: imageFile.name,
+          contentType: 'image/jpeg',
+        });
+
+        if (!uploadResult.success || !uploadResult.imageUrl) {
+          throw new Error(uploadResult.error || `Failed to upload image ${i + 1} to S3`);
+        }
+
+        imageUrls.push(uploadResult.imageUrl);
+        console.log(`Successfully uploaded image ${i + 1}/${imagesToUpload.length} to S3:`, uploadResult.imageUrl);
+      }
+
+      console.log('All images uploaded to S3:', imageUrls);
+
+      // Step 3: Send S3 URLs array to API
       setCurrentStep('ocr');
 
       const apiPayload = {
-        imageUrl: imageUrl
+        imageUrls: imageUrls
       };
 
-      console.log('Sending to API with S3 URL:', apiPayload);
+      console.log('Sending to API with S3 URLs:', apiPayload);
 
       const response = await fetch(
         'https://jm1n4qxu69.execute-api.eu-west-2.amazonaws.com/invoicer-stage/invoiceParser',
@@ -209,7 +273,7 @@ export default function InvoiceParser() {
         throw new Error(`API error: ${response.status} ${response.statusText} - ${responseText}`);
       }
 
-      // Step 3: Parse response
+      // Step 4: Parse response
       setCurrentStep('parsing');
 
       let result;
@@ -260,17 +324,19 @@ export default function InvoiceParser() {
     } finally {
       setProcessing(false);
     }
-  }, [selectedFile]);
+  }, [selectedFiles]);
 
   // Reset function
-  // Cleanup effect for preview URL to prevent memory leaks
+  // Cleanup effect for preview URLs to prevent memory leaks
   useEffect(() => {
     return () => {
-      if (previewUrl && previewUrl.startsWith('blob:')) {
-        URL.revokeObjectURL(previewUrl);
-      }
+      previewUrls.forEach(url => {
+        if (url && url.startsWith('blob:')) {
+          URL.revokeObjectURL(url);
+        }
+      });
     };
-  }, [previewUrl]);
+  }, [previewUrls]);
 
   // Add pageshow event listener for back/forward cache support
   useEffect(() => {
@@ -296,20 +362,22 @@ export default function InvoiceParser() {
   }, [processing, generatingPDF]);
 
   const resetParser = useCallback(() => {
-    // Clean up preview URL before resetting
-    if (previewUrl && previewUrl.startsWith('blob:')) {
-      URL.revokeObjectURL(previewUrl);
-    }
+    // Clean up preview URLs before resetting
+    previewUrls.forEach(url => {
+      if (url && url.startsWith('blob:')) {
+        URL.revokeObjectURL(url);
+      }
+    });
 
-    setSelectedFile(null);
-    setPreviewUrl(null);
+    setSelectedFiles([]);
+    setPreviewUrls([]);
     setInvoiceData(null);
     setError(null);
     setCurrentStep('upload');
     setProcessing(false);
     setGeneratingPDF(false);
     setPdfGenerated(false);
-  }, [previewUrl]);
+  }, [previewUrls]);
 
   // Copy JSON to clipboard
   const copyToClipboard = useCallback(() => {
@@ -491,8 +559,8 @@ export default function InvoiceParser() {
           {/* Left Side - Upload & Preview */}
           {!invoiceData && (
             <ParserUploadZone
-              selectedFile={selectedFile}
-              previewUrl={previewUrl}
+              selectedFiles={selectedFiles}
+              previewUrls={previewUrls}
               processing={processing}
               error={error}
               isDragging={isDragging}

@@ -7,6 +7,7 @@ import {
   getRelatedArticles,
   BlogArticle 
 } from '../../lib/blogData';
+import { generateArticleSchema, generateBreadcrumbSchema } from '../../lib/schemaConfig';
 import PageHero from '../../components/PageHero';
 import { BlogCard } from '../../components/blog';
 import { 
@@ -79,26 +80,39 @@ export default async function BlogArticlePage({
   // Get related articles
   const relatedArticles = getRelatedArticles(article, 3);
 
+  // Generate schemas
+  const articleSchema = generateArticleSchema({
+    headline: article.title,
+    description: article.metaDescription,
+    author: article.author,
+    datePublished: article.publishedDate,
+    dateModified: article.updatedDate,
+    keywords: article.keywords,
+    category: article.category,
+    url: `/blog/${slug}`,
+  });
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Blog', url: '/blog' },
+    { name: article.title, url: `/blog/${slug}` },
+  ]);
+
   return (
     <>
       {/* Schema.org Article Structured Data */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'Article',
-            headline: article.title,
-            description: article.metaDescription,
-            author: {
-              '@type': 'Person',
-              name: article.author,
-            },
-            datePublished: article.publishedDate,
-            dateModified: article.updatedDate,
-            keywords: article.keywords.join(', '),
-            articleSection: article.category,
-          }),
+          __html: JSON.stringify(articleSchema),
+        }}
+      />
+      
+      {/* Breadcrumb Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema),
         }}
       />
 
