@@ -1,0 +1,476 @@
+{
+  "totalPages": 19,
+  "staticGeneration": {
+    "passed": 8,
+    "failed": 11,
+    "details": [
+      {
+        "file": "app/page.tsx",
+        "status": "warning",
+        "message": "Client component - verify if SSG parent wrapper exists"
+      },
+      {
+        "file": "app/pricing/page.tsx",
+        "status": "warning",
+        "message": "Client component - verify if SSG parent wrapper exists"
+      },
+      {
+        "file": "app/parser/page.tsx",
+        "status": "warning",
+        "message": "Client component - verify if SSG parent wrapper exists"
+      },
+      {
+        "file": "app/invoice-templates/page.tsx",
+        "status": "warning",
+        "message": "Client component - verify if SSG parent wrapper exists"
+      },
+      {
+        "file": "app/invoice-generator/page.tsx",
+        "status": "pass",
+        "message": "Server component (default SSG)"
+      },
+      {
+        "file": "app/faq/page.tsx",
+        "status": "warning",
+        "message": "Client component - verify if SSG parent wrapper exists"
+      },
+      {
+        "file": "app/blog/page.tsx",
+        "status": "pass",
+        "message": "Server component (default SSG)"
+      },
+      {
+        "file": "app/invoice-templates/[slug]/page.tsx",
+        "status": "pass",
+        "message": "Uses SSG (getStaticProps/generateStaticParams)"
+      },
+      {
+        "file": "app/invoice-generator/[slug]/page.tsx",
+        "status": "pass",
+        "message": "Uses SSG (getStaticProps/generateStaticParams)"
+      },
+      {
+        "file": "app/blog/[slug]/page.tsx",
+        "status": "pass",
+        "message": "Uses SSG (getStaticProps/generateStaticParams)"
+      },
+      {
+        "file": "app/layout.tsx",
+        "status": "pass",
+        "message": "Server component (default SSG)"
+      },
+      {
+        "file": "app/components/TemplateLibrarySchema.tsx",
+        "status": "warning",
+        "message": "Client component - verify if SSG parent wrapper exists"
+      },
+      {
+        "file": "app/components/SchemaMarkup.tsx",
+        "status": "warning",
+        "message": "Client component - verify if SSG parent wrapper exists"
+      },
+      {
+        "file": "app/components/PricingPageSchema.tsx",
+        "status": "warning",
+        "message": "Client component - verify if SSG parent wrapper exists"
+      },
+      {
+        "file": "app/components/InvoiceGeneratorSchema.tsx",
+        "status": "warning",
+        "message": "Client component - verify if SSG parent wrapper exists"
+      },
+      {
+        "file": "app/components/GlobalSchema.tsx",
+        "status": "pass",
+        "message": "Server component (default SSG)"
+      },
+      {
+        "file": "app/components/FAQPageSchema.tsx",
+        "status": "warning",
+        "message": "Client component - verify if SSG parent wrapper exists"
+      },
+      {
+        "file": "app/components/BlogPageSchema.tsx",
+        "status": "warning",
+        "message": "Client component - verify if SSG parent wrapper exists"
+      },
+      {
+        "file": "app/lib/schemaConfig.ts",
+        "status": "pass",
+        "message": "Server component (default SSG)"
+      }
+    ]
+  },
+  "schemas": {
+    "passed": 1,
+    "failed": 18,
+    "details": [
+      {
+        "file": "app/page.tsx",
+        "status": "fail",
+        "message": "No Schema.org structured data found",
+        "types": []
+      },
+      {
+        "file": "app/pricing/page.tsx",
+        "status": "fail",
+        "message": "No Schema.org structured data found",
+        "types": []
+      },
+      {
+        "file": "app/parser/page.tsx",
+        "status": "fail",
+        "message": "No Schema.org structured data found",
+        "types": []
+      },
+      {
+        "file": "app/invoice-templates/page.tsx",
+        "status": "fail",
+        "message": "No Schema.org structured data found",
+        "types": []
+      },
+      {
+        "file": "app/invoice-generator/page.tsx",
+        "status": "fail",
+        "message": "No Schema.org structured data found",
+        "types": []
+      },
+      {
+        "file": "app/faq/page.tsx",
+        "status": "fail",
+        "message": "No Schema.org structured data found",
+        "types": []
+      },
+      {
+        "file": "app/blog/page.tsx",
+        "status": "fail",
+        "message": "No Schema.org structured data found",
+        "types": []
+      },
+      {
+        "file": "app/invoice-templates/[slug]/page.tsx",
+        "status": "warning",
+        "message": "Found 2 schema(s) - missing Organization",
+        "types": [
+          "DigitalDocument",
+          "BusinessAudience"
+        ]
+      },
+      {
+        "file": "app/invoice-generator/[slug]/page.tsx",
+        "status": "fail",
+        "message": "No Schema.org structured data found",
+        "types": []
+      },
+      {
+        "file": "app/blog/[slug]/page.tsx",
+        "status": "fail",
+        "message": "No Schema.org structured data found",
+        "types": []
+      },
+      {
+        "file": "app/layout.tsx",
+        "status": "fail",
+        "message": "No Schema.org structured data found",
+        "types": []
+      },
+      {
+        "file": "app/components/TemplateLibrarySchema.tsx",
+        "status": "fail",
+        "message": "No Schema.org structured data found",
+        "types": []
+      },
+      {
+        "file": "app/components/SchemaMarkup.tsx",
+        "status": "fail",
+        "message": "No Schema.org structured data found",
+        "types": []
+      },
+      {
+        "file": "app/components/PricingPageSchema.tsx",
+        "status": "fail",
+        "message": "No Schema.org structured data found",
+        "types": []
+      },
+      {
+        "file": "app/components/InvoiceGeneratorSchema.tsx",
+        "status": "fail",
+        "message": "No Schema.org structured data found",
+        "types": []
+      },
+      {
+        "file": "app/components/GlobalSchema.tsx",
+        "status": "fail",
+        "message": "No Schema.org structured data found",
+        "types": []
+      },
+      {
+        "file": "app/components/FAQPageSchema.tsx",
+        "status": "fail",
+        "message": "No Schema.org structured data found",
+        "types": []
+      },
+      {
+        "file": "app/components/BlogPageSchema.tsx",
+        "status": "fail",
+        "message": "No Schema.org structured data found",
+        "types": []
+      },
+      {
+        "file": "app/lib/schemaConfig.ts",
+        "status": "fail",
+        "message": "No Schema.org structured data found",
+        "types": []
+      }
+    ]
+  },
+  "metaTags": {
+    "passed": 6,
+    "failed": 13,
+    "details": [
+      {
+        "file": "app/page.tsx",
+        "status": "fail",
+        "message": "Critical meta tags missing (0/4)",
+        "checks": {
+          "hasCanonical": false,
+          "hasOGTags": false,
+          "hasTitle": false,
+          "hasDescription": false
+        }
+      },
+      {
+        "file": "app/pricing/page.tsx",
+        "status": "fail",
+        "message": "Critical meta tags missing (1/4)",
+        "checks": {
+          "hasCanonical": false,
+          "hasOGTags": false,
+          "hasTitle": false,
+          "hasDescription": true
+        }
+      },
+      {
+        "file": "app/parser/page.tsx",
+        "status": "fail",
+        "message": "Critical meta tags missing (0/4)",
+        "checks": {
+          "hasCanonical": false,
+          "hasOGTags": false,
+          "hasTitle": false,
+          "hasDescription": false
+        }
+      },
+      {
+        "file": "app/invoice-templates/page.tsx",
+        "status": "fail",
+        "message": "Critical meta tags missing (0/4)",
+        "checks": {
+          "hasCanonical": false,
+          "hasOGTags": false,
+          "hasTitle": false,
+          "hasDescription": false
+        }
+      },
+      {
+        "file": "app/invoice-generator/page.tsx",
+        "status": "warning",
+        "message": "Some meta tags missing (2/4)",
+        "checks": {
+          "hasCanonical": false,
+          "hasOGTags": false,
+          "hasTitle": true,
+          "hasDescription": true
+        }
+      },
+      {
+        "file": "app/faq/page.tsx",
+        "status": "fail",
+        "message": "Critical meta tags missing (0/4)",
+        "checks": {
+          "hasCanonical": false,
+          "hasOGTags": false,
+          "hasTitle": false,
+          "hasDescription": false
+        }
+      },
+      {
+        "file": "app/blog/page.tsx",
+        "status": "warning",
+        "message": "Some meta tags missing (3/4)",
+        "checks": {
+          "hasCanonical": false,
+          "hasOGTags": true,
+          "hasTitle": true,
+          "hasDescription": true
+        }
+      },
+      {
+        "file": "app/invoice-templates/[slug]/page.tsx",
+        "status": "pass",
+        "message": "All meta tags present (4/4)",
+        "checks": {
+          "hasCanonical": true,
+          "hasOGTags": true,
+          "hasTitle": true,
+          "hasDescription": true
+        }
+      },
+      {
+        "file": "app/invoice-generator/[slug]/page.tsx",
+        "status": "warning",
+        "message": "Some meta tags missing (2/4)",
+        "checks": {
+          "hasCanonical": false,
+          "hasOGTags": false,
+          "hasTitle": true,
+          "hasDescription": true
+        }
+      },
+      {
+        "file": "app/blog/[slug]/page.tsx",
+        "status": "warning",
+        "message": "Some meta tags missing (2/4)",
+        "checks": {
+          "hasCanonical": false,
+          "hasOGTags": true,
+          "hasTitle": true,
+          "hasDescription": false
+        }
+      },
+      {
+        "file": "app/layout.tsx",
+        "status": "pass",
+        "message": "All meta tags present (4/4)",
+        "checks": {
+          "hasCanonical": true,
+          "hasOGTags": true,
+          "hasTitle": true,
+          "hasDescription": true
+        }
+      },
+      {
+        "file": "app/components/TemplateLibrarySchema.tsx",
+        "status": "fail",
+        "message": "Critical meta tags missing (1/4)",
+        "checks": {
+          "hasCanonical": false,
+          "hasOGTags": false,
+          "hasTitle": false,
+          "hasDescription": true
+        }
+      },
+      {
+        "file": "app/components/SchemaMarkup.tsx",
+        "status": "fail",
+        "message": "Critical meta tags missing (0/4)",
+        "checks": {
+          "hasCanonical": false,
+          "hasOGTags": false,
+          "hasTitle": false,
+          "hasDescription": false
+        }
+      },
+      {
+        "file": "app/components/PricingPageSchema.tsx",
+        "status": "fail",
+        "message": "Critical meta tags missing (1/4)",
+        "checks": {
+          "hasCanonical": false,
+          "hasOGTags": false,
+          "hasTitle": false,
+          "hasDescription": true
+        }
+      },
+      {
+        "file": "app/components/InvoiceGeneratorSchema.tsx",
+        "status": "fail",
+        "message": "Critical meta tags missing (1/4)",
+        "checks": {
+          "hasCanonical": false,
+          "hasOGTags": false,
+          "hasTitle": false,
+          "hasDescription": true
+        }
+      },
+      {
+        "file": "app/components/GlobalSchema.tsx",
+        "status": "fail",
+        "message": "Critical meta tags missing (0/4)",
+        "checks": {
+          "hasCanonical": false,
+          "hasOGTags": false,
+          "hasTitle": false,
+          "hasDescription": false
+        }
+      },
+      {
+        "file": "app/components/FAQPageSchema.tsx",
+        "status": "fail",
+        "message": "Critical meta tags missing (0/4)",
+        "checks": {
+          "hasCanonical": false,
+          "hasOGTags": false,
+          "hasTitle": false,
+          "hasDescription": false
+        }
+      },
+      {
+        "file": "app/components/BlogPageSchema.tsx",
+        "status": "fail",
+        "message": "Critical meta tags missing (1/4)",
+        "checks": {
+          "hasCanonical": false,
+          "hasOGTags": false,
+          "hasTitle": false,
+          "hasDescription": true
+        }
+      },
+      {
+        "file": "app/lib/schemaConfig.ts",
+        "status": "fail",
+        "message": "Critical meta tags missing (1/4)",
+        "checks": {
+          "hasCanonical": false,
+          "hasOGTags": false,
+          "hasTitle": false,
+          "hasDescription": true
+        }
+      }
+    ]
+  },
+  "organization": {
+    "passed": 2,
+    "failed": 0,
+    "details": [
+      {
+        "file": "app/layout.tsx",
+        "status": "pass",
+        "message": "Organization entity found with consistent details",
+        "details": {
+          "hasOrgName": true,
+          "hasCompanyNumber": true,
+          "hasDomain": true
+        }
+      },
+      {
+        "file": "app/lib/schemaConfig.ts",
+        "status": "pass",
+        "message": "Organization entity found with consistent details",
+        "details": {
+          "hasOrgName": true,
+          "hasCompanyNumber": true,
+          "hasDomain": true
+        }
+      }
+    ]
+  },
+  "overall": {
+    "score": 22,
+    "issues": [
+      "❌ SEO needs significant improvements"
+    ],
+    "warnings": [],
+    "successes": []
+  }
+}

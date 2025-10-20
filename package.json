@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "seo-audit": "./run-seo-audit.sh",
+    "seo-audit-quick": "node seo-audit.js",
+    "seo-audit-runtime": "node seo-audit-runtime.js"
   },
   "keywords": [],
   "author": "",
@@ -28,10 +31,13 @@
     "typescript": "^5.9.3"
   },
   "devDependencies": {
+    "@lhci/cli": "^0.15.1",
     "@tailwindcss/typography": "^0.5.19",
     "@types/jspdf": "^1.3.3",
     "autoprefixer": "^10.4.21",
+    "lighthouse": "^12.8.2",
     "postcss": "^8.5.6",
+    "schema-inspector": "^2.1.0",
     "tailwindcss": "^3.4.18"
   }
 }
