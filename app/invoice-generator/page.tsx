@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { ArrowRight, FileText, Search, TrendingUp } from 'lucide-react';
 import { allIndustries } from '@/app/lib/invoiceTemplateLibrary';
 import PageHero from '@/app/components/PageHero';
-import InvoiceGeneratorSchema from '@/app/components/InvoiceGeneratorSchema';
+import { BUSINESS_INFO, generateBreadcrumbSchema, generateHowToSchema } from '@/app/lib/schemaConfig';
 
 export const metadata: Metadata = {
   title: 'Invoice Generator | Create Custom Invoices Online',
@@ -49,10 +49,81 @@ export default function InvoiceGeneratorPage() {
   // Sort by search volume (popularity)
   allTemplates.sort((a, b) => b.searchVolume - a.searchVolume);
 
+  // Generate invoice generator schemas
+  const webAppSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Free UK Invoice Generator',
+    description: 'Create professional invoices online with industry-specific templates',
+    url: `${BUSINESS_INFO.url}/invoice-generator`,
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Web',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'GBP'
+    },
+    featureList: [
+      `${allTemplates.length}+ professional invoice templates`,
+      'Industry-specific designs',
+      'No registration required',
+      'UK VAT compliance',
+      'Instant PDF generation',
+      'Free forever'
+    ],
+    provider: {
+      '@id': `${BUSINESS_INFO.url}/#organization`
+    }
+  };
+
+  const howToSchema = generateHowToSchema(
+    'How to Generate an Invoice Online',
+    'Create a professional invoice in 3 simple steps using our free online generator',
+    [
+      {
+        name: 'Choose Template',
+        text: 'Select from our library of industry-specific invoice templates',
+        url: `${BUSINESS_INFO.url}/invoice-generator`
+      },
+      {
+        name: 'Fill in Details',
+        text: 'Enter your business information, client details, and invoice line items',
+        url: `${BUSINESS_INFO.url}/invoice-generator`
+      },
+      {
+        name: 'Download Invoice',
+        text: 'Generate and download your professional invoice as a PDF',
+        url: `${BUSINESS_INFO.url}/invoice-generator`
+      }
+    ]
+  );
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Invoice Generator', url: '/invoice-generator' }
+  ]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
-      {/* Invoice Generator Schema */}
-      <InvoiceGeneratorSchema templateCount={allTemplates.length} />
+      {/* Server-Rendered Invoice Generator Schemas */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(webAppSchema)
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(howToSchema)
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema)
+        }}
+      />
       
       {/* Hero Section */}
       <PageHero

@@ -2,6 +2,7 @@
 
 import React, { useMemo } from 'react';
 import Link from 'next/link';
+import Script from 'next/script';
 import dynamic from 'next/dynamic';
 import { 
   allIndustries, 
@@ -19,7 +20,7 @@ import {
   Star
 } from 'lucide-react';
 import PageHero from '@/app/components/PageHero';
-import TemplateLibrarySchema from '@/app/components/TemplateLibrarySchema';
+import { BUSINESS_INFO, generateBreadcrumbSchema } from '@/app/lib/schemaConfig';
 
 // Import first industry section immediately (above fold)
 import { IndustrySection } from '@/app/components/template-landing';
@@ -63,10 +64,82 @@ export default function InvoiceTemplatesPage() {
   // Split industries: first one immediately, rest lazy loaded
   const [firstIndustry, ...restIndustries] = industryEntries;
 
+  // Collect all templates for schema
+  const allTemplates: Array<{name: string; slug: string}> = [];
+  for (const [industryId, industry] of Object.entries(allIndustries)) {
+    for (const category of Object.values(industry.categories)) {
+      for (const subCategory of Object.values(category.subCategories)) {
+        for (const template of subCategory.templates) {
+          allTemplates.push({
+            name: template.name,
+            slug: getTemplateSlug(template)
+          });
+        }
+      }
+    }
+  }
+
+  // Generate template library schemas
+  const collectionSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Free UK Invoice Templates by Industry',
+    description: `Professional, industry-specific invoice templates for UK businesses. ${totalTemplates}+ free templates.`,
+    url: `${BUSINESS_INFO.url}/invoice-templates`,
+    numberOfItems: totalTemplates
+  };
+
+  const itemListSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    numberOfItems: totalTemplates,
+    itemListElement: allTemplates.slice(0, 50).map((template, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'DigitalDocument',
+        name: template.name,
+        url: `${BUSINESS_INFO.url}/invoice-templates/${template.slug}`,
+        fileFormat: ['application/msword', 'application/pdf'],
+        provider: {
+          '@id': `${BUSINESS_INFO.url}/#organization`
+        }
+      }
+    }))
+  };
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Invoice Templates', url: '/invoice-templates' }
+  ]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
-      {/* Template Library Schema */}
-      <TemplateLibrarySchema totalTemplates={totalTemplates} />
+      {/* Server-Rendered Template Library Schemas */}
+      <Script
+        id="template-collection"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(collectionSchema)
+        }}
+        strategy="beforeInteractive"
+      />
+      <Script
+        id="template-itemlist"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(itemListSchema)
+        }}
+        strategy="beforeInteractive"
+      />
+      <Script
+        id="template-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema)
+        }}
+        strategy="beforeInteractive"
+      />
       
       <PageHero
         badge="Free Invoice Templates UK"

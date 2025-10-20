@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback, useMemo } from 'react';
+import Script from 'next/script';
 import comprehensiveFAQs, {
     faqCategories,
     getFAQsByCategory,
@@ -10,12 +11,15 @@ import comprehensiveFAQs, {
 import FinalCTASection from '../components/FinalCTASection';
 import PageHero from '../components/PageHero';
 import Footer from '../components/Footer';
-import FAQPageSchema from '../components/FAQPageSchema';
 import { 
   FAQSearchBar, 
   FAQCategoryFilter, 
   FAQAccordion 
 } from '../components/faq';
+import { 
+  generateFAQSchema, 
+  generateBreadcrumbSchema 
+} from '../lib/schemaConfig';
 
 /**
  * FAQ Page
@@ -74,10 +78,38 @@ export default function FAQPage() {
         setSelectedCategory('All');
     }, []);
 
+    // Generate FAQ page schemas (server-side)
+    const faqSchema = generateFAQSchema(
+      comprehensiveFAQs.map(faq => ({
+        question: faq.question,
+        answer: faq.answer
+      }))
+    );
+
+    const breadcrumbSchema = generateBreadcrumbSchema([
+      { name: 'Home', url: '/' },
+      { name: 'FAQ', url: '/faq' }
+    ]);
+
     return (
         <main className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
-            {/* FAQ Page Schema */}
-            <FAQPageSchema />
+            {/* Server-Rendered FAQ Page Schemas */}
+            <Script
+              id="faq-page-schema"
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{
+                __html: JSON.stringify(faqSchema)
+              }}
+              strategy="beforeInteractive"
+            />
+            <Script
+              id="faq-breadcrumb"
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{
+                __html: JSON.stringify(breadcrumbSchema)
+              }}
+              strategy="beforeInteractive"
+            />
          
             {/* Hero Section */}
             <PageHero
