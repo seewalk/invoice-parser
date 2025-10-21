@@ -20,6 +20,9 @@ import { type ProcessingStep } from '../components/parser';
 import { useLeadCapture } from '../hooks/useLeadCapture';
 import LeadCaptureModal from '../components/LeadCaptureModal';
 import { convertPdfToImage, convertPdfToImages, isPdfFile, isImageFile } from '../utils/pdfToImage';
+import { useAuth } from '@/app/lib/firebase/AuthContext';
+import { useQuota } from '@/app/hooks/useQuota';
+import { useRouter } from 'next/navigation';
 
 // Lazy-load UpgradePrompt for performance
 const UpgradePrompt = dynamic(
@@ -58,6 +61,10 @@ const ParserResultsDisplay = dynamic(() =>
 
 
 export default function InvoiceParser() {
+  const router = useRouter();
+  const { user, loading: authLoading, userQuotas } = useAuth();
+  const { checkQuota, decrementQuota, getRemaining, hasUnlimitedAccess } = useQuota();
+  
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
   const [processing, setProcessing] = useState(false);
@@ -70,8 +77,17 @@ export default function InvoiceParser() {
   const [pdfGenerated, setPdfGenerated] = useState(false);
   const [pendingPDFDownload, setPendingPDFDownload] = useState(false);
   const [showUpgradePrompt, setShowUpgradePrompt] = useState(false);
+  const [demoParseUsed, setDemoParseUsed] = useState(false);
 
-  // Lead capture hook
+  // Check if demo parse has been used (localStorage)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const used = localStorage.getItem('elektroluma_demo_parse_used');
+      setDemoParseUsed(used === 'true');
+    }
+  }, []);
+
+  // Lead capture hook (only for demo/anonymous users)
   const {
     showModal,
     openModal,
@@ -170,6 +186,27 @@ export default function InvoiceParser() {
   // Process invoice with real API and S3 upload
   const processInvoice = useCallback(async () => {
     if (selectedFiles.length === 0) return;
+
+    // 🎁 DEMO MODE: Allow 1 free parse without login
+    if (!user) {
+      if (demoParseUsed) {
+        console.log('[Parser] Demo parse already used, require sign-in');
+        setError('Sign up to get 5 free invoice parses!');
+        setShowUpgradePrompt(true);
+        return;
+      }
+      console.log('[Parser] Allowing demo parse (1 free without login)');
+      // Will mark as used after successful parse
+    } else {
+      // 🎫 QUOTA CHECK: For authenticated users, check quota
+      if (!checkQuota('invoiceParses')) {
+        console.log('[Parser] No quota remaining, showing upgrade prompt');
+        setShowUpgradePrompt(true);
+        setError('You\'ve used all 5 free parses. Upgrade for unlimited parsing!');
+        return;
+      }
+      console.log('[Parser] Quota check passed, proceeding with processing');
+    }
 
     setProcessing(true);
     setError(null);
@@ -311,6 +348,31 @@ export default function InvoiceParser() {
 
       console.log('Transformed invoice data:', invoiceData);
 
+      // 💳 QUOTA MANAGEMENT: Decrement quota or mark demo as used
+      if (user) {
+        // Authenticated user: decrement quota
+        console.log('[Parser] Invoice parsed successfully, decrementing quota');
+        const quotaDecremented = await decrementQuota('invoiceParses', {
+          invoiceNumber: invoiceData.invoiceNumber,
+          supplier: invoiceData.supplier,
+          totalAmount: invoiceData.totalAmount,
+          timestamp: new Date().toISOString()
+        });
+
+        if (quotaDecremented) {
+          console.log('[Parser] Quota decremented successfully');
+        } else {
+          console.warn('[Parser] Failed to decrement quota, but continuing with results');
+        }
+      } else {
+        // Demo user: mark demo parse as used
+        console.log('[Parser] Demo parse used, marking in localStorage');
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('elektroluma_demo_parse_used', 'true');
+          setDemoParseUsed(true);
+        }
+      }
+
       setInvoiceData(invoiceData);
       setCurrentStep('complete');
     } catch (err) {
@@ -324,7 +386,7 @@ export default function InvoiceParser() {
     } finally {
       setProcessing(false);
     }
-  }, [selectedFiles]);
+  }, [selectedFiles, user, router, checkQuota, decrementQuota, demoParseUsed]);
 
   // Reset function
   // Cleanup effect for preview URLs to prevent memory leaks
@@ -458,29 +520,37 @@ export default function InvoiceParser() {
 
   /**
    * Handle PDF download button click
-   * Intercepts to show lead capture modal if needed
+   * Authenticated users: direct download
+   * Demo/anonymous users: lead capture modal first
    */
   const handleGeneratePDF = useCallback(async () => {
-    // Check if we need to capture lead first
+    // Authenticated users: skip lead capture, download directly
+    if (user) {
+      console.log('[Parser] Authenticated user, proceeding with PDF generation');
+      await generateAndDownloadPDF();
+      return;
+    }
+
+    // Demo/anonymous users: check if we need to capture lead first
     if (isLeadCaptureRequired) {
-      console.log('[Parser] Lead capture required, showing modal');
+      console.log('[Parser] Demo user - lead capture required, showing modal');
       setPendingPDFDownload(true);
       openModal();
       return;
     }
 
-    // User has already submitted lead, proceed with download
-    console.log('[Parser] Lead already captured, proceeding with PDF generation');
+    // Demo user has already submitted lead, proceed with download
+    console.log('[Parser] Demo user - lead already captured, proceeding with PDF generation');
     await generateAndDownloadPDF();
-  }, [isLeadCaptureRequired, openModal, generateAndDownloadPDF]);
+  }, [user, isLeadCaptureRequired, openModal, generateAndDownloadPDF]);
 
   /**
-   * Handle lead submission from modal
+   * Handle lead submission from modal (demo users only)
    * After successful submission, trigger the PDF download
    */
   const handleLeadCaptured = useCallback(
     async (data: any) => {
-      console.log('[Parser] Lead captured, proceeding with PDF generation');
+      console.log('[Parser] Demo user lead captured, proceeding with PDF generation');
       await handleLeadSubmit(data);
 
       // Lead is captured, now generate and download PDF
@@ -530,10 +600,48 @@ export default function InvoiceParser() {
               </div>
             </Link>
             <div className="flex items-center space-x-4">
-              <span className="text-sm text-gray-600">Free Trial: 10 invoices remaining</span>
-              <button className="bg-gradient-to-r from-primary-600 to-primary-700 text-white px-6 py-2 rounded-full text-sm font-semibold hover:shadow-lg transition">
-                Upgrade
-              </button>
+              {!authLoading && user && (
+                <>
+                  {hasUnlimitedAccess ? (
+                    <span className="text-sm text-primary-600 font-semibold flex items-center gap-1">
+                      <Sparkles className="w-4 h-4" />
+                      Unlimited Parses
+                    </span>
+                  ) : (
+                    <span className="text-sm text-gray-600">
+                      {getRemaining('invoiceParses')} / 5 parses remaining
+                    </span>
+                  )}
+                  {!hasUnlimitedAccess && (
+                    <Link
+                      href="/pricing"
+                      className="bg-gradient-to-r from-primary-600 to-primary-700 text-white px-6 py-2 rounded-full text-sm font-semibold hover:shadow-lg transition"
+                    >
+                      Upgrade
+                    </Link>
+                  )}
+                </>
+              )}
+              {!authLoading && !user && (
+                <>
+                  {!demoParseUsed ? (
+                    <span className="text-sm text-green-600 font-semibold flex items-center gap-1">
+                      <Sparkles className="w-4 h-4" />
+                      1 Free Demo Parse
+                    </span>
+                  ) : (
+                    <span className="text-sm text-gray-600">
+                      Demo used
+                    </span>
+                  )}
+                  <Link
+                    href="/sign-up?redirect=/parser"
+                    className="bg-gradient-to-r from-primary-600 to-primary-700 text-white px-6 py-2 rounded-full text-sm font-semibold hover:shadow-lg transition"
+                  >
+                    Sign Up for 5 Free
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>

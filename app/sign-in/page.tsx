@@ -197,7 +197,7 @@ function SignInContent() {
           <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-slate-200">
             <p className="text-sm text-slate-600 mb-2">✨ <strong>Free trial includes:</strong></p>
             <div className="flex items-center justify-center gap-4 text-sm font-semibold text-slate-900">
-              <span>10 invoice parses</span>
+              <span>5 invoice parses</span>
               <span className="text-slate-300">•</span>
               <span>3 template downloads</span>
               <span className="text-slate-300">•</span>

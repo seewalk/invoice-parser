@@ -213,7 +213,7 @@ export default function Navigation() {
                                 Invoice Parses
                               </span>
                               <span className="font-semibold text-slate-900">
-                                {userQuotas.invoiceParses} / 10
+                                {userQuotas.invoiceParses} / 5
                               </span>
                             </div>
                             <div className="flex items-center justify-between text-sm">
@@ -354,7 +354,7 @@ export default function Navigation() {
                           Parses
                         </span>
                         <span className="font-semibold text-slate-900">
-                          {userQuotas.invoiceParses} / 10
+                          {userQuotas.invoiceParses} / 5
                         </span>
                       </div>
                       <div className="flex items-center justify-between text-sm">

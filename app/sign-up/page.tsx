@@ -268,7 +268,7 @@ function SignUpContent() {
             <div className="space-y-2 text-sm text-slate-700">
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 bg-primary-600 rounded-full"></span>
-                <span><strong>10 invoice parses</strong> – Extract data from invoices instantly</span>
+                <span><strong>5 invoice parses</strong> – Extract data from invoices instantly</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 bg-primary-600 rounded-full"></span>

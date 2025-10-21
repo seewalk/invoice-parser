@@ -17,13 +17,17 @@ import {
   FileCheck,
   Printer,
   ShieldCheck,
-  AlertCircle
+  AlertCircle,
+  Sparkles
 } from 'lucide-react';
 import { InvoiceTemplate } from '@/app/lib/invoiceTemplateLibrary';
 import { generateTemplatePDF } from '@/app/actions/generateTemplatePDF';
 import { useLeadCapture } from '@/app/hooks/useLeadCapture';
 import LeadCaptureModal from '@/app/components/LeadCaptureModal';
 import dynamic from 'next/dynamic';
+import { useAuth } from '@/app/lib/firebase/AuthContext';
+import { useQuota } from '@/app/hooks/useQuota';
+import { useRouter } from 'next/navigation';
 import {
   validateUKVATNumber,
   formatUKVATNumber,
@@ -129,13 +133,17 @@ export default function InvoiceGeneratorClient({
   template, 
   industryName 
 }: InvoiceGeneratorClientProps) {
+  const router = useRouter();
+  const { user, loading: authLoading } = useAuth();
+  const { checkQuota, decrementQuota, getRemaining, hasUnlimitedAccess } = useQuota();
+  
   const [showPreview, setShowPreview] = useState(true);
   const [isGenerating, setIsGenerating] = useState(false);
   const [currentStep, setCurrentStep] = useState<'business' | 'client' | 'items' | 'payment'>('business');
   const [pendingDownload, setPendingDownload] = useState(false);
   const [showUpgradePrompt, setShowUpgradePrompt] = useState(false);
 
-  // Lead capture hook
+  // Lead capture hook (only for demo/anonymous users)
   const {
     showModal,
     openModal,
@@ -357,15 +365,30 @@ export default function InvoiceGeneratorClient({
         
         console.log('[Invoice Generator] PDF downloaded successfully:', result.fileName);
         
+        // 💳 QUOTA DECREMENT: Decrement quota for authenticated users
+        if (user && !hasUnlimitedAccess) {
+          console.log('[Invoice Generator] Decrementing generator uses quota');
+          await decrementQuota('generatorUses', {
+            templateName: template.name,
+            templateId: template.id,
+            invoiceNumber: formData.invoiceNumber,
+            clientName: formData.clientName,
+            totalAmount: formData.totalAmount,
+            timestamp: new Date().toISOString()
+          });
+        }
+        
         setTimeout(() => {
           setIsGenerating(false);
           setPendingDownload(false);
         }, 2000);
         
-        // Show upgrade prompt 2 seconds after download
-        setTimeout(() => {
-          setShowUpgradePrompt(true);
-        }, 2000);
+        // Show upgrade prompt for free tier users after download
+        if (user && !hasUnlimitedAccess) {
+          setTimeout(() => {
+            setShowUpgradePrompt(true);
+          }, 2000);
+        }
       } else {
         throw new Error(result.error || 'Failed to generate PDF');
       }
@@ -379,28 +402,42 @@ export default function InvoiceGeneratorClient({
 
   /**
    * Handle PDF download button click
-   * Intercepts to show lead capture modal if needed
+   * Authenticated users: check quota and download
+   * Demo users: lead capture first, then download
    */
   const handleDownloadPDF = async () => {
-    // Check if we need to capture lead first
-    if (isLeadCaptureRequired) {
-      console.log('[Invoice Generator] Lead capture required, showing modal');
-      setPendingDownload(true);
-      openModal();
+    // 🔒 AUTH CHECK: Redirect to sign-up if not authenticated
+    if (!user) {
+      // Demo users: check if we need to capture lead first
+      if (isLeadCaptureRequired) {
+        console.log('[Invoice Generator] Demo user - lead capture required, showing modal');
+        setPendingDownload(true);
+        openModal();
+        return;
+      }
+      // Demo user has already submitted lead, proceed with download
+      console.log('[Invoice Generator] Demo user - lead already captured, proceeding with download');
+      await generateAndDownloadPDF();
       return;
     }
 
-    // User has already submitted lead, proceed with download
-    console.log('[Invoice Generator] Lead already captured, proceeding with download');
+    // 🎫 QUOTA CHECK: For authenticated users, check quota
+    if (!hasUnlimitedAccess && !checkQuota('generatorUses')) {
+      console.log('[Invoice Generator] No quota remaining, showing upgrade prompt');
+      setShowUpgradePrompt(true);
+      return;
+    }
+
+    console.log('[Invoice Generator] Quota check passed, proceeding with download');
     await generateAndDownloadPDF();
   };
 
   /**
-   * Handle lead submission from modal
+   * Handle lead submission from modal (demo users only)
    * After successful submission, trigger the PDF download
    */
   const handleLeadCaptured = async (data: any) => {
-    console.log('[Invoice Generator] Lead captured, proceeding with PDF generation');
+    console.log('[Invoice Generator] Demo user lead captured, proceeding with PDF generation');
     await handleLeadSubmit(data);
     
     // Lead is captured, now generate and download PDF
@@ -909,6 +946,20 @@ export default function InvoiceGeneratorClient({
             </div>
 
             <div className="flex items-center gap-3">
+              {!authLoading && user && (
+                <div className="hidden sm:block text-right mr-2">
+                  {hasUnlimitedAccess ? (
+                    <span className="text-xs text-primary-600 font-semibold flex items-center gap-1">
+                      <Sparkles className="w-3 h-3" />
+                      Unlimited
+                    </span>
+                  ) : (
+                    <span className="text-xs text-slate-600">
+                      {getRemaining('generatorUses')} / 5 uses left
+                    </span>
+                  )}
+                </div>
+              )}
               <button
                 onClick={() => setShowPreview(!showPreview)}
                 className="hidden lg:flex items-center gap-2 px-4 py-2 text-slate-600 hover:text-slate-900 transition"
@@ -918,7 +969,7 @@ export default function InvoiceGeneratorClient({
               </button>
               <button
                 onClick={handleDownloadPDF}
-                disabled={isGenerating}
+                disabled={isGenerating || authLoading}
                 className="flex items-center gap-2 px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50 disabled:cursor-wait"
               >
                 <Download className={`w-4 h-4 ${isGenerating ? 'animate-bounce' : ''}`} />
