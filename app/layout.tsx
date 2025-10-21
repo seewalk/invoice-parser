@@ -5,6 +5,7 @@ import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import { AdvancedSEOPreview } from "./components/seo/SEOPreview";
 import GlobalSchema from "./components/GlobalSchema";
+import { AuthProvider } from "./lib/firebase/AuthContext";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -68,10 +69,12 @@ export default function RootLayout({
         <GlobalSchema />
       </head>
       <body className={inter.className}>
-        <Navigation />
-        <AdvancedSEOPreview />
-        {children}
-        <Footer />
+        <AuthProvider>
+          <Navigation />
+          <AdvancedSEOPreview />
+          {children}
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );
