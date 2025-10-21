@@ -26,17 +26,11 @@ export default function Footer({
               <div className="w-8 h-8 bg-gradient-to-br from-primary-600 to-accent-500 rounded-lg flex items-center justify-center">
                 <FileText className="w-5 h-5 text-white" aria-hidden="true" />
               </div>
-              <span className="text-xl font-bold">InvoiceParse.ai</span>
+              <span className="text-xl font-bold">Elektroluma</span>
             </Link>
 
             {/* Quick Links */}
             <div className="flex flex-wrap justify-center gap-6 text-slate-400 text-sm">
-              <Link href="/privacy" className="hover:text-white transition">
-                Privacy
-              </Link>
-              <Link href="/terms" className="hover:text-white transition">
-                Terms
-              </Link>
               <Link href="/contact" className="hover:text-white transition">
                 Contact
               </Link>
@@ -44,7 +38,7 @@ export default function Footer({
 
             {/* Copyright */}
             <p className="text-slate-400 text-sm">
-              © {currentYear} InvoiceParse.ai. All rights reserved.
+              © {currentYear} Elektroluma. All rights reserved.
             </p>
           </div>
         </div>
@@ -89,7 +83,7 @@ export default function Footer({
               <div className="w-10 h-10 bg-gradient-to-br from-primary-600 to-accent-500 rounded-lg flex items-center justify-center">
                 <FileText className="w-6 h-6 text-white" aria-hidden="true" />
               </div>
-              <span className="text-2xl font-bold">InvoiceParse.ai</span>
+              <span className="text-2xl font-bold">Elektroluma</span>
             </Link>
             <p className="text-slate-400 text-sm mb-6 leading-relaxed">
               AI-powered invoice processing and automation software for UK restaurants and
@@ -101,10 +95,10 @@ export default function Footer({
               <div className="flex items-start space-x-3">
                 <Mail className="w-4 h-4 mt-0.5 flex-shrink-0" aria-hidden="true" />
                 <a
-                  href="mailto:support@invoiceparse.ai"
+                  href="mailto:support@elektroluma.com"
                   className="hover:text-white transition"
                 >
-                  support@invoiceparse.ai
+                  support@elektroluma.com
                 </a>
               </div>
               <div className="flex items-start space-x-3">
@@ -178,13 +172,8 @@ export default function Footer({
                 </Link>
               </li>
               <li>
-                <Link href="/integrations" className="hover:text-white transition">
-                  Integrations
-                </Link>
-              </li>
-              <li>
-                <Link href="/api-docs" className="hover:text-white transition">
-                  API Documentation
+                <Link href="/alternatives" className="hover:text-white transition">
+                  Alternatives
                 </Link>
               </li>
             </ul>
@@ -200,28 +189,18 @@ export default function Footer({
                 </Link>
               </li>
               <li>
-                <Link href="/case-studies" className="hover:text-white transition">
-                  Case Studies
+                <Link href="/uk-invoice-guide" className="hover:text-white transition">
+                  UK Invoice Guide
                 </Link>
               </li>
               <li>
-                <Link href="/guides" className="hover:text-white transition">
-                  Guides
+                <Link href="/invoice-templates" className="hover:text-white transition">
+                  Invoice Templates
                 </Link>
               </li>
               <li>
-                <Link href="/help-center" className="hover:text-white transition">
-                  Help Center
-                </Link>
-              </li>
-              <li>
-                <Link href="/webinars" className="hover:text-white transition">
-                  Webinars
-                </Link>
-              </li>
-              <li>
-                <Link href="/changelog" className="hover:text-white transition">
-                  Changelog
+                <Link href="/invoice-generator" className="hover:text-white transition">
+                  Invoice Generator
                 </Link>
               </li>
             </ul>
@@ -232,52 +211,8 @@ export default function Footer({
             <h3 className="font-bold mb-4 text-white">Company</h3>
             <ul className="space-y-2 text-slate-400 text-sm">
               <li>
-                <Link href="/about" className="hover:text-white transition">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link href="/careers" className="hover:text-white transition">
-                  Careers
-                </Link>
-              </li>
-              <li>
                 <Link href="/contact" className="hover:text-white transition">
                   Contact
-                </Link>
-              </li>
-              <li>
-                <Link href="/partners" className="hover:text-white transition">
-                  Partners
-                </Link>
-              </li>
-              <li>
-                <Link href="/press" className="hover:text-white transition">
-                  Press Kit
-                </Link>
-              </li>
-            </ul>
-
-            <h3 className="font-bold mb-4 mt-6 text-white">Legal</h3>
-            <ul className="space-y-2 text-slate-400 text-sm">
-              <li>
-                <Link href="/privacy" className="hover:text-white transition">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link href="/terms" className="hover:text-white transition">
-                  Terms of Service
-                </Link>
-              </li>
-              <li>
-                <Link href="/security" className="hover:text-white transition">
-                  Security
-                </Link>
-              </li>
-              <li>
-                <Link href="/gdpr" className="hover:text-white transition">
-                  GDPR
                 </Link>
               </li>
             </ul>
@@ -288,7 +223,7 @@ export default function Footer({
         <div className="border-t border-slate-800 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-slate-400 text-sm">
             <p>
-              © {currentYear} InvoiceParse.ai by Sseniseb. All rights reserved.
+              © {currentYear} Elektroluma by Sseniseb. All rights reserved.
             </p>
 
             {/* Trust Badges */}
