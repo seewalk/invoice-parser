@@ -7,6 +7,8 @@ import dynamic from 'next/dynamic';
 import { 
   allIndustries, 
   getIndustryStats,
+  getAllIndustriesWithPremium,
+  getTotalTemplateCount,
   type InvoiceTemplate 
 } from '@/app/lib/invoiceTemplateLibrary';
 import { 
@@ -54,19 +56,25 @@ function getTemplateSlug(template: InvoiceTemplate): string {
 // ============================================================================
 
 export default function InvoiceTemplatesPage() {
+  // Combine free + premium templates for display
+  const allIndustriesWithPremium = useMemo(() => getAllIndustriesWithPremium(), []);
   const stats = getIndustryStats();
-  const totalTemplates = Object.values(stats).reduce((sum, stat) => sum + stat.totalTemplates, 0);
+  
+  // Calculate totals (free templates only for hero stats, premium shown separately)
+  const freeTemplateCount = getTotalTemplateCount(false);
+  const totalTemplateCount = getTotalTemplateCount(true);
+  const premiumTemplateCount = totalTemplateCount - freeTemplateCount;
   const totalSearchVolume = Object.values(stats).reduce((sum, stat) => sum + stat.totalSearchVolume, 0);
   
-  // Memoize industry entries for performance
-  const industryEntries = useMemo(() => Object.entries(allIndustries), []);
+  // Memoize industry entries for performance (includes premium)
+  const industryEntries = useMemo(() => Object.entries(allIndustriesWithPremium), [allIndustriesWithPremium]);
   
   // Split industries: first one immediately, rest lazy loaded
   const [firstIndustry, ...restIndustries] = industryEntries;
 
-  // Collect all templates for schema
+  // Collect all templates for schema (including premium)
   const allTemplates: Array<{name: string; slug: string}> = [];
-  for (const [industryId, industry] of Object.entries(allIndustries)) {
+  for (const [industryId, industry] of Object.entries(allIndustriesWithPremium)) {
     for (const category of Object.values(industry.categories)) {
       for (const subCategory of Object.values(category.subCategories)) {
         for (const template of subCategory.templates) {
@@ -84,15 +92,15 @@ export default function InvoiceTemplatesPage() {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
     name: 'Free UK Invoice Templates by Industry',
-    description: `Professional, industry-specific invoice templates for UK businesses. ${totalTemplates}+ free templates.`,
+    description: `Professional, industry-specific invoice templates for UK businesses. ${freeTemplateCount} free templates, ${totalTemplateCount} total with premium.`,
     url: `${BUSINESS_INFO.url}/invoice-templates`,
-    numberOfItems: totalTemplates
+    numberOfItems: totalTemplateCount
   };
 
   const itemListSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    numberOfItems: totalTemplates,
+    numberOfItems: totalTemplateCount,
     itemListElement: allTemplates.slice(0, 50).map((template, index) => ({
       '@type': 'ListItem',
       position: index + 1,
@@ -144,7 +152,7 @@ export default function InvoiceTemplatesPage() {
       <PageHero
         badge="Free Invoice Templates UK"
         title={<>Free UK Invoice Templates<br /><span className="gradient-text"> By Industry</span></>}
-        description={`Download professional, industry-specific invoice templates for UK businesses. Choose from ${totalTemplates}+ free templates for restaurants, photographers, builders, freelancers, consultants, and more. Available in Word, Excel, and PDF formats.`}
+        description={`Download professional, industry-specific invoice templates for UK businesses. ${freeTemplateCount} free templates (with watermark) or upgrade to Pro for ${totalTemplateCount} total templates. Available in Word, Excel, and PDF formats.`}
         size="default"
       >
         <nav className="flex justify-center items-center gap-2 text-sm text-slate-600 mb-6">
@@ -158,15 +166,15 @@ export default function InvoiceTemplatesPage() {
         {/* Stats */}
         <div className="flex flex-wrap justify-center gap-8 mb-8">
           <div className="bg-white rounded-xl px-6 py-3 shadow-lg">
-            <div className="text-3xl font-bold text-indigo-600 mb-1">{totalTemplates}+</div>
+            <div className="text-3xl font-bold text-green-600 mb-1">{freeTemplateCount}</div>
             <div className="text-sm text-gray-600">Free Templates</div>
           </div>
-          <div className="bg-white rounded-xl px-6 py-3 shadow-lg">
-            <div className="text-3xl font-bold text-green-600 mb-1">{totalSearchVolume.toLocaleString()}</div>
-            <div className="text-sm text-gray-600">Monthly Searches</div>
+          <div className="bg-white rounded-xl px-6 py-3 shadow-lg border-2 border-purple-200">
+            <div className="text-3xl font-bold text-purple-600 mb-1">+{premiumTemplateCount}</div>
+            <div className="text-sm text-gray-600">Premium Templates (Pro)</div>
           </div>
           <div className="bg-white rounded-xl px-6 py-3 shadow-lg">
-            <div className="text-3xl font-bold text-blue-600 mb-1">{Object.keys(allIndustries).length}</div>
+            <div className="text-3xl font-bold text-blue-600 mb-1">{Object.keys(allIndustriesWithPremium).length}</div>
             <div className="text-sm text-gray-600">Industries Covered</div>
           </div>
         </div>

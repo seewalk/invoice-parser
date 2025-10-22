@@ -7,8 +7,9 @@
 
 /**
  * Pricing tier levels
+ * Updated to freemium subscription model
  */
-export type PricingTier = 'free' | 'one-time' | 'professional' | 'business' | 'enterprise';
+export type PricingTier = 'free' | 'premium' | 'pro' | 'enterprise';
 
 /**
  * Product types available for purchase
@@ -178,17 +179,58 @@ export interface CheckoutPreview {
 }
 
 /**
- * Pricing constants
+ * Pricing constants - Freemium Subscription Model
+ * 
+ * Three-tier structure:
+ * - FREE: All 11 templates with watermark
+ * - PREMIUM (£9.99/mo): All templates without watermark + basic features
+ * - PRO (£29.99/mo): Premium + AI parser + advanced features
  */
 export const PRICING_CONSTANTS = {
-  TEMPLATE_PRICE: 9.99,
-  PROFESSIONAL_MONTHLY: 29,
-  PROFESSIONAL_ANNUAL: 261, // 25% discount
-  BUSINESS_MONTHLY: 99,
-  BUSINESS_ANNUAL: 891, // 25% discount
+  // FREE TIER (no payment)
+  FREE_TEMPLATE_COUNT: 11, // All templates available for free (with watermark)
+  FREE_WATERMARK: true,
+  FREE_PARSER_LIMIT: 0, // No parser access on free tier
+  FREE_HISTORY_DAYS: 0, // No invoice history
+  FREE_SUPPORT: 'community', // Community forum support only
+  
+  // PREMIUM TIER (£9.99/month)
+  PREMIUM_MONTHLY: 9.99,
+  PREMIUM_ANNUAL: 95.90, // ~20% discount (£7.99/month when paid annually)
+  PREMIUM_TEMPLATE_COUNT: 11, // All templates
+  PREMIUM_WATERMARK: false,
+  PREMIUM_PARSER_LIMIT: 0, // No parser on Premium tier
+  PREMIUM_SUPPORT: '24hr', // Email support within 24 hours
+  PREMIUM_HISTORY_DAYS: 30, // 30 days invoice history
+  PREMIUM_BRANDING: 'basic', // Logo upload only
+  
+  // PRO TIER (£29.99/month)
+  PRO_MONTHLY: 29.99,
+  PRO_ANNUAL: 287.90, // ~20% discount (£23.99/month when paid annually)
+  PRO_TEMPLATE_COUNT: 11, // All templates (same as Premium)
+  PRO_WATERMARK: false,
+  PRO_PARSER_LIMIT: 200, // 200 invoices per month
+  PRO_SUPPORT: '1hr', // Priority support within 1 hour
+  PRO_HISTORY_DAYS: 365, // 1 year invoice history
+  PRO_TEAM_USERS: 3, // Up to 3 team members
+  PRO_BRANDING: 'advanced', // Custom colors, fonts, logo
+  
   CURRENCY: 'GBP',
-  FREE_PARSER_LIMIT: 5, // 5 invoices per month on free tier
+  
+  // DEPRECATED - Kept for backward compatibility
+  /** @deprecated Use PREMIUM_MONTHLY instead. Old one-time purchase model removed. */
+  TEMPLATE_PRICE: 9.99,
+  /** @deprecated Use PRO_MONTHLY instead. Renamed from Professional to Pro. */
+  PROFESSIONAL_MONTHLY: 29,
+  /** @deprecated Use PRO_ANNUAL instead. */
+  PROFESSIONAL_ANNUAL: 261,
+  /** @deprecated Business tier merged into Pro tier. */
+  BUSINESS_MONTHLY: 99,
+  /** @deprecated Business tier merged into Pro tier. */
+  BUSINESS_ANNUAL: 891,
+  /** @deprecated Use PRO_PARSER_LIMIT instead. */
   PROFESSIONAL_PARSER_LIMIT: 200,
+  /** @deprecated Business tier no longer exists. */
   BUSINESS_PARSER_LIMIT: 1000,
 } as const;
 

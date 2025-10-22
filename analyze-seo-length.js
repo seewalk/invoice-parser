@@ -198,4 +198,3 @@ console.log(`${colors.cyan}💡 Pro Tip:${colors.reset} Shorter, punchier text o
 console.log(`   Focus on clarity and relevance over cramming keywords.\n`);
 
 console.log(`${colors.bright}${colors.cyan}═══════════════════════════════════════════════════════════════${colors.reset}\n`);
-Response

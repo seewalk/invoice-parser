@@ -2,8 +2,8 @@
 
 import { memo } from 'react';
 import Link from 'next/link';
-import { FileText, CheckCircle, Shield, ArrowRight, Sparkles, Download } from 'lucide-react';
-import { InvoiceTemplate } from '@/app/lib/invoiceTemplateLibrary';
+import { FileText, CheckCircle, Shield, ArrowRight, Sparkles, Download, Crown } from 'lucide-react';
+import { InvoiceTemplate, getTotalTemplateCount } from '@/app/lib/invoiceTemplateLibrary';
 import { PRICING_CONSTANTS } from '@/app/types/pricing';
 
 interface TemplateCardProps {
@@ -32,10 +32,22 @@ function TemplateCardComponent({ template, slug }: TemplateCardProps) {
       href={`/invoice-templates/${slug}`}
       className="block group"
     >
-      <div className="bg-white rounded-xl border-2 border-slate-200 hover:border-indigo-500 transition-all hover:shadow-xl p-6 h-full">
+      <div className={`bg-white rounded-xl border-2 transition-all hover:shadow-xl p-6 h-full ${
+        template.tier === 'premium' ? 'border-purple-300 hover:border-purple-500' : 'border-slate-200 hover:border-indigo-500'
+      }`}>
+        {/* Premium Badge */}
+        {template.tier === 'premium' && (
+          <div className="absolute top-4 right-4">
+            <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-lg">
+              <Crown className="w-3 h-3" />
+              PRO ONLY
+            </div>
+          </div>
+        )}
+        
         {/* Header */}
         <div className="flex items-start justify-between mb-4">
-          <div className="flex-1">
+          <div className="flex-1 pr-16">
             <h3 className="text-xl font-bold text-slate-900 group-hover:text-indigo-600 transition mb-2">
               {template.name}
             </h3>
@@ -43,7 +55,9 @@ function TemplateCardComponent({ template, slug }: TemplateCardProps) {
               {template.description}
             </p>
           </div>
-          <FileText className="w-8 h-8 text-indigo-600 flex-shrink-0 ml-4" />
+          <FileText className={`w-8 h-8 flex-shrink-0 ml-4 ${
+            template.tier === 'premium' ? 'text-purple-600' : 'text-indigo-600'
+          }`} />
         </div>
 
         {/* User-Focused Stats */}
@@ -80,16 +94,111 @@ function TemplateCardComponent({ template, slug }: TemplateCardProps) {
           ))}
         </div>
 
-        {/* Pricing Info */}
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-3 mb-4 border border-blue-200">
-          <div className="flex items-center justify-between mb-1">
-            <span className="text-xs font-medium text-gray-700">FREE with watermark</span>
-            <Sparkles className="w-4 h-4 text-blue-600" />
+        {/* Pricing Info - USP Differentiation */}
+        {template.tier === 'premium' ? (
+          // Pro Exclusive Card (for premium-tier templates)
+          <div className="relative bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg p-4 border-2 border-purple-300 mb-4">
+            {/* Pro Badge */}
+            <div className="absolute top-2 right-2">
+              <div className="flex items-center gap-1 px-2 py-1 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold shadow-lg">
+                <Crown className="w-3 h-3" />
+                PRO
+              </div>
+            </div>
+            
+            <div className="mb-3">
+              <span className="text-xs font-semibold text-purple-800 uppercase">Pro Exclusive Template</span>
+            </div>
+            
+            <div className="text-sm text-slate-700 space-y-1 mb-3">
+              <div className="flex items-start gap-2">
+                <Sparkles className="w-4 h-4 text-purple-600 flex-shrink-0 mt-0.5" />
+                <span><strong>Advanced fields:</strong> Industry-specific</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <Sparkles className="w-4 h-4 text-purple-600 flex-shrink-0 mt-0.5" />
+                <span><strong>AI parser:</strong> 200 invoices/month</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <Sparkles className="w-4 h-4 text-purple-600 flex-shrink-0 mt-0.5" />
+                <span><strong>Team access:</strong> Up to 3 users</span>
+              </div>
+            </div>
+            
+            <div className="bg-white rounded-lg p-3 border border-purple-200">
+              <div className="text-xs text-slate-600 mb-1">Unlock with Pro</div>
+              <div className="text-2xl font-bold text-slate-900 mb-1">
+                £{PRICING_CONSTANTS.PRO_MONTHLY}
+                <span className="text-sm font-normal text-slate-600">/month</span>
+              </div>
+              <div className="text-xs text-slate-600">All {getTotalTemplateCount(true)} templates + AI features</div>
+            </div>
           </div>
-          <div className="text-sm font-semibold text-gray-900">
-            or <span className="text-blue-700">£{PRICING_CONSTANTS.TEMPLATE_PRICE}</span> to remove watermark
+        ) : (
+          // Free Template Card with two distinct presentations
+          <div className="space-y-3 mb-4">
+            {/* Free Tier Features - What You Get */}
+            <div className="bg-gradient-to-r from-slate-50 to-slate-100 rounded-lg p-4 border border-slate-200">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs font-semibold text-slate-600 uppercase">Free Template</span>
+                <CheckCircle className="w-4 h-4 text-green-600" />
+              </div>
+              <div className="text-sm text-slate-700 space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="text-green-600">✓</span>
+                  <span>UK VAT compliant</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-green-600">✓</span>
+                  <span>PDF download</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-green-600">✓</span>
+                  <span>Basic invoice fields</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Premium Upgrade Card - Value-Add Features */}
+            <div className="relative bg-gradient-to-br from-amber-50 to-orange-50 rounded-lg p-4 border-2 border-amber-300">
+              {/* Premium Badge */}
+              <div className="absolute top-2 right-2">
+                <div className="flex items-center gap-1 px-2 py-1 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold shadow-lg">
+                  <Crown className="w-3 h-3" />
+                  PREMIUM
+                </div>
+              </div>
+              
+              <div className="mb-3">
+                <span className="text-xs font-semibold text-amber-800 uppercase">Upgrade Features</span>
+              </div>
+              
+              <div className="text-sm text-slate-700 space-y-1 mb-3">
+                <div className="flex items-start gap-2">
+                  <Sparkles className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+                  <span><strong>No watermark:</strong> Professional look</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <Sparkles className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+                  <span><strong>Custom branding:</strong> Add your logo</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <Sparkles className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+                  <span><strong>30-day history:</strong> Track invoices</span>
+                </div>
+              </div>
+              
+              <div className="bg-white rounded-lg p-3 border border-amber-200">
+                <div className="text-xs text-slate-600 mb-1">Unlock Premium</div>
+                <div className="text-2xl font-bold text-slate-900 mb-1">
+                  £{PRICING_CONSTANTS.PREMIUM_MONTHLY}
+                  <span className="text-sm font-normal text-slate-600">/month</span>
+                </div>
+                <div className="text-xs text-slate-600">All {getTotalTemplateCount(false)} templates watermark-free</div>
+              </div>
+            </div>
           </div>
-        </div>
+        )}
 
         {/* CTA */}
         <div className="flex items-center justify-between">

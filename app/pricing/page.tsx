@@ -8,95 +8,37 @@ import Link from 'next/link';
 import Navigation from '../components/Navigation';
 import FinalCTASection from '../components/FinalCTASection';
 import PageHero from '../components/PageHero';
-import IndividualTemplatePricing from '../components/pricing/IndividualTemplatePricing';
+import PricingComparisonCard from '../components/monetization/PricingComparisonCard';
 import { 
   generateProductComparisonSchema,
   generateBreadcrumbSchema 
 } from '../lib/schemaConfig';
 
 export default function PricingPage() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isAnnual, setIsAnnual] = useState(false);
-
-  const plans = [
-    {
-      name: 'Starter',
-      monthlyPrice: 0,
-      annualPrice: 0,
-      description: 'Perfect for trying out the platform',
-      features: [
-        '10 invoices per month',
-        'Manual upload only',
-        'JSON/CSV export',
-        'Email support (48hr)',
-        '1 user account',
-      ],
-      limitations: [
-        'No API access',
-        'No integrations',
-        'Basic features only',
-      ],
-      cta: 'Start Free',
-      popular: false,
-    },
-    {
-      name: 'Professional',
-      monthlyPrice: 29,
-      annualPrice: 261, // 25% off (29 * 12 * 0.75)
-      description: 'For single-location businesses',
-      features: [
-        '200 invoices per month',
-        'API access',
-        'Email support (24hr)',
-        '3 user accounts',
-        'QuickBooks & Xero integration',
-        'Standard supplier patterns',
-        'Mobile app access',
-        'Batch upload',
-        'Smart categorization',
-      ],
-      limitations: [
-        'Limited custom patterns',
-        'Standard support only',
-      ],
-      cta: 'Start Free Trial',
-      popular: true,
-    },
-    {
-      name: 'Business',
-      monthlyPrice: 99,
-      annualPrice: 891, // 25% off
-      description: 'For multi-location operations',
-      features: [
-        '1,000 invoices per month',
-        'Priority API access',
-        'Phone + email support',
-        '10 user accounts',
-        'All integrations',
-        'Custom supplier patterns (5)',
-        'Batch processing',
-        'Approval workflows',
-        'Analytics dashboard',
-        'Webhook notifications',
-        'Custom export formats',
-        'Team collaboration tools',
-      ],
-      limitations: [],
-      cta: 'Start Free Trial',
-      popular: false,
-    },
-  ];
-
   // Generate pricing schemas (server-side)
-  const pricingSchema = generateProductComparisonSchema(
-    plans.map(plan => ({
-      name: plan.name,
-      description: plan.description,
-      price: plan.monthlyPrice.toString(),
-      features: plan.features,
+  const pricingSchema = generateProductComparisonSchema([
+    {
+      name: 'Free',
+      description: 'All 11 templates with watermark',
+      price: '0',
+      features: ['11 invoice templates', 'PDF download with watermark', 'UK VAT compliant'],
       url: '/pricing'
-    }))
-  );
+    },
+    {
+      name: 'Premium',
+      description: 'All templates without watermark',
+      price: '9.99',
+      features: ['11 templates (no watermark)', 'Unlimited downloads', 'Custom branding', '24hr support'],
+      url: '/pricing'
+    },
+    {
+      name: 'Pro',
+      description: 'Premium + AI parser + automation',
+      price: '29.99',
+      features: ['Everything in Premium', 'AI parser (200/month)', 'Team collaboration', 'Priority support'],
+      url: '/pricing'
+    }
+  ]);
 
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: 'Home', url: '/' },
@@ -124,155 +66,84 @@ export default function PricingPage() {
       />
 
       <PageHero
-        badge="Transparent Pricing"
+        badge="Simple, Transparent Pricing"
         title={
           <>
-            Invoice Processing <span className="gradient-text">Pricing Plans</span>
+            Start Free, <span className="gradient-text">Upgrade When Ready</span>
           </>
         }
-        description="Choose the perfect plan for your business. All plans include a 14-day free trial with no credit card required."
+        description="All 11 invoice templates available for free with watermark. Upgrade anytime for watermark-free downloads and advanced features. No credit card required to start."
         size="default"
-      >
-        {/* Annual/Monthly Toggle */}
-        <div className="inline-flex items-center space-x-4 bg-gray-100 rounded-full p-1">
-          <button
-            onClick={() => setIsAnnual(false)}
-            className={`px-6 py-2 rounded-full font-semibold transition-all ${
-              !isAnnual ? 'bg-white shadow-sm' : 'text-gray-600'
-            }`}
-          >
-            Monthly
-          </button>
-          <button
-            onClick={() => setIsAnnual(true)}
-            className={`px-6 py-2 rounded-full font-semibold transition-all ${
-              isAnnual ? 'bg-white shadow-sm' : 'text-gray-600'
-            }`}
-          >
-            Annual <span className="text-green-600">(Save 25%)</span>
-          </button>
-        </div>
-      </PageHero>
+      />
 
       <div className="pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
 
-          {/* Individual Templates Section (Pay-As-You-Go) */}
-          <IndividualTemplatePricing />
+          {/* Three-Tier Pricing Comparison */}
+          <div className="mb-16">
+            <PricingComparisonCard 
+              emphasize="premium"
+              compact={false}
+              onFreeCTA={() => {
+                window.location.href = '/invoice-templates';
+              }}
+              onPremiumCTA={() => {
+                alert('Premium subscription coming soon! Get notified when payment integration is ready.');
+              }}
+              onProCTA={() => {
+                alert('Pro subscription coming soon! Get notified when payment integration is ready.');
+              }}
+            />
+          </div>
 
-          {/* Subscription Plans Heading */}
+          {/* Value Proposition Section */}
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-3">
-              Subscription Plans
+              Why Choose Our Platform?
             </h2>
-            <p className="text-lg text-gray-600">
-              For businesses with ongoing invoice processing needs
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Professional invoice templates designed specifically for UK businesses. 
+              VAT compliant, industry-specific fields, and ready to use in minutes.
             </p>
           </div>
 
-          {/* Pricing Cards */}
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
-            {plans.map((plan, index) => (
-              <motion.div
-                key={plan.name}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className={`rounded-2xl p-8 ${
-                  plan.popular
-                    ? 'bg-gradient-to-br from-primary-600 to-primary-700 text-white shadow-2xl scale-105 border-4 border-primary-400'
-                    : 'bg-white border-2 border-gray-200'
-                } relative`}
-              >
-                {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                    <div className="bg-accent-400 text-white px-4 py-1 rounded-full text-sm font-bold">
-                      ⭐ MOST POPULAR
-                    </div>
-                  </div>
-                )}
-
-                <div className="text-center mb-6">
-                  <h3 className={`text-2xl font-bold mb-2 ${plan.popular ? 'text-white' : 'text-gray-900'}`}>
-                    {plan.name}
-                  </h3>
-                  <p className={`text-sm ${plan.popular ? 'text-primary-100' : 'text-gray-600'}`}>
-                    {plan.description}
-                  </p>
-                </div>
-
-                <div className="text-center mb-8">
-                  <div className="flex items-baseline justify-center">
-                    <span className={`text-xl ${plan.popular ? 'text-primary-100' : 'text-gray-600'}`}>£</span>
-                    <span className={`text-5xl font-bold ${plan.popular ? 'text-white' : 'text-gray-900'}`}>
-                      {isAnnual ? Math.floor(plan.annualPrice / 12) : plan.monthlyPrice}
-                    </span>
-                  </div>
-                  <p className={`text-sm mt-1 ${plan.popular ? 'text-primary-100' : 'text-gray-600'}`}>
-                    per month {isAnnual && plan.monthlyPrice > 0 && '(billed annually)'}
-                  </p>
-                  {isAnnual && plan.monthlyPrice > 0 && (
-                    <p className="text-xs mt-2 text-green-600 font-semibold">
-                      Save £{(plan.monthlyPrice * 12 - plan.annualPrice).toFixed(0)}/year
-                    </p>
-                  )}
-                </div>
-
-                <div className="mb-8">
-                  <p className={`text-sm font-semibold mb-3 ${plan.popular ? 'text-primary-100' : 'text-gray-700'}`}>
-                    ✓ Included:
-                  </p>
-                  <ul className="space-y-2" role="list">
-                    {plan.features.map((feature) => (
-                      <li key={feature} className="flex items-start">
-                        <CheckCircle
-                          className={`w-4 h-4 mr-2 flex-shrink-0 mt-0.5 ${
-                            plan.popular ? 'text-accent-300' : 'text-green-500'
-                          }`}
-                          aria-hidden="true"
-                        />
-                        <span className={`text-sm ${plan.popular ? 'text-primary-50' : 'text-gray-700'}`}>
-                          {feature}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  {plan.limitations.length > 0 && (
-                    <>
-                      <p className={`text-sm font-semibold mt-4 mb-2 ${plan.popular ? 'text-primary-100' : 'text-gray-700'}`}>
-                        ✗ Not included:
-                      </p>
-                      <ul className="space-y-2" role="list">
-                        {plan.limitations.map((limitation) => (
-                          <li key={limitation} className="flex items-start opacity-60">
-                            <X
-                              className={`w-4 h-4 mr-2 flex-shrink-0 mt-0.5 ${
-                                plan.popular ? 'text-primary-200' : 'text-gray-400'
-                              }`}
-                              aria-hidden="true"
-                            />
-                            <span className={`text-sm ${plan.popular ? 'text-primary-100' : 'text-gray-600'}`}>
-                              {limitation}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    </>
-                  )}
-                </div>
-
-                <button
-                  className={`w-full py-3 rounded-full font-semibold transition-all hover:-translate-y-1 ${
-                    plan.popular
-                      ? 'bg-white text-primary-700 shadow-lg hover:shadow-xl'
-                      : 'bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-lg hover:shadow-xl'
-                  }`}
-                >
-                  {plan.cta}
-                </button>
-              </motion.div>
-            ))}
+          {/* Feature Comparison Grid */}
+          <div className="bg-white rounded-2xl border-2 border-gray-200 p-8 mb-16">
+            <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">
+              Compare Plans
+            </h3>
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b-2 border-gray-200">
+                    <th className="text-left py-4 px-4 text-gray-700 font-semibold">Features</th>
+                    <th className="text-center py-4 px-4 text-gray-700 font-semibold">Free</th>
+                    <th className="text-center py-4 px-4 text-blue-700 font-semibold">Premium</th>
+                    <th className="text-center py-4 px-4 text-purple-700 font-semibold">Pro</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-100">
+                  {[
+                    { feature: 'Invoice Templates', free: '11', premium: '11', pro: '11' },
+                    { feature: 'Watermark', free: 'Yes', premium: 'No', pro: 'No' },
+                    { feature: 'PDF Downloads', free: 'Unlimited', premium: 'Unlimited', pro: 'Unlimited' },
+                    { feature: 'Custom Branding', free: '—', premium: 'Basic (logo)', pro: 'Advanced' },
+                    { feature: 'Invoice History', free: '—', premium: '30 days', pro: '1 year' },
+                    { feature: 'Support', free: 'Community', premium: '24hr email', pro: '1hr priority' },
+                    { feature: 'AI Invoice Parser', free: '—', premium: '—', pro: '200/month' },
+                    { feature: 'Team Collaboration', free: '—', premium: '—', pro: '3 users' },
+                    { feature: 'Automation', free: '—', premium: '—', pro: '✓' },
+                  ].map((row, index) => (
+                    <tr key={index} className="hover:bg-gray-50 transition-colors">
+                      <td className="py-4 px-4 text-gray-900 font-medium">{row.feature}</td>
+                      <td className="py-4 px-4 text-center text-gray-600">{row.free}</td>
+                      <td className="py-4 px-4 text-center text-blue-700 font-semibold">{row.premium}</td>
+                      <td className="py-4 px-4 text-center text-purple-700 font-semibold">{row.pro}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
 
           {/* Enterprise */}
