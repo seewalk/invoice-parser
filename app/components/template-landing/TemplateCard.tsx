@@ -2,7 +2,7 @@
 
 import { memo } from 'react';
 import Link from 'next/link';
-import { FileText, TrendingUp, Users, ArrowRight, Sparkles } from 'lucide-react';
+import { FileText, CheckCircle, Shield, ArrowRight, Sparkles, Download } from 'lucide-react';
 import { InvoiceTemplate } from '@/app/lib/invoiceTemplateLibrary';
 import { PRICING_CONSTANTS } from '@/app/types/pricing';
 
@@ -16,7 +16,7 @@ interface TemplateCardProps {
  * 
  * Displays a single invoice template card with:
  * - Template name and description
- * - Search volume and CPC stats
+ * - User-focused statistics (usage, compliance)
  * - Top 3 keywords
  * - Link to template detail page
  * 
@@ -46,24 +46,24 @@ function TemplateCardComponent({ template, slug }: TemplateCardProps) {
           <FileText className="w-8 h-8 text-indigo-600 flex-shrink-0 ml-4" />
         </div>
 
-        {/* Stats */}
+        {/* User-Focused Stats */}
         <div className="grid grid-cols-2 gap-3 mb-4">
-          <div className="bg-slate-50 rounded-lg p-3">
-            <div className="flex items-center gap-2 text-sm text-slate-600 mb-1">
-              <TrendingUp className="w-4 h-4" />
-              <span>Search Volume</span>
+          <div className="bg-blue-50 rounded-lg p-3">
+            <div className="flex items-center gap-2 text-sm text-blue-700 mb-1">
+              <CheckCircle className="w-4 h-4" />
+              <span>Professional</span>
             </div>
-            <div className="text-lg font-bold text-slate-900">
-              {template.searchVolume.toLocaleString()}/mo
+            <div className="text-sm font-semibold text-blue-900">
+              Industry-Ready
             </div>
           </div>
           <div className="bg-green-50 rounded-lg p-3">
             <div className="flex items-center gap-2 text-sm text-green-700 mb-1">
-              <Users className="w-4 h-4" />
-              <span>CPC Value</span>
+              <Shield className="w-4 h-4" />
+              <span>Compliant</span>
             </div>
-            <div className="text-lg font-bold text-green-700">
-              £{template.cpc.toFixed(2)}
+            <div className="text-sm font-semibold text-green-900">
+              VAT & UK Law
             </div>
           </div>
         </div>

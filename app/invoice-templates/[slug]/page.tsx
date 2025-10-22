@@ -121,7 +121,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   
   return {
     title: `${template.name} | Free UK Invoice Template Download`,
-    description: `${template.description} Download free ${template.name.toLowerCase()} for UK businesses. ${template.searchVolume} monthly searches. Word, Excel, PDF formats available.`,
+    description: `${template.description} Download free ${template.name.toLowerCase()} for UK businesses. Professional, compliant, and ready to use. Word, Excel, PDF formats available.`,
     keywords: template.keywords.join(', '),
     openGraph: {
       title: `${template.name} - Free Download`,
