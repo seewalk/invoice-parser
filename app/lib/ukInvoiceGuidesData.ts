@@ -97,13 +97,13 @@ export interface CallToAction {
 export const guideArticles: Record<string, GuideArticle> = {
   'vat-compliant': {
     slug: 'vat-compliant',
-    title: 'VAT-Compliant UK Invoices: Complete Guide for 2025',
+    title: 'VAT-Compliant UK Invoices: Guide for 2026',
     description: 'Learn how to create HMRC-compliant VAT invoices with correct rates (20%, 5%, 0%), formatting, and Making Tax Digital requirements.',
-    excerpt: 'Master VAT invoice compliance with our comprehensive guide covering all UK VAT rates, HMRC requirements, and Making Tax Digital regulations for 2025.',
-    metaDescription: 'Complete guide to VAT-compliant UK invoices. Learn VAT rates (20%, 5%, 0%), HMRC requirements, MTD compliance, and how to create legally compliant VAT invoices in 2025.',
+    excerpt: 'Master VAT invoice compliance with our comprehensive guide covering all UK VAT rates, HMRC requirements, and Making Tax Digital regulations for 2026.',
+    metaDescription: 'Complete guide to VAT-compliant UK invoices. Learn VAT rates, HMRC requirements, MTD compliance, and how to create legally compliant VAT invoices in 2026.',
     keywords: [
       'VAT compliant invoice UK',
-      'UK VAT rates 2025',
+      'UK VAT rates 2026',
       'HMRC VAT invoice requirements',
       'Making Tax Digital VAT',
       'VAT invoice format UK',
@@ -126,21 +126,21 @@ export const guideArticles: Record<string, GuideArticle> = {
     content: [
       {
         id: 'intro',
-        heading: 'Introduction to VAT-Compliant Invoices',
+        heading: ' Introduction to VAT-Compliant Invoices',
         content: `Value Added Tax (VAT) is a consumption tax charged on most goods and services in the UK. If your business is VAT-registered (annual turnover over £90,000), you must charge VAT on your invoices and submit regular VAT returns to HMRC.
 
 Creating VAT-compliant invoices isn't just a legal requirement—it's essential for your business operations, tax compliance, and customer relationships. Non-compliant invoices can result in HMRC penalties, rejected VAT claims, and damaged business reputation.
 
-This comprehensive guide covers everything you need to know about creating VAT-compliant invoices in 2025, including all UK VAT rates, HMRC requirements, Making Tax Digital (MTD) compliance, and practical examples.`,
+This comprehensive guide covers everything you need to know about creating VAT-compliant invoices in 2026, including all UK VAT rates, HMRC requirements, Making Tax Digital (MTD) compliance, and practical examples.`,
         callout: {
           type: 'info',
-          title: 'VAT Registration Threshold 2025',
+          title: 'VAT Registration Threshold 2026',
           content: 'You must register for VAT if your VAT taxable turnover exceeds £90,000 in any 12-month period. Voluntary registration is available for businesses below this threshold.'
         }
       },
       {
         id: 'vat-rates',
-        heading: 'UK VAT Rates 2025: Complete Breakdown',
+        heading: ' UK VAT Rates 2026: Complete Breakdown',
         content: `The UK operates a multi-rate VAT system with four distinct rates. Understanding which rate applies to your goods or services is crucial for invoice compliance.`,
         subsections: [
           {
@@ -215,7 +215,7 @@ This comprehensive guide covers everything you need to know about creating VAT-c
       },
       {
         id: 'reverse-charge',
-        heading: 'Reverse Charge VAT for Construction Services',
+        heading: ' Reverse Charge VAT for Construction Services',
         content: `The domestic reverse charge is a special VAT accounting method introduced in 2021 for construction services under the Construction Industry Scheme (CIS).
 
 **How it works:**
@@ -247,7 +247,7 @@ Subcontractor invoices contractor for £10,000 of building work:
       },
       {
         id: 'invoice-requirements',
-        heading: 'HMRC VAT Invoice Requirements: Complete Checklist',
+        heading: ' HMRC VAT Invoice Requirements: Complete Checklist',
         content: `A VAT invoice must contain specific information to be HMRC-compliant. Missing or incorrect information can invalidate your invoice for VAT purposes.`,
         list: {
           type: 'checklist',
@@ -269,7 +269,7 @@ Subcontractor invoices contractor for £10,000 of building work:
       },
       {
         id: 'simplified-invoices',
-        heading: 'Simplified VAT Invoices (Under £250)',
+        heading: ' Simplified VAT Invoices (Under £250)',
         content: `For retail transactions under £250 (including VAT), you can issue a simplified VAT invoice with reduced requirements.
 
 **Minimum requirements:**
@@ -306,7 +306,7 @@ Total (inc. VAT at 20%): £180.00`,
       },
       {
         id: 'mtd-compliance',
-        heading: 'Making Tax Digital (MTD) for VAT',
+        heading: ' Making Tax Digital (MTD) for VAT',
         content: `Making Tax Digital (MTD) is HMRC's initiative to make tax administration more effective, efficient, and easier for taxpayers. For VAT, MTD has been mandatory since April 2019.
 
 **MTD Requirements:**
@@ -336,7 +336,7 @@ All VAT-registered businesses, regardless of turnover, must use MTD for VAT.
       },
       {
         id: 'common-mistakes',
-        heading: 'Common VAT Invoice Mistakes to Avoid',
+        heading: ' Common VAT Invoice Mistakes to Avoid',
         content: `Learn from common errors that businesses make when creating VAT invoices.`,
         subsections: [
           {
@@ -373,7 +373,7 @@ All VAT-registered businesses, regardless of turnover, must use MTD for VAT.
       },
       {
         id: 'examples',
-        heading: 'VAT Invoice Examples',
+        heading: ' VAT Invoice Examples',
         content: `See real-world examples of VAT invoices for different scenarios.`,
         subsections: [
           {
@@ -463,7 +463,7 @@ This invoice is subject to the domestic reverse charge for construction services
       },
       {
         id: 'summary',
-        heading: 'Key Takeaways',
+        heading: ' Key Takeaways',
         content: `Creating VAT-compliant invoices is essential for UK businesses. Here are the most important points to remember:`,
         list: {
           type: 'ordered',
@@ -530,10 +530,10 @@ This invoice is subject to the domestic reverse charge for construction services
 
   'cis-deduction': {
     slug: 'cis-deduction',
-    title: 'CIS Deduction Guide: Construction Industry Scheme Invoices UK',
+    title: 'CIS Guide: Construction Industry Invoices UK',
     description: 'Complete guide to CIS tax deductions for construction invoices. Learn CIS rates (20%, 30%), how to calculate deductions, and invoice requirements.',
     excerpt: 'Master the Construction Industry Scheme (CIS) with our comprehensive guide covering CIS rates, deduction calculations, invoice requirements, and HMRC compliance.',
-    metaDescription: 'Complete CIS deduction guide for UK construction invoices. Learn CIS rates (20% registered, 30% unregistered), calculation methods, invoice requirements, and HMRC compliance for 2025.',
+    metaDescription: 'Complete CIS deduction guide for UK construction invoices. Learn CIS rates 20%/ 30% , calculation methods, invoice requirements, and HMRC compliance for 2026.',
     keywords: [
       'CIS deduction',
       'Construction Industry Scheme',
@@ -559,7 +559,7 @@ This invoice is subject to the domestic reverse charge for construction services
     content: [
       {
         id: 'intro',
-        heading: 'What is the Construction Industry Scheme (CIS)?',
+        heading: ' What is the Construction Industry Scheme (CIS)?',
         content: `The Construction Industry Scheme (CIS) is a tax deduction scheme that applies to payments made by contractors to subcontractors for construction work in the UK. Under CIS, contractors must deduct tax from subcontractors' payments and pay it directly to HMRC.
 
 **Why CIS exists:**
@@ -585,7 +585,7 @@ CIS ensures that construction workers and businesses pay the right amount of inc
       },
       {
         id: 'cis-rates',
-        heading: 'CIS Tax Deduction Rates: Complete Breakdown',
+        heading: ' CIS Tax Deduction Rates: Complete Breakdown',
         content: `There are three CIS deduction rates depending on the subcontractor's registration status with HMRC.`,
         subsections: [
           {
@@ -678,7 +678,7 @@ Subcontractors who have been granted "gross payment status" by HMRC. This is rar
       },
       {
         id: 'calculation',
-        heading: 'How to Calculate CIS Deductions: Step-by-Step',
+        heading: ' How to Calculate CIS Deductions: Step-by-Step',
         content: `CIS deductions are calculated AFTER VAT is added. This is crucial for correct calculations.`,
         subsections: [
           {
@@ -729,7 +729,7 @@ The contractor pays £2,400 to the subcontractor and £600 directly to HMRC on t
       },
       {
         id: 'invoice-requirements',
-        heading: 'CIS Invoice Requirements: What You Must Include',
+        heading: ' CIS Invoice Requirements: What You Must Include',
         content: `CIS invoices must include specific information beyond standard invoices.`,
         list: {
           type: 'checklist',
@@ -753,7 +753,7 @@ The contractor pays £2,400 to the subcontractor and £600 directly to HMRC on t
       },
       {
         id: 'materials-vs-labour',
-        heading: 'Materials vs Labour: The CIS Split',
+        heading: ' Materials vs Labour: The CIS Split',
         content: `CIS deductions apply to labour costs, but the treatment of materials is complex.
 
 **Key rule:** CIS deductions apply to the TOTAL payment including materials, unless specific exemptions apply.
@@ -805,7 +805,7 @@ The contractor pays £2,400 to the subcontractor and £600 directly to HMRC on t
       },
       {
         id: 'reverse-charge',
-        heading: 'CIS and Reverse Charge VAT',
+        heading: ' CIS and Reverse Charge VAT',
         content: `Construction services under CIS are also subject to the domestic reverse charge for VAT (introduced March 2021).
 
 **How they work together:**
@@ -831,7 +831,7 @@ CIS deduction of £600 (20%) calculated on notional total of £3,000 including V
       },
       {
         id: 'examples',
-        heading: 'CIS Invoice Examples',
+        heading: ' CIS Invoice Examples',
         content: `See real-world CIS invoice examples with detailed calculations.`,
         subsections: [
           {
@@ -963,7 +963,7 @@ This invoice is subject to the domestic reverse charge for construction services
       },
       {
         id: 'contractor-duties',
-        heading: 'Contractor Responsibilities Under CIS',
+        heading: ' Contractor Responsibilities Under CIS',
         content: `If you're a contractor (paying subcontractors), you have specific duties under CIS.`,
         list: {
           type: 'ordered',
@@ -985,7 +985,7 @@ This invoice is subject to the domestic reverse charge for construction services
       },
       {
         id: 'reclaiming-tax',
-        heading: 'How Subcontractors Reclaim CIS Deductions',
+        heading: ' How Subcontractors Reclaim CIS Deductions',
         content: `CIS deductions are advance payments of your income tax. You can reclaim overpayments through Self Assessment.
 
 **Step 1: Track Your Deductions**
@@ -1025,7 +1025,7 @@ They'll work out:
       },
       {
         id: 'common-mistakes',
-        heading: 'Common CIS Mistakes and How to Avoid Them',
+        heading: ' Common CIS Mistakes and How to Avoid Them',
         content: `Learn from common errors in CIS invoicing and compliance.`,
         subsections: [
           {
@@ -1063,7 +1063,7 @@ They'll work out:
       },
       {
         id: 'summary',
-        heading: 'CIS Deduction Summary: Key Points',
+        heading: ' CIS Deduction Summary: Key Points',
         content: `Understanding CIS is crucial for construction industry compliance. Here are the essential takeaways:`,
         list: {
           type: 'ordered',

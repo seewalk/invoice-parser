@@ -2,14 +2,17 @@
   "name": "webapp",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {
+     "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "seo-audit": "./run-seo-audit.sh",
     "seo-audit-quick": "node seo-audit.js",
-    "seo-audit-runtime": "node seo-audit-runtime.js"
+    "seo-audit-runtime": "node seo-audit-runtime.js",
+    "seo-keyword-audit": "node seo-keyword-audit.js",
+    "seo-full-audit": "npm run seo-audit-runtime && npm run seo-keyword-audit",
+    "seo-analyze-length": "node analyze-seo-length.js"
   },
   "keywords": [],
   "author": "",

@@ -1469,7 +1469,7 @@
         "message": "✅ 4 schema(s) including Organization"
       },
       {
-        "file": ".next\\server\\app\\uk-invoice-guides\\vat-compliant\\examples.html",
+        "file": ".next\\server\\app\\uk-invoice-guides\\cis-deduction\\examples.html",
         "status": "pass",
         "count": 3,
         "types": [
@@ -1480,7 +1480,7 @@
         "message": "✅ 3 schema(s) including Organization"
       },
       {
-        "file": ".next\\server\\app\\uk-invoice-guides\\cis-deduction\\examples.html",
+        "file": ".next\\server\\app\\uk-invoice-guides\\vat-compliant\\examples.html",
         "status": "pass",
         "count": 3,
         "types": [
@@ -3289,20 +3289,6 @@
         }
       },
       {
-        "file": ".next\\server\\app\\uk-invoice-guides\\vat-compliant\\examples.html",
-        "status": "pass",
-        "count": 6,
-        "message": "✅ 6/6 meta tags present",
-        "tags": {
-          "title": "VAT Invoice Examples: Correct vs Incorrect | UK Compliance Guide",
-          "description": "See side-by-side comparisons of correct and incorrect VAT invoices. Learn what makes an invoice HMRC-compliant with detailed examples and explanations.",
-          "canonical": "https://elektroluma.co.uk",
-          "ogTitle": "VAT Invoice Examples: Correct vs Incorrect",
-          "ogDescription": "Visual comparison of correct and incorrect VAT invoices with detailed explanations.",
-          "ogUrl": "https://elektroluma.co.uk/uk-invoice-guides/vat-compliant/examples"
-        }
-      },
-      {
         "file": ".next\\server\\app\\uk-invoice-guides\\cis-deduction\\examples.html",
         "status": "pass",
         "count": 6,
@@ -3314,6 +3300,20 @@
           "ogTitle": "CIS Invoice Examples: Correct vs Incorrect Calculations",
           "ogDescription": "Visual guide to CIS deduction calculations with common mistakes explained.",
           "ogUrl": "https://elektroluma.co.uk/uk-invoice-guides/cis-deduction/examples"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\uk-invoice-guides\\vat-compliant\\examples.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "VAT Invoice Examples: Correct vs Incorrect | UK Compliance Guide",
+          "description": "See side-by-side comparisons of correct and incorrect VAT invoices. Learn what makes an invoice HMRC-compliant with detailed examples and explanations.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "VAT Invoice Examples: Correct vs Incorrect",
+          "ogDescription": "Visual comparison of correct and incorrect VAT invoices with detailed explanations.",
+          "ogUrl": "https://elektroluma.co.uk/uk-invoice-guides/vat-compliant/examples"
         }
       }
     ]
@@ -3456,8 +3456,8 @@
       ".next\\server\\app\\blog\\do-i-need-a-gas-safe-number-for-all-plumbing-work.html: Organization entity consistent",
       ".next\\server\\app\\blog\\do-i-need-a-companies-house-number-on-my-invoice.html: Organization entity consistent",
       ".next\\server\\app\\blog\\can-invoice-processing-systems-integrate-with-erps-like-sap-or-oracle.html: Organization entity consistent",
-      ".next\\server\\app\\uk-invoice-guides\\vat-compliant\\examples.html: Organization entity consistent",
-      ".next\\server\\app\\uk-invoice-guides\\cis-deduction\\examples.html: Organization entity consistent"
+      ".next\\server\\app\\uk-invoice-guides\\cis-deduction\\examples.html: Organization entity consistent",
+      ".next\\server\\app\\uk-invoice-guides\\vat-compliant\\examples.html: Organization entity consistent"
     ]
   }
 }

@@ -232,7 +232,7 @@ export const ukVATRates: Record<string, VATRate> = {
       'UK VAT rate 20%',
       'Standard VAT rate UK',
       'UK VAT rates 2024',
-      'VAT rate 2025 UK',
+      'VAT rate 2026 UK',
       'standard rate VAT',
       'most common VAT rate UK'
     ],

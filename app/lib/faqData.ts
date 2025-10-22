@@ -578,11 +578,11 @@ export const comprehensiveFAQs: FAQ[] = [
     searchVolume: 480,
   },
   {
-    question: 'What are the current UK VAT rates in 2024-2025?',
+    question: 'What are the current UK VAT rates in 2025-2026?',
     answer:
       "The UK has four VAT rates: Standard Rate (20%) applies to most goods and services; Reduced Rate (5%) applies to domestic fuel, children's car seats, and energy-saving materials; Zero Rate (0%) applies to most food, books, and children's clothing; and Exempt applies to financial services, insurance, education, and healthcare. The appropriate rate depends on what you're selling.",
     category: 'UK Invoice Guide',
-    keywords: ['UK VAT rates', 'VAT rates 2024', 'UK VAT rates 2025', 'standard VAT rate UK'],
+    keywords: ['UK VAT rates', 'VAT rates 2024', 'UK VAT rates 2026', 'standard VAT rate UK'],
     searchVolume: 1600,
   },
   {
