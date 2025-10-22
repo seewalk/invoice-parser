@@ -352,8 +352,49 @@ export default function CISInvoiceExamplesPage() {
               ]}
             />
 
+            {/* Cross-Promotion: VAT Examples */}
+            <div className="mt-16 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-300 rounded-xl p-8 shadow-lg">
+              <div className="flex items-start gap-4">
+                <BookOpen className="w-8 h-8 text-blue-600 flex-shrink-0 mt-1" />
+                <div className="flex-1">
+                  <h3 className="text-2xl font-bold text-slate-900 mb-3">
+                    📘 Also Learn: VAT-Compliant Invoice Examples
+                  </h3>
+                  <p className="text-slate-700 mb-4">
+                    Beyond CIS, ensure your invoices meet HMRC VAT compliance standards. Our VAT examples 
+                    guide covers proper VAT number formatting, date formats, line item descriptions, and more.
+                  </p>
+                  <div className="grid md:grid-cols-2 gap-4 mb-4 text-sm">
+                    <div className="bg-white rounded-lg p-4 border border-blue-200">
+                      <div className="font-semibold text-slate-900 mb-2">✓ What You'll Learn:</div>
+                      <ul className="space-y-1 text-slate-600">
+                        <li>• Correct VAT number format (GB prefix)</li>
+                        <li>• UK vs US date format differences</li>
+                        <li>• Invoice numbering best practices</li>
+                      </ul>
+                    </div>
+                    <div className="bg-white rounded-lg p-4 border border-blue-200">
+                      <div className="font-semibold text-slate-900 mb-2">✓ Special Scenarios:</div>
+                      <ul className="space-y-1 text-slate-600">
+                        <li>• Mixed VAT rates (20%, 5%, 0%)</li>
+                        <li>• Proper line item descriptions</li>
+                        <li>• Complete address formatting</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <Link
+                    href="/uk-invoice-guides/vat-compliant/examples"
+                    className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-all"
+                  >
+                    View VAT Invoice Examples
+                    <ArrowRight className="w-5 h-5" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+
             {/* Navigation Footer */}
-            <div className="mt-16 grid md:grid-cols-2 gap-6">
+            <div className="mt-12 grid md:grid-cols-2 gap-6">
               <Link
                 href="/uk-invoice-guides/cis-deduction"
                 className="group bg-gradient-to-br from-orange-50 to-amber-50 border-2 border-orange-200 rounded-xl p-6 hover:shadow-lg transition-all"

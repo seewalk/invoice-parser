@@ -1,11 +1,67 @@
 {
-  "totalPages": 85,
+  "totalPages": 130,
   "schemas": {
-    "found": 85,
+    "found": 130,
     "missing": 0,
     "details": [
       {
         "file": ".next\\server\\app\\_not-found.html",
+        "status": "pass",
+        "count": 2,
+        "types": [
+          "Organization",
+          "WebSite"
+        ],
+        "message": "✅ 2 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\uk-invoice-guides.html",
+        "status": "pass",
+        "count": 4,
+        "types": [
+          "Organization",
+          "WebSite",
+          "ItemList",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 4 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\uk-invoice-guide.html",
+        "status": "pass",
+        "count": 6,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList",
+          "FAQPage",
+          "HowTo",
+          "Service"
+        ],
+        "message": "✅ 6 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\sign-up.html",
+        "status": "pass",
+        "count": 2,
+        "types": [
+          "Organization",
+          "WebSite"
+        ],
+        "message": "✅ 2 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\sign-in.html",
+        "status": "pass",
+        "count": 2,
+        "types": [
+          "Organization",
+          "WebSite"
+        ],
+        "message": "✅ 2 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\reset-password.html",
         "status": "pass",
         "count": 2,
         "types": [
@@ -90,7 +146,19 @@
         "message": "✅ 4 schema(s) including Organization"
       },
       {
-        "file": ".next\\server\\app\\invoice-generator\\restaurant-invoice.html",
+        "file": ".next\\server\\app\\alternatives.html",
+        "status": "pass",
+        "count": 4,
+        "types": [
+          "Organization",
+          "WebSite",
+          "ItemList",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 4 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\account.html",
         "status": "pass",
         "count": 2,
         "types": [
@@ -100,104 +168,30 @@
         "message": "✅ 2 schema(s) including Organization"
       },
       {
-        "file": ".next\\server\\app\\invoice-generator\\plumbing-invoice.html",
+        "file": ".next\\server\\app\\uk-invoice-guides\\vat-compliant.html",
         "status": "pass",
-        "count": 2,
+        "count": 5,
         "types": [
           "Organization",
-          "WebSite"
+          "WebSite",
+          "Article",
+          "BreadcrumbList",
+          "FAQPage"
         ],
-        "message": "✅ 2 schema(s) including Organization"
+        "message": "✅ 5 schema(s) including Organization"
       },
       {
-        "file": ".next\\server\\app\\invoice-generator\\photography-invoice.html",
+        "file": ".next\\server\\app\\uk-invoice-guides\\cis-deduction.html",
         "status": "pass",
-        "count": 2,
+        "count": 5,
         "types": [
           "Organization",
-          "WebSite"
+          "WebSite",
+          "Article",
+          "BreadcrumbList",
+          "FAQPage"
         ],
-        "message": "✅ 2 schema(s) including Organization"
-      },
-      {
-        "file": ".next\\server\\app\\invoice-generator\\hotel-invoice.html",
-        "status": "pass",
-        "count": 2,
-        "types": [
-          "Organization",
-          "WebSite"
-        ],
-        "message": "✅ 2 schema(s) including Organization"
-      },
-      {
-        "file": ".next\\server\\app\\invoice-generator\\graphic-design-invoice.html",
-        "status": "pass",
-        "count": 2,
-        "types": [
-          "Organization",
-          "WebSite"
-        ],
-        "message": "✅ 2 schema(s) including Organization"
-      },
-      {
-        "file": ".next\\server\\app\\invoice-generator\\freelance-invoice.html",
-        "status": "pass",
-        "count": 2,
-        "types": [
-          "Organization",
-          "WebSite"
-        ],
-        "message": "✅ 2 schema(s) including Organization"
-      },
-      {
-        "file": ".next\\server\\app\\invoice-generator\\electrical-invoice.html",
-        "status": "pass",
-        "count": 2,
-        "types": [
-          "Organization",
-          "WebSite"
-        ],
-        "message": "✅ 2 schema(s) including Organization"
-      },
-      {
-        "file": ".next\\server\\app\\invoice-generator\\consulting-invoice.html",
-        "status": "pass",
-        "count": 2,
-        "types": [
-          "Organization",
-          "WebSite"
-        ],
-        "message": "✅ 2 schema(s) including Organization"
-      },
-      {
-        "file": ".next\\server\\app\\invoice-generator\\construction-invoice.html",
-        "status": "pass",
-        "count": 2,
-        "types": [
-          "Organization",
-          "WebSite"
-        ],
-        "message": "✅ 2 schema(s) including Organization"
-      },
-      {
-        "file": ".next\\server\\app\\invoice-generator\\commercial-photography-invoice.html",
-        "status": "pass",
-        "count": 2,
-        "types": [
-          "Organization",
-          "WebSite"
-        ],
-        "message": "✅ 2 schema(s) including Organization"
-      },
-      {
-        "file": ".next\\server\\app\\invoice-generator\\catering-invoice.html",
-        "status": "pass",
-        "count": 2,
-        "types": [
-          "Organization",
-          "WebSite"
-        ],
-        "message": "✅ 2 schema(s) including Organization"
+        "message": "✅ 5 schema(s) including Organization"
       },
       {
         "file": ".next\\server\\app\\invoice-templates\\restaurant-invoice.html",
@@ -321,7 +315,405 @@
         "message": "✅ 3 schema(s) including Organization"
       },
       {
+        "file": ".next\\server\\app\\invoice-generator\\restaurant-invoice.html",
+        "status": "pass",
+        "count": 2,
+        "types": [
+          "Organization",
+          "WebSite"
+        ],
+        "message": "✅ 2 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\plumbing-invoice.html",
+        "status": "pass",
+        "count": 2,
+        "types": [
+          "Organization",
+          "WebSite"
+        ],
+        "message": "✅ 2 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\photography-invoice.html",
+        "status": "pass",
+        "count": 2,
+        "types": [
+          "Organization",
+          "WebSite"
+        ],
+        "message": "✅ 2 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\hotel-invoice.html",
+        "status": "pass",
+        "count": 2,
+        "types": [
+          "Organization",
+          "WebSite"
+        ],
+        "message": "✅ 2 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\graphic-design-invoice.html",
+        "status": "pass",
+        "count": 2,
+        "types": [
+          "Organization",
+          "WebSite"
+        ],
+        "message": "✅ 2 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\freelance-invoice.html",
+        "status": "pass",
+        "count": 2,
+        "types": [
+          "Organization",
+          "WebSite"
+        ],
+        "message": "✅ 2 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\electrical-invoice.html",
+        "status": "pass",
+        "count": 2,
+        "types": [
+          "Organization",
+          "WebSite"
+        ],
+        "message": "✅ 2 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\consulting-invoice.html",
+        "status": "pass",
+        "count": 2,
+        "types": [
+          "Organization",
+          "WebSite"
+        ],
+        "message": "✅ 2 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\construction-invoice.html",
+        "status": "pass",
+        "count": 2,
+        "types": [
+          "Organization",
+          "WebSite"
+        ],
+        "message": "✅ 2 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\commercial-photography-invoice.html",
+        "status": "pass",
+        "count": 2,
+        "types": [
+          "Organization",
+          "WebSite"
+        ],
+        "message": "✅ 2 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\catering-invoice.html",
+        "status": "pass",
+        "count": 2,
+        "types": [
+          "Organization",
+          "WebSite"
+        ],
+        "message": "✅ 2 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\zoho-invoice.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\xero.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\wise.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\wave.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\veryfi.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\tungsten-readsoft.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\tipalti.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\square-invoices.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\rossum.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\parseur.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\nanonets.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\invoice-ninja.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\invoice-generator.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\hubdoc.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\google-document-ai.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\freshbooks.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\freeagent.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\docuclipper.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\docsumo.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\dext-prepare.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\crunch.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\conta.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\canva.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\autoentry-sage.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
         "file": ".next\\server\\app\\blog\\where-can-i-find-free-invoice-templates-for-uk-businesses.html",
+        "status": "pass",
+        "count": 4,
+        "types": [
+          "Organization",
+          "WebSite",
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 4 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\when-should-i-apply-cis-deductions-to-my-invoices.html",
+        "status": "pass",
+        "count": 4,
+        "types": [
+          "Organization",
+          "WebSite",
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 4 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-payment-terms-should-i-use-on-uk-invoices.html",
         "status": "pass",
         "count": 4,
         "types": [
@@ -369,6 +761,18 @@
         "message": "✅ 4 schema(s) including Organization"
       },
       {
+        "file": ".next\\server\\app\\blog\\what-is-the-difference-between-cis-registered-20-and-not-registered-30-rates.html",
+        "status": "pass",
+        "count": 4,
+        "types": [
+          "Organization",
+          "WebSite",
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 4 schema(s) including Organization"
+      },
+      {
         "file": ".next\\server\\app\\blog\\what-is-the-difference-between-a-receipt-and-an-invoice.html",
         "status": "pass",
         "count": 4,
@@ -394,6 +798,18 @@
       },
       {
         "file": ".next\\server\\app\\blog\\what-is-supplier-invoice-management.html",
+        "status": "pass",
+        "count": 4,
+        "types": [
+          "Organization",
+          "WebSite",
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 4 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-reverse-charge-vat-and-when-does-it-apply.html",
         "status": "pass",
         "count": 4,
         "types": [
@@ -717,6 +1133,18 @@
         "message": "✅ 4 schema(s) including Organization"
       },
       {
+        "file": ".next\\server\\app\\blog\\what-are-the-current-uk-vat-rates-in-2024-2025.html",
+        "status": "pass",
+        "count": 4,
+        "types": [
+          "Organization",
+          "WebSite",
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 4 schema(s) including Organization"
+      },
+      {
         "file": ".next\\server\\app\\blog\\what-are-the-common-invoice-formats.html",
         "status": "pass",
         "count": 4,
@@ -754,6 +1182,18 @@
       },
       {
         "file": ".next\\server\\app\\blog\\what-are-invoice-processing-kpis-and-metrics.html",
+        "status": "pass",
+        "count": 4,
+        "types": [
+          "Organization",
+          "WebSite",
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 4 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\is-this-invoice-generator-making-tax-digital-mtd-compliant.html",
         "status": "pass",
         "count": 4,
         "types": [
@@ -921,6 +1361,18 @@
         "message": "✅ 4 schema(s) including Organization"
       },
       {
+        "file": ".next\\server\\app\\blog\\how-do-i-format-uk-bank-details-on-an-invoice.html",
+        "status": "pass",
+        "count": 4,
+        "types": [
+          "Organization",
+          "WebSite",
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 4 schema(s) including Organization"
+      },
+      {
         "file": ".next\\server\\app\\blog\\how-do-i-create-an-invoice.html",
         "status": "pass",
         "count": 4,
@@ -969,6 +1421,42 @@
         "message": "✅ 4 schema(s) including Organization"
       },
       {
+        "file": ".next\\server\\app\\blog\\do-i-need-to-include-my-vat-number-on-every-invoice.html",
+        "status": "pass",
+        "count": 4,
+        "types": [
+          "Organization",
+          "WebSite",
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 4 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\do-i-need-a-gas-safe-number-for-all-plumbing-work.html",
+        "status": "pass",
+        "count": 4,
+        "types": [
+          "Organization",
+          "WebSite",
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 4 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\blog\\do-i-need-a-companies-house-number-on-my-invoice.html",
+        "status": "pass",
+        "count": 4,
+        "types": [
+          "Organization",
+          "WebSite",
+          "Article",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 4 schema(s) including Organization"
+      },
+      {
         "file": ".next\\server\\app\\blog\\can-invoice-processing-systems-integrate-with-erps-like-sap-or-oracle.html",
         "status": "pass",
         "count": 4,
@@ -979,11 +1467,33 @@
           "BreadcrumbList"
         ],
         "message": "✅ 4 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\uk-invoice-guides\\vat-compliant\\examples.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
+      },
+      {
+        "file": ".next\\server\\app\\uk-invoice-guides\\cis-deduction\\examples.html",
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "Organization",
+          "WebSite",
+          "BreadcrumbList"
+        ],
+        "message": "✅ 3 schema(s) including Organization"
       }
     ]
   },
   "metaTags": {
-    "found": 85,
+    "found": 130,
     "missing": 0,
     "details": [
       {
@@ -993,7 +1503,77 @@
         "message": "✅ 6/6 meta tags present",
         "tags": {
           "title": "404: This page could not be found.",
-          "description": "Automate invoice processing in 30 seconds with AI-powered OCR. Extract data from supplier invoices automatically. Perfect for UK restaurants &amp; warehouses. Free trial—10 invoices free. By Elektroluma Ltd (Companies House #16392032).",
+          "description": "Automate invoice processing in 30 seconds with AI-powered OCR. Extract data from supplier invoices automatically. Perfect for UK restaurants &amp; warehouses.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
+          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
+          "ogUrl": "https://elektroluma.co.uk"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\uk-invoice-guides.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "UK Invoice Compliance Guides | VAT, CIS, Gas Safe, NICEIC | Elektroluma",
+          "description": "Expert guides on UK invoice compliance, VAT rates, CIS deductions, Gas Safe registration, NICEIC certification, and HMRC requirements. Free comprehensive resources.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "UK Invoice Compliance Guides | Expert Resources",
+          "ogDescription": "Comprehensive guides on VAT, CIS, Gas Safe, NICEIC, and UK invoice compliance requirements.",
+          "ogUrl": "https://elektroluma.co.uk/uk-invoice-guides"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\uk-invoice-guide.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "UK Invoice Guide | VAT, CIS &amp; HMRC Compliance | Invoice Generator",
+          "description": "Complete guide to creating HMRC-compliant UK invoices. Learn about VAT rates, CIS deductions, Gas Safe, NICEIC registrations, and Making Tax Digital requirements.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "UK Invoice Guide | VAT, CIS &amp; HMRC Compliance",
+          "ogDescription": "Complete guide to creating HMRC-compliant UK invoices with VAT, CIS deductions, and industry-specific requirements.",
+          "ogUrl": "https://elektroluma.co.uk/uk-invoice-guide"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\sign-up.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Invoice Processing &amp; Automation Tool UK | Invoice Generator",
+          "description": "Automate invoice processing in 30 seconds with AI-powered OCR. Extract data from supplier invoices automatically. Perfect for UK restaurants &amp; warehouses.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
+          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
+          "ogUrl": "https://elektroluma.co.uk"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\sign-in.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Invoice Processing &amp; Automation Tool UK | Invoice Generator",
+          "description": "Automate invoice processing in 30 seconds with AI-powered OCR. Extract data from supplier invoices automatically. Perfect for UK restaurants &amp; warehouses.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
+          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
+          "ogUrl": "https://elektroluma.co.uk"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\reset-password.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Invoice Processing &amp; Automation Tool UK | Invoice Generator",
+          "description": "Automate invoice processing in 30 seconds with AI-powered OCR. Extract data from supplier invoices automatically. Perfect for UK restaurants &amp; warehouses.",
           "canonical": "https://elektroluma.co.uk",
           "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
           "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
@@ -1006,8 +1586,8 @@
         "count": 6,
         "message": "✅ 6/6 meta tags present",
         "tags": {
-          "title": "Invoice Processing &amp; Automation Software UK | InvoiceParse.ai by Elektroluma Ltd",
-          "description": "Automate invoice processing in 30 seconds with AI-powered OCR. Extract data from supplier invoices automatically. Perfect for UK restaurants &amp; warehouses. Free trial—10 invoices free. By Elektroluma Ltd (Companies House #16392032).",
+          "title": "Invoice Processing &amp; Automation Tool UK | Invoice Generator",
+          "description": "Automate invoice processing in 30 seconds with AI-powered OCR. Extract data from supplier invoices automatically. Perfect for UK restaurants &amp; warehouses.",
           "canonical": "https://elektroluma.co.uk",
           "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
           "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
@@ -1020,8 +1600,8 @@
         "count": 6,
         "message": "✅ 6/6 meta tags present",
         "tags": {
-          "title": "Invoice Processing &amp; Automation Software UK | InvoiceParse.ai by Elektroluma Ltd",
-          "description": "Automate invoice processing in 30 seconds with AI-powered OCR. Extract data from supplier invoices automatically. Perfect for UK restaurants &amp; warehouses. Free trial—10 invoices free. By Elektroluma Ltd (Companies House #16392032).",
+          "title": "Invoice Processing &amp; Automation Tool UK | Invoice Generator",
+          "description": "Automate invoice processing in 30 seconds with AI-powered OCR. Extract data from supplier invoices automatically. Perfect for UK restaurants &amp; warehouses.",
           "canonical": "https://elektroluma.co.uk",
           "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
           "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
@@ -1034,8 +1614,8 @@
         "count": 6,
         "message": "✅ 6/6 meta tags present",
         "tags": {
-          "title": "Invoice Processing &amp; Automation Software UK | InvoiceParse.ai by Elektroluma Ltd",
-          "description": "Automate invoice processing in 30 seconds with AI-powered OCR. Extract data from supplier invoices automatically. Perfect for UK restaurants &amp; warehouses. Free trial—10 invoices free. By Elektroluma Ltd (Companies House #16392032).",
+          "title": "Invoice Processing &amp; Automation Tool UK | Invoice Generator",
+          "description": "Automate invoice processing in 30 seconds with AI-powered OCR. Extract data from supplier invoices automatically. Perfect for UK restaurants &amp; warehouses.",
           "canonical": "https://elektroluma.co.uk",
           "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
           "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
@@ -1062,8 +1642,8 @@
         "count": 6,
         "message": "✅ 6/6 meta tags present",
         "tags": {
-          "title": "Invoice Processing &amp; Automation Software UK | InvoiceParse.ai by Elektroluma Ltd",
-          "description": "Automate invoice processing in 30 seconds with AI-powered OCR. Extract data from supplier invoices automatically. Perfect for UK restaurants &amp; warehouses. Free trial—10 invoices free. By Elektroluma Ltd (Companies House #16392032).",
+          "title": "Invoice Processing &amp; Automation Tool UK | Invoice Generator",
+          "description": "Automate invoice processing in 30 seconds with AI-powered OCR. Extract data from supplier invoices automatically. Perfect for UK restaurants &amp; warehouses.",
           "canonical": "https://elektroluma.co.uk",
           "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
           "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
@@ -1076,8 +1656,8 @@
         "count": 6,
         "message": "✅ 6/6 meta tags present",
         "tags": {
-          "title": "Invoice Processing &amp; Automation Software UK | InvoiceParse.ai by Elektroluma Ltd",
-          "description": "Automate invoice processing in 30 seconds with AI-powered OCR. Extract data from supplier invoices automatically. Perfect for UK restaurants &amp; warehouses. Free trial—10 invoices free. By Elektroluma Ltd (Companies House #16392032).",
+          "title": "Invoice Processing &amp; Automation Tool UK | Invoice Generator",
+          "description": "Automate invoice processing in 30 seconds with AI-powered OCR. Extract data from supplier invoices automatically. Perfect for UK restaurants &amp; warehouses.",
           "canonical": "https://elektroluma.co.uk",
           "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
           "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
@@ -1099,13 +1679,27 @@
         }
       },
       {
-        "file": ".next\\server\\app\\invoice-generator\\restaurant-invoice.html",
+        "file": ".next\\server\\app\\alternatives.html",
         "status": "pass",
         "count": 6,
         "message": "✅ 6/6 meta tags present",
         "tags": {
-          "title": "Create Restaurant Dine-In Invoice | Invoice Generator",
-          "description": "Generate professional restaurant dine-in invoice online. Standard invoice for restaurant table service Free invoice maker with instant PDF download.",
+          "title": "Invoice Parser Alternatives &amp; Competitors | Compare Best Solutions",
+          "description": "Comprehensive comparison of invoice parsing solutions. Compare Elektroluma with Invoice-Generator.com, Nanonets, Zoho, Wise, and other alternatives. Find the perfect fit for UK small businesses.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Invoice Parser Alternatives &amp; Competitors | Compare Solutions",
+          "ogDescription": "Compare top invoice parsing solutions. Find the best alternative for UK small businesses with AI automation, accounting integration, and UK compliance.",
+          "ogUrl": "https://elektroluma.co.uk/alternatives"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\account.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Invoice Processing &amp; Automation Tool UK | Invoice Generator",
+          "description": "Automate invoice processing in 30 seconds with AI-powered OCR. Extract data from supplier invoices automatically. Perfect for UK restaurants &amp; warehouses.",
           "canonical": "https://elektroluma.co.uk",
           "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
           "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
@@ -1113,143 +1707,31 @@
         }
       },
       {
-        "file": ".next\\server\\app\\invoice-generator\\plumbing-invoice.html",
+        "file": ".next\\server\\app\\uk-invoice-guides\\vat-compliant.html",
         "status": "pass",
-        "count": 6,
-        "message": "✅ 6/6 meta tags present",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
         "tags": {
-          "title": "Create Plumber Invoice | Invoice Generator",
-          "description": "Generate professional plumber invoice online. Invoice for plumbing installation, repairs, and maintenance Free invoice maker with instant PDF download.",
+          "title": "VAT-Compliant UK Invoices: Complete Guide for 2025 | Elektroluma",
+          "description": "Complete guide to VAT-compliant UK invoices. Learn VAT rates (20%, 5%, 0%), HMRC requirements, MTD compliance, and how to create legally compliant VAT invoices in 2025.",
           "canonical": "https://elektroluma.co.uk",
-          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
-          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
-          "ogUrl": "https://elektroluma.co.uk"
+          "ogTitle": "VAT-Compliant UK Invoices: Complete Guide for 2025",
+          "ogDescription": "Complete guide to VAT-compliant UK invoices. Learn VAT rates (20%, 5%, 0%), HMRC requirements, MTD compliance, and how to create legally compliant VAT invoices in 2025.",
+          "ogUrl": null
         }
       },
       {
-        "file": ".next\\server\\app\\invoice-generator\\photography-invoice.html",
+        "file": ".next\\server\\app\\uk-invoice-guides\\cis-deduction.html",
         "status": "pass",
-        "count": 6,
-        "message": "✅ 6/6 meta tags present",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
         "tags": {
-          "title": "Create Wedding Photography Invoice | Invoice Generator",
-          "description": "Generate professional wedding photography invoice online. Invoice for wedding photography services and packages Free invoice maker with instant PDF download.",
+          "title": "CIS Deduction Guide: Construction Industry Scheme Invoices UK | Elektroluma",
+          "description": "Complete CIS deduction guide for UK construction invoices. Learn CIS rates (20% registered, 30% unregistered), calculation methods, invoice requirements, and HMRC compliance for 2025.",
           "canonical": "https://elektroluma.co.uk",
-          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
-          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
-          "ogUrl": "https://elektroluma.co.uk"
-        }
-      },
-      {
-        "file": ".next\\server\\app\\invoice-generator\\hotel-invoice.html",
-        "status": "pass",
-        "count": 6,
-        "message": "✅ 6/6 meta tags present",
-        "tags": {
-          "title": "Create Hotel Room Invoice | Invoice Generator",
-          "description": "Generate professional hotel room invoice online. Standard invoice for hotel accommodation Free invoice maker with instant PDF download.",
-          "canonical": "https://elektroluma.co.uk",
-          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
-          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
-          "ogUrl": "https://elektroluma.co.uk"
-        }
-      },
-      {
-        "file": ".next\\server\\app\\invoice-generator\\graphic-design-invoice.html",
-        "status": "pass",
-        "count": 6,
-        "message": "✅ 6/6 meta tags present",
-        "tags": {
-          "title": "Create Logo Design Invoice | Invoice Generator",
-          "description": "Generate professional logo design invoice online. Invoice for logo design and brand identity services Free invoice maker with instant PDF download.",
-          "canonical": "https://elektroluma.co.uk",
-          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
-          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
-          "ogUrl": "https://elektroluma.co.uk"
-        }
-      },
-      {
-        "file": ".next\\server\\app\\invoice-generator\\freelance-invoice.html",
-        "status": "pass",
-        "count": 6,
-        "message": "✅ 6/6 meta tags present",
-        "tags": {
-          "title": "Create Freelance Invoice - Hourly Rate | Invoice Generator",
-          "description": "Generate professional freelance invoice - hourly rate online. Standard freelance invoice for hourly or day rate work Free invoice maker with instant PDF download.",
-          "canonical": "https://elektroluma.co.uk",
-          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
-          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
-          "ogUrl": "https://elektroluma.co.uk"
-        }
-      },
-      {
-        "file": ".next\\server\\app\\invoice-generator\\electrical-invoice.html",
-        "status": "pass",
-        "count": 6,
-        "message": "✅ 6/6 meta tags present",
-        "tags": {
-          "title": "Create Electrician Invoice | Invoice Generator",
-          "description": "Generate professional electrician invoice online. Invoice for electrical installation, testing, and certification Free invoice maker with instant PDF download.",
-          "canonical": "https://elektroluma.co.uk",
-          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
-          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
-          "ogUrl": "https://elektroluma.co.uk"
-        }
-      },
-      {
-        "file": ".next\\server\\app\\invoice-generator\\consulting-invoice.html",
-        "status": "pass",
-        "count": 6,
-        "message": "✅ 6/6 meta tags present",
-        "tags": {
-          "title": "Create Consulting Invoice - Project Based | Invoice Generator",
-          "description": "Generate professional consulting invoice - project based online. Invoice for consulting projects and advisory services Free invoice maker with instant PDF download.",
-          "canonical": "https://elektroluma.co.uk",
-          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
-          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
-          "ogUrl": "https://elektroluma.co.uk"
-        }
-      },
-      {
-        "file": ".next\\server\\app\\invoice-generator\\construction-invoice.html",
-        "status": "pass",
-        "count": 6,
-        "message": "✅ 6/6 meta tags present",
-        "tags": {
-          "title": "Create Builder Invoice - Residential | Invoice Generator",
-          "description": "Generate professional builder invoice - residential online. Standard invoice for residential building and construction work Free invoice maker with instant PDF download.",
-          "canonical": "https://elektroluma.co.uk",
-          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
-          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
-          "ogUrl": "https://elektroluma.co.uk"
-        }
-      },
-      {
-        "file": ".next\\server\\app\\invoice-generator\\commercial-photography-invoice.html",
-        "status": "pass",
-        "count": 6,
-        "message": "✅ 6/6 meta tags present",
-        "tags": {
-          "title": "Create Product Photography Invoice | Invoice Generator",
-          "description": "Generate professional product photography invoice online. Invoice for commercial product photography services Free invoice maker with instant PDF download.",
-          "canonical": "https://elektroluma.co.uk",
-          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
-          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
-          "ogUrl": "https://elektroluma.co.uk"
-        }
-      },
-      {
-        "file": ".next\\server\\app\\invoice-generator\\catering-invoice.html",
-        "status": "pass",
-        "count": 6,
-        "message": "✅ 6/6 meta tags present",
-        "tags": {
-          "title": "Create Catering Event Invoice | Invoice Generator",
-          "description": "Generate professional catering event invoice online. Invoice for catering services at events and functions Free invoice maker with instant PDF download.",
-          "canonical": "https://elektroluma.co.uk",
-          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
-          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
-          "ogUrl": "https://elektroluma.co.uk"
+          "ogTitle": "CIS Deduction Guide: Construction Industry Scheme Invoices UK",
+          "ogDescription": "Complete CIS deduction guide for UK construction invoices. Learn CIS rates (20% registered, 30% unregistered), calculation methods, invoice requirements, and HMRC compliance for 2025.",
+          "ogUrl": null
         }
       },
       {
@@ -1407,6 +1889,496 @@
         }
       },
       {
+        "file": ".next\\server\\app\\invoice-generator\\restaurant-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Create Restaurant Dine-In Invoice | Invoice Generator",
+          "description": "Generate professional restaurant dine-in invoice online. Standard invoice for restaurant table service Free invoice maker with instant PDF download.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
+          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
+          "ogUrl": "https://elektroluma.co.uk"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\plumbing-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Create Plumber Invoice | Invoice Generator",
+          "description": "Generate professional plumber invoice online. Invoice for plumbing installation, repairs, and maintenance Free invoice maker with instant PDF download.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
+          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
+          "ogUrl": "https://elektroluma.co.uk"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\photography-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Create Wedding Photography Invoice | Invoice Generator",
+          "description": "Generate professional wedding photography invoice online. Invoice for wedding photography services and packages Free invoice maker with instant PDF download.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
+          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
+          "ogUrl": "https://elektroluma.co.uk"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\hotel-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Create Hotel Room Invoice | Invoice Generator",
+          "description": "Generate professional hotel room invoice online. Standard invoice for hotel accommodation Free invoice maker with instant PDF download.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
+          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
+          "ogUrl": "https://elektroluma.co.uk"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\graphic-design-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Create Logo Design Invoice | Invoice Generator",
+          "description": "Generate professional logo design invoice online. Invoice for logo design and brand identity services Free invoice maker with instant PDF download.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
+          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
+          "ogUrl": "https://elektroluma.co.uk"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\freelance-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Create Freelance Invoice - Hourly Rate | Invoice Generator",
+          "description": "Generate professional freelance invoice - hourly rate online. Standard freelance invoice for hourly or day rate work Free invoice maker with instant PDF download.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
+          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
+          "ogUrl": "https://elektroluma.co.uk"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\electrical-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Create Electrician Invoice | Invoice Generator",
+          "description": "Generate professional electrician invoice online. Invoice for electrical installation, testing, and certification Free invoice maker with instant PDF download.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
+          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
+          "ogUrl": "https://elektroluma.co.uk"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\consulting-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Create Consulting Invoice - Project Based | Invoice Generator",
+          "description": "Generate professional consulting invoice - project based online. Invoice for consulting projects and advisory services Free invoice maker with instant PDF download.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
+          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
+          "ogUrl": "https://elektroluma.co.uk"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\construction-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Create Builder Invoice - Residential | Invoice Generator",
+          "description": "Generate professional builder invoice - residential online. Standard invoice for residential building and construction work Free invoice maker with instant PDF download.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
+          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
+          "ogUrl": "https://elektroluma.co.uk"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\commercial-photography-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Create Product Photography Invoice | Invoice Generator",
+          "description": "Generate professional product photography invoice online. Invoice for commercial product photography services Free invoice maker with instant PDF download.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
+          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
+          "ogUrl": "https://elektroluma.co.uk"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\invoice-generator\\catering-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Create Catering Event Invoice | Invoice Generator",
+          "description": "Generate professional catering event invoice online. Invoice for catering services at events and functions Free invoice maker with instant PDF download.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "AI Invoice Processing &amp; Automation for UK Businesses",
+          "ogDescription": "99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.",
+          "ogUrl": "https://elektroluma.co.uk"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\zoho-invoice.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Zoho Invoice Alternative | Elektroluma Comparison",
+          "description": "Comprehensive comparison of Zoho Invoice vs Elektroluma. Features, pricing, UK compliance, and why UK small businesses choose Elektroluma. Free invoicing tool from Zoho Corporation",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Zoho Invoice Alternative | Elektroluma",
+          "ogDescription": "Free invoicing tool from Zoho Corporation",
+          "ogUrl": "https://elektroluma.co.uk/alternatives/zoho-invoice"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\xero.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Xero Alternative | Elektroluma Comparison",
+          "description": "Comprehensive comparison of Xero vs Elektroluma. Features, pricing, UK compliance, and why UK small businesses choose Elektroluma. UK market-leading cloud accounting with unlimited invoicing",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Xero Alternative | Elektroluma",
+          "ogDescription": "UK market-leading cloud accounting with unlimited invoicing",
+          "ogUrl": "https://elektroluma.co.uk/alternatives/xero"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\wise.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Wise Invoice Templates Alternative | Elektroluma Comparison",
+          "description": "Comprehensive comparison of Wise Invoice Templates vs Elektroluma. Features, pricing, UK compliance, and why UK small businesses choose Elektroluma. UK-focused invoice templates from Wise",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Wise Invoice Templates Alternative | Elektroluma",
+          "ogDescription": "UK-focused invoice templates from Wise",
+          "ogUrl": "https://elektroluma.co.uk/alternatives/wise"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\wave.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Wave Accounting Alternative | Elektroluma Comparison",
+          "description": "Comprehensive comparison of Wave Accounting vs Elektroluma. Features, pricing, UK compliance, and why UK small businesses choose Elektroluma. 100% free accounting and unlimited invoicing for small businesses",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Wave Accounting Alternative | Elektroluma",
+          "ogDescription": "100% free accounting and unlimited invoicing for small businesses",
+          "ogUrl": "https://elektroluma.co.uk/alternatives/wave"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\veryfi.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Veryfi Alternative | Elektroluma Comparison",
+          "description": "Comprehensive comparison of Veryfi vs Elektroluma. Features, pricing, UK compliance, and why UK small businesses choose Elektroluma. Multi-modal OCR APIs with fraud prevention and 99.995% uptime",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Veryfi Alternative | Elektroluma",
+          "ogDescription": "Multi-modal OCR APIs with fraud prevention and 99.995% uptime",
+          "ogUrl": "https://elektroluma.co.uk/alternatives/veryfi"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\tungsten-readsoft.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Tungsten Automation (Kofax ReadSoft) Alternative | Elektroluma Comparison",
+          "description": "Comprehensive comparison of Tungsten Automation (Kofax ReadSoft) vs Elektroluma. Features, pricing, UK compliance, and why UK small businesses choose Elektroluma. Enterprise invoice automation for high-volume AP teams",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Tungsten Automation (Kofax ReadSoft) Alternative | Elektroluma",
+          "ogDescription": "Enterprise invoice automation for high-volume AP teams",
+          "ogUrl": "https://elektroluma.co.uk/alternatives/tungsten-readsoft"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\tipalti.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Tipalti Alternative | Elektroluma Comparison",
+          "description": "Comprehensive comparison of Tipalti vs Elektroluma. Features, pricing, UK compliance, and why UK small businesses choose Elektroluma. Enterprise AP automation with global payment capabilities to 190+ countries",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Tipalti Alternative | Elektroluma",
+          "ogDescription": "Enterprise AP automation with global payment capabilities to 190+ countries",
+          "ogUrl": "https://elektroluma.co.uk/alternatives/tipalti"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\square-invoices.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Square Invoices Alternative | Elektroluma Comparison",
+          "description": "Comprehensive comparison of Square Invoices vs Elektroluma. Features, pricing, UK compliance, and why UK small businesses choose Elektroluma. Free invoices + 2.5% payment fee",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Square Invoices Alternative | Elektroluma",
+          "ogDescription": "Free invoices + 2.5% payment fee",
+          "ogUrl": "https://elektroluma.co.uk/alternatives/square-invoices"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\rossum.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Rossum Alternative | Elektroluma Comparison",
+          "description": "Comprehensive comparison of Rossum vs Elektroluma. Features, pricing, UK compliance, and why UK small businesses choose Elektroluma. Enterprise cognitive AI for invoices",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Rossum Alternative | Elektroluma",
+          "ogDescription": "Enterprise cognitive AI for invoices",
+          "ogUrl": "https://elektroluma.co.uk/alternatives/rossum"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\parseur.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Parseur Alternative | Elektroluma Comparison",
+          "description": "Comprehensive comparison of Parseur vs Elektroluma. Features, pricing, UK compliance, and why UK small businesses choose Elektroluma. AI email/PDF parser - $99/mo starting",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Parseur Alternative | Elektroluma",
+          "ogDescription": "AI email/PDF parser - $99/mo starting",
+          "ogUrl": "https://elektroluma.co.uk/alternatives/parseur"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\nanonets.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Nanonets Alternative | Elektroluma Comparison",
+          "description": "Comprehensive comparison of Nanonets vs Elektroluma. Features, pricing, UK compliance, and why UK small businesses choose Elektroluma. Enterprise AI invoice parser with 99% accuracy",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Nanonets Alternative | Elektroluma",
+          "ogDescription": "Enterprise AI invoice parser with 99% accuracy",
+          "ogUrl": "https://elektroluma.co.uk/alternatives/nanonets"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\invoice-ninja.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Invoice Ninja Alternative | Elektroluma Comparison",
+          "description": "Comprehensive comparison of Invoice Ninja vs Elektroluma. Features, pricing, UK compliance, and why UK small businesses choose Elektroluma. Free open-source invoicing with unlimited invoices for up to 20 clients",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Invoice Ninja Alternative | Elektroluma",
+          "ogDescription": "Free open-source invoicing with unlimited invoices for up to 20 clients",
+          "ogUrl": "https://elektroluma.co.uk/alternatives/invoice-ninja"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\invoice-generator.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Invoice-Generator.com Alternative | Elektroluma Comparison",
+          "description": "Comprehensive comparison of Invoice-Generator.com vs Elektroluma. Features, pricing, UK compliance, and why UK small businesses choose Elektroluma. Free invoice generator with 4M+ users",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Invoice-Generator.com Alternative | Elektroluma",
+          "ogDescription": "Free invoice generator with 4M+ users",
+          "ogUrl": "https://elektroluma.co.uk/alternatives/invoice-generator"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\hubdoc.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Hubdoc (by Xero) Alternative | Elektroluma Comparison",
+          "description": "Comprehensive comparison of Hubdoc (by Xero) vs Elektroluma. Features, pricing, UK compliance, and why UK small businesses choose Elektroluma. Free with Xero subscription - invoice capture",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Hubdoc (by Xero) Alternative | Elektroluma",
+          "ogDescription": "Free with Xero subscription - invoice capture",
+          "ogUrl": "https://elektroluma.co.uk/alternatives/hubdoc"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\google-document-ai.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Google Cloud Document AI Alternative | Elektroluma Comparison",
+          "description": "Comprehensive comparison of Google Cloud Document AI vs Elektroluma. Features, pricing, UK compliance, and why UK small businesses choose Elektroluma. Google Cloud invoice parsing API",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Google Cloud Document AI Alternative | Elektroluma",
+          "ogDescription": "Google Cloud invoice parsing API",
+          "ogUrl": "https://elektroluma.co.uk/alternatives/google-document-ai"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\freshbooks.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "FreshBooks Alternative | Elektroluma Comparison",
+          "description": "Comprehensive comparison of FreshBooks vs Elektroluma. Features, pricing, UK compliance, and why UK small businesses choose Elektroluma. Accounting software with invoicing - £15/mo",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "FreshBooks Alternative | Elektroluma",
+          "ogDescription": "Accounting software with invoicing - £15/mo",
+          "ogUrl": "https://elektroluma.co.uk/alternatives/freshbooks"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\freeagent.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "FreeAgent Alternative | Elektroluma Comparison",
+          "description": "Comprehensive comparison of FreeAgent vs Elektroluma. Features, pricing, UK compliance, and why UK small businesses choose Elektroluma. UK-focused accounting for freelancers with excellent tax features",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "FreeAgent Alternative | Elektroluma",
+          "ogDescription": "UK-focused accounting for freelancers with excellent tax features",
+          "ogUrl": "https://elektroluma.co.uk/alternatives/freeagent"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\docuclipper.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "DocuClipper Alternative | Elektroluma Comparison",
+          "description": "Comprehensive comparison of DocuClipper vs Elektroluma. Features, pricing, UK compliance, and why UK small businesses choose Elektroluma. OCR for invoices and bank statements",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "DocuClipper Alternative | Elektroluma",
+          "ogDescription": "OCR for invoices and bank statements",
+          "ogUrl": "https://elektroluma.co.uk/alternatives/docuclipper"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\docsumo.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Docsumo Alternative | Elektroluma Comparison",
+          "description": "Comprehensive comparison of Docsumo vs Elektroluma. Features, pricing, UK compliance, and why UK small businesses choose Elektroluma. AI document extraction with 99% accuracy for finance teams",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Docsumo Alternative | Elektroluma",
+          "ogDescription": "AI document extraction with 99% accuracy for finance teams",
+          "ogUrl": "https://elektroluma.co.uk/alternatives/docsumo"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\dext-prepare.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Dext Prepare Alternative | Elektroluma Comparison",
+          "description": "Comprehensive comparison of Dext Prepare vs Elektroluma. Features, pricing, UK compliance, and why UK small businesses choose Elektroluma. Accounting automation for UK firms - £20/client/mo",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Dext Prepare Alternative | Elektroluma",
+          "ogDescription": "Accounting automation for UK firms - £20/client/mo",
+          "ogUrl": "https://elektroluma.co.uk/alternatives/dext-prepare"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\crunch.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Crunch Accounting Alternative | Elektroluma Comparison",
+          "description": "Comprehensive comparison of Crunch Accounting vs Elektroluma. Features, pricing, UK compliance, and why UK small businesses choose Elektroluma. UK accounting with invoicing - £27/mo",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Crunch Accounting Alternative | Elektroluma",
+          "ogDescription": "UK accounting with invoicing - £27/mo",
+          "ogUrl": "https://elektroluma.co.uk/alternatives/crunch"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\conta.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Conta Alternative | Elektroluma Comparison",
+          "description": "Comprehensive comparison of Conta vs Elektroluma. Features, pricing, UK compliance, and why UK small businesses choose Elektroluma. Free unlimited invoicing with mobile app for freelancers",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Conta Alternative | Elektroluma",
+          "ogDescription": "Free unlimited invoicing with mobile app for freelancers",
+          "ogUrl": "https://elektroluma.co.uk/alternatives/conta"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\canva.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "Canva Invoice Generator Alternative | Elektroluma Comparison",
+          "description": "Comprehensive comparison of Canva Invoice Generator vs Elektroluma. Features, pricing, UK compliance, and why UK small businesses choose Elektroluma. Design-first invoice templates",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Canva Invoice Generator Alternative | Elektroluma",
+          "ogDescription": "Design-first invoice templates",
+          "ogUrl": "https://elektroluma.co.uk/alternatives/canva"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\alternatives\\autoentry-sage.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "AutoEntry Alternative | Elektroluma Comparison",
+          "description": "Comprehensive comparison of AutoEntry vs Elektroluma. Features, pricing, UK compliance, and why UK small businesses choose Elektroluma. Sage-owned OCR automation for accountants and bookkeepers",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "AutoEntry Alternative | Elektroluma",
+          "ogDescription": "Sage-owned OCR automation for accountants and bookkeepers",
+          "ogUrl": "https://elektroluma.co.uk/alternatives/autoentry-sage"
+        }
+      },
+      {
         "file": ".next\\server\\app\\blog\\where-can-i-find-free-invoice-templates-for-uk-businesses.html",
         "status": "pass",
         "count": 5,
@@ -1417,6 +2389,34 @@
           "canonical": "https://elektroluma.co.uk",
           "ogTitle": "Where can I find free invoice templates for UK businesses?",
           "ogDescription": "Free UK invoice templates are available from multiple sources: (1) Gov.uk - official templates meeting HMRC requirements for VAT invoices; (2) Microsoft...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\when-should-i-apply-cis-deductions-to-my-invoices.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "When should I apply CIS deductions to my invoices? | InvoiceParse.ai Blog",
+          "description": "CIS deductions apply to construction work.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "When should I apply CIS deductions to my invoices?",
+          "ogDescription": "CIS deductions apply to construction work.",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-payment-terms-should-i-use-on-uk-invoices.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "What payment terms should I use on UK invoices? | InvoiceParse.ai Blog",
+          "description": "Net 30 (payment due within 30 days) is the most common payment term in the UK business environment. However, you can set terms that suit your business...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "What payment terms should I use on UK invoices?",
+          "ogDescription": "Net 30 (payment due within 30 days) is the most common payment term in the UK business environment. However, you can set terms that suit your business...",
           "ogUrl": null
         }
       },
@@ -1463,6 +2463,20 @@
         }
       },
       {
+        "file": ".next\\server\\app\\blog\\what-is-the-difference-between-cis-registered-20-and-not-registered-30-rates.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Understanding The difference between CIS registered (20%) and not registered (30%) rates? | InvoiceParse.ai Blog",
+          "description": "CIS registered subcontractors have a 20% deduction rate because they&#x27;ve completed registration with HMRC, demonstrating compliance and business...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Understanding The difference between CIS registered (20%) and not registered (30%) rates?",
+          "ogDescription": "CIS registered subcontractors have a 20% deduction rate because they&#x27;ve completed registration with HMRC, demonstrating compliance and business...",
+          "ogUrl": null
+        }
+      },
+      {
         "file": ".next\\server\\app\\blog\\what-is-the-difference-between-a-receipt-and-an-invoice.html",
         "status": "pass",
         "count": 5,
@@ -1501,6 +2515,20 @@
           "canonical": "https://elektroluma.co.uk",
           "ogTitle": "Understanding Supplier invoice management?",
           "ogDescription": "Supplier invoice management encompasses all processes for handling invoices from vendors/suppliers: (1) Supplier Onboarding - collecting W-9/W-8, bank...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\what-is-reverse-charge-vat-and-when-does-it-apply.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Understanding Reverse charge VAT and when does it apply? | InvoiceParse.ai Blog",
+          "description": "Reverse charge VAT is a special VAT treatment where the customer, not the supplier, accounts for VAT.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Understanding Reverse charge VAT and when does it apply?",
+          "ogDescription": "Reverse charge VAT is a special VAT treatment where the customer, not the supplier, accounts for VAT.",
           "ogUrl": null
         }
       },
@@ -1869,6 +2897,20 @@
         }
       },
       {
+        "file": ".next\\server\\app\\blog\\what-are-the-current-uk-vat-rates-in-2024-2025.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "The current UK VAT rates in 2024-2025? | InvoiceParse.ai Blog",
+          "description": "The UK has four VAT rates: Standard Rate (20%) applies to most goods and services; Reduced Rate (5%) applies to domestic fuel, children&#x27;s car seats, and...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "The current UK VAT rates in 2024-2025?",
+          "ogDescription": "The UK has four VAT rates: Standard Rate (20%) applies to most goods and services; Reduced Rate (5%) applies to domestic fuel, children&#x27;s car seats, and...",
+          "ogUrl": null
+        }
+      },
+      {
         "file": ".next\\server\\app\\blog\\what-are-the-common-invoice-formats.html",
         "status": "pass",
         "count": 5,
@@ -1921,6 +2963,20 @@
           "canonical": "https://elektroluma.co.uk",
           "ogTitle": "Invoice processing KPIs and metrics?",
           "ogDescription": "Key Performance Indicators for invoice processing include: (1) Processing Time - average days from invoice receipt to payment; (2) Cost Per Invoice -...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\is-this-invoice-generator-making-tax-digital-mtd-compliant.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Is this invoice generator Making Tax Digital (MTD) compliant? | InvoiceParse.ai Blog",
+          "description": "Yes, our invoice generator creates invoices that meet HMRC Making Tax Digital requirements.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Is this invoice generator Making Tax Digital (MTD) compliant?",
+          "ogDescription": "Yes, our invoice generator creates invoices that meet HMRC Making Tax Digital requirements.",
           "ogUrl": null
         }
       },
@@ -2107,6 +3163,20 @@
         }
       },
       {
+        "file": ".next\\server\\app\\blog\\how-do-i-format-uk-bank-details-on-an-invoice.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "How I format UK bank details on an invoice? | InvoiceParse.ai Blog",
+          "description": "UK bank details should include: Bank Name, Sort Code in XX-XX-XX format (6 digits with hyphens), Account Number (8 digits), and optionally IBAN (22...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "How I format UK bank details on an invoice?",
+          "ogDescription": "UK bank details should include: Bank Name, Sort Code in XX-XX-XX format (6 digits with hyphens), Account Number (8 digits), and optionally IBAN (22...",
+          "ogUrl": null
+        }
+      },
+      {
         "file": ".next\\server\\app\\blog\\how-do-i-create-an-invoice.html",
         "status": "pass",
         "count": 5,
@@ -2163,6 +3233,48 @@
         }
       },
       {
+        "file": ".next\\server\\app\\blog\\do-i-need-to-include-my-vat-number-on-every-invoice.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Do I need to include my VAT number on every invoice? | InvoiceParse.ai Blog",
+          "description": "Yes, if you are VAT-registered, you must include your VAT registration number on all VAT invoices. This is a legal requirement under HMRC regulations. The...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Do I need to include my VAT number on every invoice?",
+          "ogDescription": "Yes, if you are VAT-registered, you must include your VAT registration number on all VAT invoices. This is a legal requirement under HMRC regulations. The...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\do-i-need-a-gas-safe-number-for-all-plumbing-work.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Do I need a Gas Safe number for all plumbing work? | InvoiceParse.ai Blog",
+          "description": "You only need Gas Safe registration if you work on gas appliances or gas installations. For water-only plumbing work, Gas Safe registration is not legally...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Do I need a Gas Safe number for all plumbing work?",
+          "ogDescription": "You only need Gas Safe registration if you work on gas appliances or gas installations. For water-only plumbing work, Gas Safe registration is not legally...",
+          "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\blog\\do-i-need-a-companies-house-number-on-my-invoice.html",
+        "status": "pass",
+        "count": 5,
+        "message": "✅ 5/6 meta tags present",
+        "tags": {
+          "title": "Do I need a Companies House number on my invoice? | InvoiceParse.ai Blog",
+          "description": "If you operate as a limited company (Ltd or PLC), including your Companies House registration number on invoices is recommended for transparency and...",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "Do I need a Companies House number on my invoice?",
+          "ogDescription": "If you operate as a limited company (Ltd or PLC), including your Companies House registration number on invoices is recommended for transparency and...",
+          "ogUrl": null
+        }
+      },
+      {
         "file": ".next\\server\\app\\blog\\can-invoice-processing-systems-integrate-with-erps-like-sap-or-oracle.html",
         "status": "pass",
         "count": 5,
@@ -2174,6 +3286,34 @@
           "ogTitle": "Invoice processing systems integrate with ERPs like SAP or Oracle?",
           "ogDescription": "Yes, modern invoice processing systems integrate with major ERP platforms including SAP, Oracle, Microsoft Dynamics, NetSuite, and others. Integration...",
           "ogUrl": null
+        }
+      },
+      {
+        "file": ".next\\server\\app\\uk-invoice-guides\\vat-compliant\\examples.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "VAT Invoice Examples: Correct vs Incorrect | UK Compliance Guide",
+          "description": "See side-by-side comparisons of correct and incorrect VAT invoices. Learn what makes an invoice HMRC-compliant with detailed examples and explanations.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "VAT Invoice Examples: Correct vs Incorrect",
+          "ogDescription": "Visual comparison of correct and incorrect VAT invoices with detailed explanations.",
+          "ogUrl": "https://elektroluma.co.uk/uk-invoice-guides/vat-compliant/examples"
+        }
+      },
+      {
+        "file": ".next\\server\\app\\uk-invoice-guides\\cis-deduction\\examples.html",
+        "status": "pass",
+        "count": 6,
+        "message": "✅ 6/6 meta tags present",
+        "tags": {
+          "title": "CIS Invoice Examples: Correct vs Incorrect | Construction Tax Guide",
+          "description": "Master CIS deduction calculations with side-by-side invoice examples. Learn the #1 mistake contractors make and how to avoid it.",
+          "canonical": "https://elektroluma.co.uk",
+          "ogTitle": "CIS Invoice Examples: Correct vs Incorrect Calculations",
+          "ogDescription": "Visual guide to CIS deduction calculations with common mistakes explained.",
+          "ogUrl": "https://elektroluma.co.uk/uk-invoice-guides/cis-deduction/examples"
         }
       }
     ]
@@ -2189,6 +3329,11 @@
     "warnings": [],
     "successes": [
       ".next\\server\\app\\_not-found.html: Organization entity consistent",
+      ".next\\server\\app\\uk-invoice-guides.html: Organization entity consistent",
+      ".next\\server\\app\\uk-invoice-guide.html: Organization entity consistent",
+      ".next\\server\\app\\sign-up.html: Organization entity consistent",
+      ".next\\server\\app\\sign-in.html: Organization entity consistent",
+      ".next\\server\\app\\reset-password.html: Organization entity consistent",
       ".next\\server\\app\\pricing.html: Organization entity consistent",
       ".next\\server\\app\\parser.html: Organization entity consistent",
       ".next\\server\\app\\invoice-templates.html: Organization entity consistent",
@@ -2196,17 +3341,10 @@
       ".next\\server\\app\\index.html: Organization entity consistent",
       ".next\\server\\app\\faq.html: Organization entity consistent",
       ".next\\server\\app\\blog.html: Organization entity consistent",
-      ".next\\server\\app\\invoice-generator\\restaurant-invoice.html: Organization entity consistent",
-      ".next\\server\\app\\invoice-generator\\plumbing-invoice.html: Organization entity consistent",
-      ".next\\server\\app\\invoice-generator\\photography-invoice.html: Organization entity consistent",
-      ".next\\server\\app\\invoice-generator\\hotel-invoice.html: Organization entity consistent",
-      ".next\\server\\app\\invoice-generator\\graphic-design-invoice.html: Organization entity consistent",
-      ".next\\server\\app\\invoice-generator\\freelance-invoice.html: Organization entity consistent",
-      ".next\\server\\app\\invoice-generator\\electrical-invoice.html: Organization entity consistent",
-      ".next\\server\\app\\invoice-generator\\consulting-invoice.html: Organization entity consistent",
-      ".next\\server\\app\\invoice-generator\\construction-invoice.html: Organization entity consistent",
-      ".next\\server\\app\\invoice-generator\\commercial-photography-invoice.html: Organization entity consistent",
-      ".next\\server\\app\\invoice-generator\\catering-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\alternatives.html: Organization entity consistent",
+      ".next\\server\\app\\account.html: Organization entity consistent",
+      ".next\\server\\app\\uk-invoice-guides\\vat-compliant.html: Organization entity consistent",
+      ".next\\server\\app\\uk-invoice-guides\\cis-deduction.html: Organization entity consistent",
       ".next\\server\\app\\invoice-templates\\restaurant-invoice.html: Organization entity consistent",
       ".next\\server\\app\\invoice-templates\\plumbing-invoice.html: Organization entity consistent",
       ".next\\server\\app\\invoice-templates\\photography-invoice.html: Organization entity consistent",
@@ -2218,13 +3356,52 @@
       ".next\\server\\app\\invoice-templates\\construction-invoice.html: Organization entity consistent",
       ".next\\server\\app\\invoice-templates\\commercial-photography-invoice.html: Organization entity consistent",
       ".next\\server\\app\\invoice-templates\\catering-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-generator\\restaurant-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-generator\\plumbing-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-generator\\photography-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-generator\\hotel-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-generator\\graphic-design-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-generator\\freelance-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-generator\\electrical-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-generator\\consulting-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-generator\\construction-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-generator\\commercial-photography-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\invoice-generator\\catering-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\alternatives\\zoho-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\alternatives\\xero.html: Organization entity consistent",
+      ".next\\server\\app\\alternatives\\wise.html: Organization entity consistent",
+      ".next\\server\\app\\alternatives\\wave.html: Organization entity consistent",
+      ".next\\server\\app\\alternatives\\veryfi.html: Organization entity consistent",
+      ".next\\server\\app\\alternatives\\tungsten-readsoft.html: Organization entity consistent",
+      ".next\\server\\app\\alternatives\\tipalti.html: Organization entity consistent",
+      ".next\\server\\app\\alternatives\\square-invoices.html: Organization entity consistent",
+      ".next\\server\\app\\alternatives\\rossum.html: Organization entity consistent",
+      ".next\\server\\app\\alternatives\\parseur.html: Organization entity consistent",
+      ".next\\server\\app\\alternatives\\nanonets.html: Organization entity consistent",
+      ".next\\server\\app\\alternatives\\invoice-ninja.html: Organization entity consistent",
+      ".next\\server\\app\\alternatives\\invoice-generator.html: Organization entity consistent",
+      ".next\\server\\app\\alternatives\\hubdoc.html: Organization entity consistent",
+      ".next\\server\\app\\alternatives\\google-document-ai.html: Organization entity consistent",
+      ".next\\server\\app\\alternatives\\freshbooks.html: Organization entity consistent",
+      ".next\\server\\app\\alternatives\\freeagent.html: Organization entity consistent",
+      ".next\\server\\app\\alternatives\\docuclipper.html: Organization entity consistent",
+      ".next\\server\\app\\alternatives\\docsumo.html: Organization entity consistent",
+      ".next\\server\\app\\alternatives\\dext-prepare.html: Organization entity consistent",
+      ".next\\server\\app\\alternatives\\crunch.html: Organization entity consistent",
+      ".next\\server\\app\\alternatives\\conta.html: Organization entity consistent",
+      ".next\\server\\app\\alternatives\\canva.html: Organization entity consistent",
+      ".next\\server\\app\\alternatives\\autoentry-sage.html: Organization entity consistent",
       ".next\\server\\app\\blog\\where-can-i-find-free-invoice-templates-for-uk-businesses.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\when-should-i-apply-cis-deductions-to-my-invoices.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-payment-terms-should-i-use-on-uk-invoices.html: Organization entity consistent",
       ".next\\server\\app\\blog\\what-is-touchless-invoice-processing.html: Organization entity consistent",
       ".next\\server\\app\\blog\\what-is-the-roi-of-invoice-automation.html: Organization entity consistent",
       ".next\\server\\app\\blog\\what-is-the-difference-between-invoice-software-and-accounting-software.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-is-the-difference-between-cis-registered-20-and-not-registered-30-rates.html: Organization entity consistent",
       ".next\\server\\app\\blog\\what-is-the-difference-between-a-receipt-and-an-invoice.html: Organization entity consistent",
       ".next\\server\\app\\blog\\what-is-the-best-invoice-app-for-freelancers-and-mobile-billing.html: Organization entity consistent",
       ".next\\server\\app\\blog\\what-is-supplier-invoice-management.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-is-reverse-charge-vat-and-when-does-it-apply.html: Organization entity consistent",
       ".next\\server\\app\\blog\\what-is-ocr-for-invoices.html: Organization entity consistent",
       ".next\\server\\app\\blog\\what-is-invoice-processing.html: Organization entity consistent",
       ".next\\server\\app\\blog\\what-is-invoice-processing-for-manufacturing-companies.html: Organization entity consistent",
@@ -2251,10 +3428,12 @@
       ".next\\server\\app\\blog\\what-invoice-software-solutions-are-available-for-businesses.html: Organization entity consistent",
       ".next\\server\\app\\blog\\what-invoice-processing-software-is-best-for-small-businesses.html: Organization entity consistent",
       ".next\\server\\app\\blog\\what-compliance-requirements-apply-to-invoice-processing.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\what-are-the-current-uk-vat-rates-in-2024-2025.html: Organization entity consistent",
       ".next\\server\\app\\blog\\what-are-the-common-invoice-formats.html: Organization entity consistent",
       ".next\\server\\app\\blog\\what-are-the-best-receipt-design-templates-for-businesses.html: Organization entity consistent",
       ".next\\server\\app\\blog\\what-are-the-best-free-invoice-generators-for-uk-businesses.html: Organization entity consistent",
       ".next\\server\\app\\blog\\what-are-invoice-processing-kpis-and-metrics.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\is-this-invoice-generator-making-tax-digital-mtd-compliant.html: Organization entity consistent",
       ".next\\server\\app\\blog\\how-should-self-employed-individuals-create-invoices-in-the-uk.html: Organization entity consistent",
       ".next\\server\\app\\blog\\how-secure-is-cloud-based-invoice-processing.html: Organization entity consistent",
       ".next\\server\\app\\blog\\how-much-does-invoice-processing-software-cost.html: Organization entity consistent",
@@ -2268,11 +3447,17 @@
       ".next\\server\\app\\blog\\how-does-invoice-approval-workflow-automation-work.html: Organization entity consistent",
       ".next\\server\\app\\blog\\how-do-invoice-processing-systems-handle-email-invoices.html: Organization entity consistent",
       ".next\\server\\app\\blog\\how-do-i-get-my-amazon-invoice-for-business-purchases.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\how-do-i-format-uk-bank-details-on-an-invoice.html: Organization entity consistent",
       ".next\\server\\app\\blog\\how-do-i-create-an-invoice.html: Organization entity consistent",
       ".next\\server\\app\\blog\\how-do-i-create-an-invoice-using-google-docs-templates.html: Organization entity consistent",
       ".next\\server\\app\\blog\\how-do-i-create-an-invoice-using-excel-templates.html: Organization entity consistent",
       ".next\\server\\app\\blog\\how-do-i-create-a-receipt-for-a-car-sale-in-the-uk.html: Organization entity consistent",
-      ".next\\server\\app\\blog\\can-invoice-processing-systems-integrate-with-erps-like-sap-or-oracle.html: Organization entity consistent"
+      ".next\\server\\app\\blog\\do-i-need-to-include-my-vat-number-on-every-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\do-i-need-a-gas-safe-number-for-all-plumbing-work.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\do-i-need-a-companies-house-number-on-my-invoice.html: Organization entity consistent",
+      ".next\\server\\app\\blog\\can-invoice-processing-systems-integrate-with-erps-like-sap-or-oracle.html: Organization entity consistent",
+      ".next\\server\\app\\uk-invoice-guides\\vat-compliant\\examples.html: Organization entity consistent",
+      ".next\\server\\app\\uk-invoice-guides\\cis-deduction\\examples.html: Organization entity consistent"
     ]
   }
 }

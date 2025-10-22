@@ -327,8 +327,50 @@ export default function VATInvoiceExamplesPage() {
               ]}
             />
 
+            {/* Cross-Promotion: CIS Examples */}
+            <div className="mt-16 bg-gradient-to-br from-orange-50 to-amber-50 border-2 border-orange-300 rounded-xl p-8 shadow-lg">
+              <div className="flex items-start gap-4">
+                <BookOpen className="w-8 h-8 text-orange-600 flex-shrink-0 mt-1" />
+                <div className="flex-1">
+                  <h3 className="text-2xl font-bold text-slate-900 mb-3">
+                    🏗️ Construction Industry? Learn CIS Invoice Requirements
+                  </h3>
+                  <p className="text-slate-700 mb-4">
+                    If you work in construction, you also need to understand CIS (Construction Industry Scheme) 
+                    deductions. Our CIS examples guide shows the <strong>#1 mistake that costs contractors money</strong> 
+                    - calculating deductions before VAT instead of after.
+                  </p>
+                  <div className="grid md:grid-cols-2 gap-4 mb-4 text-sm">
+                    <div className="bg-white rounded-lg p-4 border border-orange-200">
+                      <div className="font-semibold text-slate-900 mb-2">⚠️ Critical CIS Topics:</div>
+                      <ul className="space-y-1 text-slate-600">
+                        <li>• Correct CIS calculation method (AFTER VAT)</li>
+                        <li>• UTR number requirements (mandatory)</li>
+                        <li>• Amount due calculations</li>
+                      </ul>
+                    </div>
+                    <div className="bg-white rounded-lg p-4 border border-orange-200">
+                      <div className="font-semibold text-slate-900 mb-2">📊 Advanced Scenarios:</div>
+                      <ul className="space-y-1 text-slate-600">
+                        <li>• CIS with Reverse Charge VAT</li>
+                        <li>• 20% vs 30% deduction rates</li>
+                        <li>• Notional VAT calculations</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <Link
+                    href="/uk-invoice-guides/cis-deduction/examples"
+                    className="inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-lg font-semibold transition-all"
+                  >
+                    View CIS Invoice Examples & Avoid Costly Mistakes
+                    <ArrowRight className="w-5 h-5" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+
             {/* Navigation Footer */}
-            <div className="mt-16 grid md:grid-cols-2 gap-6">
+            <div className="mt-12 grid md:grid-cols-2 gap-6">
               <Link
                 href="/uk-invoice-guides/vat-compliant"
                 className="group bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-xl p-6 hover:shadow-lg transition-all"

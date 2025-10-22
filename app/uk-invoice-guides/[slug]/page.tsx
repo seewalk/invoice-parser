@@ -24,7 +24,8 @@ import {
   AlertCircle,
   ChevronRight,
   FileText,
-  Download
+  Download,
+  BookOpen
 } from 'lucide-react';
 
 // Generate static params for all guide articles at build time
@@ -392,6 +393,49 @@ export default async function GuideArticlePage({
               {/* Render Content Sections */}
               {guide.content.map(section => renderSection(section))}
 
+              {/* Link to Detailed Examples Section - VAT-Compliant */}
+              {guide.slug === 'vat-compliant' && (
+                <div className="my-12 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-300 rounded-xl p-8 shadow-lg">
+                  <div className="flex items-start gap-4">
+                    <BookOpen className="w-8 h-8 text-blue-600 flex-shrink-0 mt-1" />
+                    <div className="flex-1">
+                      <h3 className="text-2xl font-bold text-slate-900 mb-3">
+                        📚 See Real Invoice Examples with Do's & Don'ts
+                      </h3>
+                      <p className="text-slate-700 text-lg mb-4 leading-relaxed">
+                        Master VAT-compliant invoicing with our detailed side-by-side comparisons. Learn from 
+                        <strong> correct examples</strong> and avoid <strong>common mistakes</strong> that cause HMRC compliance issues.
+                      </p>
+                      <ul className="space-y-2 mb-6 text-slate-700">
+                        <li className="flex items-start gap-2">
+                          <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                          <span>Visual invoice comparisons showing correct vs incorrect formatting</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                          <span>Detailed explanations of why each difference matters</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                          <span>Multiple scenarios including standard VAT and mixed-rate invoices</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                          <span>Learn the exact format HMRC expects for VAT numbers, dates, and descriptions</span>
+                        </li>
+                      </ul>
+                      <Link
+                        href="/uk-invoice-guides/vat-compliant/examples"
+                        className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-all shadow-md hover:shadow-lg"
+                      >
+                        View VAT Invoice Examples & Explanations
+                        <ArrowRight className="w-5 h-5" />
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               {/* Invoice Comparison Example - VAT-Compliant */}
               {guide.slug === 'vat-compliant' && (
                 <InvoiceComparisonExample
@@ -493,6 +537,49 @@ export default async function GuideArticlePage({
                     }
                   ]}
                 />
+              )}
+
+              {/* Link to Detailed Examples Section - CIS */}
+              {guide.slug === 'cis-deduction' && (
+                <div className="my-12 bg-gradient-to-br from-orange-50 to-amber-50 border-2 border-orange-300 rounded-xl p-8 shadow-lg">
+                  <div className="flex items-start gap-4">
+                    <AlertTriangle className="w-8 h-8 text-orange-600 flex-shrink-0 mt-1" />
+                    <div className="flex-1">
+                      <h3 className="text-2xl font-bold text-slate-900 mb-3">
+                        ⚠️ Critical: See the #1 CIS Mistake (Costs You Money!)
+                      </h3>
+                      <p className="text-slate-700 text-lg mb-4 leading-relaxed">
+                        The most expensive CIS error is calculating deductions <strong>BEFORE VAT instead of AFTER</strong>. 
+                        Our detailed examples show you exactly how to avoid this £100+ mistake per invoice.
+                      </p>
+                      <ul className="space-y-2 mb-6 text-slate-700">
+                        <li className="flex items-start gap-2">
+                          <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                          <span>Step-by-step CIS deduction calculations with visual examples</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                          <span>Side-by-side comparison of correct vs incorrect invoices</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                          <span>Advanced example showing CIS with Reverse Charge VAT</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                          <span>Learn why UTR numbers are mandatory and how to format them correctly</span>
+                        </li>
+                      </ul>
+                      <Link
+                        href="/uk-invoice-guides/cis-deduction/examples"
+                        className="inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-lg font-semibold transition-all shadow-md hover:shadow-lg"
+                      >
+                        View CIS Invoice Examples & Avoid Costly Mistakes
+                        <ArrowRight className="w-5 h-5" />
+                      </Link>
+                    </div>
+                  </div>
+                </div>
               )}
 
               {/* Invoice Comparison Example - CIS */}
