@@ -10,6 +10,7 @@ import {
 } from '../../lib/ukInvoiceGuidesData';
 import { generateArticleSchema, generateBreadcrumbSchema, generateFAQSchema } from '../../lib/schemaConfig';
 import PageHero from '../../components/PageHero';
+import { InvoiceComparisonExample } from '../../components/guides/InvoiceComparisonExample';
 import { 
   Clock, 
   Calendar, 
@@ -343,6 +344,19 @@ export default async function GuideArticlePage({
         {/* Main Content */}
         <section className="py-16">
           <div className="max-w-5xl mx-auto px-4">
+            {/* Breadcrumb Navigation */}
+            <nav className="flex items-center gap-2 text-sm text-slate-600 mb-6" aria-label="Breadcrumb">
+              <Link href="/" className="hover:text-primary-600 transition-colors">
+                Home
+              </Link>
+              <ChevronRight className="w-4 h-4" />
+              <Link href="/uk-invoice-guides" className="hover:text-primary-600 transition-colors">
+                UK Invoice Guides
+              </Link>
+              <ChevronRight className="w-4 h-4" />
+              <span className="text-slate-900 font-medium">{guide.title.split(':')[0]}</span>
+            </nav>
+
             {/* Back Button */}
             <Link
               href="/uk-invoice-guides"
@@ -377,6 +391,205 @@ export default async function GuideArticlePage({
 
               {/* Render Content Sections */}
               {guide.content.map(section => renderSection(section))}
+
+              {/* Invoice Comparison Example - VAT-Compliant */}
+              {guide.slug === 'vat-compliant' && (
+                <InvoiceComparisonExample
+                  title="VAT Invoice: Correct vs Incorrect Example"
+                  description="Compare a correctly formatted VAT invoice with a common mistake to understand what makes an invoice HMRC-compliant."
+                  correctExample={{
+                    invoiceNumber: 'INV-2024-0042',
+                    invoiceDate: '20/10/2024',
+                    dueDate: '03/11/2024',
+                    businessName: 'Professional Services Ltd',
+                    businessAddress: '123 Business Street\nLondon\nSW1A 1AA',
+                    businessEmail: 'invoices@proservices.co.uk',
+                    vatNumber: 'GB 123 4567 89',
+                    companyNumber: '12345678',
+                    clientName: 'Client Company Ltd',
+                    clientAddress: '456 Client Road\nManchester\nM1 1AA',
+                    lineItems: [
+                      {
+                        description: 'Management Consultancy Services',
+                        quantity: 40,
+                        rate: 150.00,
+                        amount: 6000.00,
+                        vatRate: 'Standard 20%'
+                      },
+                      {
+                        description: 'Travel Expenses',
+                        quantity: 1,
+                        rate: 120.00,
+                        amount: 120.00,
+                        vatRate: 'Standard 20%'
+                      }
+                    ],
+                    subtotal: 6120.00,
+                    vatAmount: 1224.00,
+                    vatRate: '20%',
+                    totalAmount: 7344.00,
+                    bankName: 'Barclays Bank',
+                    accountNumber: '12345678',
+                    sortCode: '20-00-00',
+                    paymentTerms: 'Net 14 days'
+                  }}
+                  incorrectExample={{
+                    invoiceNumber: '42',
+                    invoiceDate: '10/20/2024',
+                    businessName: 'Professional Services Ltd',
+                    businessAddress: '123 Business Street, London',
+                    businessEmail: 'invoices@proservices.co.uk',
+                    vatNumber: '123456789',
+                    clientName: 'Client Company Ltd',
+                    lineItems: [
+                      {
+                        description: 'Services',
+                        quantity: 1,
+                        rate: 6120.00,
+                        amount: 6120.00
+                      }
+                    ],
+                    subtotal: 6120.00,
+                    vatAmount: 1224.00,
+                    totalAmount: 7344.00,
+                    paymentTerms: '2 weeks'
+                  }}
+                  comparisonPoints={[
+                    {
+                      aspect: 'Invoice Number Format',
+                      correct: 'Sequential, alphanumeric format: INV-2024-0042',
+                      incorrect: 'Simple number: 42',
+                      explanation: 'HMRC requires unique, sequential invoice numbers. Using a prefix (INV-) with year and sequence number prevents duplication and makes tracking easier. Simple numbers like "42" can be easily duplicated across different years.'
+                    },
+                    {
+                      aspect: 'VAT Number Format',
+                      correct: 'GB prefix with spaces: GB 123 4567 89',
+                      incorrect: 'Numbers only: 123456789',
+                      explanation: 'UK VAT numbers must include the "GB" country prefix. The formatted version (with spaces) is the official HMRC display format and helps with validation and readability.'
+                    },
+                    {
+                      aspect: 'Date Format',
+                      correct: 'UK format DD/MM/YYYY: 20/10/2024',
+                      incorrect: 'US format MM/DD/YYYY: 10/20/2024',
+                      explanation: 'UK invoices should use the British date format (day/month/year). Using US format (month/day/year) can cause confusion and compliance issues with HMRC systems.'
+                    },
+                    {
+                      aspect: 'Line Item Detail',
+                      correct: 'Detailed description with quantity and rate breakdown',
+                      incorrect: 'Generic "Services" with single amount',
+                      explanation: 'HMRC requires clear descriptions of goods/services supplied. Vague descriptions like "Services" are not compliant. Each line item should specify what was provided, with quantities and rates shown separately.'
+                    },
+                    {
+                      aspect: 'VAT Rate Display',
+                      correct: 'VAT rate clearly stated for each item and in totals',
+                      incorrect: 'No VAT rate information shown',
+                      explanation: 'You must show which VAT rate applies to each item. This is especially important when mixing different VAT rates (20%, 5%, 0%, exempt) on the same invoice. The total VAT section should show the rate used.'
+                    },
+                    {
+                      aspect: 'Business Address',
+                      correct: 'Full address with postcode on separate lines',
+                      incorrect: 'Single line address without postcode',
+                      explanation: 'HMRC requires your full registered business address including postcode. Using separate lines for street, city, and postcode improves readability and ensures compliance with postal addressing standards.'
+                    }
+                  ]}
+                />
+              )}
+
+              {/* Invoice Comparison Example - CIS */}
+              {guide.slug === 'cis-deduction' && (
+                <InvoiceComparisonExample
+                  title="CIS Invoice: Correct vs Incorrect Example"
+                  description="See how to properly calculate and display CIS deductions on construction invoices."
+                  correctExample={{
+                    invoiceNumber: 'BUILD-2024-0089',
+                    invoiceDate: '20/10/2024',
+                    businessName: 'Builder Subcontractors Ltd',
+                    businessAddress: '45 Construction Way\nLeeds\nLS1 1AA',
+                    vatNumber: 'GB 555 4444 33',
+                    utr: '1234567890',
+                    clientName: 'Main Contractor Ltd',
+                    clientUtr: '0987654321',
+                    lineItems: [
+                      {
+                        description: 'Brickwork - Single Storey Extension',
+                        quantity: 1,
+                        rate: 2000.00,
+                        amount: 2000.00
+                      },
+                      {
+                        description: 'Materials (Bricks and Cement)',
+                        quantity: 1,
+                        rate: 500.00,
+                        amount: 500.00
+                      }
+                    ],
+                    subtotal: 2500.00,
+                    vatAmount: 500.00,
+                    vatRate: '20%',
+                    totalAmount: 3000.00,
+                    cisDeduction: 600.00,
+                    cisRate: '20%',
+                    amountDue: 2400.00,
+                    cisNotice: 'CIS deduction of £600.00 (20%) has been calculated on the total amount including VAT (£3,000.00). Contractor will pay £600.00 to HMRC on behalf of subcontractor.',
+                    paymentTerms: 'Net 30 days'
+                  }}
+                  incorrectExample={{
+                    invoiceNumber: 'BUILD-89',
+                    invoiceDate: '20/10/2024',
+                    businessName: 'Builder Subcontractors Ltd',
+                    businessAddress: '45 Construction Way, Leeds',
+                    vatNumber: 'GB 555 4444 33',
+                    clientName: 'Main Contractor Ltd',
+                    lineItems: [
+                      {
+                        description: 'Building Work',
+                        quantity: 1,
+                        rate: 2500.00,
+                        amount: 2500.00
+                      }
+                    ],
+                    subtotal: 2500.00,
+                    vatAmount: 500.00,
+                    totalAmount: 3000.00,
+                    cisDeduction: 500.00,
+                    cisRate: '20%',
+                    amountDue: 2500.00,
+                    paymentTerms: '30 days'
+                  }}
+                  comparisonPoints={[
+                    {
+                      aspect: 'UTR (Unique Taxpayer Reference)',
+                      correct: 'Both subcontractor and contractor UTR numbers displayed',
+                      incorrect: 'UTR numbers missing from invoice',
+                      explanation: 'CIS invoices MUST include both parties\' UTR numbers. This is a mandatory HMRC requirement for CIS compliance. Without UTRs, the invoice is not valid for CIS purposes and HMRC may reject deduction claims.'
+                    },
+                    {
+                      aspect: 'CIS Calculation Timing',
+                      correct: 'CIS deduction calculated AFTER VAT is added (20% of £3,000 = £600)',
+                      incorrect: 'CIS deduction calculated on net amount before VAT (20% of £2,500 = £500)',
+                      explanation: 'This is the most common CIS mistake! CIS deductions must be calculated on the TOTAL including VAT, not the net amount. In this example, the correct deduction is £600 (20% of £3,000), not £500 (20% of £2,500). Getting this wrong means underpaying tax.'
+                    },
+                    {
+                      aspect: 'Work Description Detail',
+                      correct: 'Specific description: "Brickwork - Single Storey Extension" with materials itemized',
+                      incorrect: 'Vague description: "Building Work"',
+                      explanation: 'CIS invoices must clearly describe the construction work performed. HMRC requires detailed descriptions to verify the work qualifies for CIS. Separating labour and materials also helps with accurate record-keeping.'
+                    },
+                    {
+                      aspect: 'CIS Notice',
+                      correct: 'Clear notice explaining CIS deduction calculation and payment to HMRC',
+                      incorrect: 'No explanation of CIS deduction',
+                      explanation: 'Best practice is to include a CIS notice explaining the deduction calculation method. This helps the contractor understand their obligations and prevents disputes. It should state the calculation basis (total inc. VAT) and confirm the contractor will remit to HMRC.'
+                    },
+                    {
+                      aspect: 'Amount Due Calculation',
+                      correct: '£3,000 (total inc VAT) - £600 (CIS 20%) = £2,400 amount due',
+                      incorrect: '£3,000 (total inc VAT) - £500 (incorrect CIS) = £2,500 amount due',
+                      explanation: 'The "Amount Due" must be calculated as: Total (inc VAT) minus CIS deduction. Using the incorrect CIS calculation results in the subcontractor receiving more than they should, causing tax shortfalls that must be corrected later.'
+                    }
+                  ]}
+                />
+              )}
 
               {/* FAQ Section */}
               {guide.faq && guide.faq.length > 0 && (
@@ -480,6 +693,57 @@ export default async function GuideArticlePage({
                       </div>
                     </Link>
                   ))}
+                </div>
+
+                {/* Navigation Footer - Links to Other Resources */}
+                <div className="mt-12 grid md:grid-cols-2 gap-6">
+                  {/* Link to Invoice Generator */}
+                  <Link
+                    href="/invoice-generator"
+                    className="group bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-xl p-6 hover:shadow-lg transition-all"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="bg-white rounded-lg p-3 shadow-sm">
+                        <FileText className="w-6 h-6 text-blue-600" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                          Create Compliant Invoice
+                        </h3>
+                        <p className="text-sm text-slate-600 mb-3">
+                          Generate HMRC-compliant invoices with automatic VAT and CIS calculations
+                        </p>
+                        <div className="flex items-center gap-2 text-blue-600 font-semibold group-hover:gap-3 transition-all">
+                          Start Generating
+                          <ArrowRight className="w-4 h-4" />
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+
+                  {/* Link to All Guides */}
+                  <Link
+                    href="/uk-invoice-guides"
+                    className="group bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-200 rounded-xl p-6 hover:shadow-lg transition-all"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="bg-white rounded-lg p-3 shadow-sm">
+                        <FileText className="w-6 h-6 text-purple-600" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-purple-600 transition-colors">
+                          Browse All Guides
+                        </h3>
+                        <p className="text-sm text-slate-600 mb-3">
+                          Explore our complete library of UK invoice compliance guides
+                        </p>
+                        <div className="flex items-center gap-2 text-purple-600 font-semibold group-hover:gap-3 transition-all">
+                          View All Guides
+                          <ArrowRight className="w-4 h-4" />
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
                 </div>
               </div>
             )}
