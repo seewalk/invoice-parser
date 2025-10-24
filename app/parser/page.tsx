@@ -20,6 +20,13 @@ import { type ProcessingStep } from '../components/parser';
 import { useLeadCapture } from '../hooks/useLeadCapture';
 import LeadCaptureModal from '../components/LeadCaptureModal';
 import { convertPdfToImage, convertPdfToImages, isPdfFile, isImageFile } from '../utils/pdfToImage';
+import { 
+  aggregateInvoicePages, 
+  detectPageType, 
+  validateAggregatedInvoice,
+  formatAggregationMetadata,
+  type PageResult
+} from '../utils/invoiceAggregator';
 import { useAuth } from '@/app/lib/firebase/AuthContext';
 import { useQuota } from '@/app/hooks/useQuota';
 import { useRouter } from 'next/navigation';
@@ -78,6 +85,12 @@ export default function InvoiceParser() {
   const [pendingPDFDownload, setPendingPDFDownload] = useState(false);
   const [showUpgradePrompt, setShowUpgradePrompt] = useState(false);
   const [demoParseUsed, setDemoParseUsed] = useState(false);
+  
+  // Multi-page processing state
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [pageResults, setPageResults] = useState<PageResult[]>([]);
+  const [processingProgress, setProcessingProgress] = useState(0);
 
   // Check if demo parse has been used (localStorage)
   useEffect(() => {
@@ -183,114 +196,20 @@ export default function InvoiceParser() {
 
 
 
-  // Process invoice with real API and S3 upload
-  const processInvoice = useCallback(async () => {
-    if (selectedFiles.length === 0) return;
-
-    // 🎁 DEMO MODE: Allow 1 free parse without login
-    if (!user) {
-      if (demoParseUsed) {
-        console.log('[Parser] Demo parse already used, require sign-in');
-        setError('Sign up to get 5 free invoice parses!');
-        setShowUpgradePrompt(true);
-        return;
-      }
-      console.log('[Parser] Allowing demo parse (1 free without login)');
-      // Will mark as used after successful parse
-    } else {
-      // 🎫 QUOTA CHECK: For authenticated users, check quota
-      if (!checkQuota('invoiceParses')) {
-        console.log('[Parser] No quota remaining, showing upgrade prompt');
-        setShowUpgradePrompt(true);
-        setError('You\'ve used all 5 free parses. Upgrade for unlimited parsing!');
-        return;
-      }
-      console.log('[Parser] Quota check passed, proceeding with processing');
-    }
-
-    setProcessing(true);
-    setError(null);
-    setCurrentStep('upload');
-
+  /**
+   * Helper function: Parse a single page via API
+   * This is called sequentially for each page
+   */
+  const parseSinglePage = async (imageUrl: string, pageNumber: number, totalPages: number): Promise<PageResult> => {
+    const pageStartTime = Date.now();
+    
+    console.log(`[Parser] Processing page ${pageNumber}/${totalPages}:`, imageUrl);
+    
     try {
-      // Step 1: Process all selected files (PDFs and images)
-      let imagesToUpload: File[] = [];
-
-      for (const file of selectedFiles) {
-        if (isPdfFile(file)) {
-          console.log('[Parser] PDF detected, converting all pages to images...');
-          
-          const conversionResults = await convertPdfToImages(file);
-          
-          if (!conversionResults || conversionResults.length === 0) {
-            throw new Error(`Failed to convert PDF ${file.name} to images`);
-          }
-
-          console.log(`[Parser] PDF converted successfully: ${conversionResults.length} page(s)`, {
-            originalSize: file.size,
-            fileName: file.name,
-            pages: conversionResults.map(r => ({
-              page: r.pageNumber,
-              size: r.blob?.size || 0,
-              fileName: r.fileName
-            }))
-          });
-
-          // Create File objects from blobs and add to upload list
-          const pdfImages = conversionResults
-            .filter(result => result.blob && result.fileName)
-            .map(result => 
-              new File([result.blob!], result.fileName!, {
-                type: 'image/jpeg'
-              })
-            );
-          imagesToUpload.push(...pdfImages);
-        } else {
-          console.log('[Parser] Image file detected, no conversion needed:', file.name);
-          imagesToUpload.push(file);
-        }
-      }
-
-      console.log(`[Parser] Total images to upload: ${imagesToUpload.length}`);
-
-      // Step 2: Upload each image to S3 sequentially
-      setCurrentStep('upload');
-      console.log(`Starting S3 upload for ${imagesToUpload.length} image(s)`);
-
-      const imageUrls: string[] = [];
-      
-      for (let i = 0; i < imagesToUpload.length; i++) {
-        const imageFile = imagesToUpload[i];
-        console.log(`Uploading image ${i + 1}/${imagesToUpload.length}:`, imageFile.name);
-
-        // Convert file to buffer for server action
-        const fileBuffer = await imageFile.arrayBuffer();
-
-        // Call server action to upload (credentials stay server-side)
-        const uploadResult = await uploadToS3({
-          fileBuffer,
-          fileName: imageFile.name,
-          contentType: 'image/jpeg',
-        });
-
-        if (!uploadResult.success || !uploadResult.imageUrl) {
-          throw new Error(uploadResult.error || `Failed to upload image ${i + 1} to S3`);
-        }
-
-        imageUrls.push(uploadResult.imageUrl);
-        console.log(`Successfully uploaded image ${i + 1}/${imagesToUpload.length} to S3:`, uploadResult.imageUrl);
-      }
-
-      console.log('All images uploaded to S3:', imageUrls);
-
-      // Step 3: Send S3 URLs array to API
-      setCurrentStep('ocr');
-
+      // API call with SINGLE URL (array with one element)
       const apiPayload = {
-        imageUrls: imageUrls
+        imageUrls: [imageUrl]  // Backend expects array, but with only 1 URL
       };
-
-      console.log('Sending to API with S3 URLs:', apiPayload);
 
       const response = await fetch(
         'https://jm1n4qxu69.execute-api.eu-west-2.amazonaws.com/invoicer-stage/invoiceParser',
@@ -304,29 +223,24 @@ export default function InvoiceParser() {
       );
 
       const responseText = await response.text();
-      console.log('API Response:', responseText);
-
+      
       if (!response.ok) {
-        throw new Error(`API error: ${response.status} ${response.statusText} - ${responseText}`);
+        throw new Error(`API error: ${response.status} ${response.statusText}`);
       }
 
-      // Step 4: Parse response
-      setCurrentStep('parsing');
-
+      // Parse JSON response
       let result;
       try {
         result = JSON.parse(responseText);
       } catch (parseError) {
-        console.error('Failed to parse API response:', responseText);
+        console.error('[Parser] Failed to parse API response:', responseText);
         throw new Error('Invalid API response format');
       }
-
-      console.log('Parsed result:', result);
 
       // Extract data from response (handle nested structure)
       const data = result.data || result;
 
-      // Transform API response to our InvoiceData format
+      // Transform API response to InvoiceData format
       const invoiceData: InvoiceData = {
         supplier: data.vendor?.name || data.supplier || data.vendor || data.seller || 'Unknown Supplier',
         invoiceNumber: data.invoiceNumber || data.invoice_number || data.number || data.invoiceNo || 'N/A',
@@ -346,47 +260,289 @@ export default function InvoiceParser() {
         confidence: parseFloat(String(data.confidence || data.accuracy || data.score || (result.success ? 0.95 : 0.50))),
       };
 
-      console.log('Transformed invoice data:', invoiceData);
+      const processingTime = Date.now() - pageStartTime;
+      
+      // Detect page type for aggregation
+      const pageType = detectPageType(invoiceData, pageNumber, totalPages);
+      
+      console.log(`[Parser] Page ${pageNumber}/${totalPages} parsed successfully`, {
+        pageType,
+        lineItems: invoiceData.lineItems.length,
+        confidence: invoiceData.confidence,
+        processingTime: `${processingTime}ms`
+      });
 
-      // 💳 QUOTA MANAGEMENT: Decrement quota or mark demo as used
+      return {
+        pageNumber,
+        data: invoiceData,
+        pageType,
+        imageUrl,
+        processingTime
+      };
+      
+    } catch (err) {
+      const processingTime = Date.now() - pageStartTime;
+      const errorMessage = err instanceof Error ? err.message : 'Unknown error';
+      
+      console.error(`[Parser] Failed to parse page ${pageNumber}/${totalPages}:`, errorMessage);
+      
+      // Return error result (will be handled by aggregator)
+      return {
+        pageNumber,
+        data: {
+          supplier: 'Error',
+          invoiceNumber: 'Error',
+          date: new Date().toISOString().split('T')[0],
+          dueDate: new Date().toISOString().split('T')[0],
+          totalAmount: 0,
+          currency: 'GBP',
+          lineItems: [],
+          taxAmount: 0,
+          subtotal: 0,
+          confidence: 0
+        },
+        pageType: 'continuation',
+        imageUrl,
+        processingTime,
+        error: errorMessage
+      };
+    }
+  };
+
+  /**
+   * Main processing function: Sequential multi-page invoice parsing
+   * with client-side aggregation
+   */
+  const processInvoice = useCallback(async () => {
+    if (selectedFiles.length === 0) return;
+
+    // 🎁 DEMO MODE: Allow 1 free parse without login
+    if (!user) {
+      if (demoParseUsed) {
+        console.log('[Parser] Demo parse already used, require sign-in');
+        setError('Sign up to get 5 free invoice parses!');
+        setShowUpgradePrompt(true);
+        return;
+      }
+      console.log('[Parser] Allowing demo parse (1 free without login)');
+    } else {
+      // 🎫 QUOTA CHECK: For authenticated users, check quota
+      if (!checkQuota('invoiceParses')) {
+        console.log('[Parser] No quota remaining, showing upgrade prompt');
+        setShowUpgradePrompt(true);
+        setError('You\'ve used all 5 free parses. Upgrade for unlimited parsing!');
+        return;
+      }
+      console.log('[Parser] Quota check passed, proceeding with processing');
+    }
+
+    setProcessing(true);
+    setError(null);
+    setCurrentStep('upload');
+    setPageResults([]);
+    setCurrentPage(0);
+    setProcessingProgress(0);
+
+    try {
+      console.log('═══════════════════════════════════════════════════════');
+      console.log('🚀 SEQUENTIAL MULTI-PAGE PARSER - Production Mode');
+      console.log('═══════════════════════════════════════════════════════');
+
+      // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      // PHASE 1: PDF/Image Conversion & Preparation
+      // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      let imagesToUpload: File[] = [];
+
+      for (const file of selectedFiles) {
+        if (isPdfFile(file)) {
+          console.log('[Phase 1] PDF detected, converting all pages to images...');
+          
+          const conversionResults = await convertPdfToImages(file);
+          
+          if (!conversionResults || conversionResults.length === 0) {
+            throw new Error(`Failed to convert PDF ${file.name} to images`);
+          }
+
+          console.log(`[Phase 1] ✓ PDF converted: ${conversionResults.length} page(s)`);
+
+          const pdfImages = conversionResults
+            .filter(result => result.blob && result.fileName)
+            .map(result => 
+              new File([result.blob!], result.fileName!, {
+                type: 'image/jpeg'
+              })
+            );
+          imagesToUpload.push(...pdfImages);
+        } else {
+          console.log('[Phase 1] Image file detected:', file.name);
+          imagesToUpload.push(file);
+        }
+      }
+
+      const totalPagesCount = imagesToUpload.length;
+      setTotalPages(totalPagesCount);
+      
+      console.log(`[Phase 1] ✓ Total pages to process: ${totalPagesCount}`);
+
+      // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      // PHASE 2: S3 Upload (All Pages)
+      // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      setCurrentStep('upload');
+      console.log('[Phase 2] Starting S3 upload for all pages...');
+
+      const imageUrls: string[] = [];
+      
+      for (let i = 0; i < imagesToUpload.length; i++) {
+        const imageFile = imagesToUpload[i];
+        const pageNum = i + 1;
+        
+        console.log(`[Phase 2] Uploading page ${pageNum}/${totalPagesCount}...`);
+
+        const fileBuffer = await imageFile.arrayBuffer();
+
+        const uploadResult = await uploadToS3({
+          fileBuffer,
+          fileName: imageFile.name,
+          contentType: 'image/jpeg',
+        });
+
+        if (!uploadResult.success || !uploadResult.imageUrl) {
+          throw new Error(uploadResult.error || `Failed to upload page ${pageNum} to S3`);
+        }
+
+        imageUrls.push(uploadResult.imageUrl);
+        
+        // Update progress (upload is 30% of total process)
+        const uploadProgress = ((pageNum / totalPagesCount) * 30);
+        setProcessingProgress(uploadProgress);
+        
+        console.log(`[Phase 2] ✓ Page ${pageNum}/${totalPagesCount} uploaded to S3`);
+      }
+
+      console.log('[Phase 2] ✓ All pages uploaded to S3 successfully');
+
+      // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      // PHASE 3: Sequential GPT Vision Parsing (One Page at a Time)
+      // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      setCurrentStep('ocr');
+      console.log('[Phase 3] Starting sequential GPT Vision parsing...');
+      console.log('[Phase 3] Processing pages one-by-one for optimal accuracy');
+
+      const results: PageResult[] = [];
+
+      for (let i = 0; i < imageUrls.length; i++) {
+        const imageUrl = imageUrls[i];
+        const pageNum = i + 1;
+        
+        setCurrentPage(pageNum);
+        console.log(`[Phase 3] ─────────────────────────────────────────`);
+        console.log(`[Phase 3] 📄 Processing Page ${pageNum}/${totalPagesCount}`);
+        
+        // Parse this page
+        const pageResult = await parseSinglePage(imageUrl, pageNum, totalPagesCount);
+        results.push(pageResult);
+        
+        // Update UI with intermediate results
+        setPageResults([...results]);
+        
+        // Update progress (parsing is 60% of total process, after 30% upload)
+        const parseProgress = 30 + ((pageNum / totalPagesCount) * 60);
+        setProcessingProgress(parseProgress);
+        
+        if (pageResult.error) {
+          console.warn(`[Phase 3] ⚠️  Page ${pageNum} had errors:`, pageResult.error);
+        } else {
+          console.log(`[Phase 3] ✓ Page ${pageNum} parsed - ${pageResult.data.lineItems.length} items`);
+        }
+      }
+
+      console.log('[Phase 3] ✓ All pages parsed successfully');
+
+      // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      // PHASE 4: Client-Side Aggregation & Validation
+      // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      setCurrentStep('parsing');
+      console.log('[Phase 4] Aggregating multi-page results...');
+
+      const aggregated = aggregateInvoicePages(results);
+      
+      console.log('[Phase 4] ✓ Aggregation complete:', formatAggregationMetadata(aggregated.metadata));
+
+      // Validate aggregated results
+      const validation = validateAggregatedInvoice(aggregated);
+      
+      if (!validation.isValid) {
+        console.error('[Phase 4] ❌ Validation failed:', validation.errors);
+        throw new Error(`Validation errors: ${validation.errors.join(', ')}`);
+      }
+
+      if (validation.warnings.length > 0) {
+        console.warn('[Phase 4] ⚠️  Validation warnings:', validation.warnings);
+      }
+
+      console.log('[Phase 4] ✓ Validation passed');
+
+      // Final progress update
+      setProcessingProgress(100);
+
+      // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      // PHASE 5: Quota Management & Finalization
+      // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
       if (user) {
-        // Authenticated user: decrement quota
-        console.log('[Parser] Invoice parsed successfully, decrementing quota');
+        console.log('[Phase 5] Decrementing quota for authenticated user');
         const quotaDecremented = await decrementQuota('invoiceParses', {
-          invoiceNumber: invoiceData.invoiceNumber,
-          supplier: invoiceData.supplier,
-          totalAmount: invoiceData.totalAmount,
+          invoiceNumber: aggregated.invoice.invoiceNumber,
+          supplier: aggregated.invoice.supplier,
+          totalAmount: aggregated.invoice.totalAmount,
+          totalPages: totalPagesCount,
           timestamp: new Date().toISOString()
         });
 
         if (quotaDecremented) {
-          console.log('[Parser] Quota decremented successfully');
+          console.log('[Phase 5] ✓ Quota decremented successfully');
         } else {
-          console.warn('[Parser] Failed to decrement quota, but continuing with results');
+          console.warn('[Phase 5] ⚠️  Failed to decrement quota');
         }
       } else {
-        // Demo user: mark demo parse as used
-        console.log('[Parser] Demo parse used, marking in localStorage');
+        console.log('[Phase 5] Marking demo parse as used');
         if (typeof window !== 'undefined') {
           localStorage.setItem('elektroluma_demo_parse_used', 'true');
           setDemoParseUsed(true);
         }
       }
 
-      setInvoiceData(invoiceData);
+      // Set final aggregated invoice data
+      setInvoiceData(aggregated.invoice);
       setCurrentStep('complete');
+
+      console.log('═══════════════════════════════════════════════════════');
+      console.log('✅ SUCCESS: Multi-page invoice processed');
+      console.log('═══════════════════════════════════════════════════════');
+      console.log('📊 Final Results:');
+      console.log(`   • Pages Processed: ${aggregated.metadata.pagesProcessed}`);
+      console.log(`   • Line Items: ${aggregated.invoice.lineItems.length}`);
+      console.log(`   • Confidence: ${(aggregated.invoice.confidence * 100).toFixed(1)}%`);
+      console.log(`   • Total Amount: £${aggregated.invoice.totalAmount.toFixed(2)}`);
+      console.log(`   • Processing Time: ${aggregated.metadata.processingTimeMs}ms`);
+      console.log('═══════════════════════════════════════════════════════');
+
     } catch (err) {
-      console.error('Invoice processing error:', err);
+      console.error('═══════════════════════════════════════════════════════');
+      console.error('❌ ERROR: Invoice processing failed');
+      console.error('═══════════════════════════════════════════════════════');
+      console.error('Error details:', err);
+      
       setError(
         err instanceof Error
           ? `Failed to process invoice: ${err.message}`
           : 'Failed to process invoice. Please try again.'
       );
       setCurrentStep('upload');
+      setProcessingProgress(0);
     } finally {
       setProcessing(false);
     }
-  }, [selectedFiles, user, router, checkQuota, decrementQuota, demoParseUsed]);
+  }, [selectedFiles, user, checkQuota, decrementQuota, demoParseUsed]);
 
   // Reset function
   // Cleanup effect for preview URLs to prevent memory leaks
@@ -439,6 +595,12 @@ export default function InvoiceParser() {
     setProcessing(false);
     setGeneratingPDF(false);
     setPdfGenerated(false);
+    
+    // Reset multi-page processing state
+    setCurrentPage(0);
+    setTotalPages(0);
+    setPageResults([]);
+    setProcessingProgress(0);
   }, [previewUrls]);
 
   // Copy JSON to clipboard
@@ -697,6 +859,94 @@ export default function InvoiceParser() {
                 </h2>
 
                 <ProcessingSteps currentStep={currentStep} processing={processing} />
+                
+                {/* Multi-Page Progress Indicator */}
+                {processing && totalPages > 1 && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    className="mt-6 pt-6 border-t border-gray-200"
+                  >
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-sm font-semibold text-gray-700">
+                        Processing Page {currentPage} of {totalPages}
+                      </span>
+                      <span className="text-sm font-semibold text-primary-600">
+                        {processingProgress.toFixed(0)}%
+                      </span>
+                    </div>
+                    
+                    {/* Progress Bar */}
+                    <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
+                      <motion.div
+                        className="h-full bg-gradient-to-r from-primary-500 to-primary-600 rounded-full"
+                        initial={{ width: 0 }}
+                        animate={{ width: `${processingProgress}%` }}
+                        transition={{ duration: 0.3 }}
+                      />
+                    </div>
+                    
+                    {/* Page Status Grid */}
+                    {pageResults.length > 0 && (
+                      <div className="mt-4 grid grid-cols-5 sm:grid-cols-10 gap-2">
+                        {Array.from({ length: totalPages }).map((_, index) => {
+                          const pageNum = index + 1;
+                          const result = pageResults.find(r => r.pageNumber === pageNum);
+                          const isProcessing = currentPage === pageNum;
+                          const isComplete = result !== undefined;
+                          const hasError = result?.error;
+                          
+                          return (
+                            <div
+                              key={pageNum}
+                              className={`
+                                relative h-12 rounded-lg border-2 flex items-center justify-center text-xs font-semibold
+                                transition-all duration-300
+                                ${isComplete && !hasError ? 'bg-green-50 border-green-500 text-green-700' : ''}
+                                ${hasError ? 'bg-red-50 border-red-500 text-red-700' : ''}
+                                ${isProcessing ? 'bg-blue-50 border-blue-500 text-blue-700 animate-pulse' : ''}
+                                ${!isComplete && !isProcessing ? 'bg-gray-50 border-gray-300 text-gray-400' : ''}
+                              `}
+                              title={
+                                hasError ? `Page ${pageNum}: Error - ${result.error}` :
+                                isComplete ? `Page ${pageNum}: Complete (${result.data.lineItems.length} items)` :
+                                isProcessing ? `Page ${pageNum}: Processing...` :
+                                `Page ${pageNum}: Waiting`
+                              }
+                            >
+                              {isComplete && !hasError && (
+                                <CheckCircle className="w-4 h-4 absolute top-0.5 right-0.5 text-green-600" />
+                              )}
+                              {pageNum}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                    
+                    {/* Aggregation Info */}
+                    {pageResults.length > 0 && (
+                      <div className="mt-4 text-xs text-gray-600 space-y-1">
+                        <div className="flex items-center justify-between">
+                          <span>Pages Processed:</span>
+                          <span className="font-semibold">{pageResults.length} / {totalPages}</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span>Line Items Found:</span>
+                          <span className="font-semibold">
+                            {pageResults.reduce((sum, r) => sum + r.data.lineItems.length, 0)}
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span>Avg Confidence:</span>
+                          <span className="font-semibold">
+                            {(pageResults.reduce((sum, r) => sum + r.data.confidence, 0) / pageResults.length * 100).toFixed(1)}%
+                          </span>
+                        </div>
+                      </div>
+                    )}
+                  </motion.div>
+                )}
               </motion.div>
             )}
 
