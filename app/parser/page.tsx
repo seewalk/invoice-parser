@@ -30,6 +30,7 @@ import {
 import { useAuth } from '@/app/lib/firebase/AuthContext';
 import { useQuota } from '@/app/hooks/useQuota';
 import { useRouter } from 'next/navigation';
+import { usePhaseProgress, INVOICE_PROCESSING_PHASES } from '@/app/hooks/useSmartProgress';
 
 // Lazy-load UpgradePrompt for performance
 const UpgradePrompt = dynamic(
@@ -91,6 +92,15 @@ export default function InvoiceParser() {
   const [totalPages, setTotalPages] = useState(0);
   const [pageResults, setPageResults] = useState<PageResult[]>([]);
   const [processingProgress, setProcessingProgress] = useState(0);
+  
+  // Smart progress hook for smooth Google Drive-style loading
+  const { 
+    progress: smoothProgress, 
+    currentPhase, 
+    startPhase, 
+    completePhase,
+    resetProgress: resetSmartProgress 
+  } = usePhaseProgress();
 
   // Check if demo parse has been used (localStorage)
   useEffect(() => {
@@ -342,6 +352,10 @@ export default function InvoiceParser() {
     setPageResults([]);
     setCurrentPage(0);
     setProcessingProgress(0);
+    
+    // Initialize smooth progress
+    resetSmartProgress();
+    startPhase('initializing');
 
     try {
       console.log('═══════════════════════════════════════════════════════');
@@ -351,6 +365,7 @@ export default function InvoiceParser() {
       // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
       // PHASE 1: PDF/Image Conversion & Preparation
       // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      startPhase('converting');
       let imagesToUpload: File[] = [];
 
       for (const file of selectedFiles) {
@@ -387,6 +402,7 @@ export default function InvoiceParser() {
       // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
       // PHASE 2: S3 Upload (All Pages)
       // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      startPhase('uploading');
       setCurrentStep('upload');
       console.log('[Phase 2] Starting S3 upload for all pages...');
 
@@ -424,6 +440,7 @@ export default function InvoiceParser() {
       // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
       // PHASE 3: Sequential GPT Vision Parsing (One Page at a Time)
       // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      startPhase('parsing');
       setCurrentStep('ocr');
       console.log('[Phase 3] Starting sequential GPT Vision parsing...');
       console.log('[Phase 3] Processing pages one-by-one for optimal accuracy');
@@ -461,6 +478,7 @@ export default function InvoiceParser() {
       // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
       // PHASE 4: Client-Side Aggregation & Validation
       // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      startPhase('aggregating');
       setCurrentStep('parsing');
       console.log('[Phase 4] Aggregating multi-page results...');
 
@@ -484,6 +502,9 @@ export default function InvoiceParser() {
 
       // Final progress update
       setProcessingProgress(100);
+      
+      // Move to finalizing phase
+      startPhase('finalizing');
 
       // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
       // PHASE 5: Quota Management & Finalization
@@ -601,7 +622,10 @@ export default function InvoiceParser() {
     setTotalPages(0);
     setPageResults([]);
     setProcessingProgress(0);
-  }, [previewUrls]);
+    
+    // Reset smart progress
+    resetSmartProgress();
+  }, [previewUrls, resetSmartProgress]);
 
   // Copy JSON to clipboard
   const copyToClipboard = useCallback(() => {
@@ -860,8 +884,8 @@ export default function InvoiceParser() {
 
                 <ProcessingSteps currentStep={currentStep} processing={processing} />
                 
-                {/* Multi-Page Progress Indicator */}
-                {processing && totalPages > 1 && (
+                {/* Progress Indicator - Single & Multi-Page */}
+                {processing && (
                   <motion.div
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
@@ -869,22 +893,39 @@ export default function InvoiceParser() {
                   >
                     <div className="flex items-center justify-between mb-3">
                       <span className="text-sm font-semibold text-gray-700">
-                        Processing Page {currentPage} of {totalPages}
+                        {totalPages > 1 
+                          ? `Processing Page ${currentPage} of ${totalPages}`
+                          : 'Processing Invoice...'}
                       </span>
                       <span className="text-sm font-semibold text-primary-600">
-                        {processingProgress.toFixed(0)}%
+                        {Math.round(smoothProgress)}%
                       </span>
                     </div>
                     
-                    {/* Progress Bar */}
+                    {/* Smooth Progress Bar - Google Drive Style */}
                     <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
                       <motion.div
-                        className="h-full bg-gradient-to-r from-primary-500 to-primary-600 rounded-full"
-                        initial={{ width: 0 }}
-                        animate={{ width: `${processingProgress}%` }}
-                        transition={{ duration: 0.3 }}
+                        className="h-full bg-gradient-to-r from-primary-500 to-primary-600 rounded-full shadow-lg"
+                        style={{ width: `${smoothProgress}%` }}
+                        transition={{ 
+                          type: "spring",
+                          stiffness: 50,
+                          damping: 20
+                        }}
                       />
                     </div>
+                    
+                    {/* Current Phase Indicator */}
+                    {currentPhase && (
+                      <div className="mt-3 text-xs text-gray-500 italic">
+                        {currentPhase === 'initializing' && '🚀 Initializing...'}
+                        {currentPhase === 'converting' && '🔄 Converting PDF to images...'}
+                        {currentPhase === 'uploading' && '☁️ Uploading to cloud...'}
+                        {currentPhase === 'parsing' && '🤖 AI extracting data...'}
+                        {currentPhase === 'aggregating' && '🔗 Combining pages...'}
+                        {currentPhase === 'finalizing' && '✨ Finalizing results...'}
+                      </div>
+                    )}
                     
                     {/* Page Status Grid */}
                     {pageResults.length > 0 && (
