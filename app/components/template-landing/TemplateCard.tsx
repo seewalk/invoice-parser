@@ -2,8 +2,8 @@
 
 import { memo } from 'react';
 import Link from 'next/link';
-import { FileText, CheckCircle, Shield, ArrowRight, Sparkles, Download } from 'lucide-react';
-import { InvoiceTemplate } from '@/app/lib/invoiceTemplateLibrary';
+import { FileText, CheckCircle, Shield, ArrowRight, Sparkles, Download, Crown } from 'lucide-react';
+import { InvoiceTemplate, getTotalTemplateCount } from '@/app/lib/invoiceTemplateLibrary';
 import { PRICING_CONSTANTS } from '@/app/types/pricing';
 
 interface TemplateCardProps {
@@ -32,10 +32,22 @@ function TemplateCardComponent({ template, slug }: TemplateCardProps) {
       href={`/invoice-templates/${slug}`}
       className="block group"
     >
-      <div className="bg-white rounded-xl border-2 border-slate-200 hover:border-indigo-500 transition-all hover:shadow-xl p-6 h-full">
+      <div className={`bg-white rounded-xl border-2 transition-all hover:shadow-xl p-6 h-full ${
+        template.tier === 'premium' ? 'border-purple-300 hover:border-purple-500' : 'border-slate-200 hover:border-indigo-500'
+      }`}>
+        {/* Premium Badge */}
+        {template.tier === 'premium' && (
+          <div className="absolute top-4 right-4">
+            <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-lg">
+              <Crown className="w-3 h-3" />
+              PRO ONLY
+            </div>
+          </div>
+        )}
+        
         {/* Header */}
         <div className="flex items-start justify-between mb-4">
-          <div className="flex-1">
+          <div className="flex-1 pr-16">
             <h3 className="text-xl font-bold text-slate-900 group-hover:text-indigo-600 transition mb-2">
               {template.name}
             </h3>
@@ -43,7 +55,9 @@ function TemplateCardComponent({ template, slug }: TemplateCardProps) {
               {template.description}
             </p>
           </div>
-          <FileText className="w-8 h-8 text-indigo-600 flex-shrink-0 ml-4" />
+          <FileText className={`w-8 h-8 flex-shrink-0 ml-4 ${
+            template.tier === 'premium' ? 'text-purple-600' : 'text-indigo-600'
+          }`} />
         </div>
 
         {/* User-Focused Stats */}
@@ -81,15 +95,36 @@ function TemplateCardComponent({ template, slug }: TemplateCardProps) {
         </div>
 
         {/* Pricing Info */}
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-3 mb-4 border border-blue-200">
-          <div className="flex items-center justify-between mb-1">
-            <span className="text-xs font-medium text-gray-700">FREE with watermark</span>
-            <Sparkles className="w-4 h-4 text-blue-600" />
+        {template.tier === 'premium' ? (
+          <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg p-3 mb-4 border border-purple-200">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-xs font-medium text-purple-900 flex items-center gap-1">
+                <Crown className="w-3 h-3" />
+                PRO TIER EXCLUSIVE
+              </span>
+              <Sparkles className="w-4 h-4 text-purple-600" />
+            </div>
+            <div className="text-sm font-semibold text-gray-900">
+              <span className="text-purple-700">£{PRICING_CONSTANTS.PRO_MONTHLY}/mo</span> for all {getTotalTemplateCount(true)} templates
+            </div>
+            <div className="text-xs text-gray-600 mt-1">
+              Includes AI parser + automation
+            </div>
           </div>
-          <div className="text-sm font-semibold text-gray-900">
-            or <span className="text-blue-700">£{PRICING_CONSTANTS.TEMPLATE_PRICE}</span> to remove watermark
+        ) : (
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-3 mb-4 border border-blue-200">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-xs font-medium text-gray-700">🆓 FREE with watermark</span>
+              <Sparkles className="w-4 h-4 text-blue-600" />
+            </div>
+            <div className="text-sm font-semibold text-gray-900">
+              or <span className="text-blue-700">£{PRICING_CONSTANTS.PREMIUM_MONTHLY}/mo</span> for all {getTotalTemplateCount(false)} free templates watermark-free
+            </div>
+            <div className="text-xs text-gray-600 mt-1">
+              Premium: No watermarks + branding
+            </div>
           </div>
-        </div>
+        )}
 
         {/* CTA */}
         <div className="flex items-center justify-between">

@@ -25,6 +25,7 @@ export interface InvoiceTemplate {
   searchVolume: number;
   cpc: number;
   searchDifficulty: number;
+  tier: 'free' | 'premium'; // All templates available on free tier (with watermark)
   requiredFields: InvoiceField[];
   optionalFields: InvoiceField[];
   industryStandards: IndustryStandard[];
@@ -286,6 +287,7 @@ export const hospitalityIndustry: Industry = {
               searchVolume: 480,
               cpc: 4.20,
               searchDifficulty: 35,
+              tier: 'free',
               requiredFields: [
                 commonFields.invoiceNumber,
                 commonFields.invoiceDate,
@@ -377,6 +379,7 @@ export const hospitalityIndustry: Industry = {
               searchVolume: 90,
               cpc: 3.93,
               searchDifficulty: 21,
+              tier: 'free',
               requiredFields: [
                 commonFields.invoiceNumber,
                 commonFields.invoiceDate,
@@ -507,6 +510,7 @@ export const hospitalityIndustry: Industry = {
               searchVolume: 90,
               cpc: 9.67,
               searchDifficulty: 27,
+              tier: 'free',
               requiredFields: [
                 commonFields.invoiceNumber,
                 commonFields.invoiceDate,
@@ -647,6 +651,7 @@ export const creativeIndustry: Industry = {
               searchVolume: 390,
               cpc: 4.21,
               searchDifficulty: 37,
+              tier: 'free',
               requiredFields: [
                 commonFields.invoiceNumber,
                 commonFields.invoiceDate,
@@ -784,6 +789,7 @@ export const creativeIndustry: Industry = {
               searchVolume: 260,
               cpc: 3.30,
               searchDifficulty: 10,
+              tier: 'free',
               requiredFields: [
                 commonFields.invoiceNumber,
                 commonFields.invoiceDate,
@@ -904,6 +910,7 @@ export const creativeIndustry: Industry = {
               searchVolume: 140,
               cpc: 1.82,
               searchDifficulty: 49,
+              tier: 'free',
               requiredFields: [
                 commonFields.invoiceNumber,
                 commonFields.invoiceDate,
@@ -1020,6 +1027,7 @@ export const constructionIndustry: Industry = {
               searchVolume: 590,
               cpc: 7.82,
               searchDifficulty: 34,
+              tier: 'free',
               requiredFields: [
                 commonFields.invoiceNumber,
                 commonFields.invoiceDate,
@@ -1154,6 +1162,7 @@ export const constructionIndustry: Industry = {
               searchVolume: 110,
               cpc: 9.94,
               searchDifficulty: 22,
+              tier: 'free',
               requiredFields: [
                 commonFields.invoiceNumber,
                 commonFields.invoiceDate,
@@ -1256,6 +1265,7 @@ export const constructionIndustry: Industry = {
               searchVolume: 110,
               cpc: 6.29,
               searchDifficulty: 24,
+              tier: 'free',
               requiredFields: [
                 commonFields.invoiceNumber,
                 commonFields.invoiceDate,
@@ -1364,6 +1374,7 @@ export const professionalServicesIndustry: Industry = {
               searchVolume: 320,
               cpc: 2.17,
               searchDifficulty: 36,
+              tier: 'free',
               requiredFields: [
                 commonFields.invoiceNumber,
                 commonFields.invoiceDate,
@@ -1484,6 +1495,7 @@ export const professionalServicesIndustry: Industry = {
               searchVolume: 1300,
               cpc: 4.58,
               searchDifficulty: 39,
+              tier: 'free',
               requiredFields: [
                 commonFields.invoiceNumber,
                 commonFields.invoiceDate,
@@ -1657,4 +1669,54 @@ export function getIndustryStats() {
   });
 
   return stats;
+}
+
+/**
+ * Get all industries including premium templates (for Pro tier users)
+ * Combines free templates (11) + premium templates (9) = 20 total
+ */
+export function getAllIndustriesWithPremium() {
+  // Import premium templates dynamically
+  let premiumIndustries: Record<string, Industry> = {};
+  
+  try {
+    const premiumModule = require('./premiumTemplateLibrary');
+    premiumIndustries = premiumModule.allPremiumIndustries || {};
+  } catch (error) {
+    console.warn('Premium templates not available:', error);
+  }
+  
+  return {
+    ...allIndustries,
+    ...premiumIndustries
+  };
+}
+
+/**
+ * Get total template count (free + premium)
+ */
+export function getTotalTemplateCount(includePremium: boolean = false): number {
+  const freeCount = Object.values(allIndustries).reduce((sum, industry) => {
+    return sum + getIndustryTemplates(industry.id).length;
+  }, 0);
+  
+  if (!includePremium) return freeCount;
+  
+  // Add premium template count
+  try {
+    const premiumModule = require('./premiumTemplateLibrary');
+    const premiumIndustries = premiumModule.allPremiumIndustries || {};
+    const premiumCount = Object.values(premiumIndustries).reduce((sum: number, industry: any) => {
+      const templates: any[] = [];
+      Object.values(industry.categories || {}).forEach((category: any) => {
+        Object.values(category.subCategories || {}).forEach((subCategory: any) => {
+          templates.push(...(subCategory.templates || []));
+        });
+      });
+      return sum + templates.length;
+    }, 0);
+    return freeCount + premiumCount;
+  } catch (error) {
+    return freeCount;
+  }
 }

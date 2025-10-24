@@ -30,7 +30,8 @@ import { InvoiceTemplate, InvoiceField, IndustryStandard, SubCategory, Category,
 /**
  * Premium template with enhanced features
  */
-export interface PremiumTemplate extends InvoiceTemplate {
+
+export interface PremiumTemplate extends Omit<InvoiceTemplate, 'tier'> {
   isPremium: true;
   tier: 'premium' | 'pro';
   premiumFeatures: PremiumFeature[];
@@ -378,6 +379,7 @@ export const constructionIndustryPremium: Industry = {
               searchVolume: 590,
               cpc: 7.86,
               searchDifficulty: 34,
+              tier: 'premium',
               requiredFields: [
                 { fieldName: 'invoiceNumber', label: 'Invoice Number', type: 'text' as const, required: true, placeholder: 'INV-2024-001', helpText: 'Unique invoice identifier' },
                 { fieldName: 'invoiceDate', label: 'Invoice Date', type: 'date' as const, required: true, helpText: 'Date invoice issued' },
@@ -478,6 +480,7 @@ export const constructionIndustryPremium: Industry = {
               searchVolume: 170,
               cpc: 3.85,
               searchDifficulty: 56,
+              tier: 'premium',
               requiredFields: [
                 { fieldName: 'invoiceNumber', label: 'Invoice Number', type: 'text' as const, required: true, placeholder: 'INV-2024-001', helpText: 'Unique invoice number' },
                 { fieldName: 'invoiceDate', label: 'Invoice Date', type: 'date' as const, required: true, helpText: 'Date issued' },
@@ -580,6 +583,7 @@ export const constructionIndustryPremium: Industry = {
               searchVolume: 260,
               cpc: 4.11,
               searchDifficulty: 68,
+              tier: 'premium',
               requiredFields: [
                 { fieldName: 'invoiceNumber', label: 'Invoice Number', type: 'text' as const, required: true, placeholder: 'CLN-2024-001', helpText: 'Unique invoice reference' },
                 { fieldName: 'invoiceDate', label: 'Invoice Date', type: 'date' as const, required: true, helpText: 'Date of invoice' },
@@ -692,6 +696,7 @@ export const automotiveIndustryPremium: Industry = {
               searchVolume: 720,
               cpc: 1.85,
               searchDifficulty: 31,
+              tier: 'premium',
               requiredFields: [
                 { fieldName: 'receiptNumber', label: 'Receipt Number', type: 'text' as const, required: true, placeholder: 'REC-2024-001', helpText: 'Unique receipt reference' },
                 { fieldName: 'saleDate', label: 'Date of Sale', type: 'date' as const, required: true, helpText: 'Date vehicle was sold' },
@@ -796,6 +801,7 @@ export const automotiveIndustryPremium: Industry = {
               searchVolume: 170,
               cpc: 6.14,
               searchDifficulty: 70,
+              tier: 'premium',
               requiredFields: [
                 { fieldName: 'invoiceNumber', label: 'Invoice Number', type: 'text' as const, required: true, placeholder: 'INV-2024-001', helpText: 'Invoice reference number' },
                 { fieldName: 'invoiceDate', label: 'Invoice Date', type: 'date' as const, required: true, helpText: 'Date of invoice' },
@@ -940,6 +946,7 @@ export const healthcareIndustryPremium: Industry = {
               searchVolume: 110,
               cpc: 3.76,
               searchDifficulty: 48,
+              tier: 'premium',
               requiredFields: [
                 { fieldName: 'invoiceNumber', label: 'Invoice Number', type: 'text' as const, required: true, placeholder: 'LOC-2024-001', helpText: 'Invoice reference' },
                 { fieldName: 'invoiceDate', label: 'Invoice Date', type: 'date' as const, required: true, helpText: 'Date of invoice' },
@@ -1082,6 +1089,7 @@ export const creativeIndustryPremium: Industry = {
               searchVolume: 390,
               cpc: 2.76,
               searchDifficulty: 54,
+              tier: 'premium',
               requiredFields: [
                 { fieldName: 'invoiceNumber', label: 'Invoice Number', type: 'text' as const, required: true, placeholder: 'PHOTO-2024-001', helpText: 'Invoice reference' },
                 { fieldName: 'invoiceDate', label: 'Invoice Date', type: 'date' as const, required: true, helpText: 'Date issued' },
@@ -1206,6 +1214,7 @@ export const creativeIndustryPremium: Industry = {
               searchVolume: 70,
               cpc: 1.96,
               searchDifficulty: 14,
+              tier: 'premium',
               requiredFields: [
                 { fieldName: 'invoiceNumber', label: 'Invoice Number', type: 'text' as const, required: true, placeholder: 'WEB-2024-001', helpText: 'Invoice reference' },
                 { fieldName: 'invoiceDate', label: 'Invoice Date', type: 'date' as const, required: true, helpText: 'Date issued' },
@@ -1345,6 +1354,7 @@ export const hospitalityIndustryExtended: Industry = {
               searchVolume: 70,
               cpc: 1.57,
               searchDifficulty: 45,
+              tier: 'premium',
               requiredFields: [
                 { fieldName: 'invoiceNumber', label: 'Invoice Number', type: 'text' as const, required: true, placeholder: 'INV-2024-001', helpText: 'Invoice reference' },
                 { fieldName: 'invoiceDate', label: 'Invoice Date', type: 'date' as const, required: true, helpText: 'Date issued' },

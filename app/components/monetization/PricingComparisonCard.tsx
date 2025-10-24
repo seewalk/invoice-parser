@@ -1,122 +1,133 @@
 'use client';
 
-import { CheckCircle, Sparkles, TrendingUp } from 'lucide-react';
+import { CheckCircle, Sparkles, Crown, Gift, Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { PRICING_CONSTANTS } from '@/app/types/pricing';
+import { getTotalTemplateCount } from '@/app/lib/invoiceTemplateLibrary';
 
 /**
  * PricingComparisonCard Component
  * 
- * Displays side-by-side comparison between:
- * - One-time template purchase (£9.99)
- * - Subscription plan (£29/month)
+ * Displays 3-tier freemium pricing comparison:
+ * - FREE: All 11 templates with watermark
+ * - PREMIUM (£9.99/mo): All templates without watermark + basic features
+ * - PRO (£29.99/mo): Premium + AI parser + advanced features
  * 
- * Used in: UpgradePrompt modal, pricing page, template pages
+ * Used in: Pricing page, upgrade modals, template detail pages
  * 
- * Design: Non-overwhelming, clear benefits, "Coming Soon" buttons
+ * Design: Clear value progression, emphasize Premium tier as best value for most users
  */
 
 interface PricingComparisonCardProps {
-  /** Which template is being considered (for one-time purchase) */
-  templateName?: string;
-  /** Show one-time purchase option */
-  showOneTime?: boolean;
-  /** Show subscription option */
-  showSubscription?: boolean;
-  /** Which option to emphasize (highlight) */
-  emphasize?: 'one-time' | 'subscription';
+  /** Which tier to emphasize (highlight) */
+  emphasize?: 'free' | 'premium' | 'pro';
   /** Compact mode (less padding, smaller text) */
   compact?: boolean;
-  /** Callback when user clicks one-time purchase */
-  onOneTimePurchase?: () => void;
-  /** Callback when user clicks subscription */
-  onSubscriptionPurchase?: () => void;
+  /** Show annual pricing toggle */
+  showAnnualToggle?: boolean;
+  /** Callback when user clicks Free tier CTA */
+  onFreeCTA?: () => void;
+  /** Callback when user clicks Premium tier CTA */
+  onPremiumCTA?: () => void;
+  /** Callback when user clicks Pro tier CTA */
+  onProCTA?: () => void;
+  /** Hide specific tiers */
+  hideTiers?: ('free' | 'premium' | 'pro')[];
 }
 
 export default function PricingComparisonCard({
-  templateName = 'this template',
-  showOneTime = true,
-  showSubscription = true,
-  emphasize = 'subscription',
+  emphasize = 'premium',
   compact = false,
-  onOneTimePurchase,
-  onSubscriptionPurchase,
+  showAnnualToggle = false,
+  onFreeCTA,
+  onPremiumCTA,
+  onProCTA,
+  hideTiers = [],
 }: PricingComparisonCardProps) {
   
-  const handleOneTimeClick = () => {
-    if (onOneTimePurchase) {
-      onOneTimePurchase();
+  const handleFreeCTA = () => {
+    if (onFreeCTA) {
+      onFreeCTA();
     } else {
-      // Default: Show "Coming Soon" toast
-      alert('Payment integration coming soon! We\'ll notify you via email when it\'s ready.');
+      window.location.href = '/invoice-templates';
     }
   };
 
-  const handleSubscriptionClick = () => {
-    if (onSubscriptionPurchase) {
-      onSubscriptionPurchase();
+  const handlePremiumCTA = () => {
+    if (onPremiumCTA) {
+      onPremiumCTA();
     } else {
-      // Default: Show "Coming Soon" toast
-      alert('Payment integration coming soon! We\'ll notify you via email when it\'s ready.');
+      alert('Payment integration coming soon! We\'ll notify you when it\'s ready.');
     }
   };
+
+  const handleProCTA = () => {
+    if (onProCTA) {
+      onProCTA();
+    } else {
+      alert('Payment integration coming soon! We\'ll notify you when it\'s ready.');
+    }
+  };
+
+  const visibleTiers = [
+    !hideTiers.includes('free') && 'free',
+    !hideTiers.includes('premium') && 'premium',
+    !hideTiers.includes('pro') && 'pro',
+  ].filter(Boolean);
+
+  const gridCols = visibleTiers.length === 3 ? 'md:grid-cols-3' : visibleTiers.length === 2 ? 'md:grid-cols-2' : 'grid-cols-1';
 
   return (
-    <div className={`grid ${showOneTime && showSubscription ? 'md:grid-cols-2' : 'grid-cols-1'} gap-6 ${compact ? 'gap-4' : 'gap-6'}`}>
+    <div className={`grid ${gridCols} gap-6 ${compact ? 'gap-4' : 'gap-6'}`}>
       
-      {/* ONE-TIME PURCHASE OPTION */}
-      {showOneTime && (
+      {/* FREE TIER */}
+      {!hideTiers.includes('free') && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
           className={`
-            bg-white rounded-xl border-2 p-6 transition-all
-            ${emphasize === 'one-time' 
-              ? 'border-blue-500 shadow-lg scale-105' 
-              : 'border-gray-200 hover:border-blue-300'
+            bg-white rounded-xl border-2 transition-all
+            ${emphasize === 'free' 
+              ? 'border-green-500 shadow-lg scale-105' 
+              : 'border-gray-200 hover:border-green-300'
             }
             ${compact ? 'p-4' : 'p-6'}
           `}
         >
           {/* Header */}
           <div className="mb-4">
-            <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center gap-2 mb-2">
+              <Gift className="w-6 h-6 text-green-600" />
               <h3 className={`font-bold text-gray-900 ${compact ? 'text-lg' : 'text-xl'}`}>
-                Buy This Template
+                Free
               </h3>
-              {emphasize === 'one-time' && (
-                <span className="bg-blue-100 text-blue-700 text-xs font-semibold px-2 py-1 rounded-full">
-                  Quick Option
-                </span>
-              )}
             </div>
             <p className="text-sm text-gray-600">
-              One-time payment, lifetime access
+              Perfect for trying out the platform
             </p>
           </div>
 
           {/* Price */}
           <div className="mb-6">
             <div className="flex items-baseline">
-              <span className="text-4xl font-bold text-gray-900">
-                £{PRICING_CONSTANTS.TEMPLATE_PRICE}
-              </span>
-              <span className="ml-2 text-gray-600">one-time</span>
+              <span className="text-4xl font-bold text-gray-900">£0</span>
+              <span className="ml-2 text-gray-600">/forever</span>
             </div>
             <p className="text-xs text-gray-500 mt-1">
-              For {templateName}
+              {PRICING_CONSTANTS.FREE_TEMPLATE_COUNT} templates with watermark
             </p>
           </div>
 
           {/* Features */}
           <ul className="space-y-3 mb-6">
             {[
-              'Lifetime access to this template',
-              'Remove watermark forever',
-              'Unlimited PDF downloads',
-              'Save your invoice data',
-              'Free template updates',
+              `All ${getTotalTemplateCount(false)} invoice templates`,
+              'PDF download with watermark',
+              'All required invoice fields',
+              'UK VAT & CIS compliance',
+              'Professional design',
+              'Community support',
             ].map((feature, index) => (
               <li key={index} className="flex items-start">
                 <CheckCircle className="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
@@ -127,53 +138,53 @@ export default function PricingComparisonCard({
 
           {/* CTA Button */}
           <button
-            onClick={handleOneTimeClick}
-            className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 transition-all shadow-md hover:shadow-lg"
+            onClick={handleFreeCTA}
+            className="w-full bg-gradient-to-r from-green-600 to-green-700 text-white py-3 rounded-lg font-semibold hover:from-green-700 hover:to-green-800 transition-all shadow-md hover:shadow-lg"
           >
-            Buy Now - £{PRICING_CONSTANTS.TEMPLATE_PRICE}
+            Get Started Free
           </button>
           
           <p className="text-xs text-center text-gray-500 mt-3">
-            💳 Payment integration coming soon
+            No credit card required
           </p>
         </motion.div>
       )}
 
-      {/* SUBSCRIPTION OPTION */}
-      {showSubscription && (
+      {/* PREMIUM TIER */}
+      {!hideTiers.includes('premium') && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.1 }}
           className={`
-            bg-gradient-to-br from-purple-50 to-indigo-50 rounded-xl border-2 p-6 transition-all relative
-            ${emphasize === 'subscription' 
-              ? 'border-purple-500 shadow-xl scale-105' 
-              : 'border-purple-200 hover:border-purple-400'
+            bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border-2 transition-all relative
+            ${emphasize === 'premium' 
+              ? 'border-blue-500 shadow-xl scale-105' 
+              : 'border-blue-200 hover:border-blue-400'
             }
             ${compact ? 'p-4' : 'p-6'}
           `}
         >
           {/* Best Value Badge */}
-          {emphasize === 'subscription' && (
+          {emphasize === 'premium' && (
             <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-              <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-1 rounded-full text-xs font-bold shadow-lg flex items-center">
+              <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-1 rounded-full text-xs font-bold shadow-lg flex items-center">
                 <Sparkles className="w-3 h-3 mr-1" />
-                BEST VALUE
+                MOST POPULAR
               </div>
             </div>
           )}
 
           {/* Header */}
           <div className="mb-4 mt-2">
-            <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center gap-2 mb-2">
+              <Sparkles className="w-6 h-6 text-blue-600" />
               <h3 className={`font-bold text-gray-900 ${compact ? 'text-lg' : 'text-xl'}`}>
-                Professional Plan
+                Premium
               </h3>
-              <TrendingUp className="w-5 h-5 text-purple-600" />
             </div>
             <p className="text-sm text-gray-700">
-              All templates + AI parser
+              All templates, watermark-free
             </p>
           </div>
 
@@ -181,28 +192,28 @@ export default function PricingComparisonCard({
           <div className="mb-6">
             <div className="flex items-baseline">
               <span className="text-4xl font-bold text-gray-900">
-                £{PRICING_CONSTANTS.PROFESSIONAL_MONTHLY}
+                £{PRICING_CONSTANTS.PREMIUM_MONTHLY}
               </span>
               <span className="ml-2 text-gray-600">/month</span>
             </div>
-            <p className="text-xs text-purple-700 font-medium mt-1">
-              Save £{(PRICING_CONSTANTS.PROFESSIONAL_MONTHLY * 12 - PRICING_CONSTANTS.PROFESSIONAL_ANNUAL).toFixed(0)}/year with annual billing
+            <p className="text-xs text-blue-700 font-medium mt-1">
+              or £{(PRICING_CONSTANTS.PREMIUM_ANNUAL / 12).toFixed(2)}/mo paid annually
             </p>
           </div>
 
           {/* Features */}
           <ul className="space-y-3 mb-6">
             {[
-              'All 11 invoice templates',
-              'No watermarks on any template',
-              'AI invoice parser (200/month)',
+              `All ${getTotalTemplateCount(false)} free templates (no watermark)`,
               'Unlimited PDF downloads',
-              'Save unlimited invoice data',
-              'Priority email support',
-              'New templates added monthly',
+              'Basic custom branding (logo)',
+              'Save invoice data (30 days)',
+              'Email support (24hr response)',
+              'Automatic VAT calculations',
+              'Word & Excel export',
             ].map((feature, index) => (
               <li key={index} className="flex items-start">
-                <CheckCircle className="w-5 h-5 text-purple-600 mr-2 flex-shrink-0 mt-0.5" />
+                <CheckCircle className="w-5 h-5 text-blue-600 mr-2 flex-shrink-0 mt-0.5" />
                 <span className="text-sm text-gray-700">{feature}</span>
               </li>
             ))}
@@ -210,10 +221,103 @@ export default function PricingComparisonCard({
 
           {/* CTA Button */}
           <button
-            onClick={handleSubscriptionClick}
+            onClick={handlePremiumCTA}
+            className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all shadow-md hover:shadow-lg"
+          >
+            Upgrade to Premium
+          </button>
+          
+          <p className="text-xs text-center text-blue-700 mt-3">
+            💳 Payment integration coming soon
+          </p>
+        </motion.div>
+      )}
+
+      {/* PRO TIER */}
+      {!hideTiers.includes('pro') && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, delay: 0.2 }}
+          className={`
+            bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl border-2 transition-all relative
+            ${emphasize === 'pro' 
+              ? 'border-purple-500 shadow-xl scale-105' 
+              : 'border-purple-200 hover:border-purple-400'
+            }
+            ${compact ? 'p-4' : 'p-6'}
+          `}
+        >
+          {/* Pro Badge */}
+          {emphasize === 'pro' && (
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+              <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-1 rounded-full text-xs font-bold shadow-lg flex items-center">
+                <Crown className="w-3 h-3 mr-1" />
+                FOR POWER USERS
+              </div>
+            </div>
+          )}
+
+          {/* Header */}
+          <div className="mb-4 mt-2">
+            <div className="flex items-center gap-2 mb-2">
+              <Crown className="w-6 h-6 text-purple-600" />
+              <h3 className={`font-bold text-gray-900 ${compact ? 'text-lg' : 'text-xl'}`}>
+                Pro
+              </h3>
+            </div>
+            <p className="text-sm text-gray-700">
+              Premium + AI parser + automation
+            </p>
+          </div>
+
+          {/* Price */}
+          <div className="mb-6">
+            <div className="flex items-baseline">
+              <span className="text-4xl font-bold text-gray-900">
+                £{PRICING_CONSTANTS.PRO_MONTHLY}
+              </span>
+              <span className="ml-2 text-gray-600">/month</span>
+            </div>
+            <p className="text-xs text-purple-700 font-medium mt-1">
+              or £{(PRICING_CONSTANTS.PRO_ANNUAL / 12).toFixed(2)}/mo paid annually
+            </p>
+          </div>
+
+          {/* Features */}
+          <ul className="space-y-3 mb-6">
+            {[
+              'Everything in Premium, plus:',
+              `${getTotalTemplateCount(true)} total templates (includes ${getTotalTemplateCount(true) - getTotalTemplateCount(false)} premium)`,
+              `AI invoice parser (${PRICING_CONSTANTS.PRO_PARSER_LIMIT}/month)`,
+              'Advanced branding (colors, fonts)',
+              'Invoice history (1 year)',
+              `Team collaboration (${PRICING_CONSTANTS.PRO_TEAM_USERS} users)`,
+              'Priority support (1hr response)',
+              'Recurring invoice automation',
+            ].map((feature, index) => (
+              <li key={index} className="flex items-start">
+                {index === 0 ? (
+                  <>
+                    <Zap className="w-5 h-5 text-purple-600 mr-2 flex-shrink-0 mt-0.5" />
+                    <span className="text-sm text-gray-900 font-semibold">{feature}</span>
+                  </>
+                ) : (
+                  <>
+                    <CheckCircle className="w-5 h-5 text-purple-600 mr-2 flex-shrink-0 mt-0.5" />
+                    <span className="text-sm text-gray-700">{feature}</span>
+                  </>
+                )}
+              </li>
+            ))}
+          </ul>
+
+          {/* CTA Button */}
+          <button
+            onClick={handleProCTA}
             className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all shadow-md hover:shadow-lg"
           >
-            Start Free Trial
+            Go Pro
           </button>
           
           <p className="text-xs text-center text-purple-700 mt-3">

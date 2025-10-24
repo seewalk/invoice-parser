@@ -4,3 +4,8 @@ export { ProcessingSteps, type ProcessingStep } from './ProcessingSteps';
 export { InvoiceDataDisplay } from './InvoiceDataDisplay';
 export { ParserUploadZone } from './ParserUploadZone';
 export { ParserResultsDisplay } from './ParserResultsDisplay';
+export { PageCard } from './PageCard';
+export { PageCarousel } from './PageCarousel';
+export { PageResultCard } from './PageResultCard';
+export { CombineResultsButton } from './CombineResultsButton';
+export { SmartSuggestion } from './SmartSuggestion';

@@ -145,15 +145,13 @@ export default function UpgradePrompt({
               {/* Pricing Comparison */}
               <div className="px-8 pb-8">
                 <PricingComparisonCard
-                  templateName={templateName}
-                  showOneTime={true}
-                  showSubscription={true}
-                  emphasize="subscription"
-                  onOneTimePurchase={() => {
+                  emphasize="premium"
+                  hideTiers={['free']}
+                  onPremiumCTA={() => {
                     // Will be replaced with actual payment flow later
                     alert('Payment integration coming soon! We\'ll notify you via email when it\'s ready.');
                   }}
-                  onSubscriptionPurchase={() => {
+                  onProCTA={() => {
                     // Will be replaced with actual payment flow later
                     alert('Payment integration coming soon! We\'ll notify you via email when it\'s ready.');
                   }}
