@@ -45,6 +45,10 @@ export function useQuota(): UseQuotaReturn {
 
   /**
    * Check if user has quota remaining for a specific action
+   * 
+   * Admin users always have unlimited access
+   * Premium users (not on free plan) have unlimited access
+   * Free users have limited quotas
    */
   const checkQuota = useCallback((type: QuotaType): boolean => {
     if (!user || !userQuotas) {
@@ -52,22 +56,36 @@ export function useQuota(): UseQuotaReturn {
       return false;
     }
     
-    // Premium users (not on free plan) have unlimited access
-    if (userQuotas.plan !== 'free') {
+    // Admin users have unlimited access (highest priority)
+    if (userQuotas.role === 'admin') {
+      console.log('[Quota] Admin user - unlimited access granted');
       return true;
     }
     
-    // Check specific quota
+    // Premium users (not on free plan) have unlimited access
+    if (userQuotas.plan !== 'free') {
+      console.log('[Quota] Premium user - unlimited access granted');
+      return true;
+    }
+    
+    // Check specific quota for free users
     const remaining = userQuotas[type] || 0;
-    console.log(`[Quota] Checking ${type}: ${remaining} remaining`);
+    console.log(`[Quota] Free user - checking ${type}: ${remaining} remaining`);
     return remaining > 0;
   }, [user, userQuotas]);
 
   /**
    * Get remaining quota for a specific type
+   * 
+   * Returns actual quota for display purposes
    */
   const getRemaining = useCallback((type: QuotaType): number => {
     if (!userQuotas) return 0;
+    
+    // Admin users have unlimited (show as ∞ or very high number)
+    if (userQuotas.role === 'admin') {
+      return 999999;  // Effectively unlimited
+    }
     
     // Premium users have "unlimited" (show as 999)
     if (userQuotas.plan !== 'free') {
@@ -78,15 +96,27 @@ export function useQuota(): UseQuotaReturn {
   }, [userQuotas]);
 
   /**
-   * Check if user has unlimited access (premium plan)
+   * Check if user has unlimited access
+   * 
+   * Returns true for:
+   * - Admin users (role === 'admin')
+   * - Premium users (plan !== 'free')
    */
   const hasUnlimitedAccess = useCallback((): boolean => {
     if (!userQuotas) return false;
+    
+    // Admin users have unlimited access
+    if (userQuotas.role === 'admin') return true;
+    
+    // Premium users have unlimited access
     return userQuotas.plan !== 'free';
   }, [userQuotas]);
 
   /**
    * Decrement quota and log usage
+   * 
+   * Admin and premium users don't have quotas decremented
+   * but usage is still logged for analytics
    */
   const decrementQuota = useCallback(async (
     type: QuotaType, 
@@ -95,6 +125,26 @@ export function useQuota(): UseQuotaReturn {
     if (!user || !userQuotas || !db) {
       console.error('[Quota] No user, quotas, or database available for decrement');
       return false;
+    }
+    
+    // Admin users don't decrement quotas (highest priority)
+    if (userQuotas.role === 'admin') {
+      console.log('[Quota] Admin user, no decrement needed');
+      
+      // Still log usage for analytics
+      try {
+        await addDoc(collection(db, 'users', user.uid, 'usage'), {
+          type,
+          timestamp: serverTimestamp(),
+          metadata: metadata || {},
+          plan: userQuotas.plan,
+          role: 'admin'
+        });
+      } catch (error) {
+        console.error('[Quota] Error logging admin usage:', error);
+      }
+      
+      return true;
     }
     
     // Premium users don't decrement quotas

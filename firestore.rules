@@ -1,0 +1,130 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // ============================================
+    // HELPER FUNCTIONS
+    // ============================================
+    
+    /**
+     * Check if user is authenticated
+     */
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    /**
+     * Check if user is accessing their own document
+     */
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    /**
+     * Check if user is an admin
+     * Admins are identified by:
+     * 1. role field set to 'admin' in their user document
+     * 2. Custom claims (if set via Firebase Admin SDK)
+     */
+    function isAdmin() {
+      return isAuthenticated() && (
+        // Check custom claims (set via Firebase Admin SDK)
+        request.auth.token.admin == true ||
+        // Check role field in user document (set during registration)
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin'
+      );
+    }
+    
+    // ============================================
+    // USERS COLLECTION
+    // ============================================
+    match /users/{userId} {
+      // Users can read and write their own document
+      // Admins can read all user documents (for analytics/support)
+      allow read: if isOwner(userId) || isAdmin();
+      allow write: if isOwner(userId);
+      
+      // Admins can create/update any user document (for manual management)
+      allow create, update: if isAdmin();
+      
+      // ============================================
+      // USAGE SUBCOLLECTION
+      // ============================================
+      match /usage/{usageId} {
+        // Users can read and create their own usage records
+        allow read: if isOwner(userId) || isAdmin();
+        allow create: if isOwner(userId);
+        
+        // Admins can manage all usage records
+        allow update, delete: if isAdmin();
+        
+        // Users can update/delete their own records (optional cleanup)
+        allow update, delete: if isOwner(userId);
+      }
+      
+      // ============================================
+      // PARSED INVOICES SUBCOLLECTION
+      // ============================================
+      match /parsedInvoices/{invoiceId} {
+        // Users can manage their own invoices
+        allow read, write: if isOwner(userId);
+        
+        // Admins can read all invoices (for support/debugging)
+        allow read: if isAdmin();
+      }
+      
+      // ============================================
+      // GENERATED INVOICES SUBCOLLECTION
+      // ============================================
+      match /generatedInvoices/{invoiceId} {
+        // Users can manage their own generated invoices
+        allow read, write: if isOwner(userId);
+        
+        // Admins can read all generated invoices (for support)
+        allow read: if isAdmin();
+      }
+    }
+    
+    // ============================================
+    // LEAD CAPTURES COLLECTION
+    // ============================================
+    match /leadCaptures/{leadId} {
+      // Anyone can create lead captures (no authentication required)
+      allow create: if true;
+      
+      // Admins can read/manage all lead captures
+      allow read, update, delete: if isAdmin();
+      
+      // Regular users cannot read lead captures (privacy/security)
+      allow read: if false;
+    }
+    
+    // ============================================
+    // ADMIN COLLECTION (Optional - for admin tools)
+    // ============================================
+    match /admin/{document=**} {
+      // Only admins can access admin collection
+      allow read, write: if isAdmin();
+    }
+    
+    // ============================================
+    // ANALYTICS COLLECTION (Optional - for app analytics)
+    // ============================================
+    match /analytics/{document=**} {
+      // Users can write analytics events
+      allow create: if isAuthenticated();
+      
+      // Only admins can read analytics
+      allow read: if isAdmin();
+    }
+    
+    // ============================================
+    // DENY ALL OTHER ACCESS
+    // ============================================
+    match /{document=**} {
+      // Default deny for all other paths
+      allow read, write: if false;
+    }
+  }
+}
