@@ -19,13 +19,13 @@ export const metadata = {
     title: 'AI Invoice Processing & Automation for UK Businesses',
     description: '99% accurate invoice data extraction in 30 seconds. Stop manual entry, save 20 hours/week.',
     url: 'https://elektroluma.co.uk',
-    siteName: 'InvoiceParse.ai by Elektroluma Ltd',
+    siteName: 'Invoice Automation by Elektroluma Ltd',
     images: [
       {
         url: 'https://elektroluma.co.uk/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'InvoiceParse.ai - AI-powered invoice processing and automation software by Elektroluma Ltd',
+        alt: 'Elektroluma.co.uk - AI-powered invoice processing and automation software by Elektroluma Ltd',
       },
     ],
     locale: 'en_GB',
@@ -33,7 +33,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AI Invoice Processing UK | InvoiceParse.ai',
+    title: 'AI Invoice Processing UK | Elektroluma.co.uk',
     description: '99% accurate invoice automation in 30 seconds. Free trial.',
     images: ['https://elektroluma.co.uk/twitter-image.jpg'],
   },

@@ -11,7 +11,7 @@ export default function TestimonialsSection() {
       company: '8-Location Restaurant Group, Manchester',
       image: '👩‍💼',
       quote:
-        "InvoiceParse.ai saved us 6 hours per week and cut our data entry errors by 95%. We used to dread invoice day - now it's completely automated. Best £29/month we've ever spent!",
+        "Elektroluma saved us 6 hours per week and cut our data entry errors by 95%. We used to dread invoice day - now it's completely automated. Best £29/month we've ever spent!",
       rating: 5,
     },
     {

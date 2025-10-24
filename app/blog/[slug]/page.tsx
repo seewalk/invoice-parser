@@ -43,7 +43,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${article.title} | InvoiceParse.ai Blog`,
+    title: `${article.title} | Invoice Automation Blog`,
     description: article.metaDescription,
     keywords: article.keywords,
     authors: [{ name: article.author }],

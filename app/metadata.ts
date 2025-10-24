@@ -5,7 +5,7 @@ export const homepageSchema = {
   softwareApplication: {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name: 'InvoiceParse.ai',
+    name: 'elektroluma.co.uk Invoice Automation',
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Web Browser',
     description:
@@ -44,7 +44,7 @@ export const homepageSchema = {
     },
     image: 'https://invoiceparse.ai/logo.png',
     screenshot: 'https://invoiceparse.ai/screenshot.png',
-    url: 'https://invoiceparse.ai',
+    url: 'https://elektroluma.co.uk',
   },
   faqPage: {
     '@context': 'https://schema.org',
@@ -95,8 +95,8 @@ export const homepageSchema = {
   organization: {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'InvoiceParse.ai',
-    url: 'https://invoiceparse.ai',
+    name: 'Invoice Automation by Elektroluma Ltd',
+    url: 'https://elektroluma.co.uk',
     logo: 'https://invoiceparse.ai/logo.png',
     contactPoint: {
       '@type': 'ContactPoint',

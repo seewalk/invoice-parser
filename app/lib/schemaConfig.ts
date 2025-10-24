@@ -16,7 +16,7 @@
 export const BUSINESS_INFO = {
   // Legal Entity
   legalName: 'Elektroluma Ltd',
-  tradingName: 'InvoiceParse.ai',
+  tradingName: 'Elektroluma',
   companyNumber: '16392032',
   
   // Contact Details
@@ -45,7 +45,7 @@ export const BUSINESS_INFO = {
   },
   
   // Business Details
-  foundingDate: '2024-01-01', // Update with actual date
+  foundingDate: '2025-04-01', 
   areaServed: 'GB',
   availableLanguage: ['en-GB'],
 } as const;
@@ -112,7 +112,7 @@ export const organizationSchema = {
   // UK Company Registration
   identifier: {
     '@type': 'PropertyValue',
-    propertyID: 'Companies House Number',
+    propertyID: '16392032',
     value: BUSINESS_INFO.companyNumber,
   },
 };

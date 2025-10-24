@@ -35,6 +35,7 @@ export interface UserQuotas {
   templateDownloads: number;
   generatorUses: number;
   plan: 'free' | 'starter' | 'pro' | 'enterprise';
+  role?: 'user' | 'admin';  // Admin role for unlimited access
   subscriptionEnd?: Date;
   email?: string;
   name?: string;
@@ -97,6 +98,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   /**
    * Initialize new user with default quotas
+   * Admin users are detected via custom claims or specific email domains
    */
   const initializeNewUser = async (userId: string, email: string, name: string) => {
     if (!db) {
@@ -104,11 +106,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       throw new Error('Database not available');
     }
     
+    // Check if user is admin (can be customized based on your needs)
+    const isAdmin = email.endsWith('@elektroluma.co.uk') || email.endsWith('@admin.invoiceparse.ai');
+    
     const initialQuotas: UserQuotas = {
-      invoiceParses: 10,
-      templateDownloads: 3,
-      generatorUses: 5,
-      plan: 'free',
+      invoiceParses: isAdmin ? 999999 : 10,  // Unlimited for admins
+      templateDownloads: isAdmin ? 999999 : 3,
+      generatorUses: isAdmin ? 999999 : 5,
+      plan: isAdmin ? 'enterprise' : 'free',
+      role: isAdmin ? 'admin' : 'user',
       email,
       name
     };

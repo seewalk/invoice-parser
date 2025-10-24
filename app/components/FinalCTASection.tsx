@@ -51,7 +51,7 @@ export default function FinalCTASection({
     features: {
       headline: 'Ready to Stop Wasting Time on Invoices?',
       subheadline:
-        'Join 500+ businesses saving 20 hours per week. Start your free trial today and see why teams love InvoiceParse.ai.',
+        'Join 500+ businesses saving 20 hours per week. Start your free trial today and see why teams love Elektroluma.',
       primaryCTA: 'Start Free Trial',
       secondaryCTA: 'Watch 2-Min Demo',
       benefits: ['90% faster processing', '99% accuracy', 'Zero setup required'],

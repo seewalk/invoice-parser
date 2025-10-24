@@ -95,11 +95,11 @@ export default function ROISection() {
               </ul>
             </div>
 
-            {/* With InvoiceParse.ai */}
+            {/* With Elektroluma */}
             <div className="p-8 bg-green-50">
               <h3 className="text-2xl font-bold text-green-600 mb-6 flex items-center">
                 <CheckCircle className="w-6 h-6 mr-2" aria-hidden="true" />
-                With InvoiceParse.ai
+                With Invoice Automation
               </h3>
               <ul className="space-y-4" role="list">
                 {[

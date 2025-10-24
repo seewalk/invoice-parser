@@ -3,7 +3,7 @@
   "invoiceNumber": "FL-2024-0890",
   "date": "2024-10-18",
   "dueDate": "2024-11-01",
-  "totalAmount": 21960.16,
+  "totalAmount": 0,
   "currency": "USD",
   "lineItems": [
     {
@@ -72,6 +72,13 @@
     {
       "description": "Bug Fixes & Testing",
       "quantity": 1,
+      "unitPrice": 0,
+      "totalPrice": 0,
+      "category": "General"
+    },
+    {
+      "description": "Bug Fixes & Testing",
+      "quantity": 1,
       "unitPrice": 500,
       "totalPrice": 500,
       "category": "General"
@@ -83,6 +90,111 @@
       "totalPrice": 500,
       "category": "General"
     },
+    {
+      "description": "Bug Fixes & Testing",
+      "quantity": 1,
+      "unitPrice": 500,
+      "totalPrice": 500,
+      "category": "General"
+    },
+    {
+      "description": "Bug Fixes & Testing",
+      "quantity": 1,
+      "unitPrice": 500,
+      "totalPrice": 500,
+      "category": "General"
+    },
+    {
+      "description": "Bug Fixes & Testing",
+      "quantity": 1,
+      "unitPrice": 500,
+      "totalPrice": 500,
+      "category": "General"
+    },
+    {
+      "description": "Bug Fixes & Testing",
+      "quantity": 1,
+      "unitPrice": 500,
+      "totalPrice": 500,
+      "category": "General"
+    },
+    {
+      "description": "Bug Fixes & Testing",
+      "quantity": 1,
+      "unitPrice": 500,
+      "totalPrice": 500,
+      "category": "General"
+    },
+    {
+      "description": "Bug Fixes & Testing",
+      "quantity": 1,
+      "unitPrice": 500,
+      "totalPrice": 500,
+      "category": "General"
+    },
+    {
+      "description": "Bug Fixes & Testing",
+      "quantity": 1,
+      "unitPrice": 500,
+      "totalPrice": 500,
+      "category": "General"
+    },
+    {
+      "description": "Bug Fixes & Testing",
+      "quantity": 1,
+      "unitPrice": 500,
+      "totalPrice": 500,
+      "category": "General"
+    },
+    {
+      "description": "Bug Fixes & Testing",
+      "quantity": 1,
+      "unitPrice": 500,
+      "totalPrice": 500,
+      "category": "General"
+    },
+    {
+      "description": "Bug Fixes & Testing",
+      "quantity": 1,
+      "unitPrice": 500,
+      "totalPrice": 500,
+      "category": "General"
+    },
+    {
+      "description": "Bug Fixes & Testing",
+      "quantity": 1,
+      "unitPrice": 500,
+      "totalPrice": 500,
+      "category": "General"
+    },
+    {
+      "description": "Bug Fixes & Testing",
+      "quantity": 1,
+      "unitPrice": 500,
+      "totalPrice": 500,
+      "category": "General"
+    },
+    {
+      "description": "Bug Fixes & Testing",
+      "quantity": 1,
+      "unitPrice": 500,
+      "totalPrice": 500,
+      "category": "General"
+    }
+  ],
+  "taxAmount": 0,
+  "subtotal": 0,
+  "confidence": 0.95
+}
+
+{
+  "supplier": "Alex Thompson (sole trader)",
+  "invoiceNumber": "N/A",
+  "date": "2025-10-23",
+  "dueDate": "2025-10-23",
+  "totalAmount": 21960.16,
+  "currency": "USD",
+  "lineItems": [
     {
       "description": "Bug Fixes & Testing",
       "quantity": 1,
