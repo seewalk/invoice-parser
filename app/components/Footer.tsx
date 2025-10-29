@@ -95,10 +95,10 @@ export default function Footer({
               <div className="flex items-start space-x-3">
                 <Mail className="w-4 h-4 mt-0.5 flex-shrink-0" aria-hidden="true" />
                 <a
-                  href="mailto:support@elektroluma.com"
+                  href="mailto:support@elektroluma.co.uk"
                   className="hover:text-white transition"
                 >
-                  support@elektroluma.com
+                  support@elektroluma.co.uk
                 </a>
               </div>
               <div className="flex items-start space-x-3">
@@ -223,7 +223,7 @@ export default function Footer({
         <div className="border-t border-slate-800 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-slate-400 text-sm">
             <p>
-              © {currentYear} Elektroluma by Sseniseb. All rights reserved.
+              © {currentYear} Elektroluma Ltd. All rights reserved.
             </p>
 
             {/* Trust Badges */}

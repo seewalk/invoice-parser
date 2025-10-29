@@ -1,14 +1,3 @@
-/**
- * Centralized Schema.org Configuration
- * 
- * Complete structured data for Google and AI search optimization.
- * All schemas use official Elektroluma Ltd business information.
- * 
- * Domain: elektroluma.co.uk (NOT invoiceparse.ai - placeholder domain)
- * Business: Elektroluma Ltd
- * Registered: Companies House #16392032
- */
-
 // ============================================================================
 // BUSINESS INFORMATION (Single Source of Truth)
 // ============================================================================
@@ -21,7 +10,7 @@ export const BUSINESS_INFO = {
   
   // Contact Details
   email: 'ed@elektroluma.co.uk',
-  phone: '+44 20 XXXX XXXX', // Update with real phone if available
+  phone: '+44 7944 020910', // Update with real phone if available
   
   // Address (Registered Office)
   address: {

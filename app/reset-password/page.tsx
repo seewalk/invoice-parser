@@ -137,8 +137,8 @@ export default function ResetPasswordPage() {
           <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-slate-200">
             <p className="text-sm text-slate-600">
               <strong>Need help?</strong> Contact us at{' '}
-              <a href="mailto:support@elektroluma.com" className="text-primary-600 hover:text-primary-700 font-medium transition">
-                support@elektroluma.com
+              <a href="mailto:support@elektroluma.co.uk" className="text-primary-600 hover:text-primary-700 font-medium transition">
+                support@elektroluma.co.uk
               </a>
             </p>
           </div>

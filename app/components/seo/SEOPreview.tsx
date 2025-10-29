@@ -1,4 +1,4 @@
-// components/seo/AdvancedSEOPreview.tsx
+// components/seo/SEOPreview.tsx
 'use client';
 
 import { useEffect, useState } from 'react';

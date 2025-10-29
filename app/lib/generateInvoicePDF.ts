@@ -420,7 +420,7 @@ export function generateInvoicePDF(
   doc.setFontSize(8);
   doc.setTextColor(150, 150, 150);
   doc.text(
-    `Generated from ${template.name} | Created with Invoice Processing System`,
+    `Generated from ${template.name} | Created with Elektroluma Ltd Invoice Processing System`,
     pageWidth / 2,
     footerY,
     { align: 'center' }
