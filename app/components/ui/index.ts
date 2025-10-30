@@ -16,6 +16,9 @@
 export { Button, buttonVariants } from './Button';
 export type { ButtonProps } from './Button';
 export { Card } from './Card';
+export { Badge } from './Badge';
+export { Heading } from './Heading';
+export { Stat } from './Stat';
 
 // Add more exports as we create components:
 // export { Card, cardVariants } from './Card';

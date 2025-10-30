@@ -14,6 +14,10 @@ import {
 import DemoVisualization from './DemoVisualization';
 import { Button } from './ui/Button';
 import { Card } from './ui/Card';
+import { Badge } from './ui/Badge';
+import { Heading } from './ui/Heading';
+import { Stat } from './ui/Stat';
+import { Text } from './ui/Text';
 
 interface HeroSectionProps {
   opacity: any;
@@ -39,61 +43,81 @@ export default function HeroSection({ opacity, scale }: HeroSectionProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="inline-flex items-center space-x-2 bg-primary-50 border border-primary-200 rounded-full px-4 py-2 mb-8"
+          className="mb-8"
         >
-          <Sparkles className="w-4 h-4 text-primary-600" aria-hidden="true" />
-          <span className="text-sm font-medium text-primary-700">
+          <Badge 
+            variant="primary" 
+            size="lg"
+            icon={<Sparkles className="w-4 h-4" />}
+            animate={false}
+          >
             UK's #1 AI Invoice Processing Software - 500+ Businesses Trust Us
-          </span>
+          </Badge>
         </motion.div>
 
         {/* Headline - SEO OPTIMIZED with Primary Keywords */}
-        <motion.h1
+        <Heading
+          as="h1"
           id="hero-heading"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-gray-900 mb-6 leading-tight"
+          size="display-2xl"
+          weight="extrabold"
+          align="center"
+          animationDelay={0.2}
+          className="mb-6"
         >
           AI-Powered <span className="gradient-text">Invoice Processing</span> & Automation
           <br />
           <span className="text-3xl sm:text-4xl lg:text-5xl text-gray-700">
             for UK Restaurants & Warehouses
           </span>
-        </motion.h1>
+        </Heading>
 
         {/* Subheadline - SEO OPTIMIZED with Semantic Keywords */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-xl sm:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto"
+        <Text
+          size="xl"
+          variant="muted"
+          align="center"
+          maxWidth="3xl"
+          centered
+          animate
+          animationDelay={0.4}
+          className="mb-8 sm:text-2xl"
         >
           Automate invoice data extraction in 30 seconds with 99% accuracy. Stop wasting 20
           hours per week on manual invoice processing—let AI handle supplier invoices from Sysco,
           US Foods, Costco, and more automatically.
-        </motion.p>
+        </Text>
 
         {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="flex flex-wrap justify-center gap-8 mb-12"
-        >
-          <div className="flex items-center space-x-2">
-            <CheckCircle className="w-6 h-6 text-green-500" aria-hidden="true" />
-            <span className="text-lg font-semibold text-gray-700">90% Faster</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <CheckCircle className="w-6 h-6 text-green-500" aria-hidden="true" />
-            <span className="text-lg font-semibold text-gray-700">99% Accurate</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <CheckCircle className="w-6 h-6 text-green-500" aria-hidden="true" />
-            <span className="text-lg font-semibold text-gray-700">Zero Setup</span>
-          </div>
-        </motion.div>
+        <div className="flex flex-wrap justify-center gap-8 mb-12">
+          <Stat 
+            value="90%" 
+            label="Faster" 
+            icon={<CheckCircle />} 
+            variant="success" 
+            size="lg"
+            iconWithBackground={false}
+            animationDelay={0.6}
+          />
+          <Stat 
+            value="99%" 
+            label="Accurate" 
+            icon={<CheckCircle />} 
+            variant="success" 
+            size="lg"
+            iconWithBackground={false}
+            animationDelay={0.7}
+          />
+          <Stat 
+            value="Zero" 
+            label="Setup" 
+            icon={<CheckCircle />} 
+            variant="success" 
+            size="lg"
+            iconWithBackground={false}
+            animationDelay={0.8}
+          />
+        </div>
 
         {/* CTA Buttons */}
         <motion.div

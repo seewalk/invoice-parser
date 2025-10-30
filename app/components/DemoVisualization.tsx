@@ -10,6 +10,7 @@ import {
   Download,
 } from 'lucide-react';
 import { Card, CardContent } from './ui/Card';
+import { IconBox } from './ui/IconBox';
 
 export default function DemoVisualization() {
   const [step, setStep] = useState(0);
@@ -29,14 +30,16 @@ export default function DemoVisualization() {
             step >= 0 ? 'opacity-100' : 'opacity-30'
           } transition-opacity`}
         >
-          <div
-            className={`w-10 h-10 rounded-full flex items-center justify-center ${
-              step >= 0 ? 'bg-primary-600' : 'bg-gray-300'
-            }`}
+          <IconBox
+            icon={<Upload />}
+            variant="primary"
+            style="solid"
+            size="sm"
+            rounded="full"
+            animate={false}
+            className={step >= 0 ? 'bg-primary-600 text-white' : 'bg-gray-300 text-white'}
             aria-label={step >= 0 ? 'Active: Upload invoice' : 'Inactive: Upload invoice'}
-          >
-            <Upload className="w-5 h-5 text-white" aria-hidden="true" />
-          </div>
+          />
           <span className="font-semibold">Upload Invoice</span>
         </div>
         <ArrowRight className="w-6 h-6 text-gray-400" aria-hidden="true" />
@@ -45,14 +48,16 @@ export default function DemoVisualization() {
             step >= 1 ? 'opacity-100' : 'opacity-30'
           } transition-opacity`}
         >
-          <div
-            className={`w-10 h-10 rounded-full flex items-center justify-center ${
-              step >= 1 ? 'bg-primary-600' : 'bg-gray-300'
-            }`}
+          <IconBox
+            icon={<Sparkles />}
+            variant="primary"
+            style="solid"
+            size="sm"
+            rounded="full"
+            animate={false}
+            className={step >= 1 ? 'bg-primary-600 text-white' : 'bg-gray-300 text-white'}
             aria-label={step >= 1 ? 'Active: AI processing' : 'Inactive: AI processing'}
-          >
-            <Sparkles className="w-5 h-5 text-white" aria-hidden="true" />
-          </div>
+          />
           <span className="font-semibold">AI Processing</span>
         </div>
         <ArrowRight className="w-6 h-6 text-gray-400" aria-hidden="true" />
@@ -61,14 +66,16 @@ export default function DemoVisualization() {
             step >= 2 ? 'opacity-100' : 'opacity-30'
           } transition-opacity`}
         >
-          <div
-            className={`w-10 h-10 rounded-full flex items-center justify-center ${
-              step >= 2 ? 'bg-primary-600' : 'bg-gray-300'
-            }`}
+          <IconBox
+            icon={<CheckCheck />}
+            variant="primary"
+            style="solid"
+            size="sm"
+            rounded="full"
+            animate={false}
+            className={step >= 2 ? 'bg-primary-600 text-white' : 'bg-gray-300 text-white'}
             aria-label={step >= 2 ? 'Active: Verified data' : 'Inactive: Verified data'}
-          >
-            <CheckCheck className="w-5 h-5 text-white" aria-hidden="true" />
-          </div>
+          />
           <span className="font-semibold">Verified Data</span>
         </div>
         <ArrowRight className="w-6 h-6 text-gray-400" aria-hidden="true" />
@@ -77,14 +84,16 @@ export default function DemoVisualization() {
             step >= 3 ? 'opacity-100' : 'opacity-30'
           } transition-opacity`}
         >
-          <div
-            className={`w-10 h-10 rounded-full flex items-center justify-center ${
-              step >= 3 ? 'bg-green-600' : 'bg-gray-300'
-            }`}
+          <IconBox
+            icon={<Download />}
+            variant="success"
+            style="solid"
+            size="sm"
+            rounded="full"
+            animate={false}
+            className={step >= 3 ? 'bg-green-600 text-white' : 'bg-gray-300 text-white'}
             aria-label={step >= 3 ? 'Active: Auto-export' : 'Inactive: Auto-export'}
-          >
-            <Download className="w-5 h-5 text-white" aria-hidden="true" />
-          </div>
+          />
           <span className="font-semibold">Auto-Export</span>
         </div>
       </div>
