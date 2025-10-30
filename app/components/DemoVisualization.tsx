@@ -9,6 +9,7 @@ import {
   CheckCheck,
   Download,
 } from 'lucide-react';
+import { Card, CardContent } from './ui/Card';
 
 export default function DemoVisualization() {
   const [step, setStep] = useState(0);
@@ -87,27 +88,34 @@ export default function DemoVisualization() {
           <span className="font-semibold">Auto-Export</span>
         </div>
       </div>
-      <div className="bg-gradient-to-r from-primary-100 to-accent-100 rounded-lg p-6 text-left">
-        <p className="text-sm text-gray-600 mb-2">Sample Invoice Data:</p>
-        <div className="space-y-1 text-sm font-mono">
-          <div>
-            Supplier: <span className="text-primary-700 font-semibold">Sysco Foods Ltd</span>
+      <Card 
+        variant="default" 
+        padding="md" 
+        className="bg-gradient-to-r from-primary-100 to-accent-100 text-left border-0"
+        animate={false}
+      >
+        <CardContent padding="none">
+          <p className="text-sm text-gray-600 mb-2">Sample Invoice Data:</p>
+          <div className="space-y-1 text-sm font-mono">
+            <div>
+              Supplier: <span className="text-primary-700 font-semibold">Sysco Foods Ltd</span>
+            </div>
+            <div>
+              Invoice #: <span className="text-primary-700 font-semibold">INV-2024-10847</span>
+            </div>
+            <div>
+              Items: <span className="text-primary-700 font-semibold">47 line items extracted</span>
+            </div>
+            <div>
+              Total: <span className="text-primary-700 font-semibold">£2,847.39</span>
+            </div>
+            <div className="pt-2 text-green-600 font-semibold flex items-center space-x-2">
+              <CheckCircle className="w-4 h-4" aria-hidden="true" />
+              <span>Processed in 4.2 seconds ⚡</span>
+            </div>
           </div>
-          <div>
-            Invoice #: <span className="text-primary-700 font-semibold">INV-2024-10847</span>
-          </div>
-          <div>
-            Items: <span className="text-primary-700 font-semibold">47 line items extracted</span>
-          </div>
-          <div>
-            Total: <span className="text-primary-700 font-semibold">£2,847.39</span>
-          </div>
-          <div className="pt-2 text-green-600 font-semibold flex items-center space-x-2">
-            <CheckCircle className="w-4 h-4" aria-hidden="true" />
-            <span>Processed in 4.2 seconds ⚡</span>
-          </div>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }

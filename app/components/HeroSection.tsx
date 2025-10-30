@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import DemoVisualization from './DemoVisualization';
 import { Button } from './ui/Button';
+import { Card } from './ui/Card';
 
 interface HeroSectionProps {
   opacity: any;
@@ -126,9 +127,9 @@ export default function HeroSection({ opacity, scale }: HeroSectionProps) {
           transition={{ duration: 0.8, delay: 1 }}
           className="relative max-w-5xl mx-auto"
         >
-          <div className="glass-effect rounded-2xl shadow-2xl p-8 border border-gray-200">
+          <Card variant="glass" elevation="2xl" padding="lg" animate={false}>
             <DemoVisualization />
-          </div>
+          </Card>
         </motion.div>
 
         {/* Scroll Indicator */}

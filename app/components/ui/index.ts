@@ -15,6 +15,7 @@
 // Button
 export { Button, buttonVariants } from './Button';
 export type { ButtonProps } from './Button';
+export { Card } from './Card';
 
 // Add more exports as we create components:
 // export { Card, cardVariants } from './Card';
