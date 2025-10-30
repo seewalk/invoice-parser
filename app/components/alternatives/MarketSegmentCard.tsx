@@ -120,20 +120,7 @@ export function MarketSegmentCard({
         </div>
       </div>
 
-      {/* Opportunity Gap */}
-      <Card 
-        variant="bordered" 
-        padding="md" 
-        className="bg-blue-50 border-blue-200 mb-6"
-        animate={false}
-      >
-        <Text as="p" size="sm" weight="semibold" className="text-blue-900 mb-2">
-          💡 Opportunity Gap:
-        </Text>
-        <Text as="p" size="sm" className="text-blue-800">
-          {opportunityGap}
-        </Text>
-      </Card>
+     
 
       {/* Link to Section */}
       <Link

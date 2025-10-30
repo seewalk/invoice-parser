@@ -5,6 +5,11 @@ import { motion } from 'framer-motion';
 import { Search } from 'lucide-react';
 import { FAQ, FAQCategory, faqCategories } from '@/app/lib/faqData';
 import { FAQItem } from './FAQItem';
+import { Button } from '../ui/Button';
+import { Heading } from '../ui/Heading';
+import { Text } from '../ui/Text';
+import { IconBox } from '../ui/IconBox';
+import { Card } from '../ui/Card';
 
 interface FAQAccordionProps {
   /**
@@ -58,18 +63,42 @@ function FAQAccordionComponent({
     <div className="max-w-5xl mx-auto">
       {/* Category Info Header */}
       {categoryInfo && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-12 bg-gradient-to-br from-primary-50 to-accent-50 rounded-2xl p-8 border border-primary-200"
+        <Card 
+          variant="default" 
+          padding="lg"
+          className="mb-12 bg-gradient-to-br from-primary-50 to-accent-50 border-primary-200"
         >
-          <h2 className="text-3xl font-bold text-gray-900 mb-3">
-            {categoryInfo.icon} {categoryInfo.name}
-          </h2>
-          <p className="text-lg text-gray-700">
-            {categoryInfo.description}
-          </p>
-        </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            <div className="flex items-center gap-3 mb-3">
+              <IconBox
+                icon={categoryInfo.icon}
+                variant="primary"
+                styleVariant="solid"
+                size="md"
+                rounded="lg"
+                animate={false}
+              />
+              <Heading 
+                as="h2" 
+                size="display-sm" 
+                variant="default"
+                animate={false}
+              >
+                {categoryInfo.name}
+              </Heading>
+            </div>
+            <Text 
+              size="lg" 
+              variant="secondary"
+              animate={false}
+            >
+              {categoryInfo.description}
+            </Text>
+          </motion.div>
+        </Card>
       )}
 
       {/* FAQs List */}
@@ -92,22 +121,45 @@ function FAQAccordionComponent({
           animate={{ opacity: 1, y: 0 }}
           className="text-center py-16"
         >
-          <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <Search className="w-10 h-10 text-gray-400" />
+          <div className="flex justify-center mb-6">
+            <IconBox
+              icon={<Search />}
+              variant="default"
+              styleVariant="solid"
+              size="2xl"
+              rounded="full"
+              animate={false}
+            />
           </div>
-          <h3 className="text-2xl font-bold text-gray-900 mb-3">
+          <Heading 
+            as="h3" 
+            size="xl" 
+            variant="default" 
+            align="center"
+            className="mb-3"
+            animate={false}
+          >
             No results found
-          </h3>
-          <p className="text-gray-600 mb-6">
+          </Heading>
+          <Text 
+            size="base" 
+            variant="muted" 
+            align="center"
+            className="mb-6"
+            animate={false}
+          >
             Try adjusting your search or browse all categories
-          </p>
+          </Text>
           {onResetFilters && (
-            <button
+            <Button
               onClick={onResetFilters}
-              className="bg-primary-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-primary-700 transition-colors"
+              variant="primary"
+              size="lg"
+              rounded={true}
+              animate={false}
             >
               Reset Filters
-            </button>
+            </Button>
           )}
         </motion.div>
       )}

@@ -5,6 +5,11 @@ import { motion } from 'framer-motion';
 import { ChevronDown, TrendingUp, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
 import { FAQ } from '@/app/lib/faqData';
+import { Button } from '../ui/Button';
+import { Heading } from '../ui/Heading';
+import { Text } from '../ui/Text';
+import { Badge } from '../ui/Badge';
+import { Card } from '../ui/Card';
 
 /**
  * Generate blog post slug from FAQ question
@@ -61,32 +66,48 @@ interface FAQItemProps {
  */
 function FAQItemComponent({ faq, index, isOpen, onToggle }: FAQItemProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.03 }}
-      className="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition-shadow"
+    <Card
+      variant="default"
+      padding="none"
+      elevation="sm"
+      className="overflow-hidden hover:shadow-md transition-shadow"
     >
-      {/* Question Button */}
-      <button
-        onClick={onToggle}
-        className="w-full text-left p-6 flex justify-between items-start hover:bg-gray-50 transition-colors"
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: index * 0.03 }}
       >
-        <div className="flex-1 pr-4">
-          <h3 className="font-semibold text-gray-900 text-lg mb-2">
-            {faq.question}
-          </h3>
-          {/* Category badge */}
-          <span className="inline-block text-xs font-medium text-primary-600 bg-primary-50 px-3 py-1 rounded-full">
-            {faq.category}
-          </span>
-        </div>
-        <ChevronDown
-          className={`w-5 h-5 text-primary-600 flex-shrink-0 transition-transform mt-1 ${
-            isOpen ? 'rotate-180' : ''
-          }`}
-        />
-      </button>
+        {/* Question Button */}
+        <button
+          onClick={onToggle}
+          className="w-full text-left p-6 flex justify-between items-start hover:bg-gray-50 transition-colors"
+        >
+          <div className="flex-1 pr-4">
+            <Heading
+              as="h3"
+              size="md"
+              variant="default"
+              weight="semibold"
+              className="mb-2"
+              animate={false}
+            >
+              {faq.question}
+            </Heading>
+            {/* Category badge */}
+            <Badge
+              variant="primary"
+              size="sm"
+              shape="pill"
+            >
+              {faq.category}
+            </Badge>
+          </div>
+          <ChevronDown
+            className={`w-5 h-5 text-primary-600 flex-shrink-0 transition-transform mt-1 ${
+              isOpen ? 'rotate-180' : ''
+            }`}
+          />
+        </button>
 
       {/* Answer (Expanded) */}
       {isOpen && (
@@ -97,55 +118,72 @@ function FAQItemComponent({ faq, index, isOpen, onToggle }: FAQItemProps) {
           className="px-6 pb-6 border-t border-gray-100"
         >
           <div className="pt-6">
-            <p className="text-gray-700 leading-relaxed text-lg mb-4">
+            <Text
+              size="lg"
+              variant="secondary"
+              leading="relaxed"
+              className="mb-4"
+            >
               {faq.answer}
-            </p>
+            </Text>
 
             {/* Keywords - Clickable links to blog posts */}
             {faq.keywords && faq.keywords.length > 0 && (
               <div className="flex flex-wrap gap-2 pt-4 border-t border-gray-100">
-                <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                <Text
+                  as="span"
+                  size="xs"
+                  weight="semibold"
+                  variant="muted"
+                  className="uppercase tracking-wide"
+                >
                   Related Topics:
-                </span>
+                </Text>
                 {faq.keywords.map((keyword, i) => {
                   const blogSlug = generateBlogSlug(faq.question);
                   return (
                     <Link
                       key={i}
                       href={`/blog/${blogSlug}`}
-                      className="group inline-flex items-center gap-1 text-xs text-gray-600 bg-gray-100 hover:bg-primary-100 hover:text-primary-700 px-2 py-1 rounded transition-colors"
                       title={`Read full article about ${keyword}`}
                     >
-                      {keyword}
-                      <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <Badge
+                        variant="default"
+                        size="sm"
+                        shape="pill"
+                        className="group hover:bg-primary-100 hover:text-primary-700 cursor-pointer transition-colors"
+                      >
+                        {keyword}
+                        <ExternalLink className="w-3 h-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity inline" />
+                      </Badge>
                     </Link>
                   );
                 })}
               </div>
             )}
 
-            {/* Search volume indicator */}
-            {faq.searchVolume && faq.searchVolume > 100 && (
-              <div className="mt-4 flex items-center text-xs text-gray-500">
-                <TrendingUp className="w-3 h-3 mr-1" />
-                High-demand topic ({faq.searchVolume}+ monthly searches)
-              </div>
-            )}
+           
 
             {/* Read Full Article Button */}
             <div className="mt-6 pt-4 border-t border-gray-100">
-              <Link
-                href={`/blog/${generateBlogSlug(faq.question)}`}
-                className="inline-flex items-center gap-2 text-sm font-medium text-primary-600 hover:text-primary-700 group"
-              >
-                <span>Read Full Article</span>
-                <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              <Link href={`/blog/${generateBlogSlug(faq.question)}`}>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  icon={<ExternalLink className="w-4 h-4" />}
+                  iconPosition="right"
+                  animate={false}
+                  className="text-primary-600 hover:text-primary-700 p-0"
+                >
+                  Read Full Article
+                </Button>
               </Link>
             </div>
           </div>
         </motion.div>
       )}
-    </motion.div>
+      </motion.div>
+    </Card>
   );
 }
 

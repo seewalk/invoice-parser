@@ -3,6 +3,10 @@
 import { memo } from 'react';
 import { Filter } from 'lucide-react';
 import { FAQCategory } from '@/app/lib/faqData';
+import { Button } from '../ui/Button';
+import { Heading } from '../ui/Heading';
+import { Text } from '../ui/Text';
+import { IconBox } from '../ui/IconBox';
 
 interface FAQCategoryFilterProps {
   /**
@@ -59,44 +63,65 @@ function FAQCategoryFilterComponent({
     <section className="py-12 px-4 sm:px-6 lg:px-8 bg-white border-y border-gray-200">
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-gray-900 flex items-center">
-            <Filter className="w-6 h-6 mr-2 text-primary-600" />
-            Browse by Category
-          </h2>
-          <div className="text-sm text-gray-600">
-            {filteredCount} {filteredCount === 1 ? 'result' : 'results'}
+          <div className="flex items-center gap-3">
+            <IconBox 
+              icon={<Filter />} 
+              variant="primary" 
+              styleVariant="solid"
+              size="sm"
+              rounded="lg"
+            />
+            <Heading 
+              as="h2" 
+              size="xl" 
+              variant="default"
+              animate={false}
+            >
+              Browse by Category
+            </Heading>
           </div>
+          <Text 
+            as="span" 
+            size="sm" 
+            variant="muted"
+          >
+            {filteredCount} {filteredCount === 1 ? 'result' : 'results'}
+          </Text>
         </div>
 
         {/* Category Pills */}
         <div className="flex flex-wrap gap-3">
           {/* All Topics Button */}
-          <button
+          <Button
             onClick={() => onCategoryChange('All')}
-            className={`px-6 py-3 rounded-full font-semibold transition-all ${
-              selectedCategory === 'All'
-                ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-lg'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            }`}
+            variant={selectedCategory === 'All' ? 'primary' : 'ghost'}
+            size="md"
+            rounded={true}
+            animate={false}
+            className={selectedCategory === 'All' ? '' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}
           >
             All Topics ({totalCount})
-          </button>
+          </Button>
 
           {/* Category Buttons */}
           {categories.map((category) => {
             const count = categoryCounts.find((c) => c.category === category.name)?.count || 0;
+            const isSelected = selectedCategory === category.name;
+            
             return (
-              <button
+              <Button
                 key={category.name}
                 onClick={() => onCategoryChange(category.name)}
-                className={`px-6 py-3 rounded-full font-semibold transition-all ${
-                  selectedCategory === category.name
-                    ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-lg'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
+                variant={isSelected ? 'primary' : 'ghost'}
+                size="md"
+                rounded={true}
+                icon={category.icon}
+                iconPosition="left"
+                animate={false}
+                className={isSelected ? '' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}
               >
-                {category.icon} {category.name} ({count})
-              </button>
+                {category.name} ({count})
+              </Button>
             );
           })}
         </div>
