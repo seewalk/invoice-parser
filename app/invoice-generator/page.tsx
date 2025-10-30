@@ -54,8 +54,8 @@ export default function InvoiceGeneratorPage() {
       {/* Hero Section */}
       <PageHero
         badge="Free Invoice Generator"
-        title="Create Your Invoice Online"
-        description="Choose from our library of professional invoice templates, customize with your business details, and download your invoice instantly."
+        title="Generate Your Invoice Online For Free"
+        description="Choose from our library of professional invoice templates and generate invoice for free. Customize with your business details, and download your invoice instantly."
         size="compact"
         className="border-b border-slate-200 bg-white/50 backdrop-blur-sm"
         backgroundElements={false}
@@ -96,7 +96,7 @@ export default function InvoiceGeneratorPage() {
       <section className="py-12 px-4 sm:px-6 lg:px-8 bg-white/30">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center">
-            How It Works
+            How To Generate An Invoice For Free In 3 Easy Steps
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center">
@@ -140,7 +140,7 @@ export default function InvoiceGeneratorPage() {
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-slate-900 mb-8">
-            Select Your Template
+            Select Your Free Invoice Template
           </h2>
 
           {/* Template Grid */}
@@ -185,7 +185,7 @@ export default function InvoiceGeneratorPage() {
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white/30">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">
-            Why Use Our Invoice Generator?
+            Why Use Our Automated Invoice Generator?
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center">

@@ -13,7 +13,17 @@ type SEOData = {
   ogTitle?: string;
   ogDescription?: string;
   ogImage?: string;
+  ogUrl?: string;
+  ogType?: string;
   twitterCard?: string;
+  twitterTitle?: string;
+  twitterDescription?: string;
+  twitterImage?: string;
+};
+
+type SchemaMarkup = {
+  type: string;
+  raw: string;
 };
 
 type Heading = {
@@ -27,6 +37,9 @@ export function AdvancedSEOPreview() {
   const [headings, setHeadings] = useState<Heading[]>([]);
   const [lastUpdate, setLastUpdate] = useState(Date.now());
   const [linkStats, setLinkStats] = useState({ internal: 0, external: 0, broken: 0 });
+  const [schemas, setSchemas] = useState<SchemaMarkup[]>([]);
+  const [expandedSchema, setExpandedSchema] = useState<number | null>(null);
+  const [ogImageLoaded, setOgImageLoaded] = useState(false);
   const pathname = usePathname();
   
   // ✅ ALL HOOKS AT THE TOP - BEFORE ANY CONDITIONAL RETURNS
@@ -44,7 +57,12 @@ export function AdvancedSEOPreview() {
         ogTitle: document.querySelector('meta[property="og:title"]')?.getAttribute('content') || '',
         ogDescription: document.querySelector('meta[property="og:description"]')?.getAttribute('content') || '',
         ogImage: document.querySelector('meta[property="og:image"]')?.getAttribute('content') || '',
+        ogUrl: document.querySelector('meta[property="og:url"]')?.getAttribute('content') || '',
+        ogType: document.querySelector('meta[property="og:type"]')?.getAttribute('content') || '',
         twitterCard: document.querySelector('meta[name="twitter:card"]')?.getAttribute('content') || '',
+        twitterTitle: document.querySelector('meta[name="twitter:title"]')?.getAttribute('content') || '',
+        twitterDescription: document.querySelector('meta[name="twitter:description"]')?.getAttribute('content') || '',
+        twitterImage: document.querySelector('meta[name="twitter:image"]')?.getAttribute('content') || '',
       };
       setSeoData(data);
     };
@@ -105,6 +123,35 @@ export function AdvancedSEOPreview() {
       return !href || href === '#';
     }).length;
     setLinkStats({ internal, external, broken });
+  }, [pathname]);
+  
+  // Extract schema markups
+  useEffect(() => {
+    if (process.env.NODE_ENV !== 'development') return;
+    
+    const extractSchemas = () => {
+      const schemaScripts = Array.from(document.querySelectorAll('script[type="application/ld+json"]'));
+      const extractedSchemas: SchemaMarkup[] = schemaScripts.map((script, index) => {
+        const content = script.textContent || '';
+        try {
+          const parsed = JSON.parse(content);
+          const type = parsed['@type'] || (Array.isArray(parsed) ? parsed.map((p: { '@type': string }) => p['@type']).join(', ') : 'Unknown');
+          return {
+            type,
+            raw: JSON.stringify(parsed, null, 2),
+          };
+        } catch {
+          return {
+            type: 'Invalid JSON',
+            raw: content,
+          };
+        }
+      });
+      setSchemas(extractedSchemas);
+    };
+    
+    const timer = setTimeout(extractSchemas, 500);
+    return () => clearTimeout(timer);
   }, [pathname]);
   
   // ✅ NOW CONDITIONAL RETURN IS AFTER ALL HOOKS
@@ -237,8 +284,111 @@ export function AdvancedSEOPreview() {
                 <MiniInfoRow label="og:title" value={seoData.ogTitle ? '✓' : '✗'} present={!!seoData.ogTitle} />
                 <MiniInfoRow label="og:description" value={seoData.ogDescription ? '✓' : '✗'} present={!!seoData.ogDescription} />
                 <MiniInfoRow label="og:image" value={seoData.ogImage ? '✓' : '✗'} present={!!seoData.ogImage} />
-                <MiniInfoRow label="twitter:card" value={seoData.twitterCard || 'Not set'} present={!!seoData.twitterCard} />
+                <MiniInfoRow label="og:url" value={seoData.ogUrl ? '✓' : '✗'} present={!!seoData.ogUrl} />
+                <MiniInfoRow label="og:type" value={seoData.ogType || 'Not set'} present={!!seoData.ogType} />
               </div>
+            </Section>
+            
+            {/* OG Image Preview */}
+            {seoData.ogImage && (
+              <Section title="OG Image Preview">
+                <div className="space-y-2">
+                  <div className="relative bg-gray-800 rounded-lg overflow-hidden border border-gray-700">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={seoData.ogImage}
+                      alt="OG Image Preview"
+                      className="w-full h-auto"
+                      onLoad={() => setOgImageLoaded(true)}
+                      onError={() => setOgImageLoaded(false)}
+                    />
+                    {!ogImageLoaded && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-gray-800">
+                        <span className="text-gray-500 text-xs">Loading image...</span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="text-gray-400 text-xs break-all">
+                    {seoData.ogImage}
+                  </div>
+                  <div className="flex gap-2">
+                    <QuickLink href={seoData.ogImage}>View Full Size</QuickLink>
+                    <QuickLink href={`https://cards-dev.twitter.com/validator?url=${encodeURIComponent(window.location.origin + pathname)}`}>
+                      Test on Twitter
+                    </QuickLink>
+                  </div>
+                </div>
+              </Section>
+            )}
+            
+            {/* Twitter Card Preview */}
+            {(seoData.twitterCard || seoData.twitterImage) && (
+              <Section title="Twitter Card">
+                <div className="space-y-2">
+                  <InfoRow label="Card Type" value={seoData.twitterCard || 'Not set'} />
+                  <MiniInfoRow label="twitter:title" value={seoData.twitterTitle ? '✓' : '✗'} present={!!seoData.twitterTitle} />
+                  <MiniInfoRow label="twitter:description" value={seoData.twitterDescription ? '✓' : '✗'} present={!!seoData.twitterDescription} />
+                  <MiniInfoRow label="twitter:image" value={seoData.twitterImage ? '✓' : '✗'} present={!!seoData.twitterImage} />
+                  {seoData.twitterImage && seoData.twitterImage !== seoData.ogImage && (
+                    <div className="mt-2 relative bg-gray-800 rounded-lg overflow-hidden border border-gray-700">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={seoData.twitterImage}
+                        alt="Twitter Image Preview"
+                        className="w-full h-auto"
+                      />
+                    </div>
+                  )}
+                </div>
+              </Section>
+            )}
+            
+            {/* Schema Markup */}
+            <Section title={`Schema Markup (${schemas.length})`}>
+              {schemas.length === 0 ? (
+                <div className="text-gray-500 text-xs">No structured data found</div>
+              ) : (
+                <div className="space-y-2">
+                  {schemas.map((schema, index) => (
+                    <div key={index} className="border border-gray-700 rounded-lg overflow-hidden">
+                      <button
+                        onClick={() => setExpandedSchema(expandedSchema === index ? null : index)}
+                        className="w-full flex items-center justify-between p-3 bg-gray-800 hover:bg-gray-750 transition-colors"
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="text-blue-400 font-mono text-xs">{schema.type}</span>
+                          <span className="text-gray-500 text-xs">#{index + 1}</span>
+                        </div>
+                        {expandedSchema === index ? (
+                          <ChevronUp className="w-4 h-4 text-gray-400" />
+                        ) : (
+                          <ChevronDown className="w-4 h-4 text-gray-400" />
+                        )}
+                      </button>
+                      {expandedSchema === index && (
+                        <div className="p-3 bg-gray-900">
+                          <pre className="text-xs text-gray-300 overflow-x-auto whitespace-pre-wrap break-words max-h-96 overflow-y-auto">
+                            {schema.raw}
+                          </pre>
+                          <div className="mt-2 flex gap-2">
+                            <button
+                              onClick={() => {
+                                navigator.clipboard.writeText(schema.raw);
+                              }}
+                              className="px-2 py-1 bg-gray-800 hover:bg-gray-700 rounded text-xs text-gray-300 hover:text-white transition-colors"
+                            >
+                              Copy JSON
+                            </button>
+                            <QuickLink href={`https://validator.schema.org/#url=${encodeURIComponent(window.location.origin + pathname)}`}>
+                              Validate
+                            </QuickLink>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
             </Section>
             
             {/* Links */}
@@ -293,17 +443,29 @@ export function AdvancedSEOPreview() {
             {/* Quick Actions */}
             <Section title="Quick Tools">
               <div className="flex flex-wrap gap-2">
-                <QuickLink href={`https://search.google.com/search-console?resource_id=${encodeURIComponent('https://negotiables.co.uk')}`}>
+                <QuickLink href={`https://search.google.com/search-console?resource_id=${encodeURIComponent(window.location.origin)}`}>
                   Search Console
                 </QuickLink>
-                <QuickLink href={`https://www.google.com/search?q=site:negotiables.co.uk${pathname}`}>
+                <QuickLink href={`https://www.google.com/search?q=site:${window.location.hostname}${pathname}`}>
                   Google Index
                 </QuickLink>
-                <QuickLink href={`https://developers.facebook.com/tools/debug/?q=${encodeURIComponent('https://negotiables.co.uk' + pathname)}`}>
-                  OG Debugger
+                <QuickLink href={`https://developers.facebook.com/tools/debug/?q=${encodeURIComponent(window.location.origin + pathname)}`}>
+                  Facebook Debugger
                 </QuickLink>
-                <QuickLink href={`https://cards-dev.twitter.com/validator?url=${encodeURIComponent('https://negotiables.co.uk' + pathname)}`}>
+                <QuickLink href={`https://cards-dev.twitter.com/validator`}>
                   Twitter Validator
+                </QuickLink>
+                <QuickLink href={`https://www.linkedin.com/post-inspector/`}>
+                  LinkedIn Inspector
+                </QuickLink>
+                <QuickLink href={`https://www.opengraph.xyz/url/${encodeURIComponent(window.location.origin + pathname)}`}>
+                  OpenGraph.xyz
+                </QuickLink>
+                <QuickLink href={`https://validator.schema.org/#url=${encodeURIComponent(window.location.origin + pathname)}`}>
+                  Schema Validator
+                </QuickLink>
+                <QuickLink href={`https://search.google.com/test/rich-results?url=${encodeURIComponent(window.location.origin + pathname)}`}>
+                  Rich Results Test
                 </QuickLink>
               </div>
             </Section>
