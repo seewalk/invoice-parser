@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import {
   Upload,
   Sparkles,
@@ -8,6 +9,11 @@ import {
   Zap,
   ArrowRight,
 } from 'lucide-react';
+import { Heading } from './ui/Heading';
+import { Text } from './ui/Text';
+import { Card } from './ui/Card';
+import { IconBox } from './ui/IconBox';
+import { Button } from './ui/Button';
 
 export default function HowItWorksSection() {
   const steps = [
@@ -48,22 +54,30 @@ export default function HowItWorksSection() {
       aria-labelledby="how-it-works-heading"
     >
       <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
+        <div className="text-center mb-16">
           {/* SEO OPTIMIZED Heading */}
-          <h2 id="how-it-works-heading" className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+          <Heading
+            as="h2"
+            id="how-it-works-heading"
+            size="display-md"
+            align="center"
+            className="mb-4"
+          >
             How Our Invoice Automation Works - <span className="gradient-text">Stupid Simple</span>
-          </h2>
+          </Heading>
           {/* SEO OPTIMIZED Subheading */}
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <Text
+            size="xl"
+            variant="muted"
+            align="center"
+            maxWidth="3xl"
+            centered
+            animate
+          >
             From invoice upload to automated data export in 4 simple steps. No technical skills
             required for invoice processing automation.
-          </p>
-        </motion.div>
+          </Text>
+        </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {steps.map((step, index) => (
@@ -83,33 +97,56 @@ export default function HowItWorksSection() {
                 />
               )}
 
-              <div className="bg-gradient-to-br from-primary-50 to-accent-50 rounded-2xl p-6 h-full hover:shadow-lg transition-shadow">
-                <div className="w-14 h-14 bg-gradient-to-br from-primary-600 to-accent-500 rounded-xl flex items-center justify-center mb-4 shadow-lg">
-                  <step.icon className="w-7 h-7 text-white" aria-hidden="true" />
-                </div>
-                <div className="text-6xl font-bold text-primary-200 mb-2" aria-hidden="true">{step.number}</div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{step.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{step.description}</p>
-              </div>
+              <Card
+                variant="default"
+                padding="md"
+                elevation="md"
+                className="bg-gradient-to-br from-primary-50 to-accent-50 rounded-2xl h-full hover:shadow-lg"
+                animate={false}
+              >
+                <IconBox
+                  icon={<step.icon />}
+                  variant="primary"
+                  styleVariant="gradient"
+                  size="lg"
+                  rounded="xl"
+                  shadow="lg"
+                  className="mb-4"
+                />
+                <Text
+                  size="3xl"
+                  weight="bold"
+                  className="text-primary-200 mb-2"
+                  aria-hidden="true"
+                >
+                  {step.number}
+                </Text>
+                <Heading as="h3" size="lg" className="mb-3">
+                  {step.title}
+                </Heading>
+                <Text variant="muted" leading="relaxed">
+                  {step.description}
+                </Text>
+              </Card>
             </motion.div>
           ))}
         </div>
 
         {/* Video/Demo CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mt-16 text-center"
-        >
-          <button
-            className="bg-gradient-to-r from-primary-600 to-primary-700 text-white px-8 py-4 rounded-full text-lg font-semibold shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1 inline-flex items-center space-x-2"
-            aria-label="Watch invoice automation demo video"
-          >
-            <span>See It In Action - Watch Demo</span>
-            <ArrowRight className="w-5 h-5" aria-hidden="true" />
-          </button>
-        </motion.div>
+        <div className="mt-16 text-center">
+          <Link href="/parser">
+            <Button
+              variant="primary"
+              size="lg"
+              icon={<ArrowRight />}
+              iconPosition="right"
+              aria-label="Watch invoice automation demo video"
+              animate
+            >
+              See It In Action - Test The Demo
+            </Button>
+          </Link>
+        </div>
       </div>
     </section>
   );

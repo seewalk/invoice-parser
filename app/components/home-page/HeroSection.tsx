@@ -12,12 +12,12 @@ import {
   Download,
 } from 'lucide-react';
 import DemoVisualization from './DemoVisualization';
-import { Button } from './ui/Button';
-import { Card } from './ui/Card';
-import { Badge } from './ui/Badge';
-import { Heading } from './ui/Heading';
-import { Stat } from './ui/Stat';
-import { Text } from './ui/Text';
+import { Button } from '../ui/Button';
+import { Card } from '../ui/Card';
+import { Badge } from '../ui/Badge';
+import { Heading } from '../ui/Heading';
+import { Stat } from '../ui/Stat';
+import { Text } from '../ui/Text';
 
 interface HeroSectionProps {
   opacity: any;

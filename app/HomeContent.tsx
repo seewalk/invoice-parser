@@ -5,9 +5,9 @@ import { useScroll, useTransform } from 'framer-motion';
 import dynamic from 'next/dynamic';
 
 // Above-the-fold components (load immediately)
-import HeroSection from './components/HeroSection';
-import SocialProofBar from './components/SocialProofBar';
-import ProblemSection from './components/ProblemSection';
+import HeroSection from './components/home-page/HeroSection';
+import SocialProofBar from './components/home-page/SocialProofBar';
+import ProblemSection from './components/home-page/ProblemSection';
 import HowItWorksSection from './components/HowItWorksSection';
 import FeaturesSection from './components/FeaturesSection';
 import { getFAQsByCategory } from './lib/faqData';
