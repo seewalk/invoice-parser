@@ -5,6 +5,7 @@ import {
   marketSegments 
 } from '../lib/alternativesKnowledgeBase';
 import PageHero from '../components/PageHero';
+import { AlternativesStats } from '../components/alternatives/AlternativesStats';
 import Link from 'next/link';
 import { 
   Building2,
@@ -106,55 +107,7 @@ export default function AlternativesPage() {
         description="Comprehensive comparison of invoice parsing and automation solutions. Find the best alternative for your business with detailed feature comparisons, pricing analysis, and UK compliance reviews."
       >
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
-          <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-indigo-100 rounded-lg">
-                <Building2 className="w-6 h-6 text-indigo-600" />
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-slate-900">{stats.totalCompetitors}</div>
-                <div className="text-sm text-slate-600">Competitors</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-blue-100 rounded-lg">
-                <TrendingUp className="w-6 h-6 text-blue-600" />
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-slate-900">{stats.totalSegments}</div>
-                <div className="text-sm text-slate-600">Market Segments</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-green-100 rounded-lg">
-                <Search className="w-6 h-6 text-green-600" />
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-slate-900">{(stats.totalSearchVolume / 1000).toFixed(0)}K</div>
-                <div className="text-sm text-slate-600">Monthly Searches</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-purple-100 rounded-lg">
-                <Users className="w-6 h-6 text-purple-600" />
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-slate-900">{stats.totalResources}</div>
-                <div className="text-sm text-slate-600">Resources</div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <AlternativesStats stats={stats} />
       </PageHero>
 
       {/* Main Content */}

@@ -20,6 +20,7 @@ import {
   TestimonialsSectionSkeleton,
   PricingSectionSkeleton,
 } from './components/LoadingSkeletons';
+import { FreeTierCTA } from './components/CTASectionBlack';
 
 const ROISection = dynamic(() => import('./components/home-page/ROISection'), {
   loading: () => <ROISectionSkeleton />,
@@ -71,9 +72,9 @@ export default function HomeContent() {
 
       {/* FAQ */}
       <FAQSection faqs={getFAQsByCategory('Invoice Automation')} />
+
+      <FreeTierCTA />
       
-      {/* Final CTA */}
-      <FinalCTASection />
 
     </main>
   );

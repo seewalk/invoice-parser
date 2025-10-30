@@ -1,9 +1,31 @@
+/**
+ * ============================================================================
+ * PAGE HERO COMPONENT
+ * ============================================================================
+ * 
+ * Reusable hero section for pages with badge, title, description, stats, and CTAs.
+ * Now using centralized UI components for consistency.
+ * 
+ * Features:
+ * - Multiple size variants (compact, default, large)
+ * - Optional badge with icon
+ * - Stats/features display
+ * - CTA buttons (primary/secondary)
+ * - Parallax scrolling effect
+ * - Background elements
+ * - Scroll indicator
+ */
+
 'use client';
 
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Sparkles, ChevronDown, LucideIcon } from 'lucide-react';
 import { ReactNode } from 'react';
 import Link from 'next/link';
+import { Heading } from './ui/Heading';
+import { Text } from './ui/Text';
+import { Button } from './ui/Button';
+import { Badge } from './ui/Badge';
 
 export interface HeroButton {
   label: string;
@@ -79,10 +101,16 @@ export default function PageHero({
     large: 'pt-40 pb-28',
   };
 
-  const titleSizeClasses = {
-    compact: 'text-3xl sm:text-4xl lg:text-5xl',
-    default: 'text-4xl sm:text-5xl lg:text-6xl',
-    large: 'text-5xl sm:text-6xl lg:text-7xl',
+  const titleSizes = {
+    compact: 'display-md' as const,
+    default: 'display-lg' as const,
+    large: 'display-xl' as const,
+  };
+
+  const subtitleSizes = {
+    compact: 'xl' as const,
+    default: '2xl' as const,
+    large: '3xl' as const,
   };
 
   return (
@@ -114,25 +142,31 @@ export default function PageHero({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center space-x-2 bg-primary-50 border border-primary-200 rounded-full px-4 py-2 mb-8"
+            className="inline-block mb-8"
           >
-            <BadgeIcon className="w-4 h-4 text-primary-600" aria-hidden="true" />
-            <span className="text-sm font-medium text-primary-700">
+            <Badge 
+              variant="primary" 
+              size="md"
+              icon={<BadgeIcon className="w-4 h-4" aria-hidden="true" />}
+            >
               {badge}
-            </span>
+            </Badge>
           </motion.div>
         )}
 
         {/* Headline */}
-        <motion.h1
+        <Heading
+          as="h1"
           id="page-hero-heading"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className={`${titleSizeClasses[size]} font-extrabold text-gray-900 mb-6 leading-tight`}
+          size={titleSizes[size]}
+          weight="extrabold"
+          align="center"
+          className="mb-6"
+          animate
+          animationDelay={0.2}
         >
           {title}
-        </motion.h1>
+        </Heading>
 
         {/* Subtitle */}
         {subtitle && (
@@ -140,22 +174,32 @@ export default function PageHero({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-2xl sm:text-3xl lg:text-4xl text-gray-700 mb-6"
+            className="mb-6"
           >
-            {subtitle}
+            <Text 
+              size={subtitleSizes[size]} 
+              variant="secondary" 
+              align="center"
+            >
+              {subtitle}
+            </Text>
           </motion.div>
         )}
 
         {/* Description */}
         {description && (
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-lg sm:text-xl text-gray-600 mb-8 max-w-3xl mx-auto"
+          <Text
+            size="xl"
+            variant="muted"
+            align="center"
+            maxWidth="3xl"
+            centered
+            className="mb-8"
+            animate
+            animationDelay={0.4}
           >
             {description}
-          </motion.p>
+          </Text>
         )}
 
         {/* Stats/Features */}
@@ -174,9 +218,9 @@ export default function PageHero({
                     className={`w-5 h-5 ${stat.color || 'text-green-500'}`} 
                     aria-hidden="true" 
                   />
-                  <span className="text-base sm:text-lg font-semibold text-gray-700">
+                  <Text as="span" size="lg" weight="semibold" variant="secondary">
                     {stat.label}
-                  </span>
+                  </Text>
                 </div>
               );
             })}
@@ -195,32 +239,27 @@ export default function PageHero({
               const Icon = button.icon;
               const isPrimary = button.variant !== 'secondary';
               
-              const buttonClasses = isPrimary
-                ? 'group bg-gradient-to-r from-primary-600 to-primary-700 text-white px-8 py-4 rounded-full text-lg font-semibold shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1'
-                : 'bg-white text-primary-700 border-2 border-primary-200 px-8 py-4 rounded-full text-lg font-semibold hover:bg-primary-50 transition-all hover:-translate-y-1';
-
-              const content = (
-                <>
-                  <span>{button.label}</span>
-                  {Icon && (
-                    <Icon className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  )}
-                </>
+              const buttonElement = (
+                <Button
+                  key={index}
+                  variant={isPrimary ? 'primary' : 'secondary'}
+                  size="lg"
+                  icon={Icon ? <Icon className="w-5 h-5" /> : undefined}
+                  iconPosition="right"
+                  className="rounded-full"
+                  aria-label={button.ariaLabel || button.label}
+                  onClick={button.onClick}
+                >
+                  {button.label}
+                </Button>
               );
 
-              const commonProps = {
-                className: `${buttonClasses} flex items-center justify-center space-x-2`,
-                'aria-label': button.ariaLabel || button.label,
-              };
-
               return button.href ? (
-                <Link key={index} href={button.href} {...commonProps}>
-                  {content}
+                <Link key={index} href={button.href}>
+                  {buttonElement}
                 </Link>
               ) : (
-                <button key={index} onClick={button.onClick} {...commonProps}>
-                  {content}
-                </button>
+                buttonElement
               );
             })}
           </motion.div>
