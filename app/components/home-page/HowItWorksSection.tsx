@@ -9,11 +9,11 @@ import {
   Zap,
   ArrowRight,
 } from 'lucide-react';
-import { Heading } from './ui/Heading';
-import { Text } from './ui/Text';
-import { Card } from './ui/Card';
-import { IconBox } from './ui/IconBox';
-import { Button } from './ui/Button';
+import { Heading } from '../ui/Heading';
+import { Text } from '../ui/Text';
+import { Card } from '../ui/Card';
+import { IconBox } from '../ui/IconBox';
+import { Button } from '../ui/Button';
 
 export default function HowItWorksSection() {
   const steps = [

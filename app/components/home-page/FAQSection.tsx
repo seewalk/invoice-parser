@@ -3,7 +3,10 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronDown, ArrowRight } from 'lucide-react';
-import comprehensiveFAQs, { getTopFAQs, type FAQ } from '../lib/faqData';
+import comprehensiveFAQs, { getTopFAQs, type FAQ } from '../../lib/faqData';
+import { Heading } from '../ui/Heading';
+import { Text } from '../ui/Text';
+import { Button } from '../ui/Button';
 
 // Simple FAQ interface for component props (compatible with FAQ from library)
 interface SimpleFAQ {
@@ -103,18 +106,25 @@ export default function FAQSection({
   return (
     <section id="faq" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="max-w-4xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+        <div className="text-center mb-16">
+          <Heading 
+            as="h2" 
+            size="display-md" 
+            align="center" 
+            className="mb-4"
+          >
             {title.split(' ').slice(0, -1).join(' ')}{' '}
             <span className="gradient-text">{title.split(' ').slice(-1)}</span>
-          </h2>
-          <p className="text-xl text-gray-600">{subtitle}</p>
-        </motion.div>
+          </Heading>
+          <Text 
+            size="xl" 
+            variant="muted" 
+            align="center"
+            animate
+          >
+            {subtitle}
+          </Text>
+        </div>
 
         <div className="space-y-4">
           {faqs.map((faq, index) => (
@@ -130,7 +140,7 @@ export default function FAQSection({
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
                 className="w-full text-left p-6 flex justify-between items-center hover:bg-gray-100 transition-colors"
               >
-                <span className="font-semibold text-gray-900 pr-4">{faq.question}</span>
+                <Text as="span" weight="semibold" className="text-gray-900 pr-4">{faq.question}</Text>
                 <ChevronDown
                   className={`w-5 h-5 text-primary-600 flex-shrink-0 transition-transform ${
                     openIndex === index ? 'rotate-180' : ''
@@ -144,7 +154,7 @@ export default function FAQSection({
                   exit={{ height: 0, opacity: 0 }}
                   className="px-6 pb-6"
                 >
-                  <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+                  <Text variant="muted" leading="relaxed">{faq.answer}</Text>
                 </motion.div>
               )}
             </motion.div>
@@ -152,11 +162,15 @@ export default function FAQSection({
         </div>
 
         <div className="mt-12 text-center">
-          <p className="text-gray-600 mb-4">Still have questions?</p>
-          <button className="text-primary-600 hover:text-primary-700 font-semibold inline-flex items-center space-x-2">
-            <span>Contact our support team</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
+          <Text variant="muted" align="center" className="mb-4">Still have questions?</Text>
+          <Button 
+            variant="ghost" 
+            size="md"
+            icon={<ArrowRight />}
+            iconPosition="right"
+          >
+            Contact our support team
+          </Button>
         </div>
       </div>
     </section>

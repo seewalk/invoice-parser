@@ -432,20 +432,135 @@ export interface HowToStep {
 export function generateHowToSchema(
   name: string,
   description: string,
-  steps: HowToStep[]
+  steps: HowToStep[],
+  options?: {
+    totalTime?: string; // ISO 8601 duration format (e.g., 'PT5M' for 5 minutes)
+    estimatedCost?: {
+      currency: string;
+      value: string;
+    };
+    supply?: string[];
+    tool?: string[];
+  }
 ) {
   return {
     '@context': 'https://schema.org',
     '@type': 'HowTo',
     name: name,
     description: description,
+    ...(options?.totalTime && { totalTime: options.totalTime }),
+    ...(options?.estimatedCost && {
+      estimatedCost: {
+        '@type': 'MonetaryAmount',
+        currency: options.estimatedCost.currency,
+        value: options.estimatedCost.value,
+      },
+    }),
+    ...(options?.supply && options.supply.length > 0 && {
+      supply: options.supply.map(item => ({
+        '@type': 'HowToSupply',
+        name: item,
+      })),
+    }),
+    ...(options?.tool && options.tool.length > 0 && {
+      tool: options.tool.map(item => ({
+        '@type': 'HowToTool',
+        name: item,
+      })),
+    }),
     step: steps.map((step, index) => ({
       '@type': 'HowToStep',
       position: index + 1,
       name: step.name,
       text: step.text,
-      image: step.image,
+      ...(step.image && { image: step.image }),
     })),
+  };
+}
+
+// ============================================================================
+// FEATURES/ITEM LIST SCHEMA (For feature listings)
+// ============================================================================
+
+export interface FeatureItem {
+  name: string;
+  description: string;
+}
+
+export function generateFeaturesSchema(
+  name: string,
+  description: string,
+  features: FeatureItem[]
+) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: name,
+    description: description,
+    itemListElement: features.map((feature, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'Thing',
+        name: feature.name,
+        description: feature.description,
+      },
+    })),
+  };
+}
+
+// ============================================================================
+// ROI/COMPARISON TABLE SCHEMA (For ROI and comparison sections)
+// ============================================================================
+
+export interface ROIStatItem {
+  name: string;
+  value: string;
+  description: string;
+}
+
+export function generateROISchema(
+  name: string,
+  description: string,
+  stats: ROIStatItem[],
+  options?: {
+    annualSavings?: string;
+    currency?: string;
+    timeReduction?: string;
+    accuracyRate?: string;
+  }
+) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: name,
+    description: description,
+    itemListElement: [
+      ...stats.map((stat, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        item: {
+          '@type': 'Thing',
+          name: stat.name,
+          description: `${stat.value} - ${stat.description}`,
+          additionalProperty: {
+            '@type': 'PropertyValue',
+            name: stat.name,
+            value: stat.value,
+          },
+        },
+      })),
+      ...(options?.annualSavings ? [{
+        '@type': 'ListItem',
+        position: stats.length + 1,
+        item: {
+          '@type': 'MonetaryAmount',
+          name: 'Annual Savings',
+          currency: options.currency || 'GBP',
+          value: options.annualSavings,
+        },
+      }] : []),
+    ],
   };
 }
 

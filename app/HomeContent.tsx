@@ -8,10 +8,10 @@ import dynamic from 'next/dynamic';
 import HeroSection from './components/home-page/HeroSection';
 import SocialProofBar from './components/home-page/SocialProofBar';
 import ProblemSection from './components/home-page/ProblemSection';
-import HowItWorksSection from './components/HowItWorksSection';
-import FeaturesSection from './components/FeaturesSection';
+import HowItWorksSection from './components/home-page/HowItWorksSection';
+import FeaturesSection from './components/home-page/FeaturesSection';
 import { getFAQsByCategory } from './lib/faqData';
-import FAQSection from './components/FAQSection';
+import FAQSection from './components/home-page/FAQSection';
 import FinalCTASection from './components/FinalCTASection';
 
 // Below-the-fold components (lazy load for performance)
@@ -21,17 +21,17 @@ import {
   PricingSectionSkeleton,
 } from './components/LoadingSkeletons';
 
-const ROISection = dynamic(() => import('./components/ROISection'), {
+const ROISection = dynamic(() => import('./components/home-page/ROISection'), {
   loading: () => <ROISectionSkeleton />,
   ssr: true,
 });
 
-const TestimonialsSection = dynamic(() => import('./components/TestimonialsSection'), {
+const TestimonialsSection = dynamic(() => import('./components/home-page/TestimonialsSection'), {
   loading: () => <TestimonialsSectionSkeleton />,
   ssr: true,
 });
 
-const PricingSection = dynamic(() => import('./components/PricingSection'), {
+const PricingSection = dynamic(() => import('./components/home-page/PricingSection'), {
   loading: () => <PricingSectionSkeleton />,
   ssr: true,
 });
@@ -65,7 +65,7 @@ export default function HomeContent() {
 
       {/* Pricing */}
       <PricingSection />
-
+    
       {/* Testimonials */}
       <TestimonialsSection />
 

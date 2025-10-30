@@ -1,52 +1,14 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import {
-  Zap,
-  Shield,
-  BarChart3,
-  CheckCheck,
-  TrendingUp,
-  Users,
-} from 'lucide-react';
-import { IconBox } from './ui/IconBox';
-import { Heading } from './ui/Heading';
-import { Text } from './ui/Text';
-import { Card } from './ui/Card';
+import { IconBox } from '../ui/IconBox';
+import { Heading } from '../ui/Heading';
+import { Text } from '../ui/Text';
+import { Card } from '../ui/Card';
+import { FEATURES } from '../../lib/featuresData';
 
 export default function FeaturesSection() {
-  const features = [
-    {
-      icon: Zap,
-      title: 'Lightning Fast Processing',
-      description: 'Process invoices in under 5 seconds. 90% faster than manual entry.',
-    },
-    {
-      icon: Shield,
-      title: 'Bank-Level Security',
-      description: 'SOC 2 Type II compliant. Your data is encrypted and protected 24/7.',
-    },
-    {
-      icon: BarChart3,
-      title: 'Smart Analytics',
-      description: 'Track spending trends, supplier performance, and cost savings automatically.',
-    },
-    {
-      icon: CheckCheck,
-      title: '99% Accuracy Guaranteed',
-      description: 'AI learns from corrections. Gets smarter with every invoice processed.',
-    },
-    {
-      icon: TrendingUp,
-      title: 'Auto-Integration',
-      description: 'Syncs with QuickBooks, Xero, POS systems, and inventory management.',
-    },
-    {
-      icon: Users,
-      title: 'Multi-User Collaboration',
-      description: 'Team approval workflows, role permissions, and activity tracking.',
-    },
-  ];
+  const features = FEATURES;
 
   return (
     <section

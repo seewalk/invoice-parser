@@ -1,9 +1,14 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { CheckCircle, Rocket, ArrowRight, Sparkles, Crown, Gift } from 'lucide-react';
+import { CheckCircle, ArrowRight, Sparkles, Crown, Gift } from 'lucide-react';
 import Link from 'next/link';
 import { getPricingPlansForContext, type PricingPlan } from '@/app/lib/pricingConfig';
+import { Heading } from '../ui/Heading';
+import { Text } from '../ui/Text';
+import { Button } from '../ui/Button';
+import { Badge } from '../ui/Badge';
+import { EnterpriseCTA } from '../CTASectionBlack';
 
 /**
  * PricingSection Component
@@ -25,23 +30,32 @@ export default function PricingSection() {
       aria-labelledby="pricing-heading"
     >
       <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
+        <div className="text-center mb-16">
           {/* SEO OPTIMIZED Heading */}
-          <h2 id="pricing-heading" className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+          <Heading 
+            as="h2" 
+            id="pricing-heading" 
+            size="display-md" 
+            align="center" 
+            className="mb-4"
+          >
             Invoice Processing Software Pricing -{' '}
             <span className="gradient-text">Simple & Transparent</span>
-          </h2>
+          </Heading>
           {/* SEO OPTIMIZED Subheading */}
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+          <Text 
+            size="xl" 
+            variant="muted" 
+            align="center" 
+            maxWidth="3xl" 
+            centered
+            animate
+            className="mb-8"
+          >
             Start free with all templates. Upgrade anytime for watermark-free downloads and advanced features.
             No credit card required.
-          </p>
-        </motion.div>
+          </Text>
+        </div>
 
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-12">
           {plans.map((plan, index) => (
@@ -50,41 +64,22 @@ export default function PricingSection() {
         </div>
 
         {/* CTA to Full Pricing Page */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
+        <div className="text-center mb-16">
           <Link href="/pricing">
-            <button className="inline-flex items-center space-x-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white px-8 py-4 rounded-full text-lg font-semibold shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1">
-              <span>View Full Pricing Details</span>
-              <ArrowRight className="w-5 h-5" />
-            </button>
+            <Button
+              variant="primary"
+              size="lg"
+              icon={<ArrowRight />}
+              iconPosition="right"
+              animate
+            >
+              View Full Pricing Details
+            </Button>
           </Link>
-        </motion.div>
+        </div>
 
         {/* Enterprise CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center bg-gradient-to-r from-slate-800 to-slate-900 rounded-2xl p-12 text-white"
-        >
-          <Rocket className="w-16 h-16 mx-auto mb-4 text-accent-400" aria-hidden="true" />
-          <h3 className="text-3xl font-bold mb-4">Need Enterprise-Level Invoice Processing?</h3>
-          <p className="text-lg text-slate-300 mb-6 max-w-2xl mx-auto">
-            Unlimited invoices, custom ML training, white-label options, dedicated support, and more.
-          </p>
-          <Link href="/pricing">
-            <button
-              className="bg-accent-400 text-slate-900 px-8 py-4 rounded-full font-semibold text-lg hover:bg-accent-500 transition-all hover:-translate-y-1 shadow-xl"
-              aria-label="Contact sales for custom invoice processing pricing"
-            >
-              Contact Sales for Custom Pricing
-            </button>
-          </Link>
-        </motion.div>
+        <EnterpriseCTA />
       </div>
     </section>
   );
@@ -132,10 +127,14 @@ function PricingCard({ plan, index }: PricingCardProps) {
       {/* Popular Badge for Premium */}
       {plan.popular && (
         <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-          <div className="bg-accent-400 text-white px-4 py-1 rounded-full text-sm font-bold flex items-center gap-1">
-            <Sparkles className="w-3 h-3" />
+          <Badge 
+            variant="accent" 
+            size="md" 
+            icon={<Sparkles />}
+            className="font-bold"
+          >
             MOST POPULAR
-          </div>
+          </Badge>
         </div>
       )}
 
@@ -143,26 +142,26 @@ function PricingCard({ plan, index }: PricingCardProps) {
       <div className="text-center mb-6">
         <div className="flex items-center justify-center gap-2 mb-2">
           <Icon className={`w-6 h-6 ${isPremium ? 'text-white' : isPro ? 'text-purple-600' : 'text-green-600'}`} />
-          <h3 className={`text-2xl font-bold ${titleColor}`}>{plan.displayName}</h3>
+          <Heading as="h3" size="xl" className={titleColor}>{plan.displayName}</Heading>
         </div>
-        <p className={`text-sm ${subtitleColor}`}>{plan.tagline}</p>
+        <Text size="sm" className={subtitleColor}>{plan.tagline}</Text>
       </div>
 
       {/* Price */}
       <div className="text-center mb-8">
         <div className="flex items-baseline justify-center">
-          <span className={`text-xl ${priceCurrencyColor}`}>£</span>
-          <span className={`text-5xl font-bold ${priceColor}`}>
+          <Text as="span" size="xl" className={priceCurrencyColor}>£</Text>
+          <Text as="span" className={`text-5xl font-bold ${priceColor}`}>
             {plan.price.monthly === 0 ? '0' : plan.price.monthly.toFixed(2).replace('.00', '')}
-          </span>
+          </Text>
         </div>
-        <p className={`text-sm mt-1 ${priceCurrencyColor}`}>
+        <Text size="sm" className={`mt-1 ${priceCurrencyColor}`}>
           {plan.price.monthly === 0 ? 'forever' : 'per month'}
-        </p>
+        </Text>
         {plan.price.annual > 0 && (
-          <p className={`text-xs mt-1 ${isPremium ? 'text-primary-200' : isPro ? 'text-purple-700' : 'text-gray-500'} font-medium`}>
+          <Text size="xs" weight="medium" className={`mt-1 ${isPremium ? 'text-primary-200' : isPro ? 'text-purple-700' : 'text-gray-500'}`}>
             or £{(plan.price.annual / 12).toFixed(2)}/mo paid annually
-          </p>
+          </Text>
         )}
       </div>
 
@@ -171,31 +170,38 @@ function PricingCard({ plan, index }: PricingCardProps) {
         {plan.features.map((feature, idx) => (
           <li key={idx} className="flex items-start">
             <CheckCircle className={`w-5 h-5 mr-3 flex-shrink-0 mt-0.5 ${checkColor}`} aria-hidden="true" />
-            <span className={`text-sm ${featureColor}`}>{feature}</span>
+            <Text as="span" size="sm" className={featureColor}>{feature}</Text>
           </li>
         ))}
       </ul>
 
       {/* CTA Button */}
       <Link href={plan.ctaUrl} className="block">
-        <button 
+        <Button
+          variant={isPremium ? "secondary" : "primary"}
+          size="md"
+          fullWidth
           className={
             isPremium
-              ? "w-full py-3 rounded-full font-semibold transition-all hover:-translate-y-1 bg-white text-primary-700 shadow-lg hover:shadow-xl"
+              ? "bg-white text-primary-700"
               : isPro
-              ? "w-full py-3 rounded-full font-semibold transition-all hover:-translate-y-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg hover:shadow-xl"
-              : "w-full py-3 rounded-full font-semibold transition-all hover:-translate-y-1 bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-lg hover:shadow-xl"
+              ? "bg-gradient-to-r from-purple-600 to-pink-600"
+              : ""
           }
         >
           {plan.cta}
-        </button>
+        </Button>
       </Link>
       
       {/* Payment notice for paid plans */}
       {plan.price.monthly > 0 && (
-        <p className={`text-xs text-center mt-3 ${isPremium ? 'text-primary-200' : isPro ? 'text-purple-600' : 'text-gray-500'}`}>
+        <Text 
+          size="xs" 
+          align="center" 
+          className={`mt-3 ${isPremium ? 'text-primary-200' : isPro ? 'text-purple-600' : 'text-gray-500'}`}
+        >
           💳 Payment integration coming soon
-        </p>
+        </Text>
       )}
     </motion.div>
   );

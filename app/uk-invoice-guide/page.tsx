@@ -26,7 +26,7 @@ import {
   generateServiceSchema,
 } from '../lib/schemaConfig';
 import { getFAQsByCategory } from '../lib/faqData';
-import FAQSection from '../components/FAQSection';
+import FAQSection from '../components/home-page/FAQSection';
 import {
   getAllBusinessIdentifiers,
   getAllVATRates,

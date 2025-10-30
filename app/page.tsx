@@ -1,6 +1,6 @@
 // Server Component - renders schemas in static HTML
 import { getFAQsByCategory } from './lib/faqData';
-import HomePageSchema from './components/HomePageSchema';
+import HomePageSchema from './components/home-page/HomePageSchema';
 import HomeContent from './HomeContent';
 
 export default function Home() {
