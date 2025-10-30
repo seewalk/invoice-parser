@@ -12,6 +12,7 @@ import {
   Download,
 } from 'lucide-react';
 import DemoVisualization from './DemoVisualization';
+import { Button } from './ui/Button';
 
 interface HeroSectionProps {
   opacity: any;
@@ -100,19 +101,22 @@ export default function HeroSection({ opacity, scale }: HeroSectionProps) {
           transition={{ duration: 0.6, delay: 0.8 }}
           className="flex flex-col sm:flex-row justify-center gap-4 mb-16"
         >
-          <button
-            className="group bg-gradient-to-r from-primary-600 to-primary-700 text-white px-8 py-4 rounded-full text-lg font-semibold shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1 flex items-center justify-center space-x-2"
+          <Button
+            variant="primary"
+            size="lg"
+            icon={<ArrowRight className="w-5 h-5" />}
+            iconPosition="right"
             aria-label="Start free invoice processing trial with 10 free invoices"
           >
-            <span>Start Free Trial - 10 Invoices Free</span>
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </button>
-          <button
-            className="bg-white text-primary-700 border-2 border-primary-200 px-8 py-4 rounded-full text-lg font-semibold hover:bg-primary-50 transition-all hover:-translate-y-1 flex items-center justify-center space-x-2"
+            Start Free Trial - 10 Invoices Free
+          </Button>
+          <Button
+            variant="secondary"
+            size="lg"
             aria-label="Watch 2-minute invoice automation demo"
           >
-            <span>Watch 2-Min Demo</span>
-          </button>
+            Watch 2-Min Demo
+          </Button>
         </motion.div>
 
         {/* Hero Image / Demo */}

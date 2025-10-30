@@ -137,80 +137,98 @@ export const websiteSchema = {
 // SOFTWARE APPLICATION SCHEMA (Main Product)
 // ============================================================================
 
-export const softwareApplicationSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'SoftwareApplication',
-  '@id': `${BUSINESS_INFO.url}/#software`,
-  name: BUSINESS_INFO.tradingName,
-  applicationCategory: 'BusinessApplication',
-  applicationSubCategory: 'Invoice Processing Software',
-  operatingSystem: 'Web Browser',
+/**
+ * Generate Software Application Schema with dynamic pricing
+ * Uses centralized pricing from pricingConfig.ts
+ */
+export function generateSoftwareApplicationSchema() {
+  // Import pricing dynamically to avoid circular dependencies
+  const { PRICING_PLANS } = require('./pricingConfig');
   
-  description: 'AI-powered invoice processing and automation software for UK businesses. Extract data from supplier invoices automatically with 99% accuracy in 30 seconds. Perfect for restaurants, warehouses, and accounting firms.',
+  const allPlans = Object.values(PRICING_PLANS) as any[];
+  const paidPlans = allPlans.filter((p: any) => p.price.monthly > 0 && p.tier !== 'enterprise');
   
-  featureList: [
-    'AI-powered OCR invoice data extraction',
-    'Multi-page PDF support',
-    'Batch invoice processing',
-    'QuickBooks & Xero integration',
-    'Real-time data validation',
-    'Automated accounts payable',
-    'Mobile invoice capture',
-    'API access for automation',
-  ],
-  
-  offers: {
-    '@type': 'AggregateOffer',
-    priceCurrency: 'GBP',
-    lowPrice: '0',
-    highPrice: '29',
-    offerCount: '2',
-    offers: [
-      {
-        '@type': 'Offer',
-        name: 'Free Plan',
-        price: '0',
-        priceCurrency: 'GBP',
-        description: '10 invoices per month, forever free',
-      },
-      {
-        '@type': 'Offer',
-        name: 'Professional Plan',
-        price: '29',
-        priceCurrency: 'GBP',
-        description: 'Unlimited invoices, API access, priority support',
-      },
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    '@id': `${BUSINESS_INFO.url}/#software`,
+    name: BUSINESS_INFO.tradingName,
+    applicationCategory: 'BusinessApplication',
+    applicationSubCategory: 'Invoice Processing Software',
+    operatingSystem: 'Web Browser',
+    
+    description: 'AI-powered invoice processing and automation software for UK businesses. Extract data from supplier invoices automatically with 99% accuracy in 30 seconds. Perfect for restaurants, warehouses, and accounting firms.',
+    
+    featureList: [
+      'AI-powered OCR invoice data extraction',
+      'Multi-page PDF support',
+      'Batch invoice processing',
+      'QuickBooks & Xero integration',
+      'Real-time data validation',
+      'Automated accounts payable',
+      'Mobile invoice capture',
+      'API access for automation',
     ],
-  },
-  
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '4.9',
-    reviewCount: '127',
-    bestRating: '5',
-    worstRating: '1',
-  },
-  
-  author: {
-    '@id': `${BUSINESS_INFO.url}/#organization`,
-  },
-  
-  provider: {
-    '@id': `${BUSINESS_INFO.url}/#organization`,
-  },
-  
-  image: BUSINESS_INFO.logoUrl,
-  screenshot: `${BUSINESS_INFO.url}/screenshot.png`,
-  url: BUSINESS_INFO.url,
-  
-  installUrl: `${BUSINESS_INFO.url}/signup`,
-  softwareHelp: `${BUSINESS_INFO.url}/faq`,
-  softwareVersion: '1.0',
-  
-  releaseNotes: 'Multi-page PDF support, batch processing, enhanced AI accuracy',
-  
-  browserRequirements: 'Requires JavaScript. Modern browser (Chrome, Firefox, Safari, Edge)',
-};
+    
+    offers: {
+      '@type': 'AggregateOffer',
+      priceCurrency: 'GBP',
+      lowPrice: '0',
+      highPrice: String(Math.max(...paidPlans.map((p: any) => p.price.monthly))),
+      offerCount: String(paidPlans.length + 1), // +1 for free tier
+      offers: [
+        {
+          '@type': 'Offer',
+          name: 'Free Plan',
+          price: '0',
+          priceCurrency: 'GBP',
+          description: 'All templates with watermark, perfect for trying out the platform',
+        },
+        ...paidPlans.map((plan: any) => ({
+          '@type': 'Offer',
+          name: `${plan.name} Plan`,
+          price: String(plan.price.monthly),
+          priceCurrency: 'GBP',
+          description: plan.tagline,
+        })),
+      ],
+    },
+    
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.9',
+      reviewCount: '127',
+      bestRating: '5',
+      worstRating: '1',
+    },
+    
+    author: {
+      '@id': `${BUSINESS_INFO.url}/#organization`,
+    },
+    
+    provider: {
+      '@id': `${BUSINESS_INFO.url}/#organization`,
+    },
+    
+    image: BUSINESS_INFO.logoUrl,
+    screenshot: `${BUSINESS_INFO.url}/screenshot.png`,
+    url: BUSINESS_INFO.url,
+    
+    installUrl: `${BUSINESS_INFO.url}/signup`,
+    softwareHelp: `${BUSINESS_INFO.url}/faq`,
+    softwareVersion: '1.0',
+    
+    releaseNotes: 'Multi-page PDF support, batch processing, enhanced AI accuracy',
+    
+    browserRequirements: 'Requires JavaScript. Modern browser (Chrome, Firefox, Safari, Edge)',
+  };
+}
+
+/**
+ * @deprecated Use generateSoftwareApplicationSchema() instead
+ * Kept for backward compatibility
+ */
+export const softwareApplicationSchema = generateSoftwareApplicationSchema();
 
 // ============================================================================
 // BREADCRUMB GENERATOR (For AI-powered search summaries)
@@ -319,6 +337,10 @@ export interface ComparisonProduct {
   url?: string;
 }
 
+/**
+ * Generate Product Comparison Schema from manual product data
+ * Legacy function - kept for backward compatibility
+ */
 export function generateProductComparisonSchema(products: ComparisonProduct[]) {
   return {
     '@context': 'https://schema.org',
@@ -338,6 +360,56 @@ export function generateProductComparisonSchema(products: ComparisonProduct[]) {
           url: product.url || BUSINESS_INFO.url,
         },
         additionalProperty: product.features.map((feature) => ({
+          '@type': 'PropertyValue',
+          name: 'Feature',
+          value: feature,
+        })),
+      },
+    })),
+  };
+}
+
+/**
+ * Generate Product Comparison Schema from centralized pricing config
+ * Automatically uses the latest pricing data
+ * 
+ * @param context - Pricing context (homepage, full, templates, parser)
+ */
+export function generatePricingComparisonSchema(context: 'homepage' | 'full' | 'templates' | 'parser' = 'full') {
+  // Import dynamically to avoid circular dependencies
+  const { getPricingPlansForContext } = require('./pricingConfig');
+  
+  const plans = getPricingPlansForContext(context);
+  
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Elektroluma Pricing Plans',
+    description: 'Compare pricing plans for Elektroluma invoice processing software',
+    itemListElement: plans.map((plan: any, index: number) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'Product',
+        name: `${plan.name} Plan`,
+        description: plan.tagline,
+        brand: {
+          '@type': 'Brand',
+          name: BUSINESS_INFO.tradingName,
+        },
+        offers: {
+          '@type': 'Offer',
+          price: String(plan.price.monthly),
+          priceCurrency: 'GBP',
+          priceValidUntil: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // 1 year
+          availability: 'https://schema.org/InStock',
+          url: `${BUSINESS_INFO.url}${plan.ctaUrl}`,
+          eligibleRegion: {
+            '@type': 'Country',
+            name: 'United Kingdom',
+          },
+        },
+        additionalProperty: plan.features.map((feature: string) => ({
           '@type': 'PropertyValue',
           name: 'Feature',
           value: feature,
@@ -423,3 +495,23 @@ export function injectSchema(schema: object) {
 export function injectSchemas(schemas: object[]) {
   schemas.forEach((schema) => injectSchema(schema));
 }
+
+// ============================================================================
+// PRICING INTEGRATION EXPORTS
+// ============================================================================
+
+/**
+ * For pricing-specific schemas, use these functions:
+ * 
+ * RECOMMENDED (uses centralized pricing data):
+ * - generatePricingComparisonSchema('homepage')  // For homepage pricing section
+ * - generatePricingComparisonSchema('full')      // For pricing page
+ * - generatePricingComparisonSchema('templates') // For template pages
+ * - generatePricingComparisonSchema('parser')    // For parser page
+ * - generateSoftwareApplicationSchema()          // For global app schema (auto-pricing)
+ * 
+ * LEGACY (manual data - avoid if possible):
+ * - generateProductComparisonSchema([...])       // Use only for non-pricing comparisons
+ * 
+ * Pricing data source: @/app/lib/pricingConfig.ts
+ */
