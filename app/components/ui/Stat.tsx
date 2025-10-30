@@ -407,7 +407,7 @@ const Stat = forwardRef<HTMLDivElement, StatProps>(
         transition: {
           duration: 0.4,
           delay: animationDelay,
-          ease: 'easeOut'
+          ease: [0.4, 0, 0.2, 1] as any
         }
       },
     };

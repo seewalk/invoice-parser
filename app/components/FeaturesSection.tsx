@@ -9,6 +9,10 @@ import {
   TrendingUp,
   Users,
 } from 'lucide-react';
+import { IconBox } from './ui/IconBox';
+import { Heading } from './ui/Heading';
+import { Text } from './ui/Text';
+import { Card } from './ui/Card';
 
 export default function FeaturesSection() {
   const features = [
@@ -51,40 +55,66 @@ export default function FeaturesSection() {
       aria-labelledby="features-heading"
     >
       <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
+        <div className="text-center mb-16">
           {/* SEO OPTIMIZED Heading */}
-          <h2 id="features-heading" className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+          <Heading 
+            as="h2" 
+            id="features-heading" 
+            size="display-md" 
+            align="center"
+            className="mb-4"
+          >
             Advanced Invoice Processing Features -{' '}
             <span className="gradient-text">Built for UK Businesses</span>
-          </h2>
+          </Heading>
           {/* SEO OPTIMIZED Subheading */}
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <Text 
+            size="xl" 
+            variant="muted" 
+            align="center" 
+            maxWidth="3xl"
+            centered
+            animate
+          >
             Everything you need for automated invoice processing and data extraction, from OCR
             scanning to QuickBooks integration.
-          </p>
-        </motion.div>
+          </Text>
+        </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
-            <motion.div
+            <Card
               key={feature.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 border border-gray-100"
+              variant="hover"
+              padding="lg"
+              elevation="lg"
+              animate={false}
+              className="bg-white"
             >
-              <div className="w-14 h-14 bg-gradient-to-br from-primary-600 to-accent-500 rounded-xl flex items-center justify-center mb-4 shadow-lg">
-                <feature.icon className="w-7 h-7 text-white" aria-hidden="true" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
-              <p className="text-gray-600 leading-relaxed">{feature.description}</p>
-            </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <IconBox
+                  icon={<feature.icon />}
+                  variant="primary"
+                  styleVariant="gradient"
+                  size="lg"
+                  rounded="xl"
+                  shadow="lg"
+                  className="mb-4 bg-gradient-to-br from-primary-600 to-accent-500"
+                  animate={false}
+                />
+                <Heading as="h3" size="xl" className="mb-3" animate={false}>
+                  {feature.title}
+                </Heading>
+                <Text variant="muted" leading="relaxed" animate={false}>
+                  {feature.description}
+                </Text>
+              </motion.div>
+            </Card>
           ))}
         </div>
       </div>

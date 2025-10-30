@@ -53,7 +53,7 @@ const iconBoxVariants = cva(
       },
       
       // Style variants
-      style: {
+      styleVariant: {
         solid: '',
         gradient: '',
         outline: 'border-2',
@@ -105,172 +105,172 @@ const iconBoxVariants = cva(
       },
     },
     
-    // Compound variants (combining style + variant)
+    // Compound variants (combining styleVariant + variant)
     compoundVariants: [
       // Solid variants
       {
-        style: 'solid',
+        styleVariant: 'solid',
         variant: 'default',
         className: 'bg-gray-100 text-gray-600',
       },
       {
-        style: 'solid',
+        styleVariant: 'solid',
         variant: 'primary',
         className: 'bg-primary-100 text-primary-600',
       },
       {
-        style: 'solid',
+        styleVariant: 'solid',
         variant: 'secondary',
         className: 'bg-slate-100 text-slate-600',
       },
       {
-        style: 'solid',
+        styleVariant: 'solid',
         variant: 'accent',
         className: 'bg-accent-100 text-accent-600',
       },
       {
-        style: 'solid',
+        styleVariant: 'solid',
         variant: 'success',
         className: 'bg-success-100 text-success-600',
       },
       {
-        style: 'solid',
+        styleVariant: 'solid',
         variant: 'warning',
         className: 'bg-warning-100 text-warning-600',
       },
       {
-        style: 'solid',
+        styleVariant: 'solid',
         variant: 'error',
         className: 'bg-error-100 text-error-600',
       },
       {
-        style: 'solid',
+        styleVariant: 'solid',
         variant: 'info',
         className: 'bg-info-100 text-info-600',
       },
       
       // Gradient variants
       {
-        style: 'gradient',
+        styleVariant: 'gradient',
         variant: 'default',
         className: 'bg-gradient-to-br from-gray-500 to-gray-600 text-white',
       },
       {
-        style: 'gradient',
+        styleVariant: 'gradient',
         variant: 'primary',
         className: 'bg-gradient-to-br from-primary-600 to-primary-700 text-white',
       },
       {
-        style: 'gradient',
+        styleVariant: 'gradient',
         variant: 'secondary',
         className: 'bg-gradient-to-br from-slate-600 to-slate-700 text-white',
       },
       {
-        style: 'gradient',
+        styleVariant: 'gradient',
         variant: 'accent',
         className: 'bg-gradient-to-br from-accent-400 to-accent-500 text-slate-900',
       },
       {
-        style: 'gradient',
+        styleVariant: 'gradient',
         variant: 'success',
         className: 'bg-gradient-to-br from-success-500 to-success-600 text-white',
       },
       {
-        style: 'gradient',
+        styleVariant: 'gradient',
         variant: 'warning',
         className: 'bg-gradient-to-br from-warning-500 to-warning-600 text-white',
       },
       {
-        style: 'gradient',
+        styleVariant: 'gradient',
         variant: 'error',
         className: 'bg-gradient-to-br from-error-500 to-error-600 text-white',
       },
       {
-        style: 'gradient',
+        styleVariant: 'gradient',
         variant: 'info',
         className: 'bg-gradient-to-br from-info-500 to-info-600 text-white',
       },
       
       // Outline variants
       {
-        style: 'outline',
+        styleVariant: 'outline',
         variant: 'default',
         className: 'border-gray-300 text-gray-600 bg-transparent',
       },
       {
-        style: 'outline',
+        styleVariant: 'outline',
         variant: 'primary',
         className: 'border-primary-300 text-primary-600 bg-transparent',
       },
       {
-        style: 'outline',
+        styleVariant: 'outline',
         variant: 'secondary',
         className: 'border-slate-300 text-slate-600 bg-transparent',
       },
       {
-        style: 'outline',
+        styleVariant: 'outline',
         variant: 'accent',
         className: 'border-accent-300 text-accent-600 bg-transparent',
       },
       {
-        style: 'outline',
+        styleVariant: 'outline',
         variant: 'success',
         className: 'border-success-300 text-success-600 bg-transparent',
       },
       {
-        style: 'outline',
+        styleVariant: 'outline',
         variant: 'warning',
         className: 'border-warning-300 text-warning-600 bg-transparent',
       },
       {
-        style: 'outline',
+        styleVariant: 'outline',
         variant: 'error',
         className: 'border-error-300 text-error-600 bg-transparent',
       },
       {
-        style: 'outline',
+        styleVariant: 'outline',
         variant: 'info',
         className: 'border-info-300 text-info-600 bg-transparent',
       },
       
       // Ghost variants
       {
-        style: 'ghost',
+        styleVariant: 'ghost',
         variant: 'default',
         className: 'text-gray-600 bg-transparent hover:bg-gray-100',
       },
       {
-        style: 'ghost',
+        styleVariant: 'ghost',
         variant: 'primary',
         className: 'text-primary-600 bg-transparent hover:bg-primary-50',
       },
       {
-        style: 'ghost',
+        styleVariant: 'ghost',
         variant: 'secondary',
         className: 'text-slate-600 bg-transparent hover:bg-slate-50',
       },
       {
-        style: 'ghost',
+        styleVariant: 'ghost',
         variant: 'accent',
         className: 'text-accent-600 bg-transparent hover:bg-accent-50',
       },
       {
-        style: 'ghost',
+        styleVariant: 'ghost',
         variant: 'success',
         className: 'text-success-600 bg-transparent hover:bg-success-50',
       },
       {
-        style: 'ghost',
+        styleVariant: 'ghost',
         variant: 'warning',
         className: 'text-warning-600 bg-transparent hover:bg-warning-50',
       },
       {
-        style: 'ghost',
+        styleVariant: 'ghost',
         variant: 'error',
         className: 'text-error-600 bg-transparent hover:bg-error-50',
       },
       {
-        style: 'ghost',
+        styleVariant: 'ghost',
         variant: 'info',
         className: 'text-info-600 bg-transparent hover:bg-info-50',
       },
@@ -279,7 +279,7 @@ const iconBoxVariants = cva(
     // Default variants
     defaultVariants: {
       variant: 'primary',
-      style: 'solid',
+      styleVariant: 'solid',
       size: 'md',
       rounded: 'xl',
       shadow: 'none',
@@ -338,7 +338,7 @@ const IconBox = forwardRef<HTMLDivElement, IconBoxProps>(
     {
       icon,
       variant = 'primary',
-      style = 'solid',
+      styleVariant = 'solid',
       size = 'md',
       rounded = 'xl',
       shadow = 'none',
@@ -371,7 +371,7 @@ const IconBox = forwardRef<HTMLDivElement, IconBoxProps>(
     
     // Build className
     const iconBoxClassName = cn(
-      iconBoxVariants({ variant, style, size, rounded, shadow, hover, clickable: isClickable }),
+      iconBoxVariants({ variant, styleVariant, size, rounded, shadow, hover, clickable: isClickable }),
       hover === 'glow' && variant === 'primary' && 'hover:shadow-glow',
       hover === 'glow' && variant === 'accent' && 'hover:shadow-glow-accent',
       hover === 'glow' && variant === 'success' && 'hover:shadow-[0_0_30px_rgba(34,197,94,0.3)]',
@@ -395,7 +395,7 @@ const IconBox = forwardRef<HTMLDivElement, IconBoxProps>(
         transition: {
           duration: 0.4,
           delay: animationDelay,
-          ease: 'easeOut'
+          ease: [0.4, 0, 0.2, 1] as any
         }
       },
     };

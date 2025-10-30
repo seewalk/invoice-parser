@@ -19,6 +19,9 @@ export { Card } from './Card';
 export { Badge } from './Badge';
 export { Heading } from './Heading';
 export { Stat } from './Stat';
+export { Text } from './Text';
+export { IconBox, iconBoxVariants } from './IconBox';
+
 
 // Add more exports as we create components:
 // export { Card, cardVariants } from './Card';

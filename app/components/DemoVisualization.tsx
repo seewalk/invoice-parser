@@ -33,7 +33,7 @@ export default function DemoVisualization() {
           <IconBox
             icon={<Upload />}
             variant="primary"
-            style="solid"
+            styleVariant="solid"
             size="sm"
             rounded="full"
             animate={false}
@@ -51,7 +51,7 @@ export default function DemoVisualization() {
           <IconBox
             icon={<Sparkles />}
             variant="primary"
-            style="solid"
+            styleVariant="solid"
             size="sm"
             rounded="full"
             animate={false}
@@ -69,7 +69,7 @@ export default function DemoVisualization() {
           <IconBox
             icon={<CheckCheck />}
             variant="primary"
-            style="solid"
+            styleVariant="solid"
             size="sm"
             rounded="full"
             animate={false}
@@ -87,7 +87,7 @@ export default function DemoVisualization() {
           <IconBox
             icon={<Download />}
             variant="success"
-            style="solid"
+            styleVariant="solid"
             size="sm"
             rounded="full"
             animate={false}
