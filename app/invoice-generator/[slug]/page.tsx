@@ -5,6 +5,7 @@ import {
   type InvoiceTemplate,
 } from '@/app/lib/invoiceTemplateLibrary';
 import InvoiceGeneratorClient from '../../components/InvoiceGeneratorClient';
+import InvoiceGeneratorTemplateSchemaOptimized from '../../components/invoice-generator/InvoiceGeneratorTemplateSchemaOptimized.tsx';
 
 
 
@@ -82,11 +83,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 
   const { template, industryName } = result;
+  const canonicalUrl = `https://elektroluma.co.uk/invoice-generator/${slug}`;
   
   return {
-    title: `Create ${template.name} | Invoice Generator`,
-    description: `Generate professional ${template.name.toLowerCase()} online. ${template.description} Free invoice maker with instant PDF download.`,
-    keywords: [...template.keywords, 'invoice generator', 'create invoice', 'invoice maker'].join(', '),
+    title: `${template.name} | Free Invoice Generator`,
+    description: `Generate free ${template.name.toLowerCase()} online. ${template.description} and ${industryName}. Create an invoice today.`,
+    keywords: [...template.keywords, 'invoice generator', 'create invoice', 'invoice maker', industryName.toLowerCase()].join(', '),
+    alternates: {
+      canonical: canonicalUrl,
+    },
+   
   };
 }
 
@@ -104,6 +110,17 @@ export default async function InvoiceGeneratorDetailPage({ params }: { params: P
 
   const { template, industryId, industryName } = result;
 
-  // Pass template to client component
-  return <InvoiceGeneratorClient template={template} industryName={industryName} />;
+  return (
+    <>
+      {/* Optimized Server-Side Schema Markup (4 Schemas) */}
+      <InvoiceGeneratorTemplateSchemaOptimized
+        template={template}
+        industryName={industryName}
+        slug={slug}
+      />
+      
+      {/* Client Component */}
+      <InvoiceGeneratorClient template={template} industryName={industryName} />
+    </>
+  );
 }
