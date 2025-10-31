@@ -17,7 +17,11 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/app/lib/firebase/AuthContext';
 import { useQuota } from '@/app/hooks/useQuota';
 import { useUsageHistory } from '@/app/hooks/useUsageHistory';
+import { useSubscription } from '@/app/hooks/useSubscription';
 import Link from 'next/link';
+import SubscriptionCard from '@/app/components/subscription/SubscriptionCard';
+import PaymentMethodCard from '@/app/components/subscription/PaymentMethodCard';
+import BillingHistoryCard from '@/app/components/subscription/BillingHistoryCard';
 import {
   User,
   CreditCard,
@@ -42,6 +46,7 @@ export default function AccountPage() {
   const { user, loading: authLoading, userQuotas, logout } = useAuth();
   const { getRemaining, hasUnlimitedAccess } = useQuota();
   const { history, loading: historyLoading, filteredHistory, filterByType, filterByDateRange, refresh } = useUsageHistory();
+  const subscriptionData = useSubscription();
   
   const [activeTab, setActiveTab] = useState<'overview' | 'usage' | 'invoices' | 'parsed' | 'profile' | 'billing'>('overview');
   const [typeFilter, setTypeFilter] = useState<'all' | 'invoiceParses' | 'templateDownloads' | 'generatorUses'>('all');
@@ -601,34 +606,36 @@ export default function AccountPage() {
               <p className="text-slate-600">Manage your plan and payment method</p>
             </div>
 
-            {/* Current Plan */}
-            <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-6">
-              <h3 className="text-lg font-bold text-slate-900 mb-4">Current Plan</h3>
-              <div className="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
-                <div className="flex items-center gap-3">
-                  <PlanIcon className={`w-8 h-8 ${currentPlan.color}`} />
-                  <div>
-                    <p className="font-semibold text-slate-900">{currentPlan.name}</p>
-                    <p className="text-sm text-slate-600">
-                      {userQuotas.plan === 'free' ? 'Limited features' : 'Unlimited access to all features'}
-                    </p>
-                  </div>
-                </div>
-                {userQuotas.plan === 'free' && (
-                  <Link
-                    href="/pricing"
-                    className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition font-medium"
-                  >
-                    Upgrade Now
-                  </Link>
-                )}
-              </div>
-            </div>
+            {/* Subscription Management Card */}
+            <SubscriptionCard
+              subscription={subscriptionData.subscriptionId ? {
+                subscriptionId: subscriptionData.subscriptionId,
+                status: subscriptionData.status,
+                currentPeriodEnd: subscriptionData.currentPeriodEnd,
+                cancelAtPeriodEnd: subscriptionData.cancelAtPeriodEnd,
+              } : null}
+              plan={subscriptionData.plan}
+            />
 
-            {/* Upgrade Options */}
+            {/* Payment Method Card */}
+            <PaymentMethodCard
+              paymentMethod={subscriptionData.paymentMethod}
+              isLoading={subscriptionData.isLoading}
+            />
+
+            {/* Billing History Card */}
+            <BillingHistoryCard
+              billingHistory={subscriptionData.billingHistory}
+              isLoading={subscriptionData.isLoading}
+            />
+
+            {/* Upgrade Options - Only show for free users */}
             {userQuotas.plan === 'free' && (
               <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl shadow-lg border border-indigo-200 p-8">
                 <h3 className="text-2xl font-bold text-slate-900 mb-4">Upgrade to Premium</h3>
+                <p className="text-slate-600 mb-6">
+                  Choose a plan that works for you and unlock unlimited features
+                </p>
                 <div className="grid md:grid-cols-3 gap-4">
                   <div className="bg-white rounded-lg p-6">
                     <h4 className="font-bold text-lg text-slate-900 mb-2">Starter</h4>
@@ -647,14 +654,15 @@ export default function AccountPage() {
                       <h4 className="font-bold text-lg text-slate-900">Pro</h4>
                       <span className="text-xs font-semibold px-2 py-1 bg-indigo-100 text-indigo-700 rounded-full">Popular</span>
                     </div>
-                    <p className="text-3xl font-bold text-indigo-600 mb-4">£29.99<span className="text-sm text-slate-600">/mo</span></p>
+                    <p className="text-3xl font-bold text-indigo-600 mb-4">$29.00<span className="text-sm text-slate-600">/mo</span></p>
                     <ul className="space-y-2 text-sm text-slate-600 mb-4">
                       <li>✓ Unlimited parses</li>
                       <li>✓ Unlimited downloads</li>
                       <li>✓ Unlimited invoices</li>
+                      <li>✓ Priority support</li>
                     </ul>
-                    <Link href="/pricing" className="block text-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
-                      Choose Plan
+                    <Link href="/checkout" className="block text-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
+                      Upgrade to Pro
                     </Link>
                   </div>
                   <div className="bg-white rounded-lg p-6">
@@ -664,6 +672,7 @@ export default function AccountPage() {
                       <li>✓ Everything in Pro</li>
                       <li>✓ Priority support</li>
                       <li>✓ Custom integrations</li>
+                      <li>✓ Dedicated account manager</li>
                     </ul>
                     <Link href="/pricing" className="block text-center px-4 py-2 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition">
                       Contact Sales
@@ -672,16 +681,6 @@ export default function AccountPage() {
                 </div>
               </div>
             )}
-
-            {/* Payment Method Placeholder */}
-            <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-6">
-              <h3 className="text-lg font-bold text-slate-900 mb-4">Payment Method</h3>
-              <div className="p-6 bg-slate-50 rounded-lg text-center">
-                <CreditCard className="w-12 h-12 text-slate-300 mx-auto mb-4" />
-                <p className="text-slate-600 mb-2">No payment method on file</p>
-                <p className="text-sm text-slate-500">Upgrade to a premium plan to add payment details</p>
-              </div>
-            </div>
           </div>
         )}
       </div>

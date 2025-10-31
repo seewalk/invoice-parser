@@ -57,11 +57,14 @@ export default function PricingPage() {
   };
 
   const handlePremiumCTA = () => {
-    alert('Premium subscription coming soon! Get notified when payment integration is ready.');
+    // TODO: Premium checkout (£9.99/month) - Phase 4
+    // For now, redirect to Pro checkout (only subscription available)
+    alert('Premium tier ($9.99/month) coming soon!\n\nFor now, you can subscribe to Pro ($29/month) which includes all Premium features plus AI parsing and API access.');
   };
 
   const handleProCTA = () => {
-    alert('Pro subscription coming soon! Get notified when payment integration is ready.');
+    // Redirect to Pro checkout page
+    window.location.href = '/checkout';
   };
 
   return (
@@ -86,13 +89,13 @@ export default function PricingPage() {
 
       {/* Hero Section */}
       <PageHero
-        badge="Simple, Transparent Pricing"
+        badge="Pro Subscription Now Available! 🎉"
         title={
           <>
             Start Free, <span className="gradient-text">Upgrade When Ready</span>
           </>
         }
-        description="All 11 invoice templates available for free with watermark. Upgrade anytime for watermark-free downloads and advanced features. No credit card required to start."
+        description="All 11 invoice templates available for free with watermark. Upgrade to Pro ($29/month) for unlimited AI parsing, API access, and all premium features. No credit card required to start."
         size="default"
       />
 

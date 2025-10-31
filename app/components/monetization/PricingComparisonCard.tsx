@@ -65,7 +65,8 @@ export default function PricingComparisonCard({
     if (onProCTA) {
       onProCTA();
     } else {
-      alert('Payment integration coming soon! We\'ll notify you when it\'s ready.');
+      // Redirect to checkout page
+      window.location.href = '/checkout';
     }
   };
 
@@ -321,7 +322,7 @@ export default function PricingComparisonCard({
           </button>
           
           <p className="text-xs text-center text-purple-700 mt-3">
-            💳 Payment integration coming soon
+            ✅ Available now!
           </p>
         </motion.div>
       )}

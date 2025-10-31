@@ -166,7 +166,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
           }}
         >
           {/* Price Advantage */}
-          {competitor.pricing.model && (
+          {competitor.pricing?.tiers && (
             <div
               style={{
                 display: 'flex',
@@ -187,7 +187,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
                   marginBottom: `${SPACING.xs}px`,
                 }}
               >
-                {competitor.pricing .model}
+                Save with Elektroluma
               </div>
               <div
                 style={{

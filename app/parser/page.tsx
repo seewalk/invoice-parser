@@ -206,9 +206,9 @@ export default function InvoiceParser() {
     console.log(`[Parser] Processing page ${pageNumber}/${totalPages}:`, imageUrl);
     
     try {
-      // API call with SINGLE URL (array with one element)
+      // API call with SINGLE URL (string, not array)
       const apiPayload = {
-        imageUrls: [imageUrl]  // Backend expects array, but with only 1 URL
+        imageUrl: imageUrl  // Backend expects single URL as string
       };
 
       const response = await fetch(
@@ -225,7 +225,13 @@ export default function InvoiceParser() {
       const responseText = await response.text();
       
       if (!response.ok) {
-        throw new Error(`API error: ${response.status} ${response.statusText}`);
+        console.error('[Parser] API returned error:', {
+          status: response.status,
+          statusText: response.statusText,
+          responseBody: responseText.substring(0, 500), // Log first 500 chars
+          requestPayload: apiPayload
+        });
+        throw new Error(`API error: ${response.status} ${response.statusText} - ${responseText.substring(0, 100)}`);
       }
 
       // Parse JSON response
@@ -268,7 +274,6 @@ export default function InvoiceParser() {
       console.log(`[Parser] Page ${pageNumber}/${totalPages} parsed successfully`, {
         pageType,
         lineItems: invoiceData.lineItems.length,
-        confidence: invoiceData.confidence,
         processingTime: `${processingTime}ms`
       });
 
@@ -521,7 +526,6 @@ export default function InvoiceParser() {
       console.log('📊 Final Results:');
       console.log(`   • Pages Processed: ${aggregated.metadata.pagesProcessed}`);
       console.log(`   • Line Items: ${aggregated.invoice.lineItems.length}`);
-      console.log(`   • Confidence: ${(aggregated.invoice.confidence * 100).toFixed(1)}%`);
       console.log(`   • Total Amount: £${aggregated.invoice.totalAmount.toFixed(2)}`);
       console.log(`   • Processing Time: ${aggregated.metadata.processingTimeMs}ms`);
       console.log('═══════════════════════════════════════════════════════');
@@ -935,12 +939,6 @@ export default function InvoiceParser() {
                           <span>Line Items Found:</span>
                           <span className="font-semibold">
                             {pageResults.reduce((sum, r) => sum + r.data.lineItems.length, 0)}
-                          </span>
-                        </div>
-                        <div className="flex items-center justify-between">
-                          <span>Avg Confidence:</span>
-                          <span className="font-semibold">
-                            {(pageResults.reduce((sum, r) => sum + r.data.confidence, 0) / pageResults.length * 100).toFixed(1)}%
                           </span>
                         </div>
                       </div>

@@ -28,6 +28,8 @@ import {
   onSnapshot,
   Unsubscribe 
 } from 'firebase/firestore';
+import { createStripeCustomer } from '../stripe/api';
+import { saveCustomerIdToFirestore } from '../stripe/firestore';
 
 // User quota interface
 export interface UserQuotas {
@@ -99,6 +101,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   /**
    * Initialize new user with default quotas
    * Admin users are detected via custom claims or specific email domains
+   * Also creates a Stripe customer for payment processing
    */
   const initializeNewUser = async (userId: string, email: string, name: string) => {
     if (!db) {
@@ -120,6 +123,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
 
     try {
+      // Create Firestore user document first
       await setDoc(doc(db, 'users', userId), {
         ...initialQuotas,
         createdAt: serverTimestamp(),
@@ -127,6 +131,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       });
       setUserQuotas(initialQuotas);
       console.log('[Auth] New user initialized with quotas:', initialQuotas);
+
+      // Create Stripe customer asynchronously (don't block signup if it fails)
+      // Skip Stripe customer creation for admin users
+      if (!isAdmin) {
+        console.log('[Auth] Creating Stripe customer for user:', userId);
+        try {
+          const customerData = await createStripeCustomer(email, name, userId);
+          console.log('[Auth] Stripe customer created:', customerData.customerId);
+          
+          // Save customer ID to Firestore
+          await saveCustomerIdToFirestore(userId, customerData.customerId);
+          console.log('[Auth] Stripe customer ID saved to Firestore');
+        } catch (stripeError) {
+          // Log error but don't fail signup
+          console.error('[Auth] Failed to create Stripe customer (non-blocking):', stripeError);
+          // Could add a flag in Firestore to retry later
+          await setDoc(doc(db, 'users', userId), {
+            stripeCustomerCreationFailed: true,
+            stripeCustomerCreationError: stripeError instanceof Error ? stripeError.message : 'Unknown error'
+          }, { merge: true });
+        }
+      } else {
+        console.log('[Auth] Skipping Stripe customer creation for admin user');
+      }
     } catch (error) {
       console.error('[Auth] Error initializing new user:', error);
       throw error;

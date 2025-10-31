@@ -326,14 +326,6 @@ export function validateAggregatedInvoice(aggregated: AggregatedInvoice): {
   }
 
   // Non-critical validations (warnings)
-  if (aggregated.invoice.confidence < 0.70) {
-    warnings.push('Low confidence score - manual review recommended');
-  }
-
-  if (aggregated.invoice.confidence < 0.50) {
-    errors.push('Very low confidence score - data may be unreliable');
-  }
-
   if (aggregated.metadata.totalPages > 10) {
     warnings.push(`Large document (${aggregated.metadata.totalPages} pages) - processing time may be extended`);
   }
