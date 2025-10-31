@@ -94,13 +94,13 @@ export function useSubscription(): SubscriptionData {
     const fetchSubscriptionData = async () => {
       try {
         // For now, use data from Firestore (via userQuotas)
-        const stripeData = userQuotas.stripe || {};
+        const stripeData = userQuotas?.stripe || {};
         
         // Mock data structure (replace with actual API call)
         const data: SubscriptionData = {
           subscriptionId: stripeData.subscriptionId || null,
           status: stripeData.subscriptionId ? 'active' : 'none',
-          plan: stripeData.subscriptionId ? 'pro' : 'free',
+          plan: userQuotas?.plan || 'free',
           currentPeriodEnd: stripeData.currentPeriodEnd,
           cancelAtPeriodEnd: stripeData.cancelAtPeriodEnd,
           

@@ -22,6 +22,9 @@ import Link from 'next/link';
 import SubscriptionCard from '@/app/components/subscription/SubscriptionCard';
 import PaymentMethodCard from '@/app/components/subscription/PaymentMethodCard';
 import BillingHistoryCard from '@/app/components/subscription/BillingHistoryCard';
+import QuotaStatsGrid from '@/app/components/account/QuotaStatsGrid';
+import QuickActionsCard from '@/app/components/account/QuickActionsCard';
+import UpgradeCTACard from '@/app/components/account/UpgradeCTACard';
 import {
   User,
   CreditCard,
@@ -189,123 +192,20 @@ export default function AccountPage() {
             </div>
 
             {/* Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {/* Parser Quota */}
-              <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <FileCheck className="w-8 h-8 text-blue-600" />
-                  {hasUnlimitedAccess && <Sparkles className="w-5 h-5 text-primary-600" />}
-                </div>
-                <h3 className="text-sm font-medium text-slate-600 mb-1">Invoice Parser</h3>
-                <p className="text-3xl font-bold text-slate-900">
-                  {hasUnlimitedAccess ? '∞' : getRemaining('invoiceParses')}
-                </p>
-                <p className="text-xs text-slate-500 mt-1">
-                  {hasUnlimitedAccess ? 'Unlimited parses' : `of 5 parses remaining`}
-                </p>
-              </div>
-
-              {/* Template Downloads */}
-              <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <Download className="w-8 h-8 text-green-600" />
-                  {hasUnlimitedAccess && <Sparkles className="w-5 h-5 text-primary-600" />}
-                </div>
-                <h3 className="text-sm font-medium text-slate-600 mb-1">Templates</h3>
-                <p className="text-3xl font-bold text-slate-900">
-                  {hasUnlimitedAccess ? '∞' : getRemaining('templateDownloads')}
-                </p>
-                <p className="text-xs text-slate-500 mt-1">
-                  {hasUnlimitedAccess ? 'Unlimited downloads' : `of 3 downloads remaining`}
-                </p>
-              </div>
-
-              {/* Generator Uses */}
-              <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <Zap className="w-8 h-8 text-purple-600" />
-                  {hasUnlimitedAccess && <Sparkles className="w-5 h-5 text-primary-600" />}
-                </div>
-                <h3 className="text-sm font-medium text-slate-600 mb-1">Generator</h3>
-                <p className="text-3xl font-bold text-slate-900">
-                  {hasUnlimitedAccess ? '∞' : getRemaining('generatorUses')}
-                </p>
-                <p className="text-xs text-slate-500 mt-1">
-                  {hasUnlimitedAccess ? 'Unlimited uses' : `of 5 uses remaining`}
-                </p>
-              </div>
-
-              {/* Total Usage */}
-              <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <Activity className="w-8 h-8 text-indigo-600" />
-                </div>
-                <h3 className="text-sm font-medium text-slate-600 mb-1">Total Usage</h3>
-                <p className="text-3xl font-bold text-slate-900">{totalUsage}</p>
-                <p className="text-xs text-slate-500 mt-1">
-                  {thisMonthUsage} this month
-                </p>
-              </div>
-            </div>
+            <QuotaStatsGrid
+              parserRemaining={getRemaining('invoiceParses')}
+              templateRemaining={getRemaining('templateDownloads')}
+              generatorRemaining={getRemaining('generatorUses')}
+              totalUsage={totalUsage}
+              thisMonthUsage={thisMonthUsage}
+              isUnlimited={hasUnlimitedAccess}
+            />
 
             {/* Quick Actions */}
-            <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-6">
-              <h3 className="text-lg font-bold text-slate-900 mb-4">Quick Actions</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <Link
-                  href="/parser"
-                  className="flex items-center gap-3 p-4 border-2 border-blue-200 rounded-lg hover:bg-blue-50 transition"
-                >
-                  <FileCheck className="w-6 h-6 text-blue-600" />
-                  <div>
-                    <p className="font-semibold text-slate-900">Parse Invoice</p>
-                    <p className="text-xs text-slate-600">Extract data from PDFs</p>
-                  </div>
-                </Link>
-                <Link
-                  href="/invoice-templates"
-                  className="flex items-center gap-3 p-4 border-2 border-green-200 rounded-lg hover:bg-green-50 transition"
-                >
-                  <Download className="w-6 h-6 text-green-600" />
-                  <div>
-                    <p className="font-semibold text-slate-900">Download Template</p>
-                    <p className="text-xs text-slate-600">Professional templates</p>
-                  </div>
-                </Link>
-                <Link
-                  href="/invoice-generator"
-                  className="flex items-center gap-3 p-4 border-2 border-purple-200 rounded-lg hover:bg-purple-50 transition"
-                >
-                  <Zap className="w-6 h-6 text-purple-600" />
-                  <div>
-                    <p className="font-semibold text-slate-900">Generate Invoice</p>
-                    <p className="text-xs text-slate-600">Create custom invoices</p>
-                  </div>
-                </Link>
-              </div>
-            </div>
+            <QuickActionsCard />
 
             {/* Upgrade CTA (if free plan) */}
-            {userQuotas.plan === 'free' && (
-              <div className="bg-gradient-to-br from-primary-600 to-accent-500 rounded-xl shadow-lg border border-primary-200 p-8 text-white">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="text-2xl font-bold mb-2">Upgrade to Unlimited</h3>
-                    <p className="text-primary-100 mb-4">
-                      Get unlimited access to all features. No more quotas, no limits.
-                    </p>
-                    <Link
-                      href="/pricing"
-                      className="inline-flex items-center gap-2 bg-white text-primary-600 px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition"
-                    >
-                      <Crown className="w-5 h-5" />
-                      View Pricing Plans
-                    </Link>
-                  </div>
-                  <Crown className="w-24 h-24 text-white opacity-20" />
-                </div>
-              </div>
-            )}
+            {userQuotas.plan === 'free' && <UpgradeCTACard />}
           </div>
         )}
 
@@ -608,9 +508,9 @@ export default function AccountPage() {
 
             {/* Subscription Management Card */}
             <SubscriptionCard
-              subscription={subscriptionData.subscriptionId ? {
+              subscription={subscriptionData.subscriptionId && subscriptionData.status !== 'none' ? {
                 subscriptionId: subscriptionData.subscriptionId,
-                status: subscriptionData.status,
+                status: subscriptionData.status as 'active' | 'canceled' | 'past_due' | 'unpaid',
                 currentPeriodEnd: subscriptionData.currentPeriodEnd,
                 cancelAtPeriodEnd: subscriptionData.cancelAtPeriodEnd,
               } : null}

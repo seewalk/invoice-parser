@@ -43,6 +43,18 @@ export interface UserQuotas {
   name?: string;
   createdAt?: any;
   lastLoginAt?: any;
+  stripe?: {
+    customerId?: string;
+    subscriptionId?: string;
+    currentPeriodEnd?: number;
+    cancelAtPeriodEnd?: boolean;
+    paymentMethod?: {
+      last4: string;
+      brand: 'visa' | 'mastercard' | 'amex' | 'discover' | 'other';
+      expMonth: number;
+      expYear: number;
+    };
+  };
 }
 
 // Auth context interface
