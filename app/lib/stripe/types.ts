@@ -28,12 +28,14 @@ export interface CreateCustomerResponse {
 
 /**
  * Lambda API Response: Create Subscription
+ * 
+ * Note: clientSecret is not used in current implementation.
+ * Lambda backend handles 3D Secure (SCA) automatically on server side.
  */
 export interface CreateSubscriptionResponse {
   subscriptionId: string;
   status: SubscriptionStatus;
   paymentMethodId: string;
-  clientSecret?: string; // For 3D Secure confirmation
 }
 
 /**

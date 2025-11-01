@@ -5,18 +5,93 @@
  * integrating with the main invoiceTemplateIndustries.ts database.
  * 
  * Industry Overview:
- * - Total Templates: 3 (0 free, 3 premium)
+ * - Total Templates: 3 (3 free, 0 premium)
  * - Categories: 3 (Vehicle Sales, Auto Repair & Maintenance, Auto Detailing)
- * - Total Search Volume: 60,490/month
- * - Average CPC: $4.13
+ * - Total Search Volume: 21,110/month
+ * - Average CPC: $3.91
  * - SEO Difficulty: Medium (49.0)
  * 
  * This comprehensive automotive invoice template collection positions us as the
  * definitive global resource for all automotive billing needs, covering private
  * car sales, professional garage services, and premium detailing operations.
+ * 
+ * Industry-Specific Fields:
+ * - Vehicle Registration (UK format with validation)
+ * - Vehicle Make & Model
+ * - Vehicle Year & Mileage
+ * - VIN Number
+ * - MOT Expiry Date
+ * - Job Card Tracking
+ * - Parts & Labour Breakdown
+ * - Warranty Information
  */
 
 import { IndustryMetadata } from '../invoiceTemplateIndustries';
+import { InvoiceField, IndustryStandard } from '../../invoiceTemplateLibrary';
+
+// ============================================================================
+// AUTOMOTIVE-SPECIFIC FIELDS
+// ============================================================================
+
+// Reusable automotive field definitions for consistent field usage
+export const automotiveFields = {
+  vehicleRegistration: {
+    fieldName: 'vehicleRegistration',
+    label: 'Vehicle Registration',
+    type: 'text' as const,
+    required: true,
+    placeholder: 'AB12 CDE',
+    validation: '^[A-Z]{2}\\d{2}\\s?[A-Z]{3}$',
+    helpText: 'UK vehicle registration plate'
+  },
+  vehicleMake: {
+    fieldName: 'vehicleMake',
+    label: 'Vehicle Make',
+    type: 'text' as const,
+    required: true,
+    placeholder: 'Ford',
+    helpText: 'Vehicle manufacturer'
+  },
+  vehicleModel: {
+    fieldName: 'vehicleModel',
+    label: 'Vehicle Model',
+    type: 'text' as const,
+    required: true,
+    placeholder: 'Focus',
+    helpText: 'Vehicle model name'
+  },
+  vehicleYear: {
+    fieldName: 'vehicleYear',
+    label: 'Year',
+    type: 'number' as const,
+    required: false,
+    placeholder: '2020',
+    helpText: 'Year of manufacture'
+  },
+  mileage: {
+    fieldName: 'mileage',
+    label: 'Mileage',
+    type: 'number' as const,
+    required: false,
+    placeholder: '45000',
+    helpText: 'Current vehicle mileage'
+  },
+  vinNumber: {
+    fieldName: 'vinNumber',
+    label: 'VIN Number',
+    type: 'text' as const,
+    required: false,
+    placeholder: '1HGBH41JXMN109186',
+    helpText: 'Vehicle Identification Number (17 characters)'
+  },
+  motExpiry: {
+    fieldName: 'motExpiry',
+    label: 'MOT Expiry Date',
+    type: 'date' as const,
+    required: false,
+    helpText: 'MOT certificate expiry date'
+  }
+};
 
 // ============================================================================
 // TYPE DEFINITIONS
@@ -35,6 +110,11 @@ export interface AutomotiveTemplate {
   keywords: string[];
   sourceFile: string;
   sourceTemplateId: string;
+  // Template field definitions (from InvoiceTemplate)
+  requiredFields?: InvoiceField[];      // ← This line should be here
+  optionalFields?: InvoiceField[];      // ← This line should be here
+  industryStandards?: IndustryStandard[]; // ← This line should be here
+  sampleData?: Record<string, any>;     // ← This line should be here
   // Extended metadata for comprehensive SEO coverage
   industrySpecific: {
     vehicleTypes: string[];
@@ -93,7 +173,7 @@ export const vehicleSales: AutomotiveCategory = {
       categoryName: 'Vehicle Sales',
       name: 'Car Sales Receipt (UK)',
       description: 'Official UK-compliant receipt template for private car sales with DVLA V5C notification guidance, comprehensive vehicle details, and legal protection for both buyer and seller',
-      tier: 'premium',
+      tier: 'free',
       searchVolume: 720,
       cpc: 1.85,
       difficulty: 31,
@@ -109,8 +189,83 @@ export const vehicleSales: AutomotiveCategory = {
         'v5c sale receipt',
         'dvla car sale receipt'
       ],
-      sourceFile: 'premiumTemplateLibrary.ts',
-      sourceTemplateId: 'auto-sale-001',
+      sourceFile: 'automotive/categoriesTemplates.ts',
+      sourceTemplateId: 'car-sales-receipt-uk',
+      // Template fields from premium library
+      requiredFields: [
+        { fieldName: 'receiptNumber', label: 'Receipt Number', type: 'text' as const, required: true, placeholder: 'REC-2024-001', helpText: 'Unique receipt reference' },
+        { fieldName: 'saleDate', label: 'Date of Sale', type: 'date' as const, required: true, helpText: 'Date vehicle was sold' },
+        { fieldName: 'sellerName', label: 'Seller Name', type: 'text' as const, required: true, placeholder: 'John Smith', helpText: 'Person selling the vehicle' },
+        { fieldName: 'sellerAddress', label: 'Seller Address', type: 'textarea' as const, required: true, placeholder: '123 Seller Street, London, SE1 9RT', helpText: 'Seller\'s full address' },
+        { fieldName: 'buyerName', label: 'Buyer Name', type: 'text' as const, required: true, placeholder: 'Jane Doe', helpText: 'Person buying the vehicle' },
+        { fieldName: 'buyerAddress', label: 'Buyer Address', type: 'textarea' as const, required: true, helpText: 'Buyer\'s full address' },
+        automotiveFields.vehicleRegistration,
+        automotiveFields.vehicleMake,
+        automotiveFields.vehicleModel,
+        automotiveFields.vehicleYear,
+        automotiveFields.mileage,
+        { fieldName: 'salePrice', label: 'Sale Price', type: 'currency' as const, required: true, helpText: 'Agreed sale price' }
+      ],
+      optionalFields: [
+        automotiveFields.vinNumber,
+        automotiveFields.motExpiry,
+        { fieldName: 'colour', label: 'Vehicle Colour', type: 'text' as const, required: false, placeholder: 'Blue', helpText: 'Vehicle colour' },
+        { fieldName: 'engineSize', label: 'Engine Size', type: 'text' as const, required: false, placeholder: '1.6L', helpText: 'Engine capacity' },
+        { fieldName: 'fuelType', label: 'Fuel Type', type: 'text' as const, required: false, placeholder: 'Petrol', helpText: 'Petrol/Diesel/Electric/Hybrid' },
+        { fieldName: 'transmission', label: 'Transmission', type: 'text' as const, required: false, placeholder: 'Manual', helpText: 'Manual or Automatic' },
+        { fieldName: 'serviceHistory', label: 'Service History', type: 'text' as const, required: false, placeholder: 'Full service history', helpText: 'Service history status' },
+        { fieldName: 'v5Document', label: 'V5C Logbook', type: 'text' as const, required: false, placeholder: 'Present', helpText: 'V5C registration document status' },
+        { fieldName: 'paymentMethod', label: 'Payment Method', type: 'text' as const, required: false, placeholder: 'Bank Transfer', helpText: 'How payment was made' },
+        { fieldName: 'soldAs', label: 'Sold As', type: 'text' as const, required: false, placeholder: 'Sold as seen - no warranty', helpText: 'Condition terms' },
+        { fieldName: 'sellerSignature', label: 'Seller Signature', type: 'text' as const, required: false, helpText: 'Seller signature or digital confirmation' },
+        { fieldName: 'buyerSignature', label: 'Buyer Signature', type: 'text' as const, required: false, helpText: 'Buyer signature or digital confirmation' }
+      ],
+      industryStandards: [
+        {
+          standard: 'V5C Notification',
+          description: 'Both parties must notify DVLA of ownership change within 14 days using V5C logbook',
+          complianceLevel: 'required' as const
+        },
+        {
+          standard: 'Sold As Seen',
+          description: 'Private sales typically sold "as seen" with no warranty, but vehicle description must be accurate',
+          complianceLevel: 'recommended' as const
+        },
+        {
+          standard: 'MOT Certificate',
+          description: 'Vehicle must have valid MOT if over 3 years old (record expiry date)',
+          complianceLevel: 'required' as const
+        }
+      ],
+      sampleData: {
+        receiptNumber: 'REC-2024-4523',
+        saleDate: '2024-10-18',
+        sellerName: 'Michael Thompson',
+        sellerAddress: '67 Park Road, Leeds, LS6 4HB',
+        sellerPhone: '+44 113 987 6543',
+        buyerName: 'Sarah Williams',
+        buyerAddress: '92 Meadow Lane, Bradford, BD9 5PQ',
+        buyerPhone: '+44 1274 123 456',
+        vehicleRegistration: 'BD18 XYZ',
+        vehicleMake: 'Ford',
+        vehicleModel: 'Focus',
+        vehicleYear: 2018,
+        colour: 'Grey',
+        mileage: 42350,
+        vinNumber: 'WF0WXXGCDW8J12345',
+        engineSize: '1.5L',
+        fuelType: 'Petrol',
+        transmission: 'Manual',
+        motExpiry: '2025-08-15',
+        serviceHistory: 'Full Ford service history - 5 stamps',
+        v5Document: 'Present - will be sent to DVLA within 14 days',
+        salePrice: 8750.00,
+        paymentMethod: 'Bank Transfer',
+        soldAs: 'Sold as seen with no warranty. Vehicle in good condition as described.',
+        sellerSignature: 'M. Thompson',
+        buyerSignature: 'S. Williams',
+        notes: 'Both parties agree to notify DVLA of ownership change. Sale includes 2 keys, service book, and owner\'s manual.'
+      },
       industrySpecific: {
         vehicleTypes: [
           'Cars',
@@ -199,7 +354,7 @@ export const autoRepairMaintenance: AutomotiveCategory = {
       categoryName: 'Auto Repair & Maintenance',
       name: 'Car Repair Invoice',
       description: 'Comprehensive professional invoice template for vehicle repair services featuring detailed parts and labor breakdown, job card tracking, warranty information, MOT status, and UK VAT compliance',
-      tier: 'premium',
+      tier: 'free',
       searchVolume: 890,
       cpc: 6.14,
       difficulty: 70,
@@ -217,8 +372,110 @@ export const autoRepairMaintenance: AutomotiveCategory = {
         'parts and labor invoice',
         'automotive service billing'
       ],
-      sourceFile: 'premiumTemplateLibrary.ts',
-      sourceTemplateId: 'auto-repair-001',
+      sourceFile: 'automotive/categoriesTemplates.ts',
+      sourceTemplateId: 'car-repair-invoice',
+      // Template fields from premium library
+      requiredFields: [
+        { fieldName: 'invoiceNumber', label: 'Invoice Number', type: 'text' as const, required: true, placeholder: 'INV-2024-001', helpText: 'Invoice reference number' },
+        { fieldName: 'invoiceDate', label: 'Invoice Date', type: 'date' as const, required: true, helpText: 'Date of invoice' },
+        { fieldName: 'businessName', label: 'Garage Name', type: 'text' as const, required: true, placeholder: 'Quality Motors', helpText: 'Your garage or repair shop name' },
+        { fieldName: 'businessAddress', label: 'Garage Address', type: 'textarea' as const, required: true, helpText: 'Your business address' },
+        { fieldName: 'businessEmail', label: 'Email', type: 'email' as const, required: true, helpText: 'Contact email' },
+        { fieldName: 'businessPhone', label: 'Phone', type: 'phone' as const, required: true, helpText: 'Contact phone' },
+        { fieldName: 'clientName', label: 'Customer Name', type: 'text' as const, required: true, placeholder: 'Mr John Smith', helpText: 'Vehicle owner name' },
+        { fieldName: 'clientAddress', label: 'Customer Address', type: 'textarea' as const, required: false, helpText: 'Customer address' },
+        { fieldName: 'clientPhone', label: 'Customer Phone', type: 'phone' as const, required: true, placeholder: '+44 7700 123456', helpText: 'Customer contact number' },
+        automotiveFields.vehicleRegistration,
+        automotiveFields.vehicleMake,
+        automotiveFields.vehicleModel,
+        automotiveFields.mileage,
+        { fieldName: 'lineItems', label: 'Work Completed', type: 'textarea' as const, required: true, helpText: 'Parts and labour' },
+        { fieldName: 'subtotal', label: 'Subtotal', type: 'currency' as const, required: true, helpText: 'Total before VAT' },
+        { fieldName: 'totalAmount', label: 'Total Amount', type: 'currency' as const, required: true, helpText: 'Total due' }
+      ],
+      optionalFields: [
+        { fieldName: 'vatNumber', label: 'VAT Number', type: 'text' as const, required: false, helpText: 'Your VAT registration' },
+        { fieldName: 'vatAmount', label: 'VAT (20%)', type: 'currency' as const, required: false, helpText: 'VAT amount' },
+        automotiveFields.vehicleYear,
+        automotiveFields.vinNumber,
+        automotiveFields.motExpiry,
+        { fieldName: 'jobCardNumber', label: 'Job Card Number', type: 'text' as const, required: false, placeholder: 'JC-2024-001', helpText: 'Internal job reference' },
+        { fieldName: 'dateIn', label: 'Date Vehicle Booked In', type: 'date' as const, required: false, helpText: 'When vehicle arrived' },
+        { fieldName: 'dateOut', label: 'Date Vehicle Collected', type: 'date' as const, required: false, helpText: 'When vehicle was collected' },
+        { fieldName: 'faultDescription', label: 'Reported Fault', type: 'textarea' as const, required: false, placeholder: 'Customer reported: Brakes squeaking', helpText: 'Customer\'s description of problem' },
+        { fieldName: 'workCarriedOut', label: 'Work Carried Out', type: 'textarea' as const, required: false, placeholder: 'Replaced front brake pads and discs. Test drove.', helpText: 'Summary of repairs' },
+        { fieldName: 'partsTotal', label: 'Parts Total', type: 'currency' as const, required: false, helpText: 'Total parts cost' },
+        { fieldName: 'labourTotal', label: 'Labour Total', type: 'currency' as const, required: false, helpText: 'Total labour cost' },
+        { fieldName: 'labourHours', label: 'Labour Hours', type: 'number' as const, required: false, placeholder: '2.5', helpText: 'Hours worked' },
+        { fieldName: 'labourRate', label: 'Labour Rate (per hour)', type: 'currency' as const, required: false, placeholder: '60', helpText: 'Hourly labour charge' },
+        { fieldName: 'warrantyInfo', label: 'Warranty Information', type: 'textarea' as const, required: false, placeholder: 'Parts warranty: 12 months. Labour warranty: 6 months.', helpText: 'Warranty terms' },
+        { fieldName: 'paymentTerms', label: 'Payment Terms', type: 'textarea' as const, required: false, placeholder: 'Payment due on collection', helpText: 'When payment is due' },
+        { fieldName: 'paymentMethod', label: 'Payment Method', type: 'text' as const, required: false, placeholder: 'Card/Cash/Bank Transfer', helpText: 'How customer paid' }
+      ],
+      industryStandards: [
+        {
+          standard: 'Trade Association Membership',
+          description: 'Consider displaying Good Garage Scheme or Motor Ombudsman membership',
+          complianceLevel: 'recommended' as const
+        },
+        {
+          standard: 'Parts Warranty',
+          description: 'Typical parts warranty is 12 months, labour warranty 6 months',
+          complianceLevel: 'recommended' as const
+        },
+        {
+          standard: 'Pricing Transparency',
+          description: 'Show clear breakdown of parts and labour costs',
+          complianceLevel: 'required' as const
+        },
+        {
+          standard: 'MOT Requirements',
+          description: 'If MOT test performed, record result and expiry date',
+          complianceLevel: 'required' as const
+        }
+      ],
+      sampleData: {
+        invoiceNumber: 'INV-2024-1673',
+        invoiceDate: '2024-10-20',
+        businessName: 'Advanced Auto Services',
+        businessAddress: '45 Garage Road, Bristol, BS1 4QZ',
+        businessEmail: 'info@advancedauto.co.uk',
+        businessPhone: '+44 117 456 7890',
+        vatNumber: 'GB 234 5678 90',
+        clientName: 'Mrs Emma Johnson',
+        clientPhone: '+44 7700 987654',
+        clientEmail: 'emma.j@email.com',
+        vehicleRegistration: 'BN19 ABC',
+        vehicleMake: 'Volkswagen',
+        vehicleModel: 'Golf',
+        vehicleYear: 2019,
+        mileage: 34567,
+        vinNumber: 'WVWZZZAUZLW012345',
+        motExpiry: '2025-03-15',
+        jobCardNumber: 'JC-2024-0892',
+        dateIn: '2024-10-18',
+        dateOut: '2024-10-20',
+        faultDescription: 'Customer reported: Brakes squeaking when braking. Dashboard warning light on.',
+        workCarriedOut: 'Diagnosed: Front brake pads worn to minimum. Replaced front brake pads and machined discs. Checked rear brakes - serviceable. Reset brake warning light. Test drove vehicle - brakes functioning correctly.',
+        lineItems: [
+          { description: 'Front brake pad set (genuine VW parts)', quantity: 1, rate: 89.99, amount: 89.99 },
+          { description: 'Brake disc machining', quantity: 2, rate: 25.00, amount: 50.00 },
+          { description: 'Labour - Brake replacement & test', quantity: 2, rate: 60.00, amount: 120.00 },
+          { description: 'Brake fluid top-up', quantity: 1, rate: 8.50, amount: 8.50 },
+          { description: 'Vehicle health check', quantity: 1, rate: 0, amount: 0 }
+        ],
+        partsTotal: 148.49,
+        labourTotal: 120.00,
+        labourHours: 2.0,
+        labourRate: 60.00,
+        subtotal: 268.49,
+        vatAmount: 53.70,
+        totalAmount: 322.19,
+        paymentMethod: 'Card (Visa)',
+        warrantyInfo: 'Parts warranty: 12 months / 12,000 miles. Labour warranty: 6 months.',
+        paymentTerms: 'Payment due on collection. Card payments accepted.',
+        notes: 'Vehicle ready for collection. Recommend checking brake fluid level in 3 months. Next service due at 40,000 miles.'
+      },
       industrySpecific: {
         vehicleTypes: [
           'Passenger Cars',
@@ -430,7 +687,7 @@ export const automotiveIndustryMetadata: IndustryMetadata = {
   icon: '🚗',
   totalSearchVolume: 21110,
   templateCount: 3,
-  tier: 'premium',
+  tier: 'free',
   categories: ['vehicle-sales', 'auto-repair-maintenance', 'auto-detailing'],
   keywords: [
     'automotive invoice',

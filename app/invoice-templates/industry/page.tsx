@@ -3,11 +3,17 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { INVOICE_TEMPLATE_INDUSTRIES } from '@/app/lib/invoice-templates/invoiceTemplateIndustries';
 import { 
+  getTemplatesByIndustry,
+  slugify
+} from '@/app/lib/invoice-templates/templateRegistry';
+import { 
   FileText, 
   TrendingUp,
   ArrowRight,
   Search,
-  Filter
+  Filter,
+  Users,
+  Edit
 } from 'lucide-react';
 
 // ============================================================================
@@ -31,13 +37,7 @@ export const metadata: Metadata = {
 // ============================================================================
 // HELPER FUNCTIONS
 // ============================================================================
-
-function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-}
+// slugify is now imported from templateRegistry
 
 // ============================================================================
 // MAIN PAGE COMPONENT
@@ -135,11 +135,12 @@ export default function IndustriesPage() {
           <div className="grid md:grid-cols-3 gap-8 mb-12">
             {topIndustries.map((industry) => {
               const industrySlug = slugify(industry.id);
+              const actualTemplates = getTemplatesByIndustry(industry.id);
+              const hasTemplates = actualTemplates.length > 0;
               
               return (
-                <Link 
+                <div 
                   key={industry.id}
-                  href={`/invoice-templates/industry/${industrySlug}`}
                   className="group relative bg-white rounded-2xl shadow-lg border-2 border-slate-200 overflow-hidden hover:shadow-2xl hover:border-indigo-300 transition-all duration-300"
                 >
                   {/* Background Gradient */}
@@ -167,7 +168,7 @@ export default function IndustriesPage() {
                     <div className="flex items-center gap-6 text-sm text-slate-500 mb-6">
                       <div className="flex items-center gap-2">
                         <FileText className="w-4 h-4" />
-                        <span className="font-semibold">{industry.templateCount}</span>
+                        <span className="font-semibold">{actualTemplates.length}</span>
                         <span>templates</span>
                       </div>
                       <div className="flex items-center gap-2">
@@ -177,15 +178,34 @@ export default function IndustriesPage() {
                       </div>
                     </div>
 
-                    {/* CTA */}
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-semibold text-indigo-600 group-hover:text-indigo-700">
-                        View Templates
-                      </span>
-                      <ArrowRight className="w-5 h-5 text-indigo-600 group-hover:translate-x-1 transition-transform" />
-                    </div>
+                    {/* Template Links or Coming Soon */}
+                    {hasTemplates ? (
+                      <div className="space-y-2">
+                        {actualTemplates.slice(0, 3).map((entry) => (
+                          <Link 
+                            key={entry.template.id}
+                            href={`/invoice-templates/industry/${industrySlug}/${slugify(entry.template.id)}`}
+                            className="flex items-center justify-between p-2 rounded-lg hover:bg-indigo-50 transition-colors group/item"
+                          >
+                            <span className="text-sm text-slate-700 group-hover/item:text-indigo-600 truncate">
+                              {entry.template.name}
+                            </span>
+                            <ArrowRight className="w-4 h-4 text-slate-400 group-hover/item:text-indigo-600 group-hover/item:translate-x-1 transition-all flex-shrink-0" />
+                          </Link>
+                        ))}
+                        {actualTemplates.length > 3 && (
+                          <div className="text-xs text-slate-500 pt-2">
+                            + {actualTemplates.length - 3} more templates
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <div className="text-sm text-slate-500 italic">
+                        Templates coming soon...
+                      </div>
+                    )}
                   </div>
-                </Link>
+                </div>
               );
             })}
           </div>
@@ -207,11 +227,13 @@ export default function IndustriesPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {sortedIndustries.map((industry) => {
               const industrySlug = slugify(industry.id);
+              const actualTemplates = getTemplatesByIndustry(industry.id);
+              const hasTemplates = actualTemplates.length > 0;
+              const firstTemplate = actualTemplates[0];
               
               return (
-                <Link 
+                <div 
                   key={industry.id}
-                  href={`/invoice-templates/industry/${industrySlug}`}
                   className="group bg-white rounded-xl p-6 shadow-md border border-slate-200 hover:shadow-lg hover:border-indigo-300 transition-all"
                 >
                   <div className="flex items-start gap-4 mb-4">
@@ -222,7 +244,7 @@ export default function IndustriesPage() {
                       </h3>
                       <div className="flex items-center gap-2 text-xs text-slate-500">
                         <FileText className="w-3 h-3" />
-                        <span>{industry.templateCount} templates</span>
+                        <span>{actualTemplates.length} {actualTemplates.length === 1 ? 'template' : 'templates'}</span>
                       </div>
                     </div>
                   </div>
@@ -231,13 +253,20 @@ export default function IndustriesPage() {
                     {industry.description}
                   </p>
 
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-semibold text-indigo-600">
-                      Explore
-                    </span>
-                    <ArrowRight className="w-4 h-4 text-indigo-600 group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </Link>
+                  {hasTemplates && firstTemplate ? (
+                    <Link 
+                      href={`/invoice-templates/industry/${industrySlug}/${slugify(firstTemplate.template.id)}`}
+                      className="flex items-center justify-between text-xs font-semibold text-indigo-600 hover:text-indigo-700 transition-colors"
+                    >
+                      <span>View {firstTemplate.template.name}</span>
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  ) : (
+                    <div className="text-xs text-slate-400 italic">
+                      Coming soon
+                    </div>
+                  )}
+                </div>
               );
             })}
           </div>

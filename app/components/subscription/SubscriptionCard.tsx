@@ -18,6 +18,7 @@ import { Button } from '../ui/Button';
 import CancelSubscriptionModal from './CancelSubscriptionModal';
 
 interface SubscriptionCardProps {
+  userId: string;
   subscription: {
     subscriptionId: string;
     status: 'active' | 'canceled' | 'past_due' | 'unpaid';
@@ -30,6 +31,7 @@ interface SubscriptionCardProps {
 }
 
 export default function SubscriptionCard({
+  userId,
   subscription,
   plan,
   onUpgrade,
@@ -277,6 +279,7 @@ export default function SubscriptionCard({
         <CancelSubscriptionModal
           isOpen={showCancelModal}
           onClose={() => setShowCancelModal(false)}
+          userId={userId}
           subscriptionId={subscription.subscriptionId}
           nextBillingDate={nextBillingDate || ''}
         />

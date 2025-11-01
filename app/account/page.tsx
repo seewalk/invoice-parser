@@ -471,6 +471,7 @@ export default function AccountPage() {
 
             {/* Subscription Management Card */}
             <SubscriptionCard
+              userId={user.uid}
               subscription={subscriptionData.subscriptionId && subscriptionData.status !== 'none' ? {
                 subscriptionId: subscriptionData.subscriptionId,
                 status: subscriptionData.status as 'active' | 'canceled' | 'past_due' | 'unpaid',

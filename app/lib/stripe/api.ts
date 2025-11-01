@@ -71,7 +71,7 @@ async function callLambdaAPI<T>(
         throw new Error('Invalid JSON response from Lambda');
       }
 
-      console.log(`[Lambda API] Success:`, data);
+      console.log(`[Lambda API] ✅ Success Response:`, JSON.stringify(data, null, 2));
       return data;
 
     } catch (error) {

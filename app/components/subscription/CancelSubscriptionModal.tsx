@@ -21,6 +21,7 @@ import { Button } from '../ui/Button';
 interface CancelSubscriptionModalProps {
   isOpen: boolean;
   onClose: () => void;
+  userId: string;
   subscriptionId: string;
   nextBillingDate: string;
 }
@@ -28,6 +29,7 @@ interface CancelSubscriptionModalProps {
 export default function CancelSubscriptionModal({
   isOpen,
   onClose,
+  userId,
   subscriptionId,
   nextBillingDate,
 }: CancelSubscriptionModalProps) {
@@ -35,29 +37,42 @@ export default function CancelSubscriptionModal({
   const [feedback, setFeedback] = useState('');
   const [loading, setLoading] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
+  const [error, setError] = useState<string>('');
 
   if (!isOpen) return null;
 
   const handleCancel = async () => {
     setLoading(true);
+    setError('');
     
-    // TODO: Implement API call when ready
-    // await cancelSubscription(subscriptionId);
-    // await cancelSubscriptionInFirestore(userId);
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    setLoading(false);
-    setConfirmed(true);
-    
-    // Close modal after showing confirmation
-    setTimeout(() => {
-      onClose();
-      setConfirmed(false);
-      setReason('');
-      setFeedback('');
-    }, 2000);
+    try {
+      console.log('[CancelModal] Canceling subscription:', subscriptionId);
+      
+      // Import and call the cancelSubscription function
+      const { cancelSubscription } = await import('@/app/hooks/useSubscription');
+      await cancelSubscription(userId, subscriptionId);
+      
+      console.log('[CancelModal] ✅ Subscription canceled successfully');
+      
+      setLoading(false);
+      setConfirmed(true);
+      
+      // Close modal after showing confirmation
+      setTimeout(() => {
+        onClose();
+        setConfirmed(false);
+        setReason('');
+        setFeedback('');
+        
+        // Reload page to refresh subscription data
+        window.location.reload();
+      }, 2000);
+      
+    } catch (error) {
+      console.error('[CancelModal] ❌ Cancellation failed:', error);
+      setError(error instanceof Error ? error.message : 'Failed to cancel subscription');
+      setLoading(false);
+    }
   };
 
   // Success state
@@ -199,6 +214,15 @@ export default function CancelSubscriptionModal({
               Pause Subscription
             </Button>
           </div>
+
+          {/* Error Message */}
+          {error && (
+            <div className="p-4 bg-error-50 border border-error-200 rounded-xl">
+              <p className="text-sm text-error-700">
+                <strong>Error:</strong> {error}
+              </p>
+            </div>
+          )}
         </div>
 
         {/* Footer Actions */}

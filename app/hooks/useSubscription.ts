@@ -187,17 +187,44 @@ export function useSubscription(): SubscriptionData {
 /**
  * Cancel subscription
  * 
+ * Cancels the user's subscription. The subscription will remain active until
+ * the end of the current billing period.
+ * 
+ * @param userId - Firebase user ID (for Firestore updates)
  * @param subscriptionId - Stripe subscription ID
  * @returns Promise with cancellation result
+ * 
+ * @example
+ * await cancelSubscription('firebase_uid', 'sub_12345');
  */
-export async function cancelSubscription(subscriptionId: string): Promise<void> {
-  // TODO: Implement cancellation
-  // 1. Call Lambda API /cancelSubscription endpoint
-  // 2. Update Firestore with cancelAtPeriodEnd flag
-  // 3. Return result
-  
-  console.log('TODO: Cancel subscription', subscriptionId);
-  throw new Error('Not implemented yet');
+export async function cancelSubscription(
+  userId: string,
+  subscriptionId: string
+): Promise<void> {
+  console.log('[Subscription] Canceling subscription:', subscriptionId);
+
+  try {
+    // Step 1: Call Lambda API to cancel in Stripe
+    const { cancelSubscription: cancelStripeSubscription } = await import('../lib/stripe/api');
+    const result = await cancelStripeSubscription(subscriptionId);
+    
+    console.log('[Subscription] ✅ Stripe cancellation successful:', result);
+
+    // Step 2: Update Firestore with canceled status
+    const { updateSubscriptionStatus } = await import('../lib/stripe/firestore');
+    await updateSubscriptionStatus(
+      userId,
+      result.status,
+      undefined, // Keep existing currentPeriodEnd
+      true // cancelAtPeriodEnd
+    );
+
+    console.log('[Subscription] ✅ Firestore updated with cancellation');
+
+  } catch (error) {
+    console.error('[Subscription] ❌ Cancellation failed:', error);
+    throw error;
+  }
 }
 
 /**

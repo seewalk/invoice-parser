@@ -82,16 +82,14 @@ const subscription = await createStripeSubscription(
   paymentMethod.id
 );
 
-// Handle 3D Secure if needed
-if (subscription.clientSecret) {
-  await stripe.confirmCardPayment(subscription.clientSecret);
-}
+// Note: Lambda backend handles 3D Secure (SCA) automatically on server side
+// No client-side confirmation needed
 
 // Save to Firestore
 await saveSubscriptionToFirestore(
   user.uid,
   subscription,
-  'premium' // or 'pro'
+  'pro' // or 'premium'
 );
 ```
 

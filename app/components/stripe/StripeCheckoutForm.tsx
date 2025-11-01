@@ -88,13 +88,6 @@ export default function StripeCheckoutForm({
     setErrorMessage('');
 
     try {
-      // Step 1: Submit payment element to get payment method
-      const { error: submitError } = await elements.submit();
-      
-      if (submitError) {
-        throw new Error(submitError.message || 'Failed to submit payment details');
-      }
-
       console.log('[Checkout] Creating payment method...');
 
       // Step 1: Get card element and create payment method
@@ -120,13 +113,19 @@ export default function StripeCheckoutForm({
 
       // Step 2: Create subscription via Lambda API
       console.log('[Checkout] Creating subscription via Lambda API...');
+      console.log('[Checkout] Request params:', { customerId, paymentMethodId });
+      
       const subscriptionData = await createStripeSubscription(
         customerId,
         paymentMethodId
       );
 
-      console.log('[Checkout] Subscription created:', subscriptionData);
-      // Note: Lambda handles 3D Secure on backend
+      console.log('[Checkout] ✅ Subscription Response:', JSON.stringify(subscriptionData, null, 2));
+      console.log('[Checkout] Response keys:', Object.keys(subscriptionData));
+      console.log('[Checkout] subscriptionId:', subscriptionData.subscriptionId);
+      console.log('[Checkout] status:', subscriptionData.status);
+      console.log('[Checkout] paymentMethodId:', subscriptionData.paymentMethodId);
+      // Note: Lambda backend handles 3D Secure (SCA) automatically on server side
 
       // Step 3: Save subscription to Firestore
       console.log('[Checkout] Saving subscription to Firestore...');
@@ -143,7 +142,7 @@ export default function StripeCheckoutForm({
 
       console.log('[Checkout] Subscription saved successfully');
 
-      // Step 6: Success!
+      // Step 4: Success!
       setState('success');
       setSubscriptionId(subscriptionData.subscriptionId);
       
