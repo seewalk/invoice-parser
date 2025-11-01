@@ -32,8 +32,13 @@ import {
   type AutomotiveTemplate 
 } from './automotive/categoriesTemplates';
 
+import { 
+  constructionCategories,
+  getAllConstructionTemplates,
+  type ConstructionTemplate 
+} from './construction/categoriesTemplates';
+
 // TODO: Import other industries as they're migrated
-// import { constructionCategories, type ConstructionTemplate } from './construction/categoriesTemplates';
 // import { healthcareCategories, type HealthcareTemplate } from './healthcare/categoriesTemplates';
 
 // ============================================================================
@@ -66,7 +71,7 @@ export function slugify(text: string): string {
  * Convert industry-specific template types to standard InvoiceTemplate format
  */
 function convertToInvoiceTemplate(
-  industryTemplate: AutomotiveTemplate, // Add other types as union: | ConstructionTemplate | HealthcareTemplate
+  industryTemplate: AutomotiveTemplate | ConstructionTemplate, // Add other types as union: | HealthcareTemplate
   industryId: string
 ): InvoiceTemplate {
   // Base conversion that works for all industry types
@@ -82,7 +87,9 @@ function convertToInvoiceTemplate(
     requiredFields: industryTemplate.requiredFields || [],
     optionalFields: industryTemplate.optionalFields || [],
     industryStandards: industryTemplate.industryStandards || [],
-    sampleData: industryTemplate.sampleData || {}
+    sampleData: industryTemplate.sampleData || {},
+    businessBenefits: industryTemplate.businessBenefits,
+    useCases: industryTemplate.useCases
   };
 }
 
@@ -131,27 +138,55 @@ function buildTemplateRegistry(): Map<string, TemplateRegistryEntry> {
   }
 
   // -------------------------------------------------------------------------
+  // CONSTRUCTION INDUSTRY
+  // -------------------------------------------------------------------------
+  const constructionIndustry = getIndustryMetadata('construction');
+  if (constructionIndustry) {
+    for (const category of constructionCategories) {
+      for (const template of category.templates) {
+        const templateSlug = slugify(template.id);
+        const entry: TemplateRegistryEntry = {
+          template: convertToInvoiceTemplate(template, 'construction'),
+          industryId: 'construction',
+          industryName: constructionIndustry.name,
+          industryIcon: constructionIndustry.icon,
+          categoryId: category.id,
+          categoryName: category.name,
+          categoryIcon: category.icon,
+          sourceFile: template.sourceFile
+        };
+        
+        // Register by template slug
+        registry.set(templateSlug, entry);
+        
+        // Also register by full path: industry/template
+        registry.set(`construction/${templateSlug}`, entry);
+      }
+    }
+  }
+
+  // -------------------------------------------------------------------------
   // TODO: ADD OTHER INDUSTRIES AS THEY'RE MIGRATED
   // -------------------------------------------------------------------------
   
-  // Construction Industry Example:
-  // const constructionIndustry = getIndustryMetadata('construction');
-  // if (constructionIndustry) {
-  //   for (const category of constructionCategories) {
+  // Healthcare Industry Example:
+  // const healthcareIndustry = getIndustryMetadata('healthcare');
+  // if (healthcareIndustry) {
+  //   for (const category of healthcareCategories) {
   //     for (const template of category.templates) {
   //       const templateSlug = slugify(template.id);
   //       const entry: TemplateRegistryEntry = {
-  //         template: convertToInvoiceTemplate(template, 'construction'),
-  //         industryId: 'construction',
-  //         industryName: constructionIndustry.name,
-  //         industryIcon: constructionIndustry.icon,
+  //         template: convertToInvoiceTemplate(template, 'healthcare'),
+  //         industryId: 'healthcare',
+  //         industryName: healthcareIndustry.name,
+  //         industryIcon: healthcareIndustry.icon,
   //         categoryId: category.id,
   //         categoryName: category.name,
   //         categoryIcon: category.icon,
   //         sourceFile: template.sourceFile
   //       };
   //       registry.set(templateSlug, entry);
-  //       registry.set(`construction/${templateSlug}`, entry);
+  //       registry.set(`healthcare/${templateSlug}`, entry);
   //     }
   //   }
   // }

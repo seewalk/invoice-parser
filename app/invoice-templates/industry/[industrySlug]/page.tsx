@@ -12,6 +12,11 @@ import {
   getAvailableIndustries
 } from '@/app/lib/invoice-templates/templateRegistry';
 import { 
+  BUSINESS_INFO,
+  generateBreadcrumbSchema
+} from '@/app/lib/schemaConfig';
+
+import { 
   FileText, 
   TrendingUp,
   Users,
@@ -67,10 +72,14 @@ export async function generateMetadata({
   const templates = getTemplatesByIndustrySlug(industrySlug);
   const templateCount = templates.length;
   
+  // Collect all template keywords for SEO
+  const allTemplateKeywords = templates.flatMap(entry => entry.template.keywords || []);
+  const uniqueKeywords = Array.from(new Set([...industry.keywords, ...allTemplateKeywords]));
+  
   return {
     title: `${industry.name} Invoice Templates (${templateCount}) | Free UK Downloads`,
     description: `${industry.description} Download ${templateCount} free ${industry.name.toLowerCase()} invoice templates. Professional, compliant, and ready to use. Word, Excel, PDF formats available.`,
-    keywords: [...industry.keywords, `${industry.name} invoice template`, `${industry.name} invoice`, `${industry.name} billing`].join(', '),
+    keywords: [...uniqueKeywords, `${industry.name} invoice template`, `${industry.name} invoice`, `${industry.name} billing`].join(', '),
     openGraph: {
       title: `${industry.name} Invoice Templates - Free Download`,
       description: industry.description,
@@ -106,6 +115,109 @@ export default async function IndustryDetailPage({
 
   const templates = getTemplatesByIndustrySlug(industrySlug);
   
+  // Collect all unique keywords from templates
+  const allTemplateKeywords = templates.flatMap(entry => entry.template.keywords || []);
+  const uniqueTemplateKeywords = Array.from(new Set(allTemplateKeywords));
+  const allKeywords = Array.from(new Set([...industry.keywords, ...uniqueTemplateKeywords]));
+  
+  // Generate breadcrumb schema
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Invoice Templates', url: '/invoice-templates' },
+    { name: industry.name, url: `/invoice-templates/industry/${industrySlug}` }
+  ]);
+
+  // CollectionPage schema for this industry
+  const collectionPageSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    '@id': `${BUSINESS_INFO.url}/invoice-templates/industry/${industrySlug}`,
+    name: `${industry.name} Invoice Templates`,
+    description: industry.description,
+    url: `${BUSINESS_INFO.url}/invoice-templates/industry/${industrySlug}`,
+    inLanguage: 'en-GB',
+    numberOfItems: templates.length,
+    keywords: allKeywords.join(', '),
+    provider: {
+      '@id': `${BUSINESS_INFO.url}/#organization`
+    },
+    audience: {
+      '@type': 'BusinessAudience',
+      audienceType: industry.name
+    },
+    mainEntity: {
+      '@type': 'ItemList',
+      name: `${industry.name} Invoice Template Collection`,
+      description: `Complete collection of ${templates.length} invoice templates for ${industry.name.toLowerCase()}`,
+      numberOfItems: templates.length
+    }
+  };
+
+  // ItemList schema for all templates in this industry
+  const templatesListSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: `${industry.name} Invoice Templates`,
+    description: `Professional invoice templates for ${industry.name.toLowerCase()}`,
+    numberOfItems: templates.length,
+    itemListElement: templates.map((entry, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'DigitalDocument',
+        '@id': `${BUSINESS_INFO.url}/invoice-templates/industry/${industrySlug}/${slugify(entry.template.id)}`,
+        name: entry.template.name,
+        description: entry.template.description,
+        url: `${BUSINESS_INFO.url}/invoice-templates/industry/${industrySlug}/${slugify(entry.template.id)}`,
+        keywords: entry.template.keywords?.slice(0, 10).join(', ') || '',
+        inLanguage: 'en-GB',
+        genre: entry.categoryName,
+        isAccessibleForFree: entry.template.tier === 'free',
+        license: entry.template.tier === 'free' ? 'Free with attribution' : 'Premium',
+        about: {
+          '@type': 'Thing',
+          name: industry.name,
+          description: industry.description
+        },
+        provider: {
+          '@id': `${BUSINESS_INFO.url}/#organization`
+        }
+      }
+    }))
+  };
+
+  // FAQPage schema for common industry questions (if applicable)
+  const industryFAQSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: `What invoice templates are available for ${industry.name.toLowerCase()}?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `We offer ${templates.length} professional invoice templates specifically designed for ${industry.name.toLowerCase()}. ${industry.description} Each template includes industry-specific fields and compliance requirements.`
+        }
+      },
+      {
+        '@type': 'Question',
+        name: `Are these ${industry.name.toLowerCase()} invoice templates free?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `Yes, we offer ${templates.filter(t => t.template.tier === 'free').length} free ${industry.name.toLowerCase()} invoice templates. They include all essential fields and can be customized for your business needs.`
+        }
+      },
+      {
+        '@type': 'Question',
+        name: `What makes these templates suitable for ${industry.name.toLowerCase()}?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `Our ${industry.name.toLowerCase()} templates include specialized fields, industry-specific terminology, and compliance requirements relevant to your business sector. Each template follows professional standards for ${industry.name.toLowerCase()}.`
+        }
+      }
+    ]
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       
@@ -122,7 +234,7 @@ export default async function IndustryDetailPage({
               Invoice Templates
             </Link>
             <span>/</span>
-            <Link href="/invoice-templates/industry" className="hover:text-indigo-600 transition">
+            <Link href="/invoice-templates" className="hover:text-indigo-600 transition">
               Industries
             </Link>
             <span>/</span>
@@ -180,7 +292,7 @@ export default async function IndustryDetailPage({
                   <ArrowRight className="w-5 h-5" />
                 </a>
                 <Link 
-                  href="/invoice-templates/industry"
+                  href="/invoice-templates"
                   className="flex items-center justify-center gap-2 bg-white text-slate-900 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-slate-50 transition border-2 border-slate-200"
                 >
                   Browse All Industries
@@ -270,7 +382,7 @@ export default async function IndustryDetailPage({
                 We're working on adding templates for this industry. Check back soon!
               </p>
               <Link 
-                href="/invoice-templates/industry"
+                href="/invoice-templates"
                 className="inline-flex items-center gap-2 bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition"
               >
                 Browse Other Industries
@@ -287,10 +399,42 @@ export default async function IndustryDetailPage({
                     key={template.id}
                     className="bg-white rounded-2xl shadow-lg border-2 border-slate-200 overflow-hidden hover:shadow-2xl hover:border-indigo-300 transition-all duration-300 group"
                   >
-                    {/* Template Preview Thumbnail */}
-                    <div className="aspect-[8.5/11] bg-gradient-to-br from-slate-50 to-slate-100 border-b-2 border-slate-200 flex items-center justify-center relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 group-hover:opacity-75 transition-opacity" />
-                      <FileText className="w-24 h-24 text-slate-300 group-hover:text-indigo-400 transition-colors relative z-10" />
+                    {/* Template Keywords Display */}
+                    <Link 
+                      href={`/invoice-templates/industry/${industrySlug}/${templateSlug}`}
+                      className="block aspect-[8.5/11] bg-gradient-to-br from-slate-50 via-white to-slate-50 border-b-2 border-slate-200 relative overflow-hidden cursor-pointer p-6"
+                    >
+                      {/* Keywords Grid */}
+                      <div className="absolute inset-0 p-6 flex flex-col items-center justify-center">
+                        <div className="w-full h-full flex flex-col items-center justify-center gap-3">
+                          {/* Main Icon */}
+                          <div className="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mb-2 group-hover:bg-indigo-200 transition-colors">
+                            <FileText className="w-8 h-8 text-indigo-600" />
+                          </div>
+                          
+                          {/* Top Keywords */}
+                          <div className="flex flex-wrap justify-center gap-2 max-w-full">
+                            {template.keywords?.slice(0, 6).map((keyword, idx) => (
+                              <span 
+                                key={idx}
+                                className="px-2 py-1 bg-white/80 backdrop-blur-sm rounded-md text-[10px] font-medium text-slate-700 border border-slate-200 shadow-sm group-hover:border-indigo-300 group-hover:bg-indigo-50/50 transition-all"
+                              >
+                                {keyword}
+                              </span>
+                            ))}
+                          </div>
+                          
+                          {/* More Keywords Indicator */}
+                          {template.keywords && template.keywords.length > 6 && (
+                            <div className="text-xs text-slate-500 font-medium mt-2">
+                              +{template.keywords.length - 6} more keywords
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      
+                      {/* Hover Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/0 to-purple-500/0 group-hover:from-indigo-500/5 group-hover:to-purple-500/5 transition-all duration-300" />
                       
                       {/* Tier Badge */}
                       {template.tier === 'premium' && (
@@ -298,7 +442,7 @@ export default async function IndustryDetailPage({
                           PREMIUM
                         </div>
                       )}
-                    </div>
+                    </Link>
 
                     {/* Template Info */}
                     <div className="p-6">
@@ -378,27 +522,69 @@ export default async function IndustryDetailPage({
         </section>
       )}
 
-      {/* Popular Keywords */}
-      {industry.keywords.length > 0 && (
-        <section className="py-20 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto">
-            <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center">
-              Popular Searches
+      {/* SEO-Optimized Keywords Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white/50">
+        <div className="max-w-7xl mx-auto">
+          {/* Industry-Level Keywords */}
+          <div className="mb-12">
+            <h2 className="text-3xl font-bold text-slate-900 mb-4 text-center">
+              Popular {industry.name} Invoice Keywords
             </h2>
+            <p className="text-center text-slate-600 mb-8 max-w-3xl mx-auto">
+              Find the perfect template using these popular search terms for {industry.name.toLowerCase()} billing and invoicing.
+            </p>
             
-            <div className="flex flex-wrap justify-center gap-3">
+            <div className="flex flex-wrap justify-center gap-3 mb-8">
               {industry.keywords.map((keyword, idx) => (
                 <span 
                   key={idx}
-                  className="px-4 py-2 bg-white rounded-full text-sm font-medium text-slate-700 border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50 transition-colors cursor-pointer"
+                  className="px-4 py-2 bg-white rounded-full text-sm font-medium text-slate-700 border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50 transition-colors"
+                  itemProp="keywords"
                 >
                   {keyword}
                 </span>
               ))}
             </div>
           </div>
-        </section>
-      )}
+
+          {/* Template-Specific Keywords */}
+          <div>
+            <h3 className="text-2xl font-bold text-slate-900 mb-6 text-center">
+              Template-Specific Keywords
+            </h3>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {templates.map((entry) => {
+                const template = entry.template;
+                return (
+                  <div 
+                    key={template.id}
+                    className="bg-white rounded-xl p-6 shadow-md border border-slate-200"
+                  >
+                    <h4 className="font-bold text-slate-900 mb-4 text-lg">
+                      {template.name}
+                    </h4>
+                    
+                    {/* SEO-friendly keyword list */}
+                    <ul className="space-y-2" itemScope itemType="https://schema.org/ItemList">
+                      {template.keywords?.map((keyword, idx) => (
+                        <li 
+                          key={idx}
+                          className="text-sm text-slate-600 flex items-center gap-2"
+                          itemProp="itemListElement"
+                        >
+                          <span className="w-1.5 h-1.5 bg-indigo-600 rounded-full"></span>
+                          <span itemProp="name">{keyword}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* CTA Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-indigo-600 to-purple-600">
@@ -433,22 +619,25 @@ export default async function IndustryDetailPage({
       <script 
         type="application/ld+json" 
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "CollectionPage",
-            "name": `${industry.name} Invoice Templates`,
-            "description": industry.description,
-            "keywords": industry.keywords.join(', '),
-            "numberOfItems": templates.length,
-            "audience": {
-              "@type": "BusinessAudience",
-              "audienceType": industry.name
-            },
-            "provider": {
-              "@type": "Organization",
-              "name": "Invoice Parser"
-            }
-          })
+          __html: JSON.stringify(breadcrumbSchema)
+        }} 
+      />
+      <script 
+        type="application/ld+json" 
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(collectionPageSchema)
+        }} 
+      />
+      <script 
+        type="application/ld+json" 
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(templatesListSchema)
+        }} 
+      />
+      <script 
+        type="application/ld+json" 
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(industryFAQSchema)
         }} 
       />
     </div>

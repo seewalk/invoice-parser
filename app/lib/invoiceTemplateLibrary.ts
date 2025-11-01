@@ -30,6 +30,8 @@ export interface InvoiceTemplate {
   optionalFields: InvoiceField[];
   industryStandards: IndustryStandard[];
   sampleData: Record<string, any>;
+  businessBenefits?: string[]; // Optional: Business benefits of using this template
+  useCases?: string[]; // Optional: Common use cases for this template
 }
 
 export interface InvoiceField {

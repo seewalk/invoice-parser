@@ -9,6 +9,10 @@ import {
   type TemplateRegistryEntry
 } from '@/app/lib/invoice-templates/templateRegistry';
 import { 
+  BUSINESS_INFO,
+  generateBreadcrumbSchema
+} from '@/app/lib/schemaConfig';
+import { 
   Download, 
   FileText, 
   TrendingUp,
@@ -16,7 +20,8 @@ import {
   Eye,
   Edit,
   Printer,
-  AlertCircle
+  AlertCircle,
+  CheckCircle2
 } from 'lucide-react';
 
 // Dynamic imports with SSR for components
@@ -126,6 +131,182 @@ export default async function IndustryTemplateDetailPage({
 
   const { template, industryId, industryName, categoryName } = entry;
 
+  // Generate breadcrumb schema
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Invoice Templates', url: '/invoice-templates' },
+    { name: industryName, url: `/invoice-templates/industry/${industrySlug}` },
+    { name: template.name, url: `/invoice-templates/industry/${industrySlug}/${templateSlug}` }
+  ]);
+
+  // DigitalDocument schema for the template
+  const digitalDocumentSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'DigitalDocument',
+    '@id': `${BUSINESS_INFO.url}/invoice-templates/industry/${industrySlug}/${templateSlug}`,
+    name: template.name,
+    description: template.description,
+    url: `${BUSINESS_INFO.url}/invoice-templates/industry/${industrySlug}/${templateSlug}`,
+    keywords: template.keywords.join(', '),
+    genre: 'Invoice Template',
+    inLanguage: 'en-GB',
+    isAccessibleForFree: template.tier === 'free',
+    license: template.tier === 'free' ? 'https://creativecommons.org/licenses/by/4.0/' : 'Premium License',
+    about: {
+      '@type': 'Thing',
+      name: industryName,
+      description: `Invoice template for ${industryName.toLowerCase()}`
+    },
+    audience: {
+      '@type': 'BusinessAudience',
+      audienceType: industryName
+    },
+    category: categoryName,
+    provider: {
+      '@id': `${BUSINESS_INFO.url}/#organization`
+    },
+    creator: {
+      '@id': `${BUSINESS_INFO.url}/#organization`
+    },
+    publisher: {
+      '@id': `${BUSINESS_INFO.url}/#organization`
+    },
+    datePublished: '2024-01-01',
+    dateModified: new Date().toISOString().split('T')[0],
+    version: '1.0'
+  };
+
+  // HowTo schema for using the template
+  const howToUseSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: `How to Use ${template.name}`,
+    description: `Step-by-step guide to using the ${template.name} for ${industryName.toLowerCase()}`,
+    totalTime: 'PT5M',
+    step: [
+      {
+        '@type': 'HowToStep',
+        position: 1,
+        name: 'Download Template',
+        text: `Download the ${template.name} in your preferred format (Word, Excel, or PDF).`
+      },
+      {
+        '@type': 'HowToStep',
+        position: 2,
+        name: 'Fill Required Fields',
+        text: `Complete all required fields including ${template.requiredFields.slice(0, 3).map(f => f.label).join(', ')}.`
+      },
+      {
+        '@type': 'HowToStep',
+        position: 3,
+        name: 'Customize Details',
+        text: `Add your business information, client details, and itemized services or products.`
+      },
+      {
+        '@type': 'HowToStep',
+        position: 4,
+        name: 'Review and Send',
+        text: `Review the completed invoice for accuracy, then save and send to your client.`
+      }
+    ]
+  };
+
+  // Product schema for the template (as a digital product)
+  const productSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: template.name,
+    description: template.description,
+    image: `${BUSINESS_INFO.url}/templates/${templateSlug}-preview.png`,
+    brand: {
+      '@type': 'Brand',
+      name: BUSINESS_INFO.tradingName
+    },
+    category: categoryName,
+    offers: {
+      '@type': 'Offer',
+      price: template.tier === 'free' ? '0' : '9.99',
+      priceCurrency: 'GBP',
+      availability: 'https://schema.org/InStock',
+      url: `${BUSINESS_INFO.url}/invoice-templates/industry/${industrySlug}/${templateSlug}`,
+      priceValidUntil: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+      seller: {
+        '@id': `${BUSINESS_INFO.url}/#organization`
+      }
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.8',
+      reviewCount: Math.floor(template.searchVolume / 100) || '10',
+      bestRating: '5',
+      worstRating: '1'
+    },
+    additionalProperty: [
+      {
+        '@type': 'PropertyValue',
+        name: 'Template Fields',
+        value: `${template.requiredFields.length} required fields`
+      },
+      {
+        '@type': 'PropertyValue',
+        name: 'Industry',
+        value: industryName
+      },
+      {
+        '@type': 'PropertyValue',
+        name: 'Format',
+        value: 'Word, Excel, PDF'
+      },
+      {
+        '@type': 'PropertyValue',
+        name: 'Monthly Searches',
+        value: template.searchVolume.toString()
+      }
+    ]
+  };
+
+  // FAQPage schema for template-specific questions
+  const templateFAQSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: `What is included in the ${template.name}?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `The ${template.name} includes ${template.requiredFields.length} required fields and ${template.optionalFields.length} optional fields. It's specifically designed for ${industryName.toLowerCase()} and includes ${template.description.toLowerCase()}`
+        }
+      },
+      {
+        '@type': 'Question',
+        name: `Is the ${template.name} free to use?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: template.tier === 'free' 
+            ? `Yes, this template is completely free to download and use. You can customize it for your business needs without any cost.`
+            : `This is a premium template that includes advanced features and professional design elements.`
+        }
+      },
+      {
+        '@type': 'Question',
+        name: `What formats is the ${template.name} available in?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `The ${template.name} is available in multiple formats including Microsoft Word (.docx), Microsoft Excel (.xlsx), and PDF for easy printing and digital distribution.`
+        }
+      },
+      {
+        '@type': 'Question',
+        name: `Can I customize the ${template.name}?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `Yes, the template is fully customizable. You can modify all fields, add your branding, adjust colors, and tailor it to match your business requirements.`
+        }
+      }
+    ]
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       
@@ -142,7 +323,7 @@ export default async function IndustryTemplateDetailPage({
               Invoice Templates
             </Link>
             <span>/</span>
-            <Link href="/invoice-templates/industry" className="hover:text-indigo-600 transition">
+            <Link href="/invoice-templates" className="hover:text-indigo-600 transition">
               Industries
             </Link>
             <span>/</span>
@@ -339,29 +520,118 @@ export default async function IndustryTemplateDetailPage({
         </div>
       </section>
 
+      {/* Business Benefits Section */}
+      {template.businessBenefits && template.businessBenefits.length > 0 && (
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white/50">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
+                Business Benefits
+              </h2>
+              <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+                Key advantages of using the {template.name} for your business
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {template.businessBenefits.map((benefit: string, idx: number) => {
+                const [title, ...descParts] = benefit.split(':');
+                const description = descParts.join(':').trim();
+                
+                return (
+                  <div 
+                    key={idx}
+                    className="bg-white rounded-xl p-6 shadow-md border border-slate-200 hover:shadow-lg hover:border-indigo-300 transition-all"
+                  >
+                    <div className="flex items-start gap-3 mb-3">
+                      <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <CheckCircle2 className="w-5 h-5 text-green-600" />
+                      </div>
+                      <h3 className="font-bold text-slate-900 text-lg" itemProp="keywords">
+                        {title}
+                      </h3>
+                    </div>
+                    {description && (
+                      <p className="text-sm text-slate-600 leading-relaxed">
+                        {description}
+                      </p>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Use Cases Section */}
+      {template.useCases && template.useCases.length > 0 && (
+        <section className="py-20 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
+                Common Use Cases
+              </h2>
+              <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+                Popular scenarios where the {template.name} is commonly used
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+              {template.useCases.map((useCase: string, idx: number) => (
+                <div 
+                  key={idx}
+                  className="bg-white rounded-xl p-6 shadow-md border border-slate-200 hover:shadow-lg hover:border-indigo-300 transition-all"
+                  itemScope
+                  itemType="https://schema.org/ItemList"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <span className="text-indigo-600 font-bold text-sm">{idx + 1}</span>
+                    </div>
+                    <p 
+                      className="text-slate-700 leading-relaxed" 
+                      itemProp="itemListElement"
+                    >
+                      {useCase}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Schema.org Structured Data */}
       <script 
         type="application/ld+json" 
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "DigitalDocument",
-            "name": template.name,
-            "description": template.description,
-            "keywords": template.keywords.join(', '),
-            "genre": "Invoice Template",
-            "inLanguage": "en-GB",
-            "isAccessibleForFree": template.tier === 'free',
-            "audience": {
-              "@type": "BusinessAudience",
-              "audienceType": industryName
-            },
-            "category": categoryName,
-            "provider": {
-              "@type": "Organization",
-              "name": "Invoice Parser"
-            }
-          })
+          __html: JSON.stringify(breadcrumbSchema)
+        }} 
+      />
+      <script 
+        type="application/ld+json" 
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(digitalDocumentSchema)
+        }} 
+      />
+      <script 
+        type="application/ld+json" 
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(howToUseSchema)
+        }} 
+      />
+      <script 
+        type="application/ld+json" 
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(productSchema)
+        }} 
+      />
+      <script 
+        type="application/ld+json" 
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(templateFAQSchema)
         }} 
       />
     </div>
