@@ -7,7 +7,7 @@ import InvoiceGeneratorHeroStats from '@/app/components/invoice-generator/Invoic
 import InvoiceGeneratorHowItWorks from '@/app/components/invoice-generator/InvoiceGeneratorHowItWorks';
 import InvoiceGeneratorTemplateCard from '@/app/components/invoice-generator/InvoiceGeneratorTemplateCard';
 import InvoiceGeneratorFeatures from '@/app/components/invoice-generator/InvoiceGeneratorFeatures';
-import InvoiceGeneratorPageSchema from '@/app/components/invoice-generator/InvoiceGeneratorTemplateSchemaOptimized.tsx';
+import InvoiceGeneratorSchema from '@/app/components/InvoiceGeneratorSchema';
 import InvoiceGeneratorExpandingLibrary from '@/app/components/invoice-generator/InvoiceGeneratorExpandingLibrary';
 import InvoiceGeneratorExpandingLibrarySchema from '@/app/components/invoice-generator/InvoiceGeneratorExpandingLibrary';
 
@@ -67,9 +67,8 @@ export default function InvoiceGeneratorPage() {
   return (
     <>
       {/* Enhanced Server-Side Schema Markup */}
-      <InvoiceGeneratorPageSchema
-        template={allTemplates}
-        industriesCount={Object.keys(allIndustries).length}
+      <InvoiceGeneratorSchema
+        templateCount={allTemplates.length}
       />
       
 
