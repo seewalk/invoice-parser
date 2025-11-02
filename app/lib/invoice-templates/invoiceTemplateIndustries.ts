@@ -499,36 +499,8 @@ export const INVOICE_TEMPLATE_INDUSTRIES: IndustryMetadata[] = [
     searchDifficulty: 25,
     popularityRank: 13
   },
-
   // -------------------------------------------------------------------------
-  // 14. VIRTUAL ASSISTANT SERVICES
-  // -------------------------------------------------------------------------
-  {
-    id: 'virtual-assistant',
-    name: 'Virtual Assistant Services',
-    description: 'Invoice templates for virtual assistants and administrative support professionals',
-    icon: '👩‍💼',
-    totalSearchVolume: 0, // Not explicitly tracked but commonly requested
-    templateCount: 0, // To be added
-    tier: 'free',
-    categories: [
-      'Administrative Support',
-      'Virtual Assistance',
-      'Remote Services'
-    ],
-    keywords: [
-      'virtual assistant invoice',
-      'va invoice',
-      'administrative services invoice',
-      'remote assistant invoice'
-    ],
-    avgCPC: 3.50,
-    searchDifficulty: 30,
-    popularityRank: 14
-  },
-
-  // -------------------------------------------------------------------------
-  // 15. REAL ESTATE & PROPERTY
+  // 14. REAL ESTATE & PROPERTY
   // -------------------------------------------------------------------------
   {
     id: 'real-estate',
@@ -555,32 +527,6 @@ export const INVOICE_TEMPLATE_INDUSTRIES: IndustryMetadata[] = [
     popularityRank: 15
   },
 
-  // -------------------------------------------------------------------------
-  // 16. LANDSCAPING & OUTDOOR SERVICES
-  // -------------------------------------------------------------------------
-  {
-    id: 'landscaping',
-    name: 'Landscaping & Outdoor Services',
-    description: 'Invoice templates for landscapers, gardeners, and outdoor maintenance professionals',
-    icon: '🌿',
-    totalSearchVolume: 0, // Not explicitly tracked
-    templateCount: 0, // To be added
-    tier: 'free',
-    categories: [
-      'Landscaping',
-      'Garden Maintenance',
-      'Tree Services'
-    ],
-    keywords: [
-      'landscaping invoice',
-      'gardening invoice',
-      'lawn care invoice',
-      'tree service invoice'
-    ],
-    avgCPC: 5.00,
-    searchDifficulty: 32,
-    popularityRank: 16
-  }
 ];
 
 // ============================================================================

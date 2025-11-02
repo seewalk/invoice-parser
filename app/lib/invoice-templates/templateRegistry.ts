@@ -32,8 +32,68 @@ import {
   type AutomotiveTemplate 
 } from './automotive/categoriesTemplates';
 
+import { 
+  constructionCategories,
+  getAllConstructionTemplates,
+  type ConstructionTemplate 
+} from './construction/categoriesTemplates';
+
+import { 
+  creativeMediaCategories,
+  getAllCreativeMediaTemplates,
+  type CreativeMediaTemplate 
+} from './creative-media/categoriesTemplates';
+
+import { 
+  digitalServicesCategories,
+  getAllDigitalServicesTemplates,
+  type DigitalServicesTemplate 
+} from './digital-services/categoriesTemplates';
+
+import { 
+  educationCategories,
+  getAllEducationTemplates,
+  type EducationTemplate 
+} from './education/categoriesTemplates';
+
+import { 
+  healthWellnessCategories,
+  getAllHealthWellnessTemplates,
+  type HealthWellnessTemplate 
+} from './health-wellness/categoriesTemplates';
+
+import { 
+  healthcareMedicalCategories,
+  getAllHealthcareMedicalTemplates,
+  type HealthcareMedicalTemplate 
+} from './healthcare-medical/categoriesTemplates';
+
+import { 
+  hospitalityCategories,
+  getAllHospitalityTemplates,
+  type HospitalityTemplate 
+} from './hospitality/categoriesTemplates';
+
+import { 
+  petServicesCategories,
+  getAllPetServicesTemplates,
+  type PetServicesTemplate 
+} from './pet-services/categoriesTemplates';
+
+import { 
+  professionalServicesCategories,
+  getAllProfessionalServicesTemplates,
+  type ProfessionalServicesTemplate 
+} from './professional-services/categoriesTemplates';
+
+import { 
+  sustainableBusinessCategories,
+  getAllSustainableBusinessTemplates,
+  type SustainableBusinessTemplate 
+} from './sustainable-business/categoriesTemplates';
+
+
 // TODO: Import other industries as they're migrated
-// import { constructionCategories, type ConstructionTemplate } from './construction/categoriesTemplates';
 // import { healthcareCategories, type HealthcareTemplate } from './healthcare/categoriesTemplates';
 
 // ============================================================================
@@ -66,9 +126,10 @@ export function slugify(text: string): string {
  * Convert industry-specific template types to standard InvoiceTemplate format
  */
 function convertToInvoiceTemplate(
-  industryTemplate: AutomotiveTemplate, // Add other types as union: | ConstructionTemplate | HealthcareTemplate
+  industryTemplate: AutomotiveTemplate | ConstructionTemplate | CreativeMediaTemplate | DigitalServicesTemplate | EducationTemplate | HealthWellnessTemplate | HealthcareMedicalTemplate | HospitalityTemplate | PetServicesTemplate | ProfessionalServicesTemplate | SustainableBusinessTemplate,
   industryId: string
 ): InvoiceTemplate {
+
   // Base conversion that works for all industry types
   return {
     id: industryTemplate.id,
@@ -82,7 +143,9 @@ function convertToInvoiceTemplate(
     requiredFields: industryTemplate.requiredFields || [],
     optionalFields: industryTemplate.optionalFields || [],
     industryStandards: industryTemplate.industryStandards || [],
-    sampleData: industryTemplate.sampleData || {}
+    sampleData: industryTemplate.sampleData || {},
+    businessBenefits: industryTemplate.businessBenefits,
+    useCases: industryTemplate.useCases
   };
 }
 
@@ -131,27 +194,299 @@ function buildTemplateRegistry(): Map<string, TemplateRegistryEntry> {
   }
 
   // -------------------------------------------------------------------------
+  // CONSTRUCTION INDUSTRY
+  // -------------------------------------------------------------------------
+  const constructionIndustry = getIndustryMetadata('construction');
+  if (constructionIndustry) {
+    for (const category of constructionCategories) {
+      for (const template of category.templates) {
+        const templateSlug = slugify(template.id);
+        const entry: TemplateRegistryEntry = {
+          template: convertToInvoiceTemplate(template, 'construction'),
+          industryId: 'construction',
+          industryName: constructionIndustry.name,
+          industryIcon: constructionIndustry.icon,
+          categoryId: category.id,
+          categoryName: category.name,
+          categoryIcon: category.icon,
+          sourceFile: template.sourceFile
+        };
+        
+        // Register by template slug
+        registry.set(templateSlug, entry);
+        
+        // Also register by full path: industry/template
+        registry.set(`construction/${templateSlug}`, entry);
+      }
+    }
+  }
+
+  // CREATIVE MEDIA INDUSTRY
+// -------------------------------------------------------------------------
+const creativeMediaIndustry = getIndustryMetadata('creative-media');
+if (creativeMediaIndustry) {
+  for (const category of creativeMediaCategories) {
+    for (const template of category.templates) {
+      const templateSlug = slugify(template.id);
+      const entry: TemplateRegistryEntry = {
+        template: convertToInvoiceTemplate(template, 'creative-media'),
+        industryId: 'creative-media',
+        industryName: creativeMediaIndustry.name,
+        industryIcon: creativeMediaIndustry.icon,
+        categoryId: category.id,
+        categoryName: category.name,
+        categoryIcon: category.icon,
+        sourceFile: template.sourceFile
+      };
+      
+      // Register by template slug
+      registry.set(templateSlug, entry);
+      
+      // Also register by full path: industry/template
+      registry.set(`creative-media/${templateSlug}`, entry);
+    }
+  }
+}
+
+// -------------------------------------------------------------------------
+// DIGITAL SERVICES INDUSTRY
+// -------------------------------------------------------------------------
+const digitalServicesIndustry = getIndustryMetadata('digital-services');
+if (digitalServicesIndustry) {
+  for (const category of digitalServicesCategories) {
+    for (const template of category.templates) {
+      const templateSlug = slugify(template.id);
+      const entry: TemplateRegistryEntry = {
+        template: convertToInvoiceTemplate(template, 'digital-services'),
+        industryId: 'digital-services',
+        industryName: digitalServicesIndustry.name,
+        industryIcon: digitalServicesIndustry.icon,
+        categoryId: category.id,
+        categoryName: category.name,
+        categoryIcon: category.icon,
+        sourceFile: template.sourceFile
+      };
+      
+      // Register by template slug
+      registry.set(templateSlug, entry);
+      
+      // Also register by full path: industry/template
+      registry.set(`digital-services/${templateSlug}`, entry);
+    }
+  }
+}
+
+// -------------------------------------------------------------------------
+// EDUCATION INDUSTRY
+// -------------------------------------------------------------------------
+const educationIndustry = getIndustryMetadata('education');
+if (educationIndustry) {
+  for (const category of educationCategories) {
+    for (const template of category.templates) {
+      const templateSlug = slugify(template.id);
+      const entry: TemplateRegistryEntry = {
+        template: convertToInvoiceTemplate(template, 'education'),
+        industryId: 'education',
+        industryName: educationIndustry.name,
+        industryIcon: educationIndustry.icon,
+        categoryId: category.id,
+        categoryName: category.name,
+        categoryIcon: category.icon,
+        sourceFile: template.sourceFile
+      };
+      
+      // Register by template slug
+      registry.set(templateSlug, entry);
+      
+      // Also register by full path: industry/template
+      registry.set(`education/${templateSlug}`, entry);
+    }
+  }
+}
+
+// Health & Wellness templates
+const healthWellnessIndustry = getIndustryMetadata('health-wellness');
+if (healthWellnessIndustry) {
+  for (const category of healthWellnessCategories) {
+    for (const template of category.templates) {
+      const templateSlug = slugify(template.id);
+      const entry: TemplateRegistryEntry = {
+        template: convertToInvoiceTemplate(template, 'health-wellness'),
+        industryId: 'health-wellness',
+        industryName: healthWellnessIndustry.name,
+        industryIcon: healthWellnessIndustry.icon,
+        categoryId: category.id,
+        categoryName: category.name,
+        categoryIcon: category.icon,
+        sourceFile: template.sourceFile
+      };
+      
+      // Register by template slug
+      registry.set(templateSlug, entry);
+      
+      // Also register by full path: industry/template
+      registry.set(`health-wellness/${templateSlug}`, entry);
+    }
+  }
+}
+
+// Healthcare & Medical templates
+
+const healthcareMedicalIndustry = getIndustryMetadata('healthcare-medical');
+if (healthcareMedicalIndustry) {
+  for (const category of healthcareMedicalCategories) {
+    for (const template of category.templates) {
+      const templateSlug = slugify(template.id);
+      const entry: TemplateRegistryEntry = {
+        template: convertToInvoiceTemplate(template, 'healthcare-medical'),
+        industryId: 'healthcare-medical',
+        industryName: healthcareMedicalIndustry.name,
+        industryIcon: healthcareMedicalIndustry.icon,
+        categoryId: category.id,
+        categoryName: category.name,
+        categoryIcon: category.icon,
+        sourceFile: template.sourceFile
+      };
+      
+      // Register by template slug
+      registry.set(templateSlug, entry);
+      
+      // Also register by full path: industry/template
+      registry.set(`healthcare-medical/${templateSlug}`, entry);
+    }
+  }
+}
+
+// Hospitality templates
+
+const hospitalityIndustry = getIndustryMetadata('hospitality');
+if (hospitalityIndustry) {
+  for (const category of hospitalityCategories) {
+    for (const template of category.templates) {
+      const templateSlug = slugify(template.id);
+      const entry: TemplateRegistryEntry = {
+        template: convertToInvoiceTemplate(template, 'hospitality'),
+        industryId: 'hospitality',
+        industryName: hospitalityIndustry.name,
+        industryIcon: hospitalityIndustry.icon,
+        categoryId: category.id,
+        categoryName: category.name,
+        categoryIcon: category.icon,
+        sourceFile: template.sourceFile
+      };
+      
+      // Register by template slug
+      registry.set(templateSlug, entry);
+      
+      // Also register by full path: industry/template
+      registry.set(`hospitality/${templateSlug}`, entry);
+    }
+  }
+}
+
+// Pet Services templates
+
+const petServicesIndustry = getIndustryMetadata('pet-services');
+if (petServicesIndustry) {
+  for (const category of petServicesCategories) {
+    for (const template of category.templates) {
+      const templateSlug = slugify(template.id);
+      const entry: TemplateRegistryEntry = {
+        template: convertToInvoiceTemplate(template, 'pet-services'),
+        industryId: 'pet-services',
+        industryName: petServicesIndustry.name,
+        industryIcon: petServicesIndustry.icon,
+        categoryId: category.id,
+        categoryName: category.name,
+        categoryIcon: category.icon,
+        sourceFile: template.sourceFile
+      };
+      
+      // Register by template slug
+      registry.set(templateSlug, entry);
+      
+      // Also register by full path: industry/template
+      registry.set(`pet-services/${templateSlug}`, entry);
+    }
+  }
+}
+
+// Professional Services templates
+
+const professionalServicesIndustry = getIndustryMetadata('professional-services');
+if (professionalServicesIndustry) {
+  for (const category of professionalServicesCategories) {
+    for (const template of category.templates) {
+      const templateSlug = slugify(template.id);
+      const entry: TemplateRegistryEntry = {
+        template: convertToInvoiceTemplate(template, 'professional-services'),
+        industryId: 'professional-services',
+        industryName: professionalServicesIndustry.name,
+        industryIcon: professionalServicesIndustry.icon,
+        categoryId: category.id,
+        categoryName: category.name,
+        categoryIcon: category.icon,
+        sourceFile: template.sourceFile
+      };
+      
+      // Register by template slug
+      registry.set(templateSlug, entry);
+      
+      // Also register by full path: industry/template
+      registry.set(`professional-services/${templateSlug}`, entry);
+    }
+  }
+}
+
+// Sustainable Business templates
+
+const sustainableBusinessIndustry = getIndustryMetadata('sustainable-business');
+if (sustainableBusinessIndustry) {
+  for (const category of sustainableBusinessCategories) {
+    for (const template of category.templates) {
+      const templateSlug = slugify(template.id);
+      const entry: TemplateRegistryEntry = {
+        template: convertToInvoiceTemplate(template, 'sustainable-business'),
+        industryId: 'sustainable-business',
+        industryName: sustainableBusinessIndustry.name,
+        industryIcon: sustainableBusinessIndustry.icon,
+        categoryId: category.id,
+        categoryName: category.name,
+        categoryIcon: category.icon,
+        sourceFile: template.sourceFile
+      };
+      
+      // Register by template slug
+      registry.set(templateSlug, entry);
+      
+      // Also register by full path: industry/template
+      registry.set(`sustainable-business/${templateSlug}`, entry);
+    }
+  }
+}
+
+  // -------------------------------------------------------------------------
   // TODO: ADD OTHER INDUSTRIES AS THEY'RE MIGRATED
   // -------------------------------------------------------------------------
   
-  // Construction Industry Example:
-  // const constructionIndustry = getIndustryMetadata('construction');
-  // if (constructionIndustry) {
-  //   for (const category of constructionCategories) {
+  // Healthcare Industry Example:
+  // const healthcareIndustry = getIndustryMetadata('healthcare');
+  // if (healthcareIndustry) {
+  //   for (const category of healthcareCategories) {
   //     for (const template of category.templates) {
   //       const templateSlug = slugify(template.id);
   //       const entry: TemplateRegistryEntry = {
-  //         template: convertToInvoiceTemplate(template, 'construction'),
-  //         industryId: 'construction',
-  //         industryName: constructionIndustry.name,
-  //         industryIcon: constructionIndustry.icon,
+  //         template: convertToInvoiceTemplate(template, 'healthcare'),
+  //         industryId: 'healthcare',
+  //         industryName: healthcareIndustry.name,
+  //         industryIcon: healthcareIndustry.icon,
   //         categoryId: category.id,
   //         categoryName: category.name,
   //         categoryIcon: category.icon,
   //         sourceFile: template.sourceFile
   //       };
   //       registry.set(templateSlug, entry);
-  //       registry.set(`construction/${templateSlug}`, entry);
+  //       registry.set(`healthcare/${templateSlug}`, entry);
   //     }
   //   }
   // }

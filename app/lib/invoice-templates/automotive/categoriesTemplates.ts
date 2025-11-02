@@ -171,7 +171,7 @@ export const vehicleSales: AutomotiveCategory = {
       id: 'car-sales-receipt-uk',
       categoryId: 'vehicle-sales',
       categoryName: 'Vehicle Sales',
-      name: 'Car Sales Receipt (UK)',
+      name: 'Car Sales Receipt (UK) Template',
       description: 'Official UK-compliant receipt template for private car sales with DVLA V5C notification guidance, comprehensive vehicle details, and legal protection for both buyer and seller',
       tier: 'free',
       searchVolume: 720,
@@ -238,33 +238,60 @@ export const vehicleSales: AutomotiveCategory = {
         }
       ],
       sampleData: {
+        // Standard invoice fields for preview compatibility
+        invoiceNumber: 'REC-2024-4523',
+        invoiceDate: '2024-10-18',
+        businessName: 'Michael Thompson (Private Seller)',
+        businessAddress: '67 Park Road, Leeds, West Yorkshire, LS6 4HB',
+        businessPhone: '+44 113 987 6543',
+        businessEmail: 'm.thompson@email.com',
+        clientName: 'Sarah Williams',
+        clientAddress: '92 Meadow Lane, Bradford, West Yorkshire, BD9 5PQ',
+        clientPhone: '+44 1274 123 456',
+        clientEmail: 'sarah.williams@email.com',
+        lineItems: [
+          {
+            description: '2018 Ford Focus Zetec 1.5L EcoBoost - Moondust Silver - 42,350 miles - VIN: WF0WXXGCDW8J12345',
+            quantity: 1,
+            rate: 8750.00,
+            amount: 8750.00
+          }
+        ],
+        subtotal: 8750.00,
+        totalAmount: 8750.00,
+
+        // Car sales specific fields
         receiptNumber: 'REC-2024-4523',
         saleDate: '2024-10-18',
         sellerName: 'Michael Thompson',
-        sellerAddress: '67 Park Road, Leeds, LS6 4HB',
+        sellerAddress: '67 Park Road, Leeds, West Yorkshire, LS6 4HB',
         sellerPhone: '+44 113 987 6543',
+        sellerEmail: 'm.thompson@email.com',
         buyerName: 'Sarah Williams',
-        buyerAddress: '92 Meadow Lane, Bradford, BD9 5PQ',
+        buyerAddress: '92 Meadow Lane, Bradford, West Yorkshire, BD9 5PQ',
         buyerPhone: '+44 1274 123 456',
+        buyerEmail: 'sarah.williams@email.com',
         vehicleRegistration: 'BD18 XYZ',
         vehicleMake: 'Ford',
-        vehicleModel: 'Focus',
+        vehicleModel: 'Focus Zetec',
         vehicleYear: 2018,
-        colour: 'Grey',
+        colour: 'Moondust Silver',
         mileage: 42350,
         vinNumber: 'WF0WXXGCDW8J12345',
-        engineSize: '1.5L',
+        engineSize: '1.5L EcoBoost',
         fuelType: 'Petrol',
-        transmission: 'Manual',
+        transmission: 'Manual 6-speed',
         motExpiry: '2025-08-15',
-        serviceHistory: 'Full Ford service history - 5 stamps',
-        v5Document: 'Present - will be sent to DVLA within 14 days',
+        serviceHistory: 'Full Ford service history - 5 stamps. Last serviced at 40,000 miles on 2024-06-15 at Ford Dealership Leeds.',
+        v5Document: 'Present and correct. Seller will complete V5C/2 and send to DVLA within 14 days. Buyer given V5C/3 (new keeper supplement).',
         salePrice: 8750.00,
-        paymentMethod: 'Bank Transfer',
-        soldAs: 'Sold as seen with no warranty. Vehicle in good condition as described.',
-        sellerSignature: 'M. Thompson',
-        buyerSignature: 'S. Williams',
-        notes: 'Both parties agree to notify DVLA of ownership change. Sale includes 2 keys, service book, and owner\'s manual.'
+        paymentMethod: 'Bank Transfer (cleared funds received 2024-10-17)',
+        soldAs: 'Sold as seen with no warranty given or implied. Vehicle described accurately to the best of seller\'s knowledge. No known faults. In good working order.',
+        extras: 'Sale includes: 2 remote keys, full service history book, owner\'s manual, Ford warranty book, original purchase invoice, recent MOT certificate (2024-08-12), V5C registration document.',
+        sellerSignature: 'M. Thompson (signed)',
+        buyerSignature: 'S. Williams (signed)',
+        paymentTerms: 'Payment due on sale date. Full payment required before vehicle release.',
+        notes: 'Both parties confirm: Vehicle viewed and test driven by buyer. Payment cleared in seller\'s account. V5C new keeper details completed. Both parties agree to notify DVLA of ownership change within 14 days. Seller confirms no outstanding finance on vehicle. Vehicle tax responsibility transfers to buyer from sale date.'
       },
       industrySpecific: {
         vehicleTypes: [
@@ -352,7 +379,7 @@ export const autoRepairMaintenance: AutomotiveCategory = {
       id: 'car-repair-invoice',
       categoryId: 'auto-repair-maintenance',
       categoryName: 'Auto Repair & Maintenance',
-      name: 'Car Repair Invoice',
+      name: 'Car Repair Invoice Template',
       description: 'Comprehensive professional invoice template for vehicle repair services featuring detailed parts and labor breakdown, job card tracking, warranty information, MOT status, and UK VAT compliance',
       tier: 'free',
       searchVolume: 890,
@@ -580,9 +607,9 @@ export const autoDetailing: AutomotiveCategory = {
       id: 'auto-detailing-invoice',
       categoryId: 'auto-detailing',
       categoryName: 'Auto Detailing',
-      name: 'Auto Detailing Invoice',
-      description: 'Premium professional invoice template for auto detailing services featuring package-based pricing, add-on services, ceramic coating options, paint correction, and interior detailing with before/after photo documentation',
-      tier: 'premium',
+      name: 'Auto Detailing Invoice Template',
+      description: 'Free professional invoice template for auto detailing services featuring package-based pricing, add-on services, ceramic coating options, paint correction, and interior detailing with before/after photo documentation',
+      tier: 'free',
       searchVolume: 19500,
       cpc: 3.75,
       difficulty: 46,
@@ -600,8 +627,101 @@ export const autoDetailing: AutomotiveCategory = {
         'car valeting invoice',
         'professional detailing invoice'
       ],
-      sourceFile: 'premiumTemplateLibrary.ts',
+      sourceFile: 'automotive/categoriesTemplates.ts',
       sourceTemplateId: 'auto-detailing-invoice',
+      requiredFields: [
+        { fieldName: 'invoiceNumber', label: 'Invoice Number', type: 'text' as const, required: true, placeholder: 'DET-2024-001', helpText: 'Detailing invoice reference' },
+        { fieldName: 'invoiceDate', label: 'Invoice Date', type: 'date' as const, required: true, helpText: 'Date of invoice' },
+        { fieldName: 'businessName', label: 'Business Name', type: 'text' as const, required: true, placeholder: 'Elite Auto Detailing', helpText: 'Your detailing business name' },
+        { fieldName: 'businessAddress', label: 'Business Address', type: 'textarea' as const, required: true, helpText: 'Your business address' },
+        { fieldName: 'businessEmail', label: 'Email', type: 'email' as const, required: true, helpText: 'Contact email' },
+        { fieldName: 'businessPhone', label: 'Phone', type: 'phone' as const, required: true, helpText: 'Contact phone' },
+        { fieldName: 'clientName', label: 'Customer Name', type: 'text' as const, required: true, placeholder: 'Mr James Anderson', helpText: 'Customer name' },
+        { fieldName: 'clientPhone', label: 'Customer Phone', type: 'phone' as const, required: true, helpText: 'Customer contact' },
+        automotiveFields.vehicleRegistration,
+        automotiveFields.vehicleMake,
+        automotiveFields.vehicleModel,
+        { fieldName: 'lineItems', label: 'Services Provided', type: 'textarea' as const, required: true, helpText: 'Detailing services and products' },
+        { fieldName: 'subtotal', label: 'Subtotal', type: 'currency' as const, required: true, helpText: 'Total before VAT' },
+        { fieldName: 'totalAmount', label: 'Total Amount', type: 'currency' as const, required: true, helpText: 'Total due' }
+      ],
+      optionalFields: [
+        { fieldName: 'vatNumber', label: 'VAT Number', type: 'text' as const, required: false, helpText: 'Your VAT registration' },
+        { fieldName: 'vatAmount', label: 'VAT (20%)', type: 'currency' as const, required: false, helpText: 'VAT amount' },
+        automotiveFields.vehicleYear,
+        { fieldName: 'colour', label: 'Vehicle Colour', type: 'text' as const, required: false, placeholder: 'Black', helpText: 'Vehicle colour' },
+        { fieldName: 'packageName', label: 'Service Package', type: 'text' as const, required: false, placeholder: 'Premium Full Detail', helpText: 'Package selected' },
+        { fieldName: 'serviceDate', label: 'Service Date', type: 'date' as const, required: false, helpText: 'Date service completed' },
+        { fieldName: 'duration', label: 'Service Duration', type: 'text' as const, required: false, placeholder: '6 hours', helpText: 'Time taken' },
+        { fieldName: 'productsUsed', label: 'Products Used', type: 'textarea' as const, required: false, placeholder: 'Gtechniq Crystal Serum Ultra, CarPro Reset Shampoo', helpText: 'Premium products applied' },
+        { fieldName: 'warrantyInfo', label: 'Warranty Information', type: 'textarea' as const, required: false, placeholder: 'Ceramic coating: 5 years / 50,000 miles', helpText: 'Product warranties' },
+        { fieldName: 'beforePhotos', label: 'Before Photos URL', type: 'text' as const, required: false, placeholder: 'https://photos.example.com/before', helpText: 'Link to before photos' },
+        { fieldName: 'afterPhotos', label: 'After Photos URL', type: 'text' as const, required: false, placeholder: 'https://photos.example.com/after', helpText: 'Link to after photos' },
+        { fieldName: 'paymentMethod', label: 'Payment Method', type: 'text' as const, required: false, placeholder: 'Card', helpText: 'Payment type' },
+        { fieldName: 'paymentTerms', label: 'Payment Terms', type: 'textarea' as const, required: false, helpText: 'Payment conditions' }
+      ],
+      industryStandards: [
+        {
+          standard: 'Service Package Documentation',
+          description: 'Clearly define what is included in each detailing package',
+          complianceLevel: 'recommended' as const
+        },
+        {
+          standard: 'Product Warranties',
+          description: 'Ceramic coatings typically come with 2-7 year warranties',
+          complianceLevel: 'recommended' as const
+        },
+        {
+          standard: 'Before/After Documentation',
+          description: 'Photo documentation protects both parties and showcases quality',
+          complianceLevel: 'recommended' as const
+        },
+        {
+          standard: 'Product Disclosure',
+          description: 'List premium products used to justify pricing',
+          complianceLevel: 'recommended' as const
+        }
+      ],
+      sampleData: {
+        invoiceNumber: 'DET-2024-0876',
+        invoiceDate: '2024-10-22',
+        businessName: 'Pristine Auto Detailing Studio',
+        businessAddress: '89 Detail Park, Manchester, M15 6JK',
+        businessEmail: 'bookings@pristineauto.co.uk',
+        businessPhone: '+44 161 789 4321',
+        vatNumber: 'GB 345 6789 01',
+        clientName: 'Mr James Anderson',
+        clientPhone: '+44 7700 123987',
+        clientEmail: 'j.anderson@email.com',
+        vehicleRegistration: 'MN21 RST',
+        vehicleMake: 'BMW',
+        vehicleModel: 'M3 Competition',
+        vehicleYear: 2021,
+        colour: 'Isle of Man Green Metallic',
+        packageName: 'Elite Ceramic Coating Package',
+        serviceDate: '2024-10-21',
+        duration: '2 days (16 hours total)',
+        lineItems: [
+          { description: 'Stage 1: Decontamination Wash - Snow foam pre-wash, pH-neutral hand wash, clay bar treatment', quantity: 1, rate: 150.00, amount: 150.00 },
+          { description: 'Stage 2: Paint Correction - 2-stage machine polishing to remove swirl marks and minor scratches', quantity: 1, rate: 450.00, amount: 450.00 },
+          { description: 'Stage 3: Gtechniq Crystal Serum Ultra Ceramic Coating - Professional grade 9H hardness coating', quantity: 1, rate: 850.00, amount: 850.00 },
+          { description: 'Stage 4: Gtechniq EXO v4 Top Coat - Hydrophobic top layer for enhanced gloss', quantity: 1, rate: 180.00, amount: 180.00 },
+          { description: 'Wheel Coating - Gtechniq C5 wheel armor on all 4 wheels', quantity: 4, rate: 35.00, amount: 140.00 },
+          { description: 'Glass Treatment - Gtechniq G1 ClearVision Smart Glass coating', quantity: 1, rate: 120.00, amount: 120.00 },
+          { description: 'Interior Deep Clean - Vacuum, leather conditioning, trim dressing', quantity: 1, rate: 180.00, amount: 180.00 },
+          { description: 'Engine Bay Detail - Degreased and dressed', quantity: 1, rate: 80.00, amount: 80.00 }
+        ],
+        productsUsed: 'Gtechniq Crystal Serum Ultra (9H ceramic coating), Gtechniq EXO v4 (top coat), Gtechniq C5 Wheel Armour, Gtechniq G1 ClearVision Smart Glass, CarPro Reset pH-neutral shampoo, Rupes LHR15 Mark III polisher, Meguiar\'s Ultimate Compound, Scholl Concepts S3 Gold finishing polish',
+        subtotal: 2150.00,
+        vatAmount: 430.00,
+        totalAmount: 2580.00,
+        paymentMethod: 'Card (Mastercard)',
+        warrantyInfo: 'Gtechniq Crystal Serum Ultra: 5 years warranty. Wheel coating: 2 years. Glass coating: 3 years. All warranties subject to proper maintenance using pH-neutral wash products.',
+        paymentTerms: '50% deposit paid on booking (£1,290). Balance due on completion.',
+        beforePhotos: 'https://pristineauto.co.uk/gallery/bmw-m3-before',
+        afterPhotos: 'https://pristineauto.co.uk/gallery/bmw-m3-after',
+        notes: 'Vehicle protection complete. Recommend pH-neutral wash products only. Avoid automatic car washes. First wash should be no sooner than 7 days to allow coating to cure fully. Maintenance guide provided. Annual coating inspection included free for first year.'
+      },
       industrySpecific: {
         vehicleTypes: [
           'Luxury Vehicles',
@@ -775,7 +895,7 @@ export function searchAutomotiveTemplates(query: string): AutomotiveTemplate[] {
 export function getTemplatesByVehicleType(vehicleType: string): AutomotiveTemplate[] {
   const lowercaseType = vehicleType.toLowerCase();
   return getAllAutomotiveTemplates().filter(template =>
-    template.industrySpecific.vehicleTypes.some(type => 
+    template.industrySpecific.vehicleTypes.some(type =>
       type.toLowerCase().includes(lowercaseType)
     )
   );
@@ -787,7 +907,7 @@ export function getTemplatesByVehicleType(vehicleType: string): AutomotiveTempla
 export function getTemplatesByServiceType(serviceType: string): AutomotiveTemplate[] {
   const lowercaseService = serviceType.toLowerCase();
   return getAllAutomotiveTemplates().filter(template =>
-    template.industrySpecific.serviceTypes.some(service => 
+    template.industrySpecific.serviceTypes.some(service =>
       service.toLowerCase().includes(lowercaseService)
     )
   );
@@ -840,12 +960,12 @@ export function getSEORecommendations() {
   const templates = getAllAutomotiveTemplates();
   const sortedByVolume = templates.sort((a, b) => b.searchVolume - a.searchVolume);
   const sortedByValue = templates.sort((a, b) => (b.searchVolume * b.cpc) - (a.searchVolume * a.cpc));
-  
+
   return {
     highestTrafficPotential: sortedByVolume[0],
     highestRevenuePotential: sortedByValue[0],
     easiestToRankFor: templates.sort((a, b) => a.difficulty - b.difficulty)[0],
-    bestROI: templates.sort((a, b) => 
+    bestROI: templates.sort((a, b) =>
       (b.searchVolume / b.difficulty) - (a.searchVolume / a.difficulty)
     )[0]
   };
